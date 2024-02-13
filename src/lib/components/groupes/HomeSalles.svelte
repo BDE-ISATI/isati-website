@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Button from "../individuels/Button.svelte";
-    import HalfCard from "../individuels/HalfCard.svelte";
+    import Button from "$lib/components/individuels/Button.svelte";
+    import HalfCard from "$lib/components/individuels/HalfCard.svelte";
 </script>
 
 <div class="main">
@@ -8,10 +8,10 @@
     <h2>Les salles</h2>
 
     <div class="content">
-        <HalfCard main="Salle 104" sub="Libre" icone="41"></HalfCard>
-        <HalfCard main="Salle 104" sub="Libre" icone="41"></HalfCard>
-        <HalfCard main="Salle 104" sub="Libre" icone="41"></HalfCard>
-        <HalfCard main="Salle 104" sub="Libre" icone="41"></HalfCard>
+        <HalfCard main="Salle 104" sub="Libre" icone_text="41"></HalfCard>
+        <HalfCard main="Salle 104" sub="Libre" icone_text="41"></HalfCard>
+        <HalfCard main="Salle 104" sub="Libre" icone_text="41"></HalfCard>
+        <HalfCard main="Salle 104" sub="Libre" icone_text="41"></HalfCard>
     </div>
     
     <div class="action">

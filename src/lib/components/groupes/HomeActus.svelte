@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Button from "../individuels/Button.svelte";
-    import ActusCard from "../individuels/ActusCard.svelte";
+    import Button from "$lib/components/individuels/Button.svelte";
+    import ActusCard from "$lib/components/individuels/ActusCard.svelte";
 </script>
 
 <div class="main">
@@ -31,13 +31,21 @@
         display: flex;
         flex-direction: column;
         gap:15px;
-
     }
 
     .content {
-        width: 100%;
-        overflow: hidden;
+        width: calc( 100% + 12px);
+        scrollbar-width: none;
+        overflow-x: scroll;
+        overflow-y:visible ;
+        padding:10px;
+        margin:-16px;
     }
+
+    .content::-webkit-scrollbar {
+        display: none;
+    }
+
 
     .content > div {
         width: fit-content;

@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Button from "../individuels/Button.svelte";
-    import LargeCard from "../individuels/LargeCard.svelte";
+    import Button from "$lib/components/individuels/Button.svelte";
+    import LargeCard from "$lib/components/individuels/LargeCard.svelte";
 </script>
 
 <div class="main">
