@@ -2,8 +2,8 @@
     import { onMount } from "svelte";
 
 
-let title = $state("")
-let texte = $state("")
+let title = $state("GRAND TITRE")
+let texte = $state("#Titre\nsalut ceci est une démonstration")
 let variante = $state("")
 
 let canvas : HTMLCanvasElement
@@ -34,13 +34,29 @@ $effect(() => {
         ctx.fillStyle = "#ffffff"
         ctx.fillText(t,720,260)
 
-        ctx.font = "bold 65px LeagueSpartan";
-        ctx.textAlign = "left";
-        ctx.fillStyle = "#000000"
-        let lineheight = 65*1.25
 
-        for (let i in p){
-            ctx.fillText(p[i], 200, 500 + parseInt(i)*lineheight);
+        ctx.textAlign = "left";
+
+        let offset = 500
+        let lineheight : number
+
+        for (let l of p){
+            if (l.startsWith("#")){
+                ctx.font = "bold 90px LeagueSpartan";
+                ctx.fillStyle = "#ff0000"
+                lineheight = 90*1.25
+
+                ctx.fillText(l.slice(1), 200, offset);
+            }
+            else {
+                ctx.font = "bold 65px LeagueSpartan";
+                ctx.fillStyle = "#000000"
+                lineheight = 65*1.25
+
+                ctx.fillText(l, 200, offset);
+            }
+
+            offset += lineheight
         }
     }
     img.src = './template.png';
@@ -48,39 +64,74 @@ $effect(() => {
 
 
 </script>
+<div class="main">
 
-<div>
+    <div>
+        <canvas bind:this={canvas}></canvas>
+    </div>
+    <form>
 
-    
-    <input bind:value={title}>
-    <textarea bind:value={texte} cols="30" rows="10"></textarea>
-    <select bind:value={variante}>
-        
-        <option>top left     </option>
-        <option>top middle   </option>
-        <option>top right    </option>
-        
-        <option>middle left  </option>
-        <option>middle middle</option>
-        <option>middle right </option>
-        
-        <option>right left   </option>
-        <option>right middle </option>
-        <option>right right  </option>
+        <label>Titre</label>
+        <input bind:value={title}>
+        <label>Contenu</label>
+        <textarea bind:value={texte} cols="30" rows="10"></textarea>
+        <label>Template</label>
+        <select bind:value={variante}>
+            
+            <option>top left     </option>
+            <option>top middle   </option>
+            <option>top right    </option>
+            
+            <option>middle left  </option>
+            <option>middle middle</option>
+            <option>middle right </option>
+            
+            <option>right left   </option>
+            <option>right middle </option>
+            <option>right right  </option>
 
-    </select>
-
-    <canvas bind:this={canvas}></canvas>
+        </select>
+    </form>
 
 </div>
-
 <style>
     canvas {
         aspect-ratio: 1/1;
         width: 100%;
     }
 
-    div {
-        width : clamp(0px,100%,700px);
+    .main {
+        width : clamp(0px,100%,1000px);
+        display: grid;
+        margin:auto;
+        grid-template-columns: repeat(2,1fr);
+        gap:10px;
     }
+    
+    
+    form {
+        gap:10px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    label,input,select,textarea {
+        font-size: 20px;
+        color : var(--text);
+    }
+    input,select,textarea{
+        padding:10px;
+        outline: unset;
+        border: unset;
+        background-color: var(--container);
+        box-shadow: var(--shadow);
+        border-radius: 10px;
+    }
+
+
+    textarea{
+        resize: vertical;
+    }
+
+
 </style>
