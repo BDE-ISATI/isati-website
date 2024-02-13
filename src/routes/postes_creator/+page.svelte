@@ -22,7 +22,7 @@ onMount(()=>{
 $effect(() => {
 
     let t = title
-    let p = texte
+    let p = texte.split("\n")
     var img = new Image();
     img.width = 1440
     img.height = 1440
@@ -37,7 +37,11 @@ $effect(() => {
         ctx.font = "bold 65px LeagueSpartan";
         ctx.textAlign = "left";
         ctx.fillStyle = "#000000"
-        ctx.fillText(p,200,500)
+        let lineheight = 65*1.25
+
+        for (let i in p){
+            ctx.fillText(p[i], 200, 500 + parseInt(i)*lineheight);
+        }
     }
     img.src = './template.png';
 })
