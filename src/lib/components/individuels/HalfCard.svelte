@@ -23,6 +23,8 @@
 <style>
 
     .container {
+        user-select: none;
+
         width: calc(160px - 20px);
         height: calc(70px - 20px);
         border-radius: 26px;
