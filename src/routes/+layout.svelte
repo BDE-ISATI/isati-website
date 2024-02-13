@@ -1,5 +1,5 @@
 <script>
-    import Header from "../components/individuels/Header.svelte"
+    import Header from "$lib/components/individuels/Header.svelte"
     import { fade  } from 'svelte/transition';
     
     export let data
@@ -7,7 +7,7 @@
 </script>
 
 <svelte:head>
-    <title>Isait BDE</title>
+    <title>ISATI BDE</title>
     <meta name="description" content="">
 </svelte:head>
 

@@ -1,12 +1,18 @@
 <script lang="ts">
-    export let icone = ""
+    export let icone:string|undefined = undefined
+    export let icone_text:string|undefined = undefined
     export let main:string
     export let sub:string
 </script>
 
 <div class="container">
     <div class="content">
-        <span class="icon">{icone}</span>
+        {icone}
+        {#if icone !== undefined}
+            <span class="icon">{icone}</span>
+        {:else}
+            <span class="icon text">{icone_text}</span>
+        {/if}
         <div>
             <p class="main">{main}</p>
             <p class="sub">{sub}</p>
@@ -31,12 +37,17 @@
         width: 50px;
         border-radius: 16px;
         background-color: #7DCA89;
-        display: block;
         display: grid;
         place-items: center;
         font-size: 36px;
         font-weight: 600;
         color:var(--text);
+    }
+
+    .icon.text {
+        height: 45px;
+        padding-top:5px;
+        background-color: unset;
     }
 
     .content {

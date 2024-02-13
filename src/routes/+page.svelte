@@ -1,11 +1,8 @@
-<script>
-    import Button from "../components/individuels/Button.svelte";
-
-
-    import HomeEvents from "../components/groupes/HomeEvents.svelte";
-    import HomeEquipe from "../components/groupes/HomeEquipe.svelte";
-    import HomeSalles from "../components/groupes/HomeSalles.svelte";
-    import HomeActus from "../components/groupes/HomeActus.svelte";
+<script lang="ts">
+    import HomeEvents from "$lib/components/groupes/HomeEvents.svelte";
+    import HomeEquipe from "$lib/components/groupes/HomeEquipe.svelte";
+    import HomeSalles from "$lib/components/groupes/HomeSalles.svelte";
+    import HomeActus from "$lib/components/groupes/HomeActus.svelte";
 
 
 </script>
