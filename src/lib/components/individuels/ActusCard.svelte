@@ -21,6 +21,7 @@
         overflow: hidden;
         box-shadow: var(--shadow);
         background-color: var(--container);
+        user-select: none;
     }
 
     .content {

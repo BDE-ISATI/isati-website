@@ -15,9 +15,11 @@
 <style>
 
     .container {
+        user-select: none;
         width: calc(320px - 30px);
         height: calc(70px - 30px);
         border-radius: 26px;
+        -moz-border-radius : 26px;
         box-shadow: var(--shadow);
         padding:15px;
         background-color: var(--container);

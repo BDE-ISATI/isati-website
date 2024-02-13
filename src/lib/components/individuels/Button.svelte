@@ -14,6 +14,7 @@ button {
     font-size: 16px;
     display: grid;
     place-items: center;
+    user-select: none;
 
     width: 180px;
     height: 40px;
