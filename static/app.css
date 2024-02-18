@@ -36,7 +36,7 @@ html,body {
     background-color: var(--background);
 }
 
-* {
+*,input {
     font-family: "LeagueSpartan";
 }
 
@@ -50,4 +50,18 @@ h1,h2,h3,h4,h5,h6,p {
 
 button {
     color:var(--background);
+}
+
+
+table {
+    background:var(--container);
+    color : var(--text);
+    border-collapse: collapse;
+    box-shadow: var(--shadow);
+}
+
+table td{
+    padding : 16px;
+    border: 1px solid var(--alternatif);
+
 }
