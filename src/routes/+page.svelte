@@ -13,9 +13,9 @@
 	} = {vacant:[],occupied:[]}
 
 	onMount(async() =>{
-		events = await (await fetch("https://ceegk11a4b.execute-api.eu-west-1.amazonaws.com/Prod/events")).json()
-		users = await (await fetch("https://ceegk11a4b.execute-api.eu-west-1.amazonaws.com/Prod/members")).json()
-		salles = await (await fetch("https://ceegk11a4b.execute-api.eu-west-1.amazonaws.com/Prod/salles")).json()
+		events = await (await fetch("https://pyxlm455ja.execute-api.eu-west-3.amazonaws.com/Prod/events")).json()
+		users = await (await fetch("https://pyxlm455ja.execute-api.eu-west-3.amazonaws.com/Prod/members")).json()
+		salles = await (await fetch("https://pyxlm455ja.execute-api.eu-west-3.amazonaws.com/Prod/salles")).json()
 	})
 </script>
 
