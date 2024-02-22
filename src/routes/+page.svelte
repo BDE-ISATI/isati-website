@@ -3,20 +3,28 @@
 	import HomeEquipe from "$lib/components/groupes/HomeEquipe.svelte";
 	import HomeSalles from "$lib/components/groupes/HomeSalles.svelte";
 	import HomeActus from "$lib/components/groupes/HomeActus.svelte";
+    import { onMount } from "svelte";
 
-	export let data : {
-		salles:{nom_salle:string,num_batiment:number,jusque:Date,state:string}[],
-		users :{nom:string,contact:string,photo:string,rôle:string}[],
-		events:{nom:string,date:Date,type:string,emplacement:string}[],
-	}
+	let events:{nom:string,date:number,type:string,emplacement:string}[] = []
+	let users:{nom:string,contact:string,photo:string,rôle:string}[] = []
+	let salles:{
+		vacant:{salleID:string,batimentID:string,until:number}[]
+		occupied:{salleID:string,batimentID:string,until:number}[]
+	} = {vacant:[],occupied:[]}
+
+	onMount(async() =>{
+		events = await (await fetch("https://ceegk11a4b.execute-api.eu-west-1.amazonaws.com/Prod/events")).json()
+		users = await (await fetch("https://ceegk11a4b.execute-api.eu-west-1.amazonaws.com/Prod/members")).json()
+		salles = await (await fetch("https://ceegk11a4b.execute-api.eu-west-1.amazonaws.com/Prod/salles")).json()
+	})
 </script>
 
 
 <div class="container">
-	<HomeEvents events={data.events}></HomeEvents>
-	<HomeSalles salles={data.salles}></HomeSalles>
+	<HomeEvents events={events}></HomeEvents>
+	<HomeSalles salles={salles}></HomeSalles>
 	<HomeActus></HomeActus>
-	<HomeEquipe users={data.users}></HomeEquipe>
+	<HomeEquipe users={users}></HomeEquipe>
 </div>
 
 <style>
