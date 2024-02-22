@@ -2,7 +2,7 @@
 	import Button from "$lib/components/individuels/Button.svelte";
 	import LargeCard from "$lib/components/individuels/LargeCard.svelte";
 
-	export let events:{nom:string,date:Date,type:string,emplacement:string}[]
+	export let events:{nom:string,date:number,type:string,emplacement:string}[]
 
 </script>
 
@@ -12,7 +12,7 @@
 
 	<div class="content">
 		{#each events as event}
-			<LargeCard eventName={event.nom} date={event.date.toDateString()}></LargeCard>
+			<LargeCard eventName={event.nom} date={(new Date(event.date)).toDateString()}></LargeCard>
 		{/each}
 		
 	</div>

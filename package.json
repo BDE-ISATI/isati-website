@@ -5,16 +5,14 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "^3.1.1",
-    "@sveltejs/kit": "^2.5.0",
+    "@sveltejs/adapter-static": "^3.0.1",
+    "@sveltejs/kit": "^2.5.1",
     "@sveltejs/vite-plugin-svelte": "^3.0.2",
     "svelte": "^4.2.11"
   },
   "type": "module",
   "dependencies": {
-    "filereader": "^0.10.3",
-    "postgres": "^3.4.3",
     "sharp": "^0.33.2",
-    "vite": "^5.1.1"
+    "vite": "^5.1.4"
   }
 }

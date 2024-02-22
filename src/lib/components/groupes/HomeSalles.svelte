@@ -2,7 +2,10 @@
 	import Button from "$lib/components/individuels/Button.svelte";
 	import HalfCard from "$lib/components/individuels/HalfCard.svelte";
 
-	export let salles:{nom_salle:string,num_batiment:number,jusque:Date,state:string}[]
+	export let salles:{
+		vacant:{salleID:string,batimentID:string,until:number}[]
+		occupied:{salleID:string,batimentID:string,until:number}[]
+	}
 </script>
 
 <div class="main">
@@ -11,9 +14,9 @@
 
 	<div class="content">
 
-		{#each salles as salle}
+		{#each salles.vacant as salle}
 			<!-- {JSON.stringify(salle)} -->
-			<HalfCard main={salle.nom_salle} sub={salle.state} icone_text={salle.num_batiment.toString()}></HalfCard>
+			<HalfCard main={salle.salleID} sub={"Libre jusqu'à" + salle.until} icone_text={salle.batimentID}></HalfCard>
 		{/each}
 	</div>
 	
