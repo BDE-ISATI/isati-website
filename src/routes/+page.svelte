@@ -18,6 +18,7 @@
 display:grid;
 place-items:center;
 background:var(--primary);
+padding:0 50px;
 height:100dvh;
 
 }
