@@ -12,6 +12,7 @@
   },
   "type": "module",
   "dependencies": {
+    "amazon-cognito-identity-js": "^6.3.7",
     "sharp": "^0.33.2",
     "vite": "^5.1.4"
   }

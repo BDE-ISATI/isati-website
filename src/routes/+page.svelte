@@ -5,6 +5,8 @@
 	import HomeActus from "$lib/components/groupes/HomeActus.svelte";
     import { onMount } from "svelte";
 
+	import { apiUri } from "$lib/config";
+
 	let events:{nom:string,date:number,type:string,emplacement:string}[] = []
 	let users:{nom:string,contact:string,photo:string,rôle:string}[] = []
 	let salles:{
@@ -12,10 +14,12 @@
 		occupied:{salleID:string,batimentID:string,until:number}[]
 	} = {vacant:[],occupied:[]}
 
+
+
 	onMount(async() =>{
-		events = await (await fetch("https://pyxlm455ja.execute-api.eu-west-3.amazonaws.com/Prod/events")).json()
-		users = await (await fetch("https://pyxlm455ja.execute-api.eu-west-3.amazonaws.com/Prod/members")).json()
-		salles = await (await fetch("https://pyxlm455ja.execute-api.eu-west-3.amazonaws.com/Prod/salles")).json()
+		events = await (await fetch(apiUri + "events")).json()
+		users = await (await fetch(apiUri + "members")).json()
+		salles = await (await fetch(apiUri + "salles")).json()
 	})
 </script>
 
