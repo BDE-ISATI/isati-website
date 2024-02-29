@@ -54,14 +54,25 @@ button {
 
 
 table {
-    background:var(--container);
     color : var(--text);
     border-collapse: collapse;
-    box-shadow: var(--shadow);
 }
 
-table td{
-    padding : 16px;
-    border: 1px solid var(--alternatif);
+table td, table th{
+    outline: 0;
+    vertical-align: middle;
+    position: relative;
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid var(--container);
+    height: 50px;
+}
 
+table tr {
+    outline: 0;
+    height: 70px;
+}
+
+table img {
+    height: 100%;
 }

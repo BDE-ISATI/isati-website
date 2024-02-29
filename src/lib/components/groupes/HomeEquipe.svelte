@@ -2,7 +2,7 @@
 	import Button from "$lib/components/individuels/Button.svelte";
 	import HalfCard from "$lib/components/individuels/HalfCard.svelte";
 
-	export let users:{nom:string,contact:string,photo:string,rôle:string}[]
+	export let users:{ID:string,nom:string,contact:string,photo:string,rôle:string}[]
 
 </script>
 
@@ -13,7 +13,7 @@
 	<div class="content">
 
 		{#each users as user}
-			<HalfCard main={user.nom} sub={user.rôle} icone={user.photo}></HalfCard>
+			<HalfCard main={user.nom} sub={user.rôle} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></HalfCard>
 		{/each}
 	</div>
 	

@@ -30,7 +30,7 @@ async function send(){
 let logged = false;
 
 async function check() {
-  if (!logged) { return false }
+  if (!getIdToken()) { return false }
   try {
     let req = await fetch(apiUri+"/login/test", {
         method: "POST",

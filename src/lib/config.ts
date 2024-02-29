@@ -1,4 +1,4 @@
-export let apiUri = "https://f1gl44j78i.execute-api.eu-west-3.amazonaws.com/Prod/"
+export let apiUri = "https://eqf8l881oc.execute-api.eu-west-3.amazonaws.com/Prod/"
 
 export function getCookies(){
 

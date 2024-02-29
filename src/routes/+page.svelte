@@ -8,7 +8,7 @@
 	import { apiUri } from "$lib/config";
 
 	let events:{nom:string,date:number,type:string,emplacement:string}[] = []
-	let users:{nom:string,contact:string,photo:string,rôle:string}[] = []
+	let users:{ID:string,nom:string,contact:string,photo:string,rôle:string}[] = []
 	let salles:{
 		vacant:{salleID:string,batimentID:string,until:number}[]
 		occupied:{salleID:string,batimentID:string,until:number}[]

@@ -14,7 +14,7 @@ class User{
 		this.id = json.ID
 		this.nom = json.nom
 		this.contact = json.contact
-		this.photo = json.photo
+		this.photo = `https://website-members-pictures.s3.eu-west-3.amazonaws.com/${json.ID}.webp`
 		this.rôle = json.rôle
 		this.ordre = json.ordre
 		this.filePicture = undefined
@@ -24,6 +24,16 @@ class User{
 	changePhoto(e:Event & { currentTarget: EventTarget & HTMLInputElement; }) {
 		const inputElement = e.target as HTMLInputElement;
 		this.photo = URL.createObjectURL(inputElement.files![0]);
+	}
+
+	async getDataPhoto() : Promise<string> {
+		return new Promise((resolve) => {
+			var fr = new FileReader();
+			fr.onload = function () {
+				resolve((fr.result! as string).split(',')[1])
+			}
+			fr.readAsDataURL(this.filePicture![0]);
+		})
 	}
 
 	addToDelete() {
@@ -66,8 +76,9 @@ class User{
 
 		let method = "PATCH"
 
-		if ( this.photo != undefined ) {
-			formData["photo"] = this.photo
+		if ( this.filePicture != undefined ) {
+			console.log(this.photo)
+			formData["photo"] = await this.getDataPhoto()
 		}
 		if (this.id != undefined) { formData["id"] = this.id.toString() }
 		else { method = "PUT" }
