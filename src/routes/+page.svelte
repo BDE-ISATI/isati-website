@@ -19,7 +19,7 @@
 	onMount(async() =>{
 		events = await (await fetch(apiUri + "events")).json()
 		users = await (await fetch(apiUri + "members")).json()
-		salles = await (await fetch(apiUri + "salles")).json()
+		salles = await (await fetch(apiUri + "salles/events")).json()
 	})
 </script>
 
@@ -27,7 +27,7 @@
 <div class="container">
 	<HomeEvents events={events}></HomeEvents>
 	<HomeSalles salles={salles}></HomeSalles>
-	<HomeActus></HomeActus>
+	<!-- <HomeActus></HomeActus> -->
 	<HomeEquipe users={users}></HomeEquipe>
 </div>
 

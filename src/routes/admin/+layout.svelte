@@ -58,6 +58,7 @@ onMount(async () => {
 {:else}
     <Button on:click={() => {window.location.pathname="/admin/events"}}>Events</Button>
     <Button on:click={() => {window.location.pathname="/admin/users"}}>Users</Button>
+    <Button on:click={() => {window.location.pathname="/admin/salles"}}>Salles</Button>
     <slot></slot>
 
 {/if}

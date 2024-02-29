@@ -97,7 +97,23 @@ export class eventEditorStructure extends editorItems {
     }
 }
 
+export class salleEditorStructure extends editorItems {
+    bddUri: string = apiUri+"/salles/update"
+    primary = "ID"
 
+    constructor(data:editorItem[]) {
+        super()
+        this.items = data;
+
+        this.structure = {
+            "ID" : {type:"text"},
+            "salleID" : {type:"text"},
+            "batimentID" : {type:"text"},
+            "url" : {type:"text"},
+            "type" : {type:"text"},
+        }
+    }
+}
 
 
 // async saveInBDD() {
