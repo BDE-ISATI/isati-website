@@ -3,39 +3,18 @@
 	import HomeEquipe from "$lib/components/groupes/HomeEquipe.svelte";
 	import HomeSalles from "$lib/components/groupes/HomeSalles.svelte";
 	import HomeActus from "$lib/components/groupes/HomeActus.svelte";
-    import { onMount } from "svelte";
-
-	import { apiUri } from "$lib/config";
-
-	let events:{nom:string,date:number,type:string,emplacement:string}[] = []
-	let users:{ID:string,nom:string,contact:string,photo:string,rôle:string}[] = []
-	let salles:{
-		vacant:{salleID:string,batimentID:string,until:number}[]
-		occupied:{salleID:string,batimentID:string,until:number}[]
-	} = {vacant:[],occupied:[]}
-
-
-
-	onMount(async() =>{
-		events = await (await fetch(apiUri + "events")).json()
-		users = await (await fetch(apiUri + "members")).json()
-		salles = await (await fetch(apiUri + "salles/events")).json()
-	})
 </script>
 
-
 <div class="container">
-	<HomeEvents events={events}></HomeEvents>
-	<HomeSalles salles={salles}></HomeSalles>
-	<!-- <HomeActus></HomeActus> -->
-	<HomeEquipe users={users}></HomeEquipe>
+	<HomeEvents></HomeEvents>
+	<HomeSalles></HomeSalles>
+	<HomeEquipe></HomeEquipe>
 </div>
 
 <style>
+
 	.container {
 		display:grid;
-		width:clamp(0px,100%,700px);
-		margin: auto;
 		grid-template-columns: repeat(2, 1fr);
 		gap:40px;
 	}

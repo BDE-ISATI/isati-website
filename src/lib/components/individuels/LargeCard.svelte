@@ -1,15 +1,27 @@
 <script lang="ts">
-	export let icone = ""
-	export let eventName:string
+	export let icone:string|undefined
+	export let icone_text:string|undefined
+	export let main:string
+	export let sub:string|undefined
 	export let date:string
 </script>
 
 <div class="container">
 	<div class="content">
-		<span class="icon">{icone}</span>
-		<p>{eventName}</p>
+		{#if icone !== undefined}
+			<img src={icone} class="icon" alt={"image" + main}>
+		{:else if icone_text !== undefined}
+			<span class="icon text">{icone_text}</span>
+		{:else}
+		{/if}
+		<div>
+			<span class="main">{main}</span>
+			<span class="sub">{sub}</span>
+		</div>
 	</div>
-	<span class="date">{date}</span>
+	{#if date}
+		<span class="date">{date}</span>
+	{/if}
 </div>
 
 <style>
@@ -31,19 +43,41 @@
 		width: 40px;
 		border-radius: 35px;
 		background-color: #7DCA89;
-		display: block;
+		display: grid;
 	}
-
+	
 	.content {
 		display: flex;
 		align-items: center;
 		gap:16px;
 	}
+	
+	.icon.text {
+		padding:5px 0 0 0;
+		height: 35px;
+		background-color: unset;
+		font-size: 36px;
+		font-weight: 600;
+		place-items: center;
+	}
 
-	p {
+	span {
+		color:var(--text);
+		display: block;
+		
+	}
+
+	span.main {
 		margin: 0;
 		font-weight: 600;
 		font-size: 16px;
+		line-height: 15px;
+	}
+
+	span.sub {
+		margin: 0;
+		font-weight: 300;
+		font-size: 12px;
 		line-height: 15px;
 	}
 

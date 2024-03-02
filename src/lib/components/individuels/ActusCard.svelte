@@ -5,7 +5,7 @@
 
 <div class="container">
 	<div class="content">
-		<h3>{text}</h3>
+		<span>{text}</span>
 	</div>
 	<img src={url} alt={text}>
 </div>
@@ -36,7 +36,7 @@
 		
 	}
 
-	.content > h3 {
+	.content > span {
 		color:var(--white);
 	}
 

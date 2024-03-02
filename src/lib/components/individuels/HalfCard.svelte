@@ -14,13 +14,15 @@
 			<span class="icon text">{icone_text}</span>
 		{/if}
 		<div>
-			<p class="main">{main}</p>
-			<p class="sub">{sub}</p>
+			<span class="main">{main}</span>
+			<span class="sub">{sub}</span>
 		</div>
 	</div>
 </div>
 
 <style>
+
+	
 
 	.container {
 		user-select: none;
@@ -41,13 +43,13 @@
 		background-color: #7DCA89;
 		display: grid;
 		place-items: center;
-		font-size: 36px;
-		font-weight: 600;
 		color:var(--text);
 	}
 
 	.icon.text {
 		height: 45px;
+		font-size: 36px;
+		font-weight: 600;
 		padding-top:5px;
 		background-color: unset;
 	}
@@ -58,14 +60,19 @@
 		gap:16px;
 	}
 
-	p.main {
+	span {
+		color:var(--text);
+		display: block;
+	}
+
+	span.main {
 		margin: 0;
 		font-weight: 600;
 		font-size: 16px;
 		line-height: 15px;
 	}
 
-	p.sub {
+	span.sub {
 		margin: 0;
 		font-weight: 300;
 		font-size: 12px;

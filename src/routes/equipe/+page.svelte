@@ -12,13 +12,9 @@
 
 	<div class="content">
 
-		{#each $members.slice(0,4) as user}
+		{#each $members as user}
 			<HalfCard main={user.nom} sub={user.rôle} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></HalfCard>
 		{/each}
-	</div>
-	
-	<div class="action">
-		<Button href={"/equipe"}>Voir plus</Button>
 	</div>
 
 </div>
@@ -31,13 +27,10 @@
 		gap:15px;
 	}
 
-	.content {
-		display: flex;
-		justify-content: space-between
-	}
-
-	.action {
+    .content {
 		display: grid;
+		grid-template-columns: repeat(1,1fr);
+		gap:10px;
 		place-items: center;
 	}
 

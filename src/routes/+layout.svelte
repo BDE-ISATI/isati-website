@@ -4,6 +4,26 @@
 	
 	export let data
 
+    import { onMount } from "svelte";
+	import { apiUri } from "$lib/config";
+	import {events,members,salles} from "$lib/store"
+    import Button from "$lib/components/individuels/Button.svelte";
+	
+	let retour = ""
+
+	onMount(async() =>{
+		$events = await (await fetch(apiUri + "events")).json()
+		$members = await (await fetch(apiUri + "members")).json()
+		$salles = await (await fetch(apiUri + "salles/events")).json()
+
+		let temp = window.location.pathname.split("/")
+		temp.splice(-1)
+		retour = window.location.origin +  "/" + temp.join("/")
+	})
+
+
+
+
 </script>
 
 <svelte:head>
@@ -15,10 +35,21 @@
 <div class="app">
 
 	<Header></Header>
+
 	
 	{#key data.pathname}
 		<div id="content" in:fade={{ duration: 1000}}>
-			<slot></slot>
+			<div class="container">
+
+				{#if data.pathname != "/"}
+					<Button href={retour}>Accueil</Button>
+				{:else}
+					<br>
+				{/if}
+				
+
+				<slot></slot>
+			</div>
 		</div>
 	{/key}
 	
@@ -42,5 +73,16 @@
 		width:calc( 100% - 32px);
 		overflow: overlay;
 	}
+
+	.container {
+
+		width:clamp(0px,100%,700px);
+		margin: auto;
+		width:clamp(0px,100%,700px);
+		display: flex;
+		flex-direction: column;
+		gap:16px;
+	}
+
 
 </style>

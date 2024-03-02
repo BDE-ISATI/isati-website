@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Button from "$lib/components/individuels/Button.svelte";
 	import LargeCard from "$lib/components/individuels/LargeCard.svelte";
 
 	import { salles } from "$lib/store";
@@ -12,27 +11,40 @@
         return date.toLocaleString('fr')
     }
 
+
 	function salleFormat(type:string,salle:string) {
 		return `${type.charAt(0).toUpperCase() + type.slice(1)} ${salle}`
 	}
+
 </script>
 
 <div class="main">
 
 	<h1>Les salles</h1>
+	
+	<h2>Les salles libres</h2>
 
 	<div class="content">
-
-		{#each $salles.vacant.slice(0,2) as salle}
-			<!-- {JSON.stringify(salle)} -->
+		{#each $salles.vacant as salle}
 			<LargeCard main={salleFormat(salle.type,salle.salleID)} sub={"Libre jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></LargeCard>
 		{/each}
 	</div>
 	
-	<div class="action">
-		<Button href={"/salles"}>Voir plus</Button>
+	<h2>Les salles occupées</h2>
+
+	<div class="content">
+		{#each $salles.occupied as salle}
+			<LargeCard main={salleFormat(salle.type,salle.salleID)} sub={"Occupé jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></LargeCard>
+		{/each}
 	</div>
 
+	<h2>Les salles sans status</h2>
+
+	<div class="content">
+		{#each $salles.none as salle}
+			<LargeCard main={salleFormat(salle.type,salle.salleID)} sub={""} icone_text={salle.batimentID}></LargeCard>
+		{/each}
+	</div>
 </div>
 
 <style>
@@ -43,16 +55,20 @@
 		gap:15px;
 	}
 
-	.content {
+    .content {
 		display: grid;
-		grid-template-columns: repeat(1,1fr);
+		grid-template-columns: repeat(2,1fr);
 		gap:10px;
 		place-items: center;
 	}
 
-	.action {
-		display: grid;
-		place-items: center;
+	@media (max-width : 720px) {
+		.content {
+			display: grid;
+			grid-template-columns: repeat(1,1fr);
+			gap:10px;
+			place-items: center;
+		}
 	}
 
 </style>

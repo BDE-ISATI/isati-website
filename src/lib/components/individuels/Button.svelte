@@ -1,10 +1,17 @@
-<script lang="ts"></script>
+<script lang="ts">
 
-<button on:click><slot></slot></button>
+	export let href : string | undefined = undefined
 
+</script>
+
+{#if href}
+	<a on:click href={href}><slot></slot></a>
+{:else}
+	<button on:click><slot></slot></button>
+{/if}
 <style>
 
-button {
+button,a {
 	background-color:var(--alternatif);
 	border:unset;
 
