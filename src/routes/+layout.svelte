@@ -1,5 +1,5 @@
 <script>
-	import Header from "$lib/components/individuels/Header.svelte"
+	import Header from "$lib/components/layout/Header.svelte"
 	import { fade  } from 'svelte/transition';
 	
 	export let data
@@ -8,6 +8,7 @@
 	import { apiUri } from "$lib/config";
 	import {events,members,salles} from "$lib/store"
     import Button from "$lib/components/individuels/Button.svelte";
+    import Navbar from "$lib/components/layout/Navbar.svelte";
 	
 	let retour = ""
 
@@ -22,6 +23,23 @@
 	})
 
 
+	const items = [
+	{
+		title: 'Accueil',
+		route: '/',
+		class: 'ph ph-house',
+	},
+	{
+		title: 'Events',
+		route: '/events',
+		class: 'ph ph-calendar',
+	},
+	{
+		title: 'Salles',
+		route: '/salles',
+		class: 'ph ph-graduation-cap',
+	},
+]
 
 
 </script>
@@ -32,57 +50,109 @@
 </svelte:head>
 
 
+
 <div class="app">
 
-	<Header></Header>
 
-	
-	{#key data.pathname}
-		<div id="content" in:fade={{ duration: 1000}}>
-			<div class="container">
-
-				{#if data.pathname != "/"}
-					<Button href={retour}>Accueil</Button>
-				{:else}
-					<br>
-				{/if}
-				
-
-				<slot></slot>
+	<div id="content">
+		<Header></Header>
+		{#key data.pathname}
+			<div id="router_par" in:fade={{ duration: 1000}}>
+				<div id="router">
+					<slot></slot>
+				</div>
 			</div>
-		</div>
-	{/key}
-	
+
+			<!-- {#if data.pathname != "/"}
+				<a class="bouton-flottant" href={retour}>
+					<i class="ph ph-arrow-circle-left"></i>
+				</a>
+			{/if} -->
+		{/key}
+	</div>
+	<Navbar id="menu" menuItems={items}></Navbar>
 	<!-- <Footer></Footer> -->
 	
 </div>
 
 <style>
-	div.app{
+
+	.bouton-flottant{
+		position: fixed;
+		bottom: 24px;
+		right: 24px;
+		color:var(--text);
+		font-size: 48px;
+		text-decoration: none;
+		line-height: 0;
 		display: flex;
-		flex-direction: column;
-		gap:1em;
+		align-items: center;
+		gap: 12px;
+	}
+
+	@media (min-width : 720px) {
+		.bouton-flottant::after{
+			padding-top:2px;
+			font-size: 24px;
+
+			content: "Retour";
+		}
+	}
+
+	div.app{
+		height: 100dvh;
+
+		display: flex;
+		flex-direction: row-reverse;
+	}
+
+
+	#router_par {
+		width: 100%;
+		overflow: hidden auto;
+		flex: auto;
+		position: relative;
 	}
 
 	#content {
 		overflow:auto;
 		display: block;
 		position: relative;
-		padding: 16px;
 		margin:0;
-		width:calc( 100% - 32px);
+		width:calc( 100% );
 		overflow: overlay;
 	}
-
-	.container {
-
-		width:clamp(0px,100%,700px);
+	#router {
+		padding: 40px 20px;
 		margin: auto;
-		width:clamp(0px,100%,700px);
-		display: flex;
-		flex-direction: column;
-		gap:16px;
+		width: clamp(100px, calc(100% - 40px), 19cm);
+		height: auto;
 	}
 
+	:global(#menu) {
+		min-width: 200px;
+		float: left;
 
+	}
+	
+
+	#topbar {
+		width: unset;
+		height: 40px;
+		padding: 20px;
+	}
+
+	div.app {
+		flex-direction: column;
+	}
+
+	:global(#menu) {
+		border-right:unset;
+		width: unset;
+		height: 80px;
+	}
+
+	#content {
+		height: calc(100% - 80px);
+	}
 </style>
