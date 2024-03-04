@@ -52,15 +52,50 @@ onMount(async () => {
 
 </script>
 {#if !logged}
+  <form>
+    <h1>Panel Admin</h1>
+    <label>Login</label>
     <input bind:value={email}>
-    <input bind:value={password}>
-    <button on:click={send}>send</button>
+    <label>Password</label>
+    <input type="password" bind:value={password}>
+    <Button on:click={send}>Connexion</Button>
+  </form>
 {:else}
-    <Button on:click={() => {window.location.pathname="/admin/events"}}>Events</Button>
-    <Button on:click={() => {window.location.pathname="/admin/users"}}>Users</Button>
-    <Button on:click={() => {window.location.pathname="/admin/salles"}}>Salles</Button>
-    <Button on:click={() => {window.location.pathname="/admin/articles"}}>Articles</Button>
+    <div class="itembarre">
+      <Button on:click={() => {window.location.pathname="/admin/events"}}>Events</Button>
+      <Button on:click={() => {window.location.pathname="/admin/users"}}>Users</Button>
+      <Button on:click={() => {window.location.pathname="/admin/salles"}}>Salles</Button>
+      <Button on:click={() => {window.location.pathname="/admin/articles"}}>Articles</Button>
+    </div>
     <slot></slot>
 
 {/if}
 
+<style>
+
+.itembarre{
+  display: flex;
+  gap:16px;
+
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap:16px;
+  color:var(--text);
+  font-size:20px;
+}
+
+form input {
+  background-color: var(--container);
+  border: 0;
+  width: calc(100% - 32px);
+
+  padding:16px;
+  color:var(--text);
+  font-size:20px;
+  outline: none;
+}
+
+</style>
