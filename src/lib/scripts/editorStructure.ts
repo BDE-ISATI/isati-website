@@ -1,4 +1,4 @@
-import { apiUri, getIdToken } from "$lib/config"
+import { apiUri, articleBucket, getIdToken, imgBucket } from "$lib/config"
 
 export type editorItem = {
     [key:string]:any
@@ -12,7 +12,9 @@ export abstract class editorItems {
     structure : {
         [key:string] : {
             type:string,
-            restriction?:string
+            restriction?:string,
+            const?:boolean,
+            bucket?:string
         }
     } = {}
 
@@ -32,31 +34,38 @@ export abstract class editorItems {
             }
         })
 
+        let resp = await req.json()
+
         if (method=="PUT") {
-            let resp = await req.json()
-            item[this.primary] = resp[0].id
+            item[this.primary] = resp.data.ID
         }
+
+        alert(resp.message)
     
         return req
     }
 
     public async delete(i:number){
-        if (this.items[i][this.primary] == undefined) { 
-            this.items.splice(i,1)
-        }
-        else {
+        if (this.items[i][this.primary] !== undefined) {
             let formData : {[key:string]:any} = {}
 
             formData[this.primary] = this.items[i][this.primary]
 
-            await fetch(this.bddUri, {
+            let req = await fetch(this.bddUri, {
                 method: "DELETE",
                 body: JSON.stringify(formData),
                 headers: {
                     Authorization: `Bearer ${getIdToken()}`
                 }
             });
+
+            let resp = await req.json()
+
+            alert(resp.message)
         }
+        
+        alert("Bien supprimé")
+        this.items.splice(i,1)
     }
 }
 
@@ -69,12 +78,12 @@ export class userEditorStructure extends editorItems {
         this.items = data;
 
         this.structure = {
-            "ID" : {type:"text"},
+            "ID" : {type:"text",const:true},
             "nom" : {type:"text"},
             "contact" : {type:"text"},
             "rôle" : {type:"text"},
             "ordre" : {type:"number"},
-            // "photo" : {type:"file"},
+            "photo" : {type:"file",bucket:imgBucket},
         }
     }
 }
@@ -88,7 +97,7 @@ export class eventEditorStructure extends editorItems {
         this.items = data;
 
         this.structure = {
-            "ID" : {type:"text"},
+            "ID" : {type:"text",const:true},
             "nom" : {type:"text"},
             "emplacement" : {type:"text"},
             "date" : {type:"date"},
@@ -106,11 +115,37 @@ export class salleEditorStructure extends editorItems {
         this.items = data;
 
         this.structure = {
-            "ID" : {type:"text"},
+            "ID" : {type:"text",const:true},
             "salleID" : {type:"text"},
             "batimentID" : {type:"text"},
             "url" : {type:"text"},
             "type" : {type:"text"},
+        }
+    }
+}
+
+export class articleEditorStructure extends editorItems {
+    bddUri: string = apiUri+"/articles"
+    primary = "ID"
+
+    async fetch(selected:editorItem,key:string) : Promise<Object>{
+        const id = selected.ID
+        const bucket = this.structure[key].bucket
+
+        return (await fetch(bucket+id+".json")).json()
+    }
+
+    constructor(data:editorItem[]) {
+        super()
+        this.items = data;
+
+        this.structure = {
+            "ID" : {type:"text",const:true},
+            "release-date" : {type:"text",const:true},
+            "update-date" : {type:"text",const:true},
+            "nom" : {type:"text"},
+            "categorie" : {type:"text"},
+            "article" : {type:"texteditor",bucket:articleBucket},
         }
     }
 }

@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
+	import ButtonIcon from "$lib/components/individuels/ButtonIcon.svelte";
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
+    import TexteEditor from "$lib/components/editor/TexteEditor.svelte";
 
 	let dialog:HTMLDialogElement
     let selected:editorItem|undefined
@@ -20,20 +22,35 @@
 	<dialog bind:this={dialog}>
         {#if selected != undefined}
             {#each Object.keys(data.structure) as key}
-                <label for={key}>{key}</label>
+				{#if data.structure[key].const }
+				{:else}
+					<label for={key}>{key}</label>
 
-                {#if data.structure[key].type == "file" }
-                    <input type="file" bind:files={selected[key]} id={key} >
-                {:else if data.structure[key].type == "date" }
-                <input type="date" bind:value={selected[key]} id={key} >
-                {:else}
-                    <input bind:value={selected[key]} id={key} >
-                {/if}
+					{#if data.structure[key].type == "file" }
+						<input type="file" bind:files={selected[key]} id={key} >
+					{:else if data.structure[key].type == "date" }
+						<input type="date" bind:value={selected[key]} id={key} >
+					{:else if data.structure[key].type == "texteditor" }
+						{#if selected.ID}
+							{#await data.fetch(selected,key)}
+								loading
+							{:then datajson}
+								<TexteEditor bind:data={selected[key]} importedData={datajson}></TexteEditor>
+							{/await}
+						{:else}
+							<TexteEditor bind:data={selected[key]}></TexteEditor>
+						{/if}
+					{:else}
+						<input bind:value={selected[key]} id={key} >
+					{/if}
+				{/if}
 
             {/each}
 
-            <Button on:click={() => {data.save(selected);dialog.close()}}>Save</Button>
-            <Button on:click={() => {dialog.close()}}>Cancel</Button>
+			<div style="display:flex; gap:16px;">
+				<Button on:click={async() => {await data.save(selected);dialog.close();data = data}}>Save</Button>
+				<Button on:click={() => {dialog.close()}}>Cancel</Button>
+			</div>
 		
 		{/if}
 	</dialog>
@@ -59,25 +76,31 @@
                         </td>
                     {/each}
                     <td>
-                        <Button on:click={() => {selected=item;dialog.show()}}>
+                        <ButtonIcon on:click={() => {selected=item;dialog.show()}}>
                             <i class="ph ph-pencil-simple"></i>
-                        </Button>
+                        </ButtonIcon>
                     </td><td>
-                        <Button on:click={() => {data.delete(i);data=data}}>
+                        <ButtonIcon on:click={async () => {await data.delete(i);data=data}}>
                             <i class="ph ph-trash"></i>
-                        </Button>
+                        </ButtonIcon>
                     </td>
                 </tr>
             {/each}
 		</tbody>
 	</table>
-	<Button on:click={addEmpty}>Ajouter une personne</Button>
+	<Button on:click={addEmpty}>Ajouter une entrée</Button>
 </div>
 
 <style>
 
 	dialog{
 		z-index: 50;
+		overflow: auto;
+		top: 50%;
+		transform: translateY(-50%);
+		resize: vertical;
+		background-color: var(--container);
+		color:var(--text);
 	}
 
 	.delete{
@@ -108,7 +131,6 @@
 	}
 
 	input {
-		height: 100%;
 		width: calc(100% - 32px);
 		color:var(--text);
 		background-color: #00000055;

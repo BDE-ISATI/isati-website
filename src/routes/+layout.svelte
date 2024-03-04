@@ -53,14 +53,13 @@
 
 <div class="app">
 
+	<Navbar id="menu" menuItems={items}></Navbar>
 
 	<div id="content">
-		<Header></Header>
+		<!-- <Header></Header> -->
 		{#key data.pathname}
-			<div id="router_par" in:fade={{ duration: 1000}}>
-				<div id="router">
-					<slot></slot>
-				</div>
+			<div id="router" in:fade={{ duration: 1000}}>
+				<slot></slot>
 			</div>
 
 			<!-- {#if data.pathname != "/"}
@@ -70,7 +69,6 @@
 			{/if} -->
 		{/key}
 	</div>
-	<Navbar id="menu" menuItems={items}></Navbar>
 	<!-- <Footer></Footer> -->
 	
 </div>
@@ -90,28 +88,16 @@
 		gap: 12px;
 	}
 
-	@media (min-width : 720px) {
-		.bouton-flottant::after{
-			padding-top:2px;
-			font-size: 24px;
-
-			content: "Retour";
-		}
-	}
-
-	div.app{
+	div.app {
+		flex-direction: column;
 		height: 100dvh;
-
 		display: flex;
-		flex-direction: row-reverse;
 	}
 
-
-	#router_par {
-		width: 100%;
-		overflow: hidden auto;
-		flex: auto;
-		position: relative;
+	@media (max-width : 720px) {
+		div.app{
+			flex-direction: column-reverse;
+		}
 	}
 
 	#content {
@@ -123,18 +109,20 @@
 		overflow: overlay;
 	}
 	#router {
+		position: relative;
 		padding: 40px 20px;
 		margin: auto;
-		width: clamp(100px, calc(100% - 40px), 19cm);
-		height: auto;
+		width: clamp(100px, calc(100% - 40px), 700px);
+		min-height: calc( 100% - 80px );
+		overflow: auto;
+
 	}
 
 	:global(#menu) {
 		min-width: 200px;
 		float: left;
 
-	}
-	
+	}	
 
 	#topbar {
 		width: unset;
@@ -142,9 +130,7 @@
 		padding: 20px;
 	}
 
-	div.app {
-		flex-direction: column;
-	}
+	
 
 	:global(#menu) {
 		border-right:unset;

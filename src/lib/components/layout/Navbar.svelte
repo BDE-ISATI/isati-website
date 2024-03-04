@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+    import Logo from "./Logo.svelte";
 
     type MenuItem = {
         title: string;
@@ -22,20 +23,25 @@
     </script>
     
     <nav id={id} class="menu-container">
+        
+        <a class="menu-item">
+            <div class="icon-container">
+                <Logo></Logo>
+            </div>
+        </a>
         {#each menuItems as item }
             <a href={item.route} class="menu-item">
                 <div class="icon-container">
                     <i class={item.class}></i>
                     <span class="item-title">{item.title}</span>
                 </div>
-                
             </a>
         {/each}
-        <!-- <div id="show_btn" on:click={invert_show}><i class="ph ph-caret-left"></i></div> -->
-
     </nav>
-    
-    <style scoped>
+
+<style>
+
+
 a {
     color:var(--text);
     text-decoration: unset;
@@ -53,13 +59,14 @@ a {
 
 
 .menu-container {
+    position: relative;
 	transition: 0.3s;
 	color: var(--text);
 
 	display: grid;
 	grid-auto-flow: column;
 
-	background-color: var(--container);
+	background-color: var(--primary);
 	user-select: none;
 }
 
@@ -98,13 +105,6 @@ a {
 	background: var(--compl);
 	border-radius: 0 1em 1em 0;
 }
-
-
-
-
-
-
-
 
 @media screen and (max-width: 1200px) {
     .menu-container > .menu-item > .item-title {
