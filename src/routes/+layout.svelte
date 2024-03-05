@@ -43,7 +43,7 @@
 	{
 		title: 'Articles',
 		route: '/articles',
-		class: 'ph ph-newspaper-cap',
+		class: 'ph ph-newspaper',
 	},
 ]
 
