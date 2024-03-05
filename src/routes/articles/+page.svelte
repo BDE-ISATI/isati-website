@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
 	import LargeCard from "$lib/components/individuels/LargeCard.svelte";
-
 	import { articles } from "$lib/store";
 </script>
 
@@ -9,14 +8,16 @@
 
 <div class="main">
 
-	<h1>Les events</h1>
+
+	<h1>Les articles</h1>
 
 	<div class="content">
 		{#each $articles as article}
-            <LargeCard icone="" sub={article.categorie} main={article.nom} date={(new Date(article["release-date"])).toDateString()}></LargeCard>
+			<LargeCard href={"article#"+article.ID} icone="" sub={article.categorie} main={article.nom} date={(new Date(article["release-date"])).toDateString()}></LargeCard>
 		{/each}
 		
 	</div>
+
 	
 </div>
 
