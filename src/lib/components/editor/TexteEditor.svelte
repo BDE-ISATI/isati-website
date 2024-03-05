@@ -13,11 +13,13 @@
     import Attaches from '@editorjs/attaches';
     import Embed from '@editorjs/embed';
     import Button from "$lib/components/individuels/Button.svelte";
+    import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
 
     let editordiv:HTMLDivElement
     let editor:EditorJS
 
-    export let data:EditorJS.OutputData
+    export let editorItems:editorItems
+    export let key:string
     export let importedData:EditorJS.OutputData  = {blocks: []}
 
 	onMount(async()=> {
@@ -49,22 +51,12 @@
                     class: List, 
                     inlineToolbar: true 
                 } 
-        }, 
+            }, 
         })
+        editorItems.editeurs[key] = editor
 	})
 
-
-    function save(){
-        editor.save().then((outputData) => {
-            data = outputData
-        }).catch((error) => {
-            console.log('Saving failed: ', error)
-        });
-    }
-
 </script>
-
-<Button on:click={save}>Save</Button>
 <div id="editorjs" bind:this={editordiv}></div>
 
 

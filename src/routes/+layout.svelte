@@ -6,7 +6,7 @@
 
     import { onMount } from "svelte";
 	import { apiUri } from "$lib/config";
-	import {events,members,salles} from "$lib/store"
+	import {events,members,salles,articles} from "$lib/store"
     import Button from "$lib/components/individuels/Button.svelte";
     import Navbar from "$lib/components/layout/Navbar.svelte";
 	
@@ -16,6 +16,7 @@
 		$events = await (await fetch(apiUri + "events")).json()
 		$members = await (await fetch(apiUri + "members")).json()
 		$salles = await (await fetch(apiUri + "salles/events")).json()
+		$articles = await (await fetch(apiUri + "articles")).json()
 
 		let temp = window.location.pathname.split("/")
 		temp.splice(-1)
@@ -39,6 +40,11 @@
 		route: '/salles',
 		class: 'ph ph-graduation-cap',
 	},
+	{
+		title: 'Articles',
+		route: '/articles',
+		class: 'ph ph-newspaper-cap',
+	},
 ]
 
 
@@ -53,22 +59,22 @@
 
 <div class="app">
 
-	<Navbar id="menu" menuItems={items}></Navbar>
-
+	
 	<div id="content">
-		<!-- <Header></Header> -->
+		<Header></Header>
 		{#key data.pathname}
-			<div id="router" in:fade={{ duration: 1000}}>
-				<slot></slot>
-			</div>
-
-			<!-- {#if data.pathname != "/"}
-				<a class="bouton-flottant" href={retour}>
-					<i class="ph ph-arrow-circle-left"></i>
-				</a>
+		<div id="router" in:fade={{ duration: 1000}}>
+			<slot></slot>
+		</div>
+		
+		<!-- {#if data.pathname != "/"}
+			<a class="bouton-flottant" href={retour}>
+				<i class="ph ph-arrow-circle-left"></i>
+			</a>
 			{/if} -->
 		{/key}
 	</div>
+	<Navbar menuItems={items}></Navbar>
 	<!-- <Footer></Footer> -->
 	
 </div>
@@ -89,14 +95,17 @@
 	}
 
 	div.app {
-		flex-direction: column;
+		flex-direction: column-reverse;
 		height: 100dvh;
 		display: flex;
 	}
 
 	@media (max-width : 720px) {
 		div.app{
-			flex-direction: column-reverse;
+			flex-direction: column;
+		}
+		#router {
+			/* min-height: calc( 100% - 100px ); */
 		}
 	}
 
@@ -113,9 +122,8 @@
 		padding: 40px 20px;
 		margin: auto;
 		width: clamp(100px, calc(100% - 40px), 700px);
-		min-height: calc( 100% - 80px );
+		min-height: calc( 100% - 100px - 16px * 4 );
 		overflow: auto;
-
 	}
 
 	:global(#menu) {

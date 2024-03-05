@@ -22,8 +22,7 @@
 	<dialog bind:this={dialog}>
         {#if selected != undefined}
             {#each Object.keys(data.structure) as key}
-				{#if data.structure[key].const }
-				{:else}
+				{#if !data.structure[key].const }
 					<label for={key}>{key}</label>
 
 					{#if data.structure[key].type == "file" }
@@ -35,10 +34,10 @@
 							{#await data.fetch(selected,key)}
 								loading
 							{:then datajson}
-								<TexteEditor bind:data={selected[key]} importedData={datajson}></TexteEditor>
+								<TexteEditor editorItems={data} key={key} importedData={datajson}></TexteEditor>
 							{/await}
 						{:else}
-							<TexteEditor bind:data={selected[key]}></TexteEditor>
+							<TexteEditor editorItems={data} key={key}></TexteEditor>
 						{/if}
 					{:else}
 						<input bind:value={selected[key]} id={key} >
@@ -51,7 +50,6 @@
 				<Button on:click={async() => {await data.save(selected);dialog.close();data = data}}>Save</Button>
 				<Button on:click={() => {dialog.close()}}>Cancel</Button>
 			</div>
-		
 		{/if}
 	</dialog>
 

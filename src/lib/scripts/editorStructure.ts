@@ -1,4 +1,7 @@
 import { apiUri, articleBucket, getIdToken, imgBucket } from "$lib/config"
+import type EditorJS from '@editorjs/editorjs'
+
+
 
 export type editorItem = {
     [key:string]:any
@@ -6,6 +9,9 @@ export type editorItem = {
 
 export abstract class editorItems {
     items : editorItem[] = []
+
+    actionsBeforeSave : Function[] = []
+
     abstract primary : string
     abstract bddUri: string
 
@@ -22,7 +28,16 @@ export abstract class editorItems {
 		this.items.push({})
 	}
 
+    public async beforeSave(item:editorItem){
+
+    }
+
     public async save(item:editorItem) {
+
+        await this.beforeSave(item)
+
+        console.log(JSON.stringify(item))
+
 
         let method = item[this.primary] == undefined ? "PUT" : "PATCH" 
 
@@ -127,6 +142,13 @@ export class salleEditorStructure extends editorItems {
 export class articleEditorStructure extends editorItems {
     bddUri: string = apiUri+"/articles"
     primary = "ID"
+    editeurs:{[key:string]:EditorJS} = {}
+
+    async beforeSave(item:editorItem): Promise<void> {
+
+        let outputData = await this.editeurs["article"].save()
+        item["article"] = outputData
+    }
 
     async fetch(selected:editorItem,key:string) : Promise<Object>{
         const id = selected.ID
@@ -147,6 +169,10 @@ export class articleEditorStructure extends editorItems {
             "categorie" : {type:"text"},
             "article" : {type:"texteditor",bucket:articleBucket},
         }
+
+        this.items.forEach(element => {
+            element["article"] = {}
+        });
     }
 }
 

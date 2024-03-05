@@ -24,19 +24,18 @@
     
     <nav id={id} class="menu-container">
         
-        <a class="menu-item">
-            <div class="icon-container">
-                <Logo></Logo>
-            </div>
-        </a>
-        {#each menuItems as item }
+        <div class="menu-item logo">
+            <Logo></Logo>
+        </div>
+
+        <div class="navigation">
+            {#each menuItems as item }
             <a href={item.route} class="menu-item">
-                <div class="icon-container">
-                    <i class={item.class}></i>
-                    <span class="item-title">{item.title}</span>
-                </div>
+                <i class={item.class}></i>
+                <span class="item-title">{item.title}</span>
             </a>
-        {/each}
+            {/each}
+        </div>
     </nav>
 
 <style>
@@ -45,81 +44,63 @@
 a {
     color:var(--text);
     text-decoration: unset;
-    font-size: 20px;
 }
 
-.icon-container > i {
+.item-title {
+    --size: 20px;
+    font-size: var(--size);
+    padding-top: calc(var(--size) / 4);
+}
+
+i {
     font-size: 30px;
 }
-
-.hide{
-    margin-bottom:-80px;
-    margin-left:0px;
-}
-
 
 .menu-container {
     position: relative;
 	transition: 0.3s;
 	color: var(--text);
 
-	display: grid;
-	grid-auto-flow: column;
+	display: flex;
+    justify-content: space-between;
 
 	background-color: var(--primary);
 	user-select: none;
+    padding:16px;
+    width: calc(100% - 32px);
+    height: 50px;
+    gap:16px;
 }
 
-.menu-container > .menu-item {
+.navigation {
+    display: flex;
+    justify-content: flex-end;
+    flex:1;
+    gap: 32px;
+}
+
+.menu-item {
 	display: flex;
-	align-items: center;
-	cursor: pointer;
-}
-
-.menu-container > .menu-item > .icon-container {
-	/* width: 65px; */
-	display: grid;
 	place-items: center;
-    width:unset;
-    flex:auto;
-    gap:8px;
+	cursor: pointer;
+    gap:16px;
 }
 
-.menu-container > .menu-item:hover * {
+.menu-item:hover * {
 	border-color: var(--red);
 	color: var(--red);
 	fill: var(--red);
 }
 
-
-.hide > #show_btn > i{
-	transform: rotate(180deg);
-}
-
-#show_btn{
-	transition: 0.3s;
-	position: absolute;
-    left:50%;
-    transform:translate(-50%,-40px) rotate(-90deg) ;
-	padding: 15px 5px;
-	background: var(--compl);
-	border-radius: 0 1em 1em 0;
-}
-
-@media screen and (max-width: 1200px) {
-    .menu-container > .menu-item > .item-title {
+@media screen and (max-width: 720px) {
+    .item-title , .logo{
         display: none;
+    }
+
+    .navigation {
+        justify-content: space-between;
+        gap:unset;
     }
 }
 
-@media screen and (max-width: 540px) {
-	#show_btn{
-		display: none;
-	}
-
-	.hide{
-		margin: unset;
-	}
-
-}
     </style>
