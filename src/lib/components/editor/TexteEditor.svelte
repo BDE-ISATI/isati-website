@@ -53,7 +53,7 @@
                 } 
             }, 
         })
-        editorItems.editeurs[key] = editor
+        editorItems.toBeProcessed[key] = editor
 	})
 
 </script>

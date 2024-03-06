@@ -22,11 +22,11 @@
 	<dialog bind:this={dialog}>
         {#if selected != undefined}
             {#each Object.keys(data.structure) as key}
-				{#if !data.structure[key].const }
+				{#if data.structure[key].editable }
 					<label for={key}>{key}</label>
 
 					{#if data.structure[key].type == "file" }
-						<input type="file" bind:files={selected[key]} id={key} >
+						<input type="file" bind:files={selected[key]} bind:this={data.toBeProcessed[key]} id={key} >
 					{:else if data.structure[key].type == "date" }
 						<input type="date" bind:value={selected[key]} id={key} >
 					{:else if data.structure[key].type == "texteditor" }
@@ -67,7 +67,7 @@
                     {#each Object.keys(data.structure) as key}
                         <td>
                             {#if data.structure[key].type == "file"}
-                                <img src={item[key]} alt="pp">
+                                <img src={data.structure[key].bucket + item["ID"] + ".webp"} alt="pp">
                             {:else}
                                 {item[key]}
                             {/if}
