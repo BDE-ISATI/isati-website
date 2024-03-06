@@ -15,7 +15,7 @@
 		console.log(query)
 		if (query) {
 			const edjsParser = edjsHTML();
-			let req = await fetch( articleBucket + query + ".json" )
+			let req = await fetch( articleBucket + query + ".json")
 			let data = await req.json()
 			html = edjsParser.parse(data).join("")
 		}

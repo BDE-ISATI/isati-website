@@ -188,7 +188,7 @@ export class articleEditorStructure extends editorItems {
         const id = selected.ID
         const bucket = this.structure[key].bucket
 
-        return (await fetch(bucket+id+".json")).json()
+        return (await fetch(bucket+id+".json",{cache: "no-cache"})).json()
     }
 
     constructor(data:editorItem[]) {

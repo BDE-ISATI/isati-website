@@ -2,6 +2,8 @@
     import Button from '$lib/components/individuels/Button.svelte';
     import { onMount } from 'svelte';
     import { apiUri,getIdToken } from '$lib/config';
+    import { writable } from 'svelte/store';
+    import { logged } from '$lib/store';
 
     const url = apiUri + "/login";
     
@@ -23,11 +25,9 @@ async function send(){
   document.cookie = `AccessToken=${data.AuthenticationResult.AccessToken};max-age=${data.AuthenticationResult.ExpiresIn}`;
   document.cookie = `RefreshToken=${data.AuthenticationResult.RefreshToken};max-age=${data.AuthenticationResult.ExpiresIn}`;
   document.cookie = `IdToken=${data.AuthenticationResult.IdToken};max-age=${data.AuthenticationResult.ExpiresIn}`;
-  logged = true
+  $logged = true
 
 }
-
-let logged = false;
 
 async function check() {
   if (!getIdToken()) { return false }
@@ -47,11 +47,13 @@ async function check() {
 }
 
 onMount(async () => {
-  logged = await check()
+  if (!$logged){
+    $logged = await check()
+  }
 })
 
 </script>
-{#if !logged}
+{#if !$logged}
   <form>
     <h1>Panel Admin</h1>
     <label>Login</label>
@@ -62,13 +64,12 @@ onMount(async () => {
   </form>
 {:else}
     <div class="itembarre">
-      <Button on:click={() => {window.location.pathname="/admin/events"}}>Events</Button>
-      <Button on:click={() => {window.location.pathname="/admin/users"}}>Users</Button>
-      <Button on:click={() => {window.location.pathname="/admin/salles"}}>Salles</Button>
-      <Button on:click={() => {window.location.pathname="/admin/articles"}}>Articles</Button>
+      <Button href={"/admin/events"}>Events</Button>
+      <Button href={"/admin/users"}>Users</Button>
+      <Button href={"/admin/salles"}>Salles</Button>
+      <Button href={"/admin/articles"}>Articles</Button>
     </div>
     <slot></slot>
-
 {/if}
 
 <style>

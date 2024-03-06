@@ -7,7 +7,7 @@
     import Table from '@editorjs/table';
     import Paragraph from '@editorjs/paragraph';
     import Quote from '@editorjs/quote';
-    import Delimiter from '@editorjs/delimiter';
+    // import Delimiter from '@editorjs/delimiter';
     import Image from '@editorjs/image';
     import Link from '@editorjs/link';
     import Attaches from '@editorjs/attaches';
@@ -31,7 +31,6 @@
                 table: Table,
                 paragraph: Paragraph,
                 quote: Quote,
-                delimiter: Delimiter,
                 image: {
                     class: Image,
                     config: {
@@ -40,13 +39,17 @@
                         }
                     }
                 },
-                link: Link,
-                attaches: Attaches,
+                // link: Link,
+                // attaches: Attaches,
                 embed: Embed,
                 header: {
-                    class: Header, 
-                    inlineToolbar: ['link'] 
-                }, 
+                    class: Header,
+                    config: {
+                        placeholder: 'Enter a header',
+                        levels: [2, 3, 4],
+                        defaultLevel: 3
+                    }
+                },
                 list: { 
                     class: List, 
                     inlineToolbar: true 
