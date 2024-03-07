@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
 	import { articleBucket } from '$lib/config.js';
-	import edjsHTML from "editorjs-html";
+	import edjsHTML from "@editorjs/html";
 
 	let params = new URLSearchParams(document.location.search);
 	let id = params.get("id")
@@ -35,7 +35,9 @@
 	}
 
     :global(.main iframe) {
-		width: 100%;
+		max-width: 100%;
+		margin:auto;
+		/* height: auto; */
 	}
 
 	@media (max-width : 720px) {

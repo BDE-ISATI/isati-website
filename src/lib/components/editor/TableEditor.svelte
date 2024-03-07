@@ -14,6 +14,7 @@
 	function addEmpty() {
 		data.addEmpty()
 		data = data
+		
 	}
 
 	

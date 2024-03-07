@@ -12,7 +12,7 @@
     import Link from '@editorjs/link';
     import Attaches from '@editorjs/attaches';
     import Marker from '@editorjs/marker';
-    import Embed from '@editorjs/embed';
+    import EmbedCustom from './EmbedCustom';
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
 
     let editordiv:HTMLDivElement
@@ -22,15 +22,21 @@
     export let key:string
     export let importedData:EditorJS.OutputData  = {blocks: []}
 
+
+
+    
 	onMount(async()=> {
 
         editor= new EditorJS({
             holder: editordiv,
             data:importedData,
             tools: { 
+                embed: {
+                    class:EmbedCustom,
+                    inlineToolbar: true,
+                },
                 header: {
                     class: Header,
-                    inlineToolbar: true,
                     shortcut: 'CMD+SHIFT+H',
                 },
                 table: {
@@ -44,6 +50,7 @@
                 quote: {
                     class:Quote,
                     inlineToolbar: true,
+                    
                 },
                 image: {
                     class: Image,
@@ -61,10 +68,7 @@
                 },
                 // link: Link,
                 // attaches: Attaches,
-                embed: {
-                    class:Embed,
-                    inlineToolbar: true,
-                },
+                
 
                 list: { 
                     class: List, 
@@ -83,6 +87,7 @@
     #editorjs {
         padding:16px 64px;
         background-color: #fff;
+        color:black;
         border-radius: 16px;
         border: 1px solid var(--text);
     }
