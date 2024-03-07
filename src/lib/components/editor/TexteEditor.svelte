@@ -18,8 +18,8 @@
     let editordiv:HTMLDivElement
     let editor:EditorJS
 
-    export let editorItems:editorItems
-    export let key:string
+    export let editorItems:editorItems|undefined = undefined
+    export let key:string|undefined = undefined
     export let importedData:EditorJS.OutputData  = {blocks: []}
 
 
@@ -29,6 +29,7 @@
 
         editor= new EditorJS({
             holder: editordiv,
+            placeholder: 'écrivez ici 😉',
             data:importedData,
             tools: { 
                 embed: {
@@ -76,7 +77,9 @@
                 } 
             }, 
         })
-        editorItems.toBeProcessed[key] = editor
+        if (editorItems && key) {
+            editorItems.toBeProcessed[key] = editor
+        }
 	})
 
 </script>
