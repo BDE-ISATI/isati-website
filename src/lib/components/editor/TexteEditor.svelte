@@ -28,6 +28,10 @@
             holder: editordiv,
             data:importedData,
             tools: { 
+                header: {
+                    class: Header,
+                    shortcut: 'CMD+SHIFT+H',
+                },
                 table: Table,
                 paragraph: Paragraph,
                 quote: Quote,
@@ -42,14 +46,7 @@
                 // link: Link,
                 // attaches: Attaches,
                 embed: Embed,
-                header: {
-                    class: Header,
-                    config: {
-                        placeholder: 'Enter a header',
-                        levels: [2, 3, 4],
-                        defaultLevel: 3
-                    }
-                },
+
                 list: { 
                     class: List, 
                     inlineToolbar: true 
