@@ -8,6 +8,7 @@
 <div class="container">
 	<HomeEvents></HomeEvents>
 	<HomeSalles></HomeSalles>
+	<HomeActus></HomeActus>
 	<HomeEquipe></HomeEquipe>
 </div>
 

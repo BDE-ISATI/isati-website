@@ -5,7 +5,7 @@
 	export let sub:string|undefined
 	export let date:string
 
-	export let href=undefined
+	export let href:string|undefined=undefined
 </script>
 
 <a href={href} class="container">
@@ -14,7 +14,6 @@
 			<img src={icone} class="icon" alt={"image" + main}>
 		{:else if icone_text !== undefined}
 			<span class="icon text">{icone_text}</span>
-		{:else}
 		{/if}
 		<div>
 			<span class="main">{main}</span>

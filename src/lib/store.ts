@@ -22,7 +22,7 @@ type events = {
     emplacement:string
 }[]
 
-type articles = {
+export type articlesType = {
     ID:string,
     nom:string,
     "release-date":string,
@@ -33,6 +33,6 @@ type articles = {
 export const events:Writable<events> = writable([]);
 export const salles:Writable<salles> = writable({vacant:[],occupied:[],none:[]});
 export const members:Writable<members> = writable([]);
-export const articles:Writable<articles> = writable([]);
+export const articles:Writable<articlesType> = writable([]);
 
 export const logged = writable(false)

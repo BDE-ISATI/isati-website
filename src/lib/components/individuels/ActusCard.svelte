@@ -1,14 +1,14 @@
 <script lang="ts">
-	export let url  : string
 	export let text : string
+	export let href : string|undefined
 </script>
 
-<div class="container">
+<a href={href} class="container">
 	<div class="content">
 		<span>{text}</span>
 	</div>
-	<img src={url} alt={text}>
-</div>
+	<!-- <img src={url} alt={text}> -->
+</a>
 
 <style>
 
@@ -16,7 +16,7 @@
 		position: relative;
 		display: block;
 		width : 200px;
-		height: 300px;
+		height: 100px;
 		border-radius: 26px;
 		overflow: hidden;
 		box-shadow: var(--shadow);
@@ -28,16 +28,19 @@
 		position: absolute;
 		top:0;
 		left:0;
-		padding:20px;
 		background-color: rgba(0, 0, 0, 0.35);
 		width: 100%;
 		height: 100%;
 		z-index: 1;
+		display: grid;
+		place-items: center;
 		
 	}
 
 	.content > span {
 		color:var(--white);
+		font-size: 28px;
+		text-align: center;
 	}
 
 	img {

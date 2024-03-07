@@ -1,7 +1,17 @@
 <script lang="ts">
-	import Button from "$lib/components/individuels/Button.svelte";
 	import LargeCard from "$lib/components/individuels/LargeCard.svelte";
 	import { articles } from "$lib/store";
+	import type { articlesType } from "$lib/store";
+
+	let filtered_article:articlesType = []
+
+	let params = new URLSearchParams(document.location.search);
+	let categorie = params.get("categorie")
+
+	articles.subscribe((value) => {
+		filtered_article = categorie ? value.filter((a) => {return a.categorie == categorie}) : value
+	})
+
 </script>
 
 
@@ -9,11 +19,11 @@
 <div class="main">
 
 
-	<h1>Les articles</h1>
+	<h1>Les articles {categorie ? `- ${categorie}` : ""}</h1>
 
 	<div class="content">
-		{#each $articles as article}
-			<LargeCard href={"article#"+article.ID} icone="" sub={article.categorie} main={article.nom} date={(new Date(article["release-date"])).toDateString()}></LargeCard>
+		{#each filtered_article as article}
+			<LargeCard href={`article?id=${article.ID}`} icone="" sub={article.categorie} main={article.nom} date={(new Date(article["release-date"])).toDateString()}></LargeCard>
 		{/each}
 		
 	</div>

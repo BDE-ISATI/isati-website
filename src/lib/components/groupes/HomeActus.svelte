@@ -5,22 +5,21 @@
 
 <div class="main">
 
-	<h2>Les actus</h2>
+	<h2>Les articles</h2>
 
 	<div class="content">
 
 		<div>
-			<ActusCard url="https://www.isati.org/wp-content/uploads/2022/06/pasted-image-0-350x350.png" text="MDD #12"></ActusCard>
-			<ActusCard url="https://www.isati.org/wp-content/uploads/2022/05/Olympiades-21.05-avec-QR-code-350x350.png" text="MDD #11"></ActusCard>
-			<ActusCard url="https://www.isati.org/wp-content/uploads/2022/05/DEEPTECHTOUR-RENNES_1200x630-350x350.jpg" text="MDD #10"></ActusCard>
-			<ActusCard url="" text="MDD #25"></ActusCard>
-			<ActusCard url="" text="MDD #25"></ActusCard>
+			<ActusCard href="/articles?categorie=actus" text="Les dernières actus"></ActusCard>
+			<ActusCard href="/articles?categorie=guides" text="Les guides"></ActusCard>
+			<ActusCard href="/articles?categorie=clubs" text="Les clubs"></ActusCard>
+			<ActusCard href="/articles?categorie=sports" text="Les équipes sportives"></ActusCard>
 		</div>
 		
 	</div>
 	
 	<div class="action">
-		<Button>Voir plus</Button>
+		<Button href="/articles">Voir plus</Button>
 	</div>
 
 </div>
