@@ -15,8 +15,6 @@
 		align-items: center;
 	}
 
-
-
 	.logo > h1 {
 		--size:36px;
 		color: var(--text);
@@ -31,7 +29,7 @@
 		min-height: 100%;
 		display: block;
 		fill:var(--text);
+		color:var(--text);
 	}
-
 
 </style>
