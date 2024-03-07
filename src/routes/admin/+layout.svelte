@@ -53,16 +53,17 @@ onMount(async () => {
 })
 
 </script>
-{#if !$logged}
-  <form>
-    <h1>Panel Admin</h1>
-    <label>Login</label>
-    <input bind:value={email}>
-    <label>Password</label>
-    <input type="password" bind:value={password}>
-    <Button on:click={send}>Connexion</Button>
-  </form>
-{:else}
+<div class="container">
+  {#if !$logged}
+    
+      <h1>Panel Admin</h1>
+      <label>Login</label>
+      <input bind:value={email}>
+      <label>Password</label>
+      <input type="password" bind:value={password}>
+      <Button on:click={send}>Connexion</Button>
+    
+  {:else}
     <div class="itembarre">
       <Button href={"/admin/events"}>Events</Button>
       <Button href={"/admin/users"}>Users</Button>
@@ -70,22 +71,22 @@ onMount(async () => {
       <Button href={"/admin/articles"}>Articles</Button>
     </div>
     <slot></slot>
-{/if}
+  {/if}
+</div>
 
 <style>
+
+.container{
+  display: flex;
+  flex-direction: column;
+  gap:16px;
+  color:var(--text);
+}
 
 .itembarre{
   display: flex;
   gap:16px;
 
-}
-
-form{
-  display: flex;
-  flex-direction: column;
-  gap:16px;
-  color:var(--text);
-  font-size:20px;
 }
 
 form input {

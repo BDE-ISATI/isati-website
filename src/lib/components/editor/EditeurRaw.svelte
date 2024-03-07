@@ -10,7 +10,7 @@
 	
 </script>
 
-<div>
+<div class="container">
     {#each Object.keys(data.structure) as key}
         {#if data.structure[key].editable }
             <label for={key}>{key}</label>
@@ -42,13 +42,10 @@
 </div>
 
 <style>
-	dialog{
-		z-index: 50;
-		overflow: auto;
-		top: 50%;
-		transform: translateY(-50%);
-		resize: vertical;
-		background-color: var(--container);
+	.container{
+        display: flex;
+        gap: 16px;
+        flex-direction: column;
 		color:var(--text);
 	}
 

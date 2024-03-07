@@ -14,7 +14,8 @@
 button,a {
 	background-color:var(--alternatif);
 	border:unset;
-
+	color: var(--white);
+	text-decoration: unset;
 	box-shadow: var(--shadow);
 	border-radius: 26px;
 	font-weight: 600;

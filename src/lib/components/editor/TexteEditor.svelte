@@ -69,8 +69,6 @@
         background-color: #fff;
         border-radius: 16px;
         border: 1px solid var(--text);
-        height: 400px;
-        overflow: auto;
         color:black;
     }
 </style>
