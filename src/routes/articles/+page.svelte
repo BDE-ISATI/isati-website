@@ -23,7 +23,7 @@
 
 	<div class="content">
 		{#each filtered_article as article}
-			<LargeCard href={`article?id=${article.ID}`} icone="" sub={article.categorie} main={article.nom} date={(new Date(article["release-date"])).toDateString()}></LargeCard>
+			<LargeCard href={`article?id=${article.ID}`} icone="" sub={article.categorie} main={article.nom} date={(new Date(article["release-date"]*1000)).toDateString()}></LargeCard>
 		{/each}
 		
 	</div>

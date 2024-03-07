@@ -12,7 +12,6 @@
     import Link from '@editorjs/link';
     import Attaches from '@editorjs/attaches';
     import Embed from '@editorjs/embed';
-    import Button from "$lib/components/individuels/Button.svelte";
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
 
     let editordiv:HTMLDivElement

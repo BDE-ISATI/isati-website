@@ -12,7 +12,7 @@
 
 	<div class="content">
 		{#each $events.slice(0,2) as event}
-			<LargeCard icone="" sub={event.emplacement} main={event.nom} date={(new Date(event.date)).toDateString()}></LargeCard>
+			<LargeCard icone="" sub={event.emplacement} main={event.nom} date={(new Date(event.date*1000)).toDateString()}></LargeCard>
 		{/each}
 		
 	</div>
