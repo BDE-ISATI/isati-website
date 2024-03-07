@@ -11,6 +11,7 @@
     import Image from '@editorjs/image';
     import Link from '@editorjs/link';
     import Attaches from '@editorjs/attaches';
+    import Marker from '@editorjs/marker';
     import Embed from '@editorjs/embed';
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
 
@@ -29,22 +30,41 @@
             tools: { 
                 header: {
                     class: Header,
+                    inlineToolbar: true,
                     shortcut: 'CMD+SHIFT+H',
                 },
-                table: Table,
-                paragraph: Paragraph,
-                quote: Quote,
+                table: {
+                    class:Table,
+                    inlineToolbar: true,
+                },
+                paragraph: {
+                    class:Paragraph,
+                    inlineToolbar: true,
+                },
+                quote: {
+                    class:Quote,
+                    inlineToolbar: true,
+                },
                 image: {
                     class: Image,
+                    inlineToolbar: true,
                     config: {
                         endpoints: {
                             byFile: apiUri + "/image/format"
                         }
                     }
                 },
+                Marker: {
+                    class: Marker,
+                    shortcut: 'CMD+SHIFT+M',
+                    inlineToolbar: true,
+                },
                 // link: Link,
                 // attaches: Attaches,
-                embed: Embed,
+                embed: {
+                    class:Embed,
+                    inlineToolbar: true,
+                },
 
                 list: { 
                     class: List, 
@@ -65,6 +85,5 @@
         background-color: #fff;
         border-radius: 16px;
         border: 1px solid var(--text);
-        color:black;
     }
 </style>

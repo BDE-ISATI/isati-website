@@ -35,19 +35,12 @@
 html,body {
     margin:0;
     background-color: var(--background);
+    color: var(--text);
 }
 
 *,input {
     font-family: "LeagueSpartan";
-}
-
-h1,h2,h3,h4,h5,h6,p{
-    margin:0;
-    padding:8px;
     
-}
-h1,h2,h3,h4,h5,h6,p{
-    color: var(--text);
 }
 
 button {

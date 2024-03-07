@@ -20,8 +20,9 @@
 		Chargement de l'article
 	{:then html}
 		{@html html}
-	{:catch}
+	{:catch e}
 		Chargement de l'article impossible
+		{e}
 	{/await }
 </div>
 
@@ -33,11 +34,8 @@
 		gap:15px;
 	}
 
-    .content {
-		display: grid;
-		grid-template-columns: repeat(2,1fr);
-		gap:10px;
-		place-items: center;
+    :global(.main iframe) {
+		width: 100%;
 	}
 
 	@media (max-width : 720px) {
