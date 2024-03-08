@@ -9,6 +9,7 @@
 	import {events,members,salles,articles} from "$lib/store"
     import Button from "$lib/components/individuels/Button.svelte";
     import Navbar from "$lib/components/layout/Navbar.svelte";
+    import Footer from "$lib/components/layout/Footer.svelte";
 	
 	let retour = ""
 
@@ -74,6 +75,7 @@
 			</a>
 			{/if} -->
 		{/key}
+		<Footer></Footer>
 	</div>
 	<Navbar menuItems={items}></Navbar>
 	<!-- <Footer></Footer> -->

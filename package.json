@@ -27,8 +27,10 @@
     "@editorjs/paragraph": "^2.11.3",
     "@editorjs/quote": "^2.6.0",
     "@editorjs/table": "^2.3.0",
+    "@icons-pack/svelte-simple-icons": "github:icons-pack/svelte-simple-icons",
     "editorjs-drag-drop": "^1.1.13",
     "sharp": "^0.33.2",
+    "simple-icons": "^11.7.0",
     "vite": "^5.1.4"
   }
 }
