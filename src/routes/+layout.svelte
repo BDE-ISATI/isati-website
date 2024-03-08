@@ -50,11 +50,11 @@
 
 </script>
 
-<svelte:head>
-	<title>ISATI BDE</title>
-	<meta name="description" content="">
-</svelte:head>
 
+<svelte:head>
+	<title>Isati BDE</title>
+	<meta name="description" content="Site internet de L'Isati, BDE de l'ESIR.">
+</svelte:head>
 
 
 <div class="app">
@@ -63,9 +63,10 @@
 	<div id="content">
 		<Header></Header>
 		{#key data.pathname}
-		<div id="router" in:fade={{ duration: 1000}}>
-			<slot></slot>
-		</div>
+			
+			<div id="router" in:fade={{ duration: 1000}}>
+				<slot></slot>
+			</div>
 		
 		<!-- {#if data.pathname != "/"}
 			<a class="bouton-flottant" href={retour}>
