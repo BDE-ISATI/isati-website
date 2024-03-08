@@ -18,7 +18,6 @@
 
 <div class="main">
 
-
 	<h1>Les articles {categorie ? `- ${categorie}` : ""}</h1>
 
 	<div class="content">
@@ -27,7 +26,6 @@
 		{/each}
 		
 	</div>
-
 	
 </div>
 
