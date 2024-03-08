@@ -15,6 +15,7 @@
     import EmbedCustom from './EmbedCustom';
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
     import Button from "../individuels/Button.svelte";
+    import DragDrop from 'editorjs-drag-drop';
 
     let editordiv:HTMLDivElement
     let editor:EditorJS
@@ -25,8 +26,12 @@
 
 
     function createEditor() {
+        
         editordiv.innerHTML = ""
         editor = new EditorJS({
+            onReady: () => {
+                new DragDrop(editor);
+            },
             holder: editordiv,
             placeholder: 'écrivez ici 😉',
             data:importedData,

@@ -1,4 +1,5 @@
 
+
 @font-face {
     font-family: "LeagueSpartan";
     src: url('/LeagueSpartan.ttf');
@@ -72,3 +73,19 @@ table tr {
 table img {
     height: 100%;
 }
+
+.ce-block--drop-target .ce-block__content:before {
+    /* Avoids a bug when dragging over the arrow */
+    pointer-events: none;
+  }
+  
+  .ce-block--drop-target .ce-block__content:after {
+    /* Hides the default dashes */
+    background: none;
+  }
+  
+  .ce-block--drop-target
+    .ce-block__content[style*='border-top: 1px dashed rgb(170, 170, 170);']:before {
+    /* The fragile rule that moves the arrow, not only for the first element but all elements above the source */
+    top: 0;
+  }
