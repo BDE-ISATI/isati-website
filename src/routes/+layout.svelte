@@ -106,6 +106,8 @@
 		height: 100%;
 		width:100%;
 		background-color: var(--primary);
+		color:var(--white)
+
 	}
 
 	.logoloading {
@@ -120,7 +122,6 @@
 		animation-timing-function: linear;
 		height:150px;
 		width: 150px;
-		color:var(--white)
 	}
 
 	@keyframes turn {
