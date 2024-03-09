@@ -107,6 +107,7 @@
 		animation-timing-function: linear;
 		width:150px;
 		height:150px;
+		color:var(--white)
 	}
 
 	@keyframes turn {
