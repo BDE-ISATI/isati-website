@@ -12,6 +12,7 @@
     import Footer from "$lib/components/layout/Footer.svelte";
 	
 	let retour = ""
+	let loaded = false
 
 	onMount(async() =>{
 		$events = await (await fetch(apiUri + "events")).json()
@@ -22,6 +23,7 @@
 		let temp = window.location.pathname.split("/")
 		temp.splice(-1)
 		retour = window.location.origin +  "/" + temp.join("/")
+		loaded = true
 	})
 
 
@@ -57,32 +59,62 @@
 	<meta name="description" content="Site internet de L'Isati, BDE de l'ESIR.">
 </svelte:head>
 
-
-<div class="app">
-
-	
-	<div id="content">
-		<Header></Header>
-		{#key data.pathname}
-			
-			<div id="router" in:fade={{ duration: 1000}}>
-				<slot></slot>
-			</div>
-		
-		<!-- {#if data.pathname != "/"}
-			<a class="bouton-flottant" href={retour}>
-				<i class="ph ph-arrow-circle-left"></i>
-			</a>
-			{/if} -->
-		{/key}
-		<Footer></Footer>
+{#if !loaded}
+	<div id="loader" out:fade={{ duration: 1000}}>
+		<img width="90" height="90" src="/isati.svg" style="position:absolute"/>
+		<svg width="24" height="24" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg">
+			<path opacity="0.2" fill-rule="evenodd" clip-rule="evenodd" d="M12 19C15.866 19 19 15.866 19 12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12C5 15.866 8.13401 19 12 19ZM12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="currentColor"/>
+			<path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="currentColor" />
+		</svg>
 	</div>
-	<Navbar menuItems={items}></Navbar>
-	<!-- <Footer></Footer> -->
-	
-</div>
+{:else}
+	<div class="app">
+		<div id="content">
+			<Header></Header>
+			{#key data.pathname}
+				
+				<div id="router" in:fade={{ duration: 1000}}>
+					<slot></slot>
+				</div>
+			
+			<!-- {#if data.pathname != "/"}
+				<a class="bouton-flottant" href={retour}>
+					<i class="ph ph-arrow-circle-left"></i>
+				</a>
+				{/if} -->
+			{/key}
+			<Footer></Footer>
+		</div>
+		<Navbar menuItems={items}></Navbar>
+	</div>
+{/if}
+<style scoped>
+	#loader {
+		transition: opacity 1s;
+		display:grid;
+		place-items: center;
+		position: absolute;
+		z-index: 50000;
+		height: 100%;
+		width:100%;
+		background-color: var(--primary);
+	}
 
-<style>
+	#loader > svg{
+		animation-name: turn;
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		width:150px;
+		height:150px;
+	}
+
+	@keyframes turn {
+		from {transform: rotate(0deg);}
+		to {transform: rotate(360deg);}
+	}
+
+
 
 	.bouton-flottant{
 		position: fixed;
