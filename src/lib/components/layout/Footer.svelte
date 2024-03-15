@@ -2,24 +2,27 @@
     import { siInstagram, siDiscord, siFacebook, siGithub, siYoutube, siLinkedin } from "simple-icons";
 
     let icons = [
-        {url:"",icon:siInstagram},
+        {url:"https://www.instagram.com/isatibde/",icon:siInstagram},
         {url:"",icon:siDiscord},
-        {url:"",icon:siFacebook},
-        {url:"",icon:siGithub},
-        {url:"",icon:siYoutube},
-        {url:"",icon:siLinkedin},
+        {url:"https://www.facebook.com/isati.lisatis",icon:siFacebook},
+        {url:"https://github.com/organizations/BDE-ISATI",icon:siGithub},
+        {url:"https://www.youtube.com/@isatibde",icon:siYoutube},
+        {url:"https://www.linkedin.com/company/bde-isati/",icon:siLinkedin},
     ]
 
 </script>
 <footer>
     <div class="networks">
         {#each icons as icon}
-            <a href={icon.url} style={`color:#${icon.icon.hex};`}>
+            <a href={icon.url} target="_blank" style={`color:#${icon.icon.hex};`}>
                 {@html icon.icon.svg}
             </a>
         {/each}
     </div>
-    <p>Site Isati</p>
+    <span>Hébergé sur AWS</span>
+    <span>Technologies : Svelte et editorjs </span>
+
+    <span>Isati © {(new Date()).getFullYear()}</span>
 </footer>
 
 <style>
@@ -29,6 +32,9 @@ footer {
     background-color: var(--container);
     width: calc(100% - 32px);
     padding:48px 16px;
+    display: flex;
+    flex-direction: column;
+    gap:32px;
 }
 
 :global(a > svg) {
@@ -44,13 +50,17 @@ footer {
 }
 
 a {
-    background-color: var(--alternatif);
-    width:30px;
+    background-color: var(--white);
+    box-shadow: var(--shadow);
+    width:20px;
     aspect-ratio: 1/1;
     display: block;
     border-radius: 50%;
     padding: 16px;
     line-height: 0;
+}
+span{
+    text-align: center;
 }
 
 </style>
