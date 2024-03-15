@@ -1,5 +1,6 @@
 {
   "background_color": "#d82b2b",
+  "screenshots": [],
   "dir": "ltr",
   "display": "standalone",
   "name": "Isati",
@@ -8,11 +9,12 @@
   "short_name": "www.isati.org",
   "start_url": "/",
   "theme_color": "#d82b2b",
+  "description":"",
   "icons": [
     {
       "src": "./isati.svg",
       "type": "image/svg",
-      "sizes": "128x128"
+      "sizes": "any"
     }
   ]
 }
