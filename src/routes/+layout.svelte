@@ -173,7 +173,6 @@
 		margin: auto;
 		width: clamp(100px, calc(100% - 40px), 700px);
 		min-height: calc( 100% - 100px - 16px * 4 );
-		overflow: auto;
 	}
 
 	:global(#menu) {
