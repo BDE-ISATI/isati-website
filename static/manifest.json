@@ -1,6 +1,5 @@
 {
   "background_color": "#d82b2b",
-  "screenshots": [],
   "dir": "ltr",
   "display": "standalone",
   "name": "Isati",
@@ -10,16 +9,28 @@
   "start_url": "/",
   "theme_color": "#d82b2b",
   "description":"",
+  "screenshots" : [
+    {
+      "src": "screenshot.svg",
+      "sizes": "3840x3840",
+      "type": "image/svg",
+      "form_factor": "narrow",
+      "label": "screenshot"
+    },
+    {
+      "src": "screenshot.svg",
+      "sizes": "3840x3840",
+      "type": "image/svg",
+      "form_factor": "wide",
+      "label": "screenshot"
+    }
+  ],
   "icons": [
     {
       "src": "./isati.svg",
       "type": "image/svg",
-      "sizes": "any"
-    },
-    {
-      "src": "./isati.svg",
-      "type": "image/svg",
-      "sizes": "512x512"
+      "sizes": "144x144",
+      "purpose": "any"
     }
   ]
 }
