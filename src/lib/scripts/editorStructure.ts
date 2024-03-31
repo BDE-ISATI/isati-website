@@ -151,6 +151,7 @@ export class eventEditorStructure extends editorItems {
             "emplacement" : {type:"text",editable:true},
             "date" : {type:"date",editable:true},
             "type" : {type:"text",editable:true},
+            "article" : {type:"text",editable:true},
         }
     }
 }

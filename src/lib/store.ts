@@ -19,6 +19,7 @@ type events = {
     nom:string,
     date:number,
     type:string,
+    article:string,
     emplacement:string
 }[]
 

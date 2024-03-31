@@ -44,7 +44,7 @@
 				<div class="content">
 					{#each $events as event}
 						{#if day.getDate() == new Date(event.date).getDate() && day.getMonth() == new Date(event.date).getMonth()}
-							<a class="eventLink">{event.nom}</a>	
+							<a class="eventLink" href={`/article?id=${event.article}`}>{event.nom}</a>	
 						{/if}
 					{/each}
 				</div>

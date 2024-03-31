@@ -15,13 +15,13 @@
 	let loaded = 0
 
 	onMount(async() =>{
-		$events = await (await fetch(apiUri + "events")).json()
+		$events = (await (await fetch(apiUri + "events")).json())["data"]
 		loaded += 1
-		$members = await (await fetch(apiUri + "members")).json()
+		$members = (await (await fetch(apiUri + "members")).json())["data"]
 		loaded += 1
-		$salles = await (await fetch(apiUri + "salles/events")).json()
+		$salles = (await (await fetch(apiUri + "salles/events")).json())["data"]
 		loaded += 1
-		$articles = await (await fetch(apiUri + "articles")).json()
+		$articles = (await (await fetch(apiUri + "articles")).json())["data"]
 		loaded += 1
 
 		let temp = window.location.pathname.split("/")
