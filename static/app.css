@@ -114,3 +114,12 @@ input,select,textarea{
 textarea{
     resize: vertical;
 }
+
+a {
+    color:var(--primary);
+    transition: 0.5s;
+    text-decoration: unset;
+}
+a:hover {
+    color:var(--secondary);
+}

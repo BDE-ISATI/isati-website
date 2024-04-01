@@ -3,7 +3,7 @@
 
     let icons = [
         {url:"https://www.instagram.com/isatibde/",icon:siInstagram},
-        {url:"",icon:siDiscord},
+        {url:"https://discord.gg/jfpVdAZT",icon:siDiscord},
         {url:"https://www.facebook.com/isati.lisatis",icon:siFacebook},
         {url:"https://github.com/organizations/BDE-ISATI",icon:siGithub},
         {url:"https://www.youtube.com/@isatibde",icon:siYoutube},
@@ -12,6 +12,8 @@
 
 </script>
 <footer>
+    <a href="/tools">Nos outils</a>
+    <a href="https://forms.gle/tPL5Txmq9Qb5t2Pn6" target="_blank">Nous soumettre votre article</a>
     <div class="networks">
         {#each icons as icon}
             <a href={icon.url} target="_blank" style={`color:#${icon.icon.hex};`}>
@@ -35,6 +37,7 @@ footer {
     display: flex;
     flex-direction: column;
     gap:32px;
+    align-items: center;
 }
 
 :global(a > svg) {
@@ -44,12 +47,14 @@ footer {
 }
 
 .networks {
-    display: flex;
-    gap:16px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width:200px;
+    place-items: center;
+    gap:32px;
 }
 
-a {
+.networks > a {
     background-color: var(--white);
     box-shadow: var(--shadow);
     width:20px;
