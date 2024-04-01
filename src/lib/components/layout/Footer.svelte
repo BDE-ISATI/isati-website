@@ -49,7 +49,6 @@ footer {
 .networks {
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    width:200px;
     place-items: center;
     gap:32px;
 }
