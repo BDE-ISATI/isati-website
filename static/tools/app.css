@@ -1,11 +1,17 @@
-
-
 @font-face {
     font-family: "LeagueSpartan";
-    src: url('/LeagueSpartan.ttf');
-    
+    src: url('./fonts/LeagueSpartan.ttf');
 }
 
+@font-face {
+    font-family: "NanamiBlack";
+    src: url('./fonts/Nanami-Heavy.otf');
+}
+
+@font-face {
+    font-family: "Nanami";
+    src: url('./fonts/Nanami-Light.otf');
+}
 
 
 :root {
@@ -37,67 +43,31 @@
 html,body {
     margin:0;
     background-color: var(--background);
-    color: var(--text);
 }
 
-*,input {
+* {
     font-family: "LeagueSpartan";
-    
+}
+
+h1,h2,h3,h4,h5,h6,p{
+    margin:0;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+    color: var(--text);
 }
 
 button {
     color:var(--background);
 }
 
-
-table {
-    color : var(--text);
-    border-collapse: collapse;
-}
-
-table td, table th{
-    outline: 0;
-    vertical-align: middle;
-    position: relative;
-    text-align: left;
-    padding: 10px;
-    border-bottom: 1px solid var(--container);
-    height: 50px;
-}
-
-table tr {
-    outline: 0;
-    height: 70px;
-}
-
-table img {
-    height: 100%;
-}
-
-.ce-block--drop-target .ce-block__content:before {
-    /* Avoids a bug when dragging over the arrow */
-    pointer-events: none;
-  }
-  
-  .ce-block--drop-target .ce-block__content:after {
-    /* Hides the default dashes */
-    background: none;
-  }
-  
-  .ce-block--drop-target
-    .ce-block__content[style*='border-top: 1px dashed rgb(170, 170, 170);']:before {
-    /* The fragile rule that moves the arrow, not only for the first element but all elements above the source */
-    top: 0;
-  }
-
-  form {
+form {
     gap:10px;
     display: flex;
     flex-direction: column;
 }
 
 label,input,select,textarea {
-    /* font-size: 20px; */
     font-family: "Nanami";
     color : var(--text);
 }

@@ -1,5 +1,5 @@
-<script lang="ts">
-    import TexteEditor from "$lib/components/editor/TexteEditor.svelte"
-</script>
+<h1>Bienvenue sur les outils de l'Isati</h1>
 
-<TexteEditor></TexteEditor>
+<p>
+    Ici vous trouverez les outils utilisés par nous pour concevoir tout notre contenu. Bien évidemment, aucun de ces outils ne modifie le site Web 😉.
+</p>
