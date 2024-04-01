@@ -10,7 +10,7 @@
 	let salles:salleEditorStructure
 
 	onMount(async()=> {
-		salles = new salleEditorStructure(await (await fetch(apiUri + "/salles")).json())
+		salles = new salleEditorStructure((await (await fetch(apiUri + "/salles")).json())["data"])
 	})
 
 

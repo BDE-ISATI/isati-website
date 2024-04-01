@@ -44,6 +44,9 @@ dependencies:
   '@icons-pack/svelte-simple-icons':
     specifier: github:icons-pack/svelte-simple-icons
     version: github.com/icons-pack/svelte-simple-icons/7946e88c4d3ab733eab881b0d1fc991fdeb91c14(@sveltejs/kit@2.5.5)(svelte@4.2.12)
+  add-to-calendar-button:
+    specifier: ^2.6.9
+    version: 2.6.9
   editorjs-drag-drop:
     specifier: ^1.1.13
     version: 1.1.13
@@ -779,6 +782,13 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
+  /add-to-calendar-button@2.6.9:
+    resolution: {integrity: sha512-EmNIU5+pUfYyyG9AQ234wyB8ySqSh/z4MUO2su2vHGdLFbZrwNDX4kMytZkXc3bNt8M99mFUJEOpOOQM51O49Q==}
+    engines: {node: '>=18.17.0', npm: '>=9.6.7'}
+    dependencies:
+      timezones-ical-library: 1.8.2
+    dev: false
+
   /aria-query@5.3.0:
     resolution: {integrity: sha512-b0P0sZPKtyu8HkeRAfCq0IfURZK+SuwMjY1UXGBU27wpAiTwQAIlq56IbIO+ytk/JjS1fMR14ee5WBBfKi5J6A==}
     dependencies:
@@ -1110,6 +1120,11 @@ packages:
       locate-character: 3.0.0
       magic-string: 0.30.8
       periscopic: 3.1.0
+
+  /timezones-ical-library@1.8.2:
+    resolution: {integrity: sha512-0bbCp+xXtTUOcBo7bAGkzK5yMiNnY/FmJblTlnkGcqW5O+SChvWNtvsOX9WqbU5/8sT+Nl/MKQ7c9qafIkUstA==}
+    engines: {node: '>=18.17.0', npm: '>=9.6.7'}
+    dev: false
 
   /tiny-glob@0.2.9:
     resolution: {integrity: sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==}

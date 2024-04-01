@@ -9,18 +9,18 @@
 
 	<h2>Les articles</h2>
 
-	<button class="left" on:click={()=>scrolling.scrollBy(-100,0)}><i class="ph ph-caret-circle-left"></i></button>
+	<button class="left" on:click={()=>scrolling.scrollBy(-200,0)}><i class="ph ph-caret-circle-left"></i></button>
 	<div class="content" bind:this={scrolling}>
 
 		<div>
-			<ActusCard href="/articles?categorie=actus" text="Les dernières actus"></ActusCard>
+			<ActusCard href="/articles?categorie=actus" text="Les actus"></ActusCard>
 			<ActusCard href="/articles?categorie=guides" text="Les guides"></ActusCard>
 			<ActusCard href="/articles?categorie=clubs" text="Les clubs"></ActusCard>
-			<ActusCard href="/articles?categorie=sports" text="Les équipes sportives"></ActusCard>
+			<ActusCard href="/articles?categorie=sports" text="Les sports"></ActusCard>
 		</div>
 	</div>
 	
-	<button class="right" on:click={()=>scrolling.scrollBy(100,0)}><i class="ph ph-caret-circle-right"></i></button>
+	<button class="right" on:click={()=>scrolling.scrollBy(200,0)}><i class="ph ph-caret-circle-right"></i></button>
 	<div class="action">
 		<Button href="/articles">Voir plus</Button>
 	</div>

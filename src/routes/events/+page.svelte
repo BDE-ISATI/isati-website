@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
-	import LargeCard from "$lib/components/individuels/LargeCard.svelte";
+	import DoubleCardEvent from "$lib/components/individuels/DoubleCardEvent.svelte";
 
 	import { events } from "$lib/store";
 
@@ -30,8 +30,12 @@
 
 	<h1>Les events</h1>
 
-
-	<div class="gridCal">
+	<div class="content">
+		{#each $events as event}
+			<DoubleCardEvent sub={event.emplacement} main={event.nom} date={new Date(event.date)} article={event.article}></DoubleCardEvent>
+		{/each}
+	</div>
+	<!-- <div class="gridCal">
 		{#each ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"] as day}
 			<div class="case">
 				<span>{day}</span>
@@ -51,7 +55,7 @@
 			</div>
 		{/each}
 
-	</div>
+	</div> -->
 
 	
 </div>
@@ -94,8 +98,13 @@
 	}
 
     .content {
-		display: block;
-		width: 100%;
+		/* display: block;
+		width: 100%; */
+		display: grid;
+		grid-template-columns: repeat(2,1fr);
+		gap:10px;
+
+
 	}
 
 	@media (max-width : 720px) {

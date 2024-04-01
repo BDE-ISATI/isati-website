@@ -3,9 +3,15 @@
 	export let icone_text:string|undefined = undefined
 	export let main:string
 	export let sub:string
+	export let contact:string
 </script>
 
-<div class="container">
+<a class="container" href={contact} target="_blank">
+
+	{#if contact}
+		<i class="ph ph-arrow-square-in"></i>
+	{/if}
+
 	<div class="content">
 		
 		{#if icone !== undefined}
@@ -18,13 +24,19 @@
 			<span class="sub">{sub}</span>
 		</div>
 	</div>
-</div>
+</a>
 
 <style>
 
-	
+	.ph-arrow-square-in {
+		position: absolute;
+		top:8px;
+		right:12px;
+		color:var(--text);
+	}
 
 	.container {
+		text-decoration: unset;
 		user-select: none;
 
 		width: calc(160px - 20px);

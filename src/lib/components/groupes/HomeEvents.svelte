@@ -3,6 +3,7 @@
 	import LargeCard from "$lib/components/individuels/LargeCard.svelte";
 
 	import { events } from "$lib/store";
+    import DoubleCardEvent from "../individuels/DoubleCardEvent.svelte";
 
 </script>
 
@@ -11,10 +12,10 @@
 	<h1>Les events</h1>
 
 	<div class="content">
-		{#each $events.slice(0,2) as event}
+		<!-- {#each $events.slice(0,2) as event}
 			<LargeCard icone="" sub={event.emplacement} main={event.nom} date={(new Date(event.date)).toDateString()}></LargeCard>
-		{/each}
-		
+		{/each} -->
+		<DoubleCardEvent icone="" sub={$events[0].emplacement} main={$events[0].nom} date={new Date($events[0].date)}></DoubleCardEvent>
 	</div>
 	
 	<div class="action">

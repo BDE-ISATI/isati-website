@@ -13,7 +13,7 @@
 	<div class="content">
 
 		{#each $members as user}
-			<HalfCard main={user.nom} sub={user.rôle} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></HalfCard>
+			<HalfCard main={user.nom} sub={user.rôle} contact={user.contact} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></HalfCard>
 		{/each}
 	</div>
 
@@ -29,7 +29,7 @@
 
     .content {
 		display: grid;
-		grid-template-columns: repeat(1,1fr);
+		grid-template-columns: repeat(4,1fr);
 		gap:10px;
 		place-items: center;
 	}

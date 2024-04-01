@@ -13,7 +13,7 @@
 	<div class="content">
 
 		{#each $members.slice(0,4) as user}
-			<HalfCard main={user.nom} sub={user.rôle} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></HalfCard>
+			<HalfCard main={user.nom} sub={user.rôle} contact={user.contact} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></HalfCard>
 		{/each}
 	</div>
 	
