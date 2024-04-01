@@ -9,7 +9,7 @@
 
 <div class="main">
 
-	<h1>Les events</h1>
+	<h1><a class="action" href={"/events"}>Les events<i class="ph ph-caret-right"></i></a></h1>
 
 	<div class="content">
 		<!-- {#each $events.slice(0,2) as event}
@@ -18,9 +18,9 @@
 		<DoubleCardEvent icone="" sub={$events[0].emplacement} main={$events[0].nom} date={new Date($events[0].date)}></DoubleCardEvent>
 	</div>
 	
-	<div class="action">
+	<!-- <div class="action">
 		<Button href={"/events"}>Voir plus</Button>
-	</div>
+	</div> -->
 
 </div>
 
@@ -40,8 +40,17 @@
 	}
 
 	.action {
-		display: grid;
-		place-items: center;
+		text-decoration: unset;
+		color:var(--text);
+		display: flex;
+		gap:8px;
+		transition: 0.5s;
+		align-items: center;
+
+	}
+
+	.action:hover{
+		gap: 24px;
 	}
 
 </style>

@@ -19,7 +19,7 @@
 
 <div class="main">
 
-	<h1>Les salles</h1>
+	<h1><a class="action" href={"/events"}>Les salles<i class="ph ph-caret-right"></i></a></h1>
 
 	<div class="content">
 
@@ -29,9 +29,6 @@
 		{/each}
 	</div>
 	
-	<div class="action">
-		<Button href={"/salles"}>Voir plus</Button>
-	</div>
 
 </div>
 
@@ -51,8 +48,17 @@
 	}
 
 	.action {
-		display: grid;
-		place-items: center;
+		text-decoration: unset;
+		color:var(--text);
+		display: flex;
+		gap:8px;
+		transition: 0.5s;
+		align-items: center;
+
+	}
+
+	.action:hover{
+		gap: 24px;
 	}
 
 </style>

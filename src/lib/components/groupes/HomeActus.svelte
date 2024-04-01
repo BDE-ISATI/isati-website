@@ -7,7 +7,7 @@
 
 <div class="main">
 
-	<h2>Les articles</h2>
+	<h1><a class="action" href={"/events"}>Les articles<i class="ph ph-caret-right"></i></a></h1>
 
 	<button class="left" on:click={()=>scrolling.scrollBy(-200,0)}><i class="ph ph-caret-circle-left"></i></button>
 	<div class="content" bind:this={scrolling}>
@@ -21,9 +21,6 @@
 	</div>
 	
 	<button class="right" on:click={()=>scrolling.scrollBy(200,0)}><i class="ph ph-caret-circle-right"></i></button>
-	<div class="action">
-		<Button href="/articles">Voir plus</Button>
-	</div>
 
 	
 
@@ -33,7 +30,7 @@
 
 	.right,.left{
 		position: absolute;
-		top:105px;
+		top:120px;
 		font-size: 30px;
 		border: none;
 		background-color: transparent;
@@ -77,9 +74,19 @@
 	}
 
 	.action {
-		display: grid;
-		place-items: center;
+		text-decoration: unset;
+		color:var(--text);
+		display: flex;
+		gap:8px;
+		transition: 0.5s;
+		align-items: center;
+
 	}
+
+	.action:hover{
+		gap: 24px;
+	}
+
 
 	@media (max-width : 900px) {
 		.right,.left{
