@@ -98,21 +98,15 @@
 	}
 
     .content {
-		/* display: block;
-		width: 100%; */
 		display: grid;
 		grid-template-columns: repeat(2,1fr);
-		gap:10px;
-
-
+		gap:30px;
+		place-items: center;
 	}
 
 	@media (max-width : 720px) {
 		.content {
-			display: grid;
 			grid-template-columns: repeat(1,1fr);
-			gap:10px;
-			place-items: center;
 		}
 	}
 

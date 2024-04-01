@@ -202,6 +202,7 @@ export class articleEditorStructure extends editorItems {
             "update-date" : {type:"text",editable:false},
             "nom" : {type:"text",editable:true},
             "categorie" : {type:"text",editable:true},
+            "description" : {type:"text",editable:true},
             "article" : {type:"texteditor",bucket:articleBucket,editable:true},
         }
 

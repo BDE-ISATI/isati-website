@@ -28,7 +28,8 @@ export type articlesType = {
     nom:string,
     "release-date":string,
     "update-date":string,
-    categorie:string
+    categorie:string,
+    description:string
 }[]
 
 export const events:Writable<events> = writable([]);
