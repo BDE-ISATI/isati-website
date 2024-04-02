@@ -5,7 +5,7 @@ export default class EmbedCustom extends Embed {
   static get toolbox() {
     return {
       title: 'Embed',
-      icon: '<i class="ph ph-frame-corners"></i>'
+      icon: '<i class="ph-fill ph-frame-corners"></i>'
     };
   }
 

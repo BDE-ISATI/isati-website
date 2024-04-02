@@ -3,7 +3,7 @@
 
 </script>
 <div class="header">
-	<Logo></Logo>
+	<a href="/"><Logo></Logo></a>
 </div>
 
 <style>

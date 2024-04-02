@@ -14,7 +14,7 @@
 
 <a href={`/article?id=${id}`} class="container">
 
-	<i class="ph ph-arrow-square-in"></i>
+	<i class="ph-fill ph-arrow-square-in"></i>
 
 	<div class="content">
 		<span class="main">{main}</span>

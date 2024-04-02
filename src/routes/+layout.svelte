@@ -43,22 +43,22 @@
 	{
 		title: 'Accueil',
 		route: '/',
-		class: 'ph ph-house',
+		class: 'ph-fill ph-house',
 	},
 	{
 		title: 'Events',
 		route: '/events',
-		class: 'ph ph-calendar',
+		class: 'ph-fill ph-calendar',
 	},
 	{
 		title: 'Salles',
 		route: '/salles',
-		class: 'ph ph-graduation-cap',
+		class: 'ph-fill ph-graduation-cap',
 	},
 	{
 		title: 'Articles',
 		route: '/articles',
-		class: 'ph ph-newspaper',
+		class: 'ph-fill ph-newspaper',
 	},
 ]
 
@@ -199,6 +199,6 @@
 	}
 
 	#content {
-		height: calc(100% - 80px);
+		height: calc(100% - 64px);
 	}
 </style>

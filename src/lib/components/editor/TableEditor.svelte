@@ -45,11 +45,11 @@
 				{/each}
 				<td>
 					<ButtonIcon on:click={() => {selected.set(item)}}>
-						<i class="ph ph-pencil-simple"></i>
+						<i class="ph-fill ph-pencil-simple"></i>
 					</ButtonIcon>
 				</td><td>
 					<ButtonIcon on:click={async () => {await data.delete(i);data=data}}>
-						<i class="ph ph-trash"></i>
+						<i class="ph-fill ph-trash"></i>
 					</ButtonIcon>
 				</td>
 			</tr>

@@ -101,6 +101,7 @@ label,input,select,textarea {
     font-family: "Nanami";
     color : var(--text);
 }
+
 input,select,textarea{
     padding:10px;
     outline: unset;
@@ -122,4 +123,9 @@ a {
 }
 a:hover {
     color:var(--secondary);
+}
+
+a{
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
 }

@@ -17,7 +17,7 @@
 <a href={article} class="container">
 
 	{#if article}
-		<i class="ph ph-arrow-square-in"></i>
+		<i class="ph-fill ph-arrow-square-in"></i>
 	{/if}
 
 	<div class="content">
@@ -26,7 +26,8 @@
 	</div>
 	<div class="content2">
 		<div class="date">
-			<span class="journ">{date.getDate()}</span>
+			<span class="jour"></span>
+			<span class="journ">{jours[date.getDay()-1].slice(0,3)} {date.getDate()}</span>
 			<span class="mois">{months[date.getMonth()]}</span>
 		</div>
 		
@@ -124,6 +125,7 @@
 		color:var(--text);
 		justify-content: center;
 		/* gap: 8px; */
+		min-width: 90px;
 	}
 	/* .container-ext{	
 		width:80px;

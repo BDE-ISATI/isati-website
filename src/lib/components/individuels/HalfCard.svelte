@@ -9,7 +9,7 @@
 <a class="container" href={contact} target="_blank">
 
 	{#if contact}
-		<i class="ph ph-arrow-square-in"></i>
+		<i class="ph-fill ph-arrow-square-in"></i>
 	{/if}
 
 	<div class="content">

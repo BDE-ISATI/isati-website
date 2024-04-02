@@ -24,9 +24,9 @@
     
     <nav id={id} class="menu-container">
         
-        <div class="menu-item logo">
-            <Logo></Logo>
-        </div>
+        <a href="/" class="menu-item logo">
+            <Logo color="white"></Logo>
+        </a>
 
         <div class="navigation">
             {#each menuItems as item }
@@ -42,7 +42,7 @@
 
 
 a {
-    color:var(--text);
+    color:var(--white);
     text-decoration: unset;
 }
 
@@ -59,7 +59,7 @@ i {
 .menu-container {
     position: relative;
 	transition: 0.3s;
-	color: var(--text);
+	color: var(--white) !important;
 
 	display: flex;
     justify-content: space-between;
@@ -93,13 +93,24 @@ i {
 }
 
 @media screen and (max-width: 720px) {
-    .item-title , .logo{
+
+    .menu-container{
+        padding:8px 16px;
+        /* width: calc(100% - 1px); */
+    }
+
+    .logo{
         display: none;
     }
 
     .navigation {
-        justify-content: space-between;
+        justify-content: space-around;
         gap:unset;
+    }
+
+    .menu-item{
+        flex-direction: column;
+        gap:0px;
     }
 }
 
