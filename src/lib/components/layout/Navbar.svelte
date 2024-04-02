@@ -110,7 +110,14 @@ i {
 
     .menu-item{
         flex-direction: column;
-        gap:0px;
+        gap:4px;
+    }
+
+    i {
+        font-size: 24px;    
+    }
+    .item-title {
+        --size: 16px;    
     }
 }
 

@@ -199,6 +199,6 @@
 	}
 
 	#content {
-		height: calc(100% - 64px);
+		height: calc(100% - 58.5px);
 	}
 </style>
