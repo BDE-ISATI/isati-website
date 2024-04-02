@@ -9,7 +9,7 @@
 
 <div class="main">
 
-	<h1><a class="action" href={"/events"}>Les events<i class="ph ph-caret-right"></i></a></h1>
+	<h1><a class="action" href={"/events"}>EVENTS<i class="ph ph-caret-right"></i></a></h1>
 
 	<div class="content">
 		<!-- {#each $events.slice(0,2) as event}

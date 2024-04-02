@@ -7,7 +7,7 @@
 
 <div class="main">
 
-	<h1><a class="action" href={"/articles"}>Les articles<i class="ph ph-caret-right"></i></a></h1>
+	<h1><a class="action" href={"/articles"}>ARTICLES<i class="ph ph-caret-right"></i></a></h1>
 
 	<button class="left" on:click={()=>scrolling.scrollBy(-200,0)}><i class="ph-fill ph-caret-circle-left"></i></button>
 	<div class="content" bind:this={scrolling}>
@@ -27,6 +27,12 @@
 </div>
 
 <style>
+
+	/* h1>a {
+		--size:36px;
+		font-size: var(--size) ;
+		padding-top:calc( var(--size) / 4);
+	} */
 
 	.right,.left{
 		position: absolute;
@@ -80,7 +86,7 @@
 		gap:8px;
 		transition: 0.5s;
 		align-items: center;
-
+		
 	}
 
 	.action:hover{

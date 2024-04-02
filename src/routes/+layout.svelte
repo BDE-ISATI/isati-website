@@ -94,7 +94,7 @@
 			{/key}
 			<Footer></Footer>
 		</div>
-		<Navbar menuItems={items}></Navbar>
+		<Navbar actual={data.pathname} menuItems={items}></Navbar>
 	</div>
 {/if}
 <style scoped>
@@ -147,21 +147,8 @@
 		gap: 12px;
 	}
 
-	div.app {
-		flex-direction: column-reverse;
-		height: 100dvh;
-		display: flex;
-	}
 
-	@media (max-width : 720px) {
-		div.app{
-			flex-direction: column;
-		}
-		#router {
-			/* min-height: calc( 100% - 100px ); */
-		}
-	}
-
+	
 	#content {
 		overflow:auto;
 		display: block;
@@ -171,11 +158,12 @@
 		overflow: overlay;
 	}
 	#router {
+		min-height: calc( 100dvh - 60px );
 		position: relative;
 		padding: 40px 20px;
 		margin: auto;
+		margin-top: 60px;
 		width: clamp(100px, calc(100% - 40px), 700px);
-		min-height: calc( 100% - 100px - 16px * 4 );
 	}
 
 	:global(#menu) {
@@ -198,7 +186,13 @@
 		height: 80px;
 	}
 
-	#content {
-		height: calc(100% - 58.5px);
+	@media (max-width : 720px) {
+		#router {
+			margin-top: 0px;
+			min-height: calc( 100dvh );
+
+		}
 	}
+
+
 </style>

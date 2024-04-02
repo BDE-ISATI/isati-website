@@ -8,7 +8,7 @@
 
 <div class="main">
 
-	<h1><a class="action" href={"/equipe"}>L'équipe<i class="ph ph-caret-right"></i></a></h1>
+	<h1><a class="action" href={"/equipe"}>ÉQUIPE<i class="ph ph-caret-right"></i></a></h1>
 
 	<div class="content">
 

@@ -19,7 +19,7 @@
 
 <div class="main">
 
-	<h1><a class="action" href={"/salles"}>Les salles<i class="ph ph-caret-right"></i></a></h1>
+	<h1><a class="action" href={"/salles"}>SALLES<i class="ph ph-caret-right"></i></a></h1>
 
 	<div class="content">
 

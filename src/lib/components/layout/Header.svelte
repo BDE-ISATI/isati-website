@@ -4,6 +4,10 @@
 </script>
 <div class="header">
 	<a href="/"><Logo></Logo></a>
+	<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1255 303" fill="currentColor">
+		<path d="M0 0H1255V230.5C1255 230.5 1093 302.5 627.5 302.5C162 302.5 0 230.5 0 230.5V0Z" fill="currentColor"/>
+	</svg>
+		
 </div>
 
 <style>
@@ -12,10 +16,34 @@
 		height: 50px;
 		display:none;
 		padding: 16px;
-		/* position: sticky; */
+		
 		justify-content: center;
 		z-index: 50;
 		/* background-color: var(--primary); */
+	}
+
+	.header>a{
+		z-index: 1;
+	}
+
+	svg {
+		height: 100px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		z-index: 0;
+		display: block;
+	}
+
+	svg > path{
+		fill:var(--primary);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		svg > path{
+			fill:#171717;
+		}
 	}
 
 	.content {
