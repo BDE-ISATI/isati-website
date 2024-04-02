@@ -32,6 +32,8 @@
                 {:else}
                     <TexteEditor editorItems={data} key={key}></TexteEditor>
                 {/if}
+            {:else if data.structure[key].type == "number"} 
+                <input type="number" bind:value={$selected[key]} id={key} >
             {:else} 
                 <input bind:value={$selected[key]} id={key} >
             {/if}
