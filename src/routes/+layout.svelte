@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Header from "$lib/components/layout/Header.svelte"
 	import { fade  } from 'svelte/transition';
-	// import {ipp} from "instagram-profile-picture"
 
 	export let data
 
@@ -14,6 +13,15 @@
 	
 	let retour = ""
 	let loaded = 0
+
+	import { afterNavigate } from '$app/navigation';
+
+
+	afterNavigate(() => {
+		((path) => {
+			document.getElementById('content')?.scrollTo(0, 0);
+		})(data.pathname)
+	})
 
 	onMount(async() =>{
 		$events = (await (await fetch(apiUri + "events")).json())["data"]
@@ -80,16 +88,9 @@
 		<div id="content">
 			<Header></Header>
 			{#key data.pathname}
-				
 				<div id="router" in:fade={{ duration: 1000}}>
 					<slot></slot>
 				</div>
-			
-			<!-- {#if data.pathname != "/"}
-				<a class="bouton-flottant" href={retour}>
-					<i class="ph ph-arrow-circle-left"></i>
-				</a>
-				{/if} -->
 			{/key}
 			<Footer></Footer>
 		</div>

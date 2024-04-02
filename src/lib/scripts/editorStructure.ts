@@ -185,8 +185,7 @@ export class articleEditorStructure extends editorItems {
         return super.save(item)
     }
 
-    async fetch(selected:editorItem,key:string) : Promise<Object>{
-        const id = selected.ID
+    async fetch(id:string,key:string) : Promise<Object>{
         const bucket = this.structure[key].bucket
 
         return (await fetch(bucket+id+".json",{cache: "no-cache"})).json()

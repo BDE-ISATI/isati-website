@@ -7,7 +7,9 @@
     
     export let selected:Writable<editorItem|undefined>
     export let data:editorItems
-	
+
+    let id = $selected.ID
+
 </script>
 
 <div class="container">
@@ -20,16 +22,17 @@
             {:else if data.structure[key].type == "date" }
                 <input type="date" bind:value={$selected[key]} id={key} >
             {:else if data.structure[key].type == "texteditor" }
-                {#if $selected.ID}
-                    {#await data.fetch($selected,key)}
+                {#if id}
+                    {#await data.fetch(id,key)}
                         loading
                     {:then datajson}
                         <TexteEditor editorItems={data} key={key} importedData={datajson}></TexteEditor>
                     {/await}
+                    
                 {:else}
                     <TexteEditor editorItems={data} key={key}></TexteEditor>
                 {/if}
-            {:else}
+            {:else} 
                 <input bind:value={$selected[key]} id={key} >
             {/if}
         {/if}
