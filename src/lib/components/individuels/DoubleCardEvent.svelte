@@ -27,7 +27,7 @@
 	<div class="content2">
 		<div class="date">
 			<span class="journ">{date.getDate()}</span>
-			<span class="mois">{months[date.getMonth()-1]}</span>
+			<span class="mois">{months[date.getMonth()]}</span>
 		</div>
 		
 		<add-to-calendar-button on:click={(e) => {e.preventDefault()}}
