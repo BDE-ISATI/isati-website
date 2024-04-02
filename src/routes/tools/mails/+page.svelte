@@ -4,8 +4,9 @@
     import { Template2 } from "$lib/scripts/canvas";
     import type { configuration } from "$lib/scripts/canvas";
 
-    let rôle = "Responsable Audiovisuel"
-    let personnes = "DAMIEN VAILLAND"
+    let rôle = "Responsable"
+    let personnes = "Prénom Nom"
+    let mail = "pole@isati.org"
 
     let canvas : HTMLCanvasElement|undefined = undefined
 
@@ -22,11 +23,12 @@
         temp2 = new Template2(config)
     })
 
+    let mailSize = 80
     let subtitleSize = 150
     let titleSize = 225;
 
 
-    $:( async (personnes,rôle) => {
+    $:( async (personnes,rôle,mail) => {
         temp2.clear()
         await temp2.drawBackground()
 
@@ -39,9 +41,11 @@
             y+=titleSize
         }
 
+        temp2.drawTexte(mail,4750,1170,'Nanami',mailSize,"1","#ffffff","right")
+
         temp2.drawTexte(rôle,3900,y,'Nanami',subtitleSize,"1","#D82B2B","right")
 
-    })(personnes,rôle)
+    })(personnes,rôle,mail)
 
 </script>
 
@@ -58,6 +62,9 @@
         <label for="personnes">Personnes</label>
         <textarea id="personnes" bind:value={personnes}></textarea>
 
+        <label for="mail">Mail</label>
+        <textarea id="mail" bind:value={mail}></textarea>
+        
     </form>
     <Button on:click={() => temp2.download()}>Télécharger</Button>
 
