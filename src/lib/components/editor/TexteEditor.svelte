@@ -25,6 +25,7 @@
     export let importedData:EditorJS.OutputData  = {blocks: []}
 
 
+
     function createEditor() {
         
         editordiv.innerHTML = ""
@@ -118,7 +119,7 @@
                         createEditor()
                     }
                 });
-                reader.readAsText(input.files[0]);
+                reader.readAsText(input.files[0],'ISO-8859-1');
             }  
         }
 
@@ -126,6 +127,9 @@
 
         input.remove()  
     }
+
+    $:console.log(importedData)
+
 
 </script>
 

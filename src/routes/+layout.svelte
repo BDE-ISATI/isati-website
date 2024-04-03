@@ -12,7 +12,7 @@
     import Footer from "$lib/components/layout/Footer.svelte";
 	
 	let retour = ""
-	let loaded = 0
+	let loaded = false
 
 	import { afterNavigate } from '$app/navigation';
 
@@ -23,20 +23,16 @@
 		})(data.pathname)
 	})
 
-	onMount(async() =>{
-		$events = (await (await fetch(apiUri + "events")).json())["data"]
-		loaded += 1
-		$members = (await (await fetch(apiUri + "members")).json())["data"]
-		loaded += 1
-		$salles = (await (await fetch(apiUri + "salles/events")).json())["data"]
-		loaded += 1
-		$articles = (await (await fetch(apiUri + "articles")).json())["data"]
-		loaded += 1
+	let f1 = fetch(apiUri + "events").then((r) => {return r.json()}).then((r) => {$events = r["data"]})
+	let f2 = fetch(apiUri + "members").then((r) => {return r.json()}).then((r) => {$members = r["data"]})
+	let f3 = fetch(apiUri + "salles/events").then((r) => {return r.json()}).then((r) => {$salles = r["data"]})
+	let f4 = fetch(apiUri + "articles").then((r) => {return r.json()}).then((r) => {$articles = r["data"]})
 
-		let temp = window.location.pathname.split("/")
-		temp.splice(-1)
-		retour = window.location.origin +  "/" + temp.join("/")
-	})
+	Promise.all([f1, f2, f3, f4]).then((r) => { loaded = true })
+
+	let temp = window.location.pathname.split("/")
+	temp.splice(-1)
+	retour = window.location.origin +  "/" + temp.join("/")
 
 
 	const items = [
@@ -72,7 +68,7 @@
 	<meta name="description" content="Site internet de L'Isati, BDE de l'ESIR.">
 </svelte:head>
 
-{#if loaded < 4}
+{#if !loaded}
 	<div id="loader" out:fade={{ duration: 1000}}>
 		<div class="logoloading">
 			<img width="90" height="90" src="/isati.svg" style="position:absolute"/>
@@ -81,7 +77,7 @@
 				<path d="M2 12C2 6.47715 6.47715 2 12 2V5C8.13401 5 5 8.13401 5 12H2Z" fill="currentColor" />
 			</svg>
 		</div>
-		<span>{loaded/4*100} %</span>
+		<!-- <span>{loaded/4*100} %</span> -->
 	</div>
 {:else}
 	<div class="app">
