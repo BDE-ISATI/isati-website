@@ -13,6 +13,6 @@
   "type": "module",
   "dependencies": {
     "sharp": "^0.33.2",
-    "vite": "^5.1.4"
+    "vite": "^5.1.7"
   }
 }
