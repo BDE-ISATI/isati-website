@@ -62,7 +62,7 @@
 		height: 45px;
 		font-size: 36px;
 		font-weight: 600;
-		padding-top:5px;
+		/* padding-top:5px; */
 		background-color: unset;
 	}
 

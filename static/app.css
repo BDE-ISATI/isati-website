@@ -2,10 +2,12 @@
 
 @font-face {
     font-family: "LeagueSpartan";
-    src: url('/LeagueSpartan.ttf');
-    
+    src: url('/LeagueSpartan/Variable-TT/LeagueSpartan-VF.ttf');
 }
 
+h1,h2,h3,h4,h5,h6{
+    /* transform: translateY(15%); */
+}
 
 
 :root {

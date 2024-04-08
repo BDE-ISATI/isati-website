@@ -57,7 +57,8 @@ footer {
     background-color: var(--white);
     box-shadow: var(--shadow);
     width:20px;
-    aspect-ratio: 1/1;
+    height:20px;
+    /* aspect-ratio: 1/1; */
     display: block;
     border-radius: 50%;
     padding: 16px;

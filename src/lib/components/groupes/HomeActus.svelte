@@ -31,7 +31,6 @@
 	/* h1>a {
 		--size:36px;
 		font-size: var(--size) ;
-		padding-top:calc( var(--size) / 4);
 	} */
 
 	.right,.left{
