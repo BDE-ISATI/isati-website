@@ -40,9 +40,17 @@
 		fill:var(--primary);
 	}
 
+	a{
+		color : var(--white);
+	}
+
 	@media (prefers-color-scheme: dark) {
 		svg > path{
 			fill:#171717;
+		}
+
+		a{
+			color : var(--primary);
 		}
 	}
 

@@ -54,7 +54,8 @@
 	}
 	
 	.icon.text {
-		padding:5px 0 0 0;
+		/* padding:5px 0 0 0; */
+		line-height: 0;
 		height: 35px;
 		background-color: unset;
 		font-size: 36px;

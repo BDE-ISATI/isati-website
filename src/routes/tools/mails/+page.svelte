@@ -78,7 +78,7 @@
 
 <style>
     canvas {
-        /* aspect-ratio: 1/1; */
+        height: auto;
         width: 100%;
     }
 
