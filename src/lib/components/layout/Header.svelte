@@ -49,9 +49,6 @@
 			fill:#171717;
 		}
 
-		a{
-			color : var(--primary);
-		}
 	}
 
 	.content {

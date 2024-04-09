@@ -105,7 +105,7 @@
     
     @media screen and (max-width: 720px) {
         .selected{
-            color:var(--primary);
+            color:var(--primary) !important;
         }
         .menu-container{
             border-radius: 32px 32px 0px 0px ;

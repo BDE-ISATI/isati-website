@@ -148,11 +148,11 @@
 		overflow: overlay;
 	}
 	#router {
-		min-height: calc( 100dvh - 60px );
+		min-height: calc( 100dvh - 85px );
 		position: relative;
 		padding: 40px 20px;
 		margin: auto;
-		margin-top: 60px;
+		margin-top: 85px;
 		width: clamp(100px, calc(100% - 40px), 700px);
 	}
 

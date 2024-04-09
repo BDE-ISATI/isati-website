@@ -21,13 +21,34 @@
             </a>
         {/each}
     </div>
-    <span>Hébergé sur AWS</span>
-    <span>Technologies : Svelte et editorjs </span>
 
-    <span>Isati © {(new Date()).getFullYear()}</span>
+    <h4>Technologies utilisés</h4>
+    <span>Hébergé sur AWS</span>
+    <span>Svelte et editorjs </span>
+
+    
+    <h4>Avec le soutien</h4>
+    <div class="univs">
+        <img src="/logo/ESIR.svg">
+        <img src="/logo/UR1.svg">
+    </div>
+    
+    <h4>Isati © {(new Date()).getFullYear()}</h4>
 </footer>
 
 <style>
+
+.univs{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:16px;
+    width: 200px;
+    place-items: center;
+}
+
+.univs > img{
+    width: 100%;
+}
 
 footer {
     margin-top:64px;
