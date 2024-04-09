@@ -22,7 +22,7 @@
         {/each}
     </div>
 
-    <h4>Technologies utilisés</h4>
+    <h4>Technologies utilisées</h4>
     <span>Hébergé sur AWS</span>
     <span>Svelte et editorjs </span>
 
