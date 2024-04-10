@@ -12,7 +12,7 @@
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({content:`# Destinataire : ${nom}\n## Contact : ${contact}\n\n${msg}`}),
+            body: JSON.stringify({content:`# Destinateur : ${nom}\n## Contact : ${contact}\n\n${msg}`}),
         })
         if (response.status == 204) {
             alert("Message Envoyé, merci 🙂")
