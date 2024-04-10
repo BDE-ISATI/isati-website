@@ -15,7 +15,11 @@
 		<!-- {#each $events.slice(0,2) as event}
 			<LargeCard icone="" sub={event.emplacement} main={event.nom} date={(new Date(event.date)).toDateString()}></LargeCard>
 		{/each} -->
-		<DoubleCardEvent icone="" sub={$events[0].emplacement} main={$events[0].nom} date={new Date($events[0].date)}></DoubleCardEvent>
+		{#if $events.length == 0}
+			<span>Aucun event à venir 😞</span>
+		{:else}
+			<DoubleCardEvent icone="" sub={$events[0].emplacement} main={$events[0].nom} date={new Date($events[0].date)}></DoubleCardEvent>
+		{/if}
 	</div>
 	
 	<!-- <div class="action">

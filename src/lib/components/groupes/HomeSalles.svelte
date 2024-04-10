@@ -23,10 +23,15 @@
 
 	<div class="content">
 
-		{#each $salles.vacant.slice(0,2) as salle}
-			<!-- {JSON.stringify(salle)} -->
-			<LargeCard main={salleFormat(salle.type,salle.salleID)} sub={"Libre jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></LargeCard>
-		{/each}
+		{#if $salles.vacant.length == 0}
+			<span>Aucune salle de libre 😞</span>
+		{:else}
+			{#each $salles.vacant.slice(0,2) as salle}
+				<LargeCard main={salleFormat(salle.type,salle.salleID)} sub={"Libre jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></LargeCard>
+			{/each}
+		{/if}
+
+		
 	</div>
 	
 

@@ -69,11 +69,7 @@
 </svelte:head>
 
 {#if !loaded}
-	<div id="loader" out:fade={{ duration: 1000}}>
-		<div class="logoloading">
-			<iframe width="600px" height="600px" frameborder=0 style="max-width: 100%; overflow:hidden;" src="/animation.html">
-		</div>
-	</div>
+	<iframe out:fade={{ duration: 1000}} id="loader" title="loader" frameborder=0 src="/animation.html"></iframe>
 {:else}
 	<div class="app">
 		<div id="content">
