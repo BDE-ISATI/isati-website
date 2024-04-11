@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Header from "$lib/components/layout/Header.svelte"
 	import { fade  } from 'svelte/transition';
-
+	import "../app.css";
+	
 	export let data
 
     import { onMount } from "svelte";
@@ -60,8 +61,6 @@
 
 
 </script>
-
-<!-- {ipp("tom.cvl")} -->
 
 <svelte:head>
 	<title>Isati BDE</title>

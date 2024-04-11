@@ -11,19 +11,9 @@
     export let id : string = ""
     export let actual:string
 
-    let show = false;
+</script>
 
-    function invert_show() {
-        show=!show;
-        let menu_classes = document.querySelector(".menu-container")?.classList;
-
-        if (show) menu_classes?.add("hide");
-        else menu_classes?.remove("hide");
-    }
-
-    </script>
-    
-    <nav id={id} class="menu-container">
+    <nav id={id} class="menu-container w-full">
         
         <a href="/" class="menu-item logo">
             <Logo color="white"></Logo>
@@ -75,7 +65,6 @@
         background-color: var(--primary);
         user-select: none;
         padding:16px;
-        width: calc(100% - 32px);
         gap:16px;
     }
     

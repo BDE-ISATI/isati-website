@@ -28,7 +28,7 @@
 
 <div class="main">
 
-	<h1>Les events</h1>
+	<h1 class="uppercase text-3xl font-bold">Les events</h1>
 
 	<div class="content">
 		{#each $events as event}

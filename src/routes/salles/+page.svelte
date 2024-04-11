@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LargeCard from "$lib/components/individuels/LargeCard.svelte";
+	import Card from "$lib/components/individuels/Card.svelte";
 
 	import { salles } from "$lib/store";
 
@@ -18,57 +18,32 @@
 
 </script>
 
-<div class="main">
+<div>
 
-	<h1>Les salles</h1>
+	<h1 class="text-3xl font-bold">LES SALLES</h1>
 	
-	<h2>Les salles libres</h2>
+	<h2 class="text-2xl font-bold">Les salles libres</h2>
 
-	<div class="content">
+	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1 md:grid-cols-2">
 		{#each $salles.vacant as salle}
-			<LargeCard main={salleFormat(salle.type,salle.salleID)} sub={"Libre jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></LargeCard>
+			<Card main={salleFormat(salle.type,salle.salleID)} sub={"Libre jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></Card>
 		{/each}
 	</div>
 	
-	<h2>Les salles occupées</h2>
+	<h2 class="text-2xl font-bold">Les salles occupées</h2>
 
-	<div class="content">
+	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1 md:grid-cols-2">
 		{#each $salles.occupied as salle}
-			<LargeCard main={salleFormat(salle.type,salle.salleID)} sub={"Occupé jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></LargeCard>
+			<Card main={salleFormat(salle.type,salle.salleID)} sub={"Occupé jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></Card>
 		{/each}
 	</div>
 
-	<h2>Les salles sans status</h2>
+	<h2 class="text-2xl font-bold">Les salles sans status</h2>
 
-	<div class="content">
+	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1 md:grid-cols-2">
 		{#each $salles.none as salle}
-			<LargeCard main={salleFormat(salle.type,salle.salleID)} sub={""} icone_text={salle.batimentID}></LargeCard>
+			<Card main={salleFormat(salle.type,salle.salleID)} sub={""} icone_text={salle.batimentID}></Card>
 		{/each}
 	</div>
 </div>
 
-<style>
-
-	.main {
-		display: flex;
-		flex-direction: column;
-		gap:15px;
-	}
-
-    .content {
-		display: grid;
-		grid-template-columns: repeat(2,1fr);
-		gap:10px;
-		place-items: center;
-	}
-
-	@media (max-width : 720px) {
-		.content {
-			display: grid;
-			grid-template-columns: repeat(1,1fr);
-			gap:10px;
-			place-items: center;
-		}
-	}
-
-</style>

@@ -14,7 +14,7 @@
     
 </script>
 
-<footer>
+<footer class="w-full">
     <a href="/tools">Nos outils</a>
     <a href="https://forms.gle/tPL5Txmq9Qb5t2Pn6" target="_blank">Nous soumettre votre article</a>
     
@@ -76,7 +76,6 @@ hr {
 footer {
     margin-top:64px;
     background-color: var(--container);
-    width: calc(100% - 32px);
     padding:48px 16px;
     display: flex;
     flex-direction: column;

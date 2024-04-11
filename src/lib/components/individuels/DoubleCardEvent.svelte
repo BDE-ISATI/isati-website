@@ -1,5 +1,6 @@
 <script lang="ts">
 	import 'add-to-calendar-button';
+    import Dropdown from './Dropdown.svelte';
 
 	export let main:string
 	export let sub:string|undefined
@@ -14,8 +15,7 @@
 	let months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
 </script>
 
-<a href={article} class="container">
-
+<a href={article} class="relative flex flex-col justify-between w-[20rem] gap-4 rounded-3xl bg-[var(--container)] text-[var(--text)] text-[0.8125rem] leading-5 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10  p-4">
 	{#if article}
 		<i class="ph-fill ph-arrow-square-in"></i>
 	{/if}
@@ -31,9 +31,9 @@
 			<span class="mois">{months[date.getMonth()]}</span>
 		</div>
 		
-		<add-to-calendar-button on:click={(e) => {e.preventDefault()}}
+		<!-- <add-to-calendar-button on:click={(e) => {e.preventDefault()}}
 			name={main}
-			options="'Apple','Google','iCal','Outlook.com','Yahoo','Microsoft365','MicrosoftTeams'"
+			options="'Apple','Google','Outlook.com'"
 			location={sub}
 			startDate={date.toLocaleDateString().split("/").reverse().join("-")}
 			endDate={date.toLocaleDateString().split("/").reverse().join("-")}
@@ -44,7 +44,9 @@
 			lightMode="system"
 			language="fr"
 			>
-		</add-to-calendar-button>
+		</add-to-calendar-button> -->
+
+		<Dropdown></Dropdown>
 
 	</div>
 </a>

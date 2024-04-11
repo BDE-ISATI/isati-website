@@ -7,7 +7,7 @@
 
 <div class="main">
 
-	<h1><a class="action" href={"/articles"}>ARTICLES<i class="ph ph-caret-right"></i></a></h1>
+	<h1 class="uppercase text-3xl font-bold"><a class="text-[var(--text)]" href={"/articles"}>ARTICLES<i class="ph align-text-bottom ph-caret-right"></i></a></h1>
 
 	<button class="left" on:click={()=>scrolling.scrollBy(-200,0)}><i class="ph-fill ph-caret-circle-left"></i></button>
 	<div class="content" bind:this={scrolling}>

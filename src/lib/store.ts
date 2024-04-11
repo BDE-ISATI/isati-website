@@ -2,9 +2,9 @@ import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 
 type salles = {
-    vacant:{salleID:string,batimentID:string,until:number}[]
-    occupied:{salleID:string,batimentID:string,until:number}[]
-    none:{salleID:string,batimentID:string}[]
+    vacant:{salleID:string,batimentID:string,until:number,type:string}[]
+    occupied:{salleID:string,batimentID:string,until:number,type:string}[]
+    none:{salleID:string,batimentID:string,type:string}[]
 }
 
 type members = {

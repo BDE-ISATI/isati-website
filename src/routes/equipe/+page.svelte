@@ -1,46 +1,20 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
-	import HalfCard from "$lib/components/individuels/HalfCard.svelte";
+	import Card from "$lib/components/individuels/Card.svelte";
 
 	import { members } from "$lib/store";
 
 </script>
 
-<div class="main">
+<div>
 
-	<h1>L'équipe</h1>
+	<h1 class="uppercase text-3xl font-bold">L'équipe</h1>
 
-	<div class="content">
+	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1 md:grid-cols-2">
 
 		{#each $members as user}
-			<HalfCard main={user.nom} sub={user.rôle} contact={user.contact} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></HalfCard>
+			<Card main={user.nom} sub={user.rôle} href={user.contact} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></Card>
 		{/each}
 	</div>
 
 </div>
-
-<style>
-
-	.main {
-		display: flex;
-		flex-direction: column;
-		gap:15px;
-	}
-
-    .content {
-		display: grid;
-		grid-template-columns: repeat(4,1fr);
-		gap:10px;
-		place-items: center;
-	}
-
-	@media (max-width : 720px) {
-		.content {
-			display: grid;
-			grid-template-columns: repeat(2,1fr);
-			gap:10px;
-			place-items: center;
-		}
-	}
-
-</style>

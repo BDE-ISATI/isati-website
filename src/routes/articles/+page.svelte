@@ -18,7 +18,7 @@
 
 <div class="main">
 
-	<h1>Les articles {categorie ? `- ${categorie}` : ""}</h1>
+	<h1 class="uppercase text-3xl font-bold">Les articles {categorie ? `- ${categorie}` : ""}</h1>
 
 	<div class="content">
 		{#each filtered_article as article}
