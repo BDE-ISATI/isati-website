@@ -58,9 +58,9 @@ onMount(async () => {
     
       <h1>Panel Admin</h1>
       <label>Login</label>
-      <input bind:value={email}>
+      <input class="bg-container-800" bind:value={email}>
       <label>Password</label>
-      <input type="password" bind:value={password}>
+      <input class="bg-container-800" type="password" bind:value={password}>
       <Button on:click={send}>Connexion</Button>
     
   {:else}
@@ -90,7 +90,6 @@ onMount(async () => {
 }
 
 form input {
-  background-color: var(--container);
   border: 0;
   width: calc(100% - 32px);
 

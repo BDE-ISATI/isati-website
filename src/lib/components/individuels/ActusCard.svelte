@@ -3,54 +3,6 @@
 	export let href : string|undefined
 </script>
 
-<a href={href} class="container">
-	<div class="content">
-		<span>{text}</span>
-	</div>
-	<!-- <img src={url} alt={text}> -->
+<a href={href} class="select-none relative grid place-items-center w-48 h-24 rounded-3xl bg-container-800 text-[var(--text)] leading-none shadow-md shadow-black/5 ring-1 ring-slate-700/10  p-4">
+	<span class="text-2xl font-medium leading-none">{text}</span>
 </a>
-
-<style>
-
-	.container {
-		position: relative;
-		display: block;
-		width : 200px;
-		height: 100px;
-		border-radius: 26px;
-		overflow: hidden;
-		box-shadow: var(--shadow);
-		background-color: var(--container);
-		user-select: none;
-	}
-
-	.content {
-		position: absolute;
-		top:0;
-		left:0;
-		background-color: rgba(0, 0, 0, 0.35);
-		width: 100%;
-		height: 100%;
-		z-index: 1;
-		display: grid;
-		place-items: center;
-		
-	}
-
-	.content > span {
-		color:var(--white);
-		font-size: 28px;
-		text-align: center;
-	}
-
-	img {
-		height: 100%;
-		width : 100%;
-		top: 0;
-		left:0;
-		position: absolute;
-		object-fit: cover;
-	}
-
-
-</style>

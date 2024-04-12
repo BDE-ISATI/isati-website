@@ -1,30 +1,12 @@
 <script lang="ts">
 
 	export let href : string | undefined = undefined
+	export let target: string | undefined = undefined
+	export let color: string | undefined = undefined
 
 </script>
 
-{#if href}
-	<a on:click href={href}><slot></slot></a>
-{:else}
-	<button on:click><slot></slot></button>
-{/if}
-<style>
 
-button,a {
-	background-color:var(--alternatif);
-	border:unset;
-
-	box-shadow: var(--shadow);
-	border-radius: 26px;
-	font-weight: 600;
-	font-size: 16px;
-	display: grid;
-	place-items: center;
-	user-select: none;
-
-	width: 40px;
-	height: 40px;
-}
-
-</style>
+<a href={href} target={target} style={`color:#${color}`||null} on:click class="text-[var(--text)] size-12 rounded-full bg-container-700 p-3 shadow-sm ring-1 ring-black ring-opacity-5">
+	<slot></slot>
+</a>

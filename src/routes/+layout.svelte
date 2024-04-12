@@ -1,7 +1,11 @@
 <script lang="ts">
 	import Header from "$lib/components/layout/Header.svelte"
 	import { fade  } from 'svelte/transition';
+	import "../app.css";
 
+	import "@phosphor-icons/web/fill"
+	import "@phosphor-icons/web/regular"
+	
 	export let data
 
     import { onMount } from "svelte";
@@ -15,6 +19,7 @@
 	let loaded = false
 
 	import { afterNavigate } from '$app/navigation';
+    import Animation from "$lib/components/individuels/Animation.svelte";
 
 
 	afterNavigate(() => {
@@ -58,10 +63,7 @@
 	},
 ]
 
-
 </script>
-
-<!-- {ipp("tom.cvl")} -->
 
 <svelte:head>
 	<title>Isati BDE</title>
@@ -69,13 +71,15 @@
 </svelte:head>
 
 {#if !loaded}
-	<iframe out:fade={{ duration: 1000}} id="loader" title="loader" frameborder=0 src="/animation.html"></iframe>
+	<div id="loader" class="w-full h-dvh text-[var(--white)] bg-primary grid place-items-center z-10 absolute" out:fade={{ duration: 1000}}>
+		<Animation></Animation>
+	</div>
 {:else}
 	<div class="app">
-		<div id="content">
+		<div id="content" class="overflow-x-hidden overflow-y-auto">
 			<Header></Header>
 			{#key data.pathname}
-				<div id="router" in:fade={{ duration: 1000}}>
+				<div class="relative max-w-screen-md mt-0 mx-auto px-4 py-4 md:pt-32 min-h-dvh" in:fade={{ duration: 1000}}>
 					<slot></slot>
 				</div>
 			{/key}
@@ -84,101 +88,3 @@
 		<Navbar actual={data.pathname} menuItems={items}></Navbar>
 	</div>
 {/if}
-<style scoped>
-	#loader {
-		transition: opacity 1s;
-		display:flex;
-		justify-content:center;
-		flex-direction: column;
-		text-align: center;
-		position: absolute;
-		z-index: 50000;
-		height: 100%;
-		width:100%;
-		background-color: var(--primary);
-		color:var(--white)
-	}
-
-	.logoloading {
-		display:grid;
-		place-items: center;
-	}
-
-	#loader svg.spinner{
-		animation-name: turn;
-		animation-duration: 1s;
-		animation-iteration-count: infinite;
-		animation-timing-function: linear;
-		height:150px;
-		width: 150px;
-	}
-
-	@keyframes turn {
-		from {transform: rotate(0deg);}
-		to {transform: rotate(360deg);}
-	}
-
-
-
-	.bouton-flottant{
-		position: fixed;
-		bottom: 24px;
-		right: 24px;
-		color:var(--text);
-		font-size: 48px;
-		text-decoration: none;
-		line-height: 0;
-		display: flex;
-		align-items: center;
-		gap: 12px;
-	}
-
-
-	
-	#content {
-		overflow:auto;
-		display: block;
-		position: relative;
-		margin:0;
-		width:calc( 100% );
-		overflow: overlay;
-	}
-	#router {
-		min-height: calc( 100dvh - 85px );
-		position: relative;
-		padding: 40px 20px;
-		margin: auto;
-		margin-top: 85px;
-		width: clamp(100px, calc(100% - 40px), 700px);
-	}
-
-	:global(#menu) {
-		min-width: 200px;
-		float: left;
-
-	}	
-
-	#topbar {
-		width: unset;
-		height: 40px;
-		padding: 20px;
-	}
-
-	
-
-	:global(#menu) {
-		border-right:unset;
-		width: unset;
-		height: 80px;
-	}
-
-	@media (max-width : 720px) {
-		#router {
-			margin-top: 0px;
-			min-height: calc( 100dvh );
-
-		}
-	}
-
-
-</style>

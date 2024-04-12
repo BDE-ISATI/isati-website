@@ -1,5 +1,6 @@
 <script lang="ts">
 	import 'add-to-calendar-button';
+    import Dropdown from './Dropdown.svelte';
 
 	export let main:string
 	export let sub:string|undefined
@@ -14,26 +15,24 @@
 	let months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
 </script>
 
-<a href={article} class="container">
-
+<a href={article} class="relative flex flex-col justify-between w-[20rem] gap-4 rounded-3xl bg-container-800 text-[var(--text)] text-[0.8125rem] leading-5 text-slate-900 shadow-md shadow-black/5 ring-1 ring-slate-700/10  p-4">
 	{#if article}
-		<i class="ph-fill ph-arrow-square-in"></i>
+		<i class="size-4 ph-fill ph-arrow-square-in absolute top-3 right-3"></i>
 	{/if}
 
-	<div class="content">
-		<span class="main">{main}</span>
-		<span class="sub">{sub}</span>
+	<div class="flex gap-4">
+		<span class="text-[var(--text)] inline-block font-bold">{main}</span>
+		<span class="text-[var(--text)] inline-block">{sub}</span>
 	</div>
-	<div class="content2">
+	<div class="flex gap-4">
 		<div class="date">
-			<span class="jour"></span>
-			<span class="journ">{jours[date.getDay()-1].slice(0,3)} {date.getDate()}</span>
-			<span class="mois">{months[date.getMonth()]}</span>
+			<span class="text-[var(--text)] text-4xl">{jours[date.getDay()-1].slice(0,3)} {date.getDate()}</span>
+			<span class="text-[var(--text)] text-base">{months[date.getMonth()]}</span>
 		</div>
 		
-		<add-to-calendar-button on:click={(e) => {e.preventDefault()}}
+		<!-- <add-to-calendar-button on:click={(e) => {e.preventDefault()}}
 			name={main}
-			options="'Apple','Google','iCal','Outlook.com','Yahoo','Microsoft365','MicrosoftTeams'"
+			options="'Apple','Google','Outlook.com'"
 			location={sub}
 			startDate={date.toLocaleDateString().split("/").reverse().join("-")}
 			endDate={date.toLocaleDateString().split("/").reverse().join("-")}
@@ -44,114 +43,9 @@
 			lightMode="system"
 			language="fr"
 			>
-		</add-to-calendar-button>
+		</add-to-calendar-button> -->
+
+		<Dropdown title={"Ajouter"} icon={"ph-calendar-plus"} options={[{"libelle":"Google Calendar",action:()=>{}},{"libelle":"Microsoft Calendar",action:()=>{}}]}></Dropdown>
 
 	</div>
 </a>
-
-<style>
-
-	.container {
-		user-select: none;
-		width: calc(320px - 40px);
-		height: calc(150px - 40px);
-		border-radius: 26px;
-		-moz-border-radius : 26px;
-		box-shadow: var(--shadow);
-		padding:20px;
-		background-color: var(--container);
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-evenly ;
-		text-decoration: unset;
-	}
-
-	.container > * {
-		display: flex;
-		align-items: center;
-	}
-
-	.ph-arrow-square-in{
-		position: absolute;
-		top:20px;
-		right:20px;
-		color:var(--text);
-	}
-	
-	.content, .content2 {
-		display: flex;
-		align-items: center;
-		gap:16px;
-	}
-
-	.content2{
-		justify-content: space-between;
-	}
-	
-	/* .icon.text {
-		padding:5px 0 0 0;
-		height: 35px;
-		background-color: unset;
-		font-size: 36px;
-		font-weight: 600;
-		place-items: center;
-	} */
-
-	span {
-		color:var(--text);
-		display: block;
-		
-	}
-
-	span.main {
-		margin: 0;
-		font-weight: 600;
-		font-size: 16px;
-		line-height: 15px;
-	}
-
-	span.sub {
-		margin: 0;
-		font-weight: 300;
-		font-size: 12px;
-		line-height: 15px;
-	}
-
-	.date {
-		font-size: 16px;
-		display: flex;
-		flex-direction: column;
-		color:var(--text);
-		justify-content: center;
-		/* gap: 8px; */
-		min-width: 90px;
-	}
-	/* .container-ext{	
-		width:80px;
-	}
-	 */
-	.date .journ{
-		font-size: 36px;
-	}
-
-	/* .addto {
-		font-size: 16px;
-		display: flex;
-		flex-direction: column;
-		color:var(--text);
-		justify-content: center;
-		gap: 4px;
-		text-decoration: unset;
-		text-align: center;
-		background-color: var(--primary);
-		padding: 16px;
-		border-radius: 16px;
-		width: 100%;
-	}
-
-	.addto i {
-		font-size: 32px;
-	} */
-
-</style>
