@@ -7,7 +7,7 @@
 
 </script>
 
-<div class="main">
+<div class="flex relative gap-4 flex-col">
 
 	<h1 class="uppercase text-3xl font-bold mb-2"><a class="text-[var(--text)]" href={"/events"}>EVENTS<i class="ph align-text-bottom ph-caret-right"></i></a></h1>
 

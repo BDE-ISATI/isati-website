@@ -13,7 +13,7 @@
 
 </script>
 
-    <nav id={id} class="menu-container w-full">
+    <nav id={id} class="menu-container w-full bg-container-800 md:bg-primary ">
         
         <a href="/" class="menu-item logo">
             <Logo color="white"></Logo>
@@ -62,7 +62,7 @@
         display: flex;
         justify-content: space-between;
         
-        background-color: var(--primary);
+        /* background-color: var(--primary); */
         user-select: none;
         padding:16px;
         gap:16px;
@@ -92,14 +92,13 @@
         color:var(--secondary);
     }
     
-    @media screen and (max-width: 720px) {
+    @media screen and (max-width: 767px) {
         .selected{
             color:var(--primary) !important;
         }
         .menu-container{
             border-radius: 32px 32px 0px 0px ;
             padding:8px 16px;
-            background-color: var(--container);
             box-shadow: var(--shadow);
             top:unset;
             bottom: 0;

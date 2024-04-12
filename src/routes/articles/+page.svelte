@@ -16,7 +16,7 @@
 
 
 
-<div class="main">
+<div class="flex relative gap-4 flex-col">
 
 	<h1 class="uppercase text-3xl font-bold">Les articles {categorie ? `- ${categorie}` : ""}</h1>
 
@@ -44,7 +44,7 @@
 		place-items: center;
 	}
 
-	@media (max-width : 720px) {
+	@media (max-width : 767px) {
 		.content {
 			grid-template-columns: repeat(1,1fr);
 		}

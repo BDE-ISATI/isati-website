@@ -6,7 +6,7 @@
 
 </script>
 
-<div>
+<div class="flex relative gap-4 flex-col">
 
 	<h1 class="uppercase text-3xl font-bold">L'équipe</h1>
 

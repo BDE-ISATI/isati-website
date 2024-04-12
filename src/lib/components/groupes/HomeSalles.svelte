@@ -17,7 +17,7 @@
 	}
 </script>
 
-<div class="main">
+<div class="flex relative gap-4 flex-col">
 
 	<h1 class="uppercase text-3xl font-bold mb-2"><a class="text-[var(--text)]" href={"/salles"}>SALLES<i class="align-text-bottom ph ph-caret-right"></i></a></h1>
 
@@ -31,8 +31,5 @@
 			{/each}
 		{/if}
 
-		
 	</div>
-	
-
 </div>

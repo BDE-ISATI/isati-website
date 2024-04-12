@@ -23,30 +23,11 @@
     }
 </script>
 
-<div>
-    <label>Votre nom</label>
-    <input bind:value={nom}>
-    <label>Vous recontacter</label>
-    <input bind:value={contact} >
-    <label>Votre message</label>
-    <textarea bind:value={msg} rows="10"></textarea>
-    <Button on:click={send}>Envoyer</Button>
+<div class="flex flex-col gap-2">
+    <div class="flex gap-2">
+        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" placeholder="nom" bind:value={nom}>
+        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" placeholder="mail ou réseau social" bind:value={contact} >
+    </div>
+    <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" placeholder="Votre message" bind:value={msg} rows="10"></textarea>
+    <Button on:click={send} icone="ph-fill ph-paper-plane-tilt">Envoyer</Button>
 </div>
-
-<style>
-    
-    div {
-        display: flex;
-        flex-direction: column;
-        gap:8px;
-        width: 300px;;
-    }
-    textarea{
-        flex:1;
-        
-        resize: none;
-        outline: unset;
-        border: unset;
-        color : var(--text);
-    }
-</style>

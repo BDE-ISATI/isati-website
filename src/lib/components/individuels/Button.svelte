@@ -1,31 +1,14 @@
 <script lang="ts">
 
 	export let href : string | undefined = undefined
+	export let icone : string | undefined = undefined
 
 </script>
 
-{#if href}
-	<a on:click href={href}><slot></slot></a>
-{:else}
-	<button on:click><slot></slot></button>
-{/if}
-<style>
 
-button,a {
-	background-color:var(--alternatif);
-	border:unset;
-	color: var(--background);
-	text-decoration: unset;
-	box-shadow: var(--shadow);
-	border-radius: 26px;
-	font-weight: 600;
-	font-size: 16px;
-	display: grid;
-	place-items: center;
-	user-select: none;
-
-	width: 180px;
-	height: 40px;
-}
-
-</style>
+<a on:click href={href} class="flex justify-center gap-4 align-middle font-medium text-xl shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-none focus:outline hover:bg-container-700/50 transition" on:click>
+	<slot></slot>
+	{#if icone}
+		<i class="ph-fill {icone}"></i>
+	{/if}
+</a>
