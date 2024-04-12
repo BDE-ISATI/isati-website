@@ -2,6 +2,12 @@
 	import Header from "$lib/components/layout/Header.svelte"
 	import { fade  } from 'svelte/transition';
 	import "../app.css";
+	import "@phosphor-icons/web/thin"
+	import "@phosphor-icons/web/regular"
+	import "@phosphor-icons/web/bold"
+	import "@phosphor-icons/web/duotone"
+	import "@phosphor-icons/web/light"
+	import "@phosphor-icons/web/fill"
 	
 	export let data
 

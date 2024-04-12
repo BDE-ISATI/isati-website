@@ -13,7 +13,6 @@
 <style>
 
 	.header {
-		height: 50px;
 		display:none;
 		padding: 16px;
 		
