@@ -15,12 +15,12 @@
     --tertiary  : #FFE5E6;
     
     --white     : #FFFFFF;
-    --grey     : #F1F1F1;
+    --mygrey     : #F1F1F1;
     --black     : #121212;
     --dark      : #262626;
     
     --background : var(--white);
-    --container  : var(--grey);
+    --container  : var(--mygrey);
     --alternatif : var(--black );
     --text       : var(--black);
     
@@ -43,7 +43,7 @@ html,body {
     background-color: var(--background);
     color: var(--text);
 }
-
+/*
 *,input {
     font-family: "LeagueSpartan";
     
@@ -77,35 +77,35 @@ table tr {
 table img {
     height: 100%;
 }
-
-.ce-block--drop-target .ce-block__content:before {
-    /* Avoids a bug when dragging over the arrow */
-    pointer-events: none;
-  }
-  
-  .ce-block--drop-target .ce-block__content:after {
-    /* Hides the default dashes */
-    background: none;
-  }
-  
-  .ce-block--drop-target
-    .ce-block__content[style*='border-top: 1px dashed rgb(170, 170, 170);']:before {
-    /* The fragile rule that moves the arrow, not only for the first element but all elements above the source */
-    top: 0;
-  }
-
-  form {
-    gap:10px;
-    display: flex;
-    flex-direction: column;
-}
-
-label,input,select,textarea {
-    /* font-size: 20px; */
-    font-family: "Nanami";
-    color : var(--text);
-}
-
+*/
+/*.ce-block--drop-target .ce-block__content:before {
+/*    /* Avoids a bug when dragging over the arrow */
+/*    pointer-events: none;
+/*  }
+/*  
+/*  .ce-block--drop-target .ce-block__content:after {
+/*    /* Hides the default dashes */
+/*    background: none;
+/*  }
+/*  
+/*  .ce-block--drop-target
+/*    .ce-block__content[style*='border-top: 1px dashed rgb(170, 170, 170);']:before {
+/*    /* The fragile rule that moves the arrow, not only for the first element but all elements above the source */
+/*    top: 0;
+/*  }
+/*
+/*  form {
+/*    gap:10px;
+/*    display: flex;
+/*    flex-direction: column;
+/*}
+/*
+/*label,input,select,textarea {
+/*    /* font-size: 20px; */
+/*    font-family: "Nanami";
+/*    color : var(--text);
+/*}
+/*
 input,select,textarea{
     padding:10px;
     outline: unset;
@@ -132,4 +132,4 @@ a:hover {
 a{
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-tap-highlight-color: transparent;
-}
+} */

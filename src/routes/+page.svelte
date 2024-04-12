@@ -5,7 +5,7 @@
 	import HomeActus from "$lib/components/groupes/HomeActus.svelte";
 </script>
 
-<div class="container grid gap-8">
+<div class="container grid gap-8 grid-cols-2">
 	<HomeEvents></HomeEvents>
 	<HomeSalles></HomeSalles>
 	<HomeActus></HomeActus>
@@ -13,10 +13,6 @@
 </div>
 
 <style>
-
-	.container {
-		grid-template-columns: repeat(2, 1fr);
-	}
 
 	.container > :global(:nth-child(1)) { grid-area: 1 / 1 / 2 / 2; }
 	.container > :global(:nth-child(2)) { grid-area: 1 / 2 / 2 / 3; }
