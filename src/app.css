@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "LeagueSpartan";
+    src: url('/fonts/LeagueSpartan.ttf');
+}
+
+@font-face {
+    font-family: "NanamiBlack";
+    src: url('/fonts/Nanami-Heavy.otf');
+}
+
+@font-face {
+    font-family: "Nanami";
+    src: url('/fonts/Nanami-Light.otf');
+}
+
+
+@layer base {
+    .font-outline {
+        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.25);
+    }
+    :root {
+      --color-primary  : 216 43 43;
+      --color-secondary: 255 163 163;
+      --color-tertiary : 255 229 230;
+
+      --color-container-600 : 215 215 215;
+      --color-container-700 : 228 228 228;
+      --color-container-800 : 242 242 242;
+      --color-container-900 : 255 255 255;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {   
+            --color-container-600 : 48 48 48;
+            --color-container-700 : 37 37 37;
+            --color-container-800 : 27 27 27;
+            --color-container-900 : 18 18 18;
+        }
+    }
+}
+
+
+:root {
+    --primary   : rgb(216, 43, 43);
+    --secondary : rgb(255, 163, 163);
+    
+    --white     : rgb(255, 255, 255);
+    --mygrey     : #F1F1F1;
+    --black     : #121212;
+    --dark      : #262626;
+
+
+
+
+
+    --background : var(--white);
+    --container  : var(--mygrey);
+    --alternatif : var(--black );
+    --text       : var(--black);
+    
+    --shadow     : 0px 0px 10px rgba(0, 0, 0, 0.13);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --secondary : #771f1f;
+        --background : var(--black);
+        --container  : var(--dark );
+        --alternatif : var(--white);
+        --text       : var(--white);
+        --shadow     : 0px 0px 10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+html,body {
+    background-color: rgb( var(--color-container-900) );
+    color: var(--text);
+    font-family: "LeagueSpartan";
+}
