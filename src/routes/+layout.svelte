@@ -9,7 +9,7 @@
 	export let data
 
     import { onMount } from "svelte";
-	import { apiUri } from "$lib/config";
+	import { apiUri, articleBucket, imgBucket } from "$lib/config";
 	import {events,members,salles,articles} from "$lib/store"
     import Button from "$lib/components/individuels/Button.svelte";
     import Navbar from "$lib/components/layout/Navbar.svelte";
@@ -68,6 +68,7 @@
 <svelte:head>
 	<title>Isati BDE</title>
 	<meta name="description" content="Site internet de L'Isati, BDE de l'ESIR.">
+
 </svelte:head>
 
 {#if !loaded}

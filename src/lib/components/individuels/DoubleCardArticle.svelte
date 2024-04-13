@@ -1,6 +1,4 @@
 <script lang="ts">
-	import 'add-to-calendar-button';
-
 	export let main:string
 	export let description:string|undefined
 	export let categorie:string

@@ -9,7 +9,7 @@
 
 	<h1 class="uppercase text-3xl font-bold"><a class="text-[var(--text)]" href={"/articles"}>ARTICLES<i class="ph align-text-bottom size-10 ph-caret-right"></i></a></h1>
 
-	<button class="absolute top-24 text-4xl left-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(-300,0)}><i class="ph ph-caret-circle-left"></i></button>
+	<button class="hidden md:block absolute top-24 text-4xl left-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(-300,0)}><i class="ph ph-caret-circle-left"></i></button>
 
 	<div class="overflow-y-hidden overflow-x-scroll scroll-smooth" style="scrollbar-width: none" bind:this={scrolling}>
 		<div class="flex gap-4 w-fit py-4 px-1">
@@ -20,6 +20,6 @@
 		</div>
 	</div>
 	
-	<button class="absolute top-24 text-4xl right-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(300,0)}><i class="ph ph-caret-circle-right"></i></button>
+	<button class="hidden md:block absolute top-24 text-4xl right-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(300,0)}><i class="ph ph-caret-circle-right"></i></button>
 
 </div>

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import 'add-to-calendar-button';
     import Dropdown from './Dropdown.svelte';
 
 	export let main:string
