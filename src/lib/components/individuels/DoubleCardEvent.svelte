@@ -15,18 +15,29 @@
 
 
 	function googleAgenda() {
-		let dateF = date.toLocaleDateString().split("/").reverse().join("")
+
+		let j = date.getDate().toString()
+		j = j.length == 1 ? "0"+j : j
+		let m = ( date.getMonth() + 1 ).toString()
+		m = m.length == 1 ? "0"+m : m
+		let y = date.getFullYear().toString()
+
 		window.open(
-			`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${dateF}T000000/${dateF}T235900&ctz=Europe/Paris&text=${main}&location=${sub}`,
+			`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${y}${m}${j}T000000/${y}${m}${j}T235900&ctz=Europe/Paris&text=${main}&location=${sub}`,
 			"_blank"
 		)
 	}
 
 	function microsoftAgenda() {
-		let dateF = date.toLocaleDateString().split("/").reverse().join("-")
+
+		let j = date.getDate().toString()
+		j = j.length == 1 ? "0"+j : j
+		let m = ( date.getMonth() + 1 ).toString()
+		m = m.length == 1 ? "0"+m : m
+		let y = date.getFullYear().toString()
 
 		window.open(
-			`https://outlook.live.com/calendar/deeplink/compose/?rru=addevent&startdt=${dateF}T00:00:00Z&allday=trueZ&subject=${main}&location=${sub}`,
+			`https://outlook.live.com/calendar/deeplink/compose/?rru=addevent&startdt=${y}-${m}-${j}T00:00:00Z&allday=trueZ&subject=${main}&location=${sub}`,
 			"_blank"
 		)
 	}
