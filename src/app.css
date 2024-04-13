@@ -81,3 +81,8 @@ html,body {
     color: var(--text);
     font-family: "LeagueSpartan";
 }
+
+html,:host {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}

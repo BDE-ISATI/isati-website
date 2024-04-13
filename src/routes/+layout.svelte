@@ -65,12 +65,6 @@
 
 </script>
 
-<svelte:head>
-	<title>Isati BDE</title>
-	<meta name="description" content="Site internet de L'Isati, BDE de l'ESIR.">
-
-</svelte:head>
-
 {#if !loaded}
 	<div id="loader" class="w-full h-dvh text-[var(--white)] bg-primary grid place-items-center z-20 absolute overflow-hidden" out:fade={{ duration: 1000}}>
 		<Animation></Animation>
