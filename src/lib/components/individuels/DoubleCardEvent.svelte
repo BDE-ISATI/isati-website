@@ -13,6 +13,24 @@
 
 	let jours = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"]
 	let months = ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"]
+
+
+	function googleAgenda() {
+		let dateF = date.toLocaleDateString().split("/").reverse().join("")
+		window.open(
+			`https://calendar.google.com/calendar/u/0/r/eventedit?dates=${dateF}T000000/${dateF}T235900&ctz=Europe/Paris&text=${main}&location=${sub}`,
+			"_blank"
+		)
+	}
+
+	function microsoftAgenda() {
+		let dateF = date.toLocaleDateString().split("/").reverse().join("-")
+
+		window.open(
+			`https://outlook.live.com/calendar/deeplink/compose/?rru=addevent&startdt=${dateF}T00:00:00Z&allday=trueZ&subject=${main}&location=${sub}`,
+			"_blank"
+		)
+	}
 </script>
 
 <a href={article} class="relative flex flex-col justify-between w-[20rem] gap-4 rounded-3xl bg-container-800 text-[var(--text)] text-[0.8125rem] leading-5 text-slate-900 shadow-md shadow-black/5 ring-1 ring-slate-700/10  p-4">
@@ -29,23 +47,8 @@
 			<span class="text-[var(--text)] text-4xl">{jours[date.getDay()-1].slice(0,3)} {date.getDate()}</span>
 			<span class="text-[var(--text)] text-base">{months[date.getMonth()]}</span>
 		</div>
-		
-		<!-- <add-to-calendar-button on:click={(e) => {e.preventDefault()}}
-			name={main}
-			options="'Apple','Google','Outlook.com'"
-			location={sub}
-			startDate={date.toLocaleDateString().split("/").reverse().join("-")}
-			endDate={date.toLocaleDateString().split("/").reverse().join("-")}
-			startTime="00:00"
-			endTime="23:59"
-			timeZone="Europe/Paris"
-			hideCheckmark
-			lightMode="system"
-			language="fr"
-			>
-		</add-to-calendar-button> -->
 
-		<Dropdown title={"Ajouter"} icon={"ph-calendar-plus"} options={[{"libelle":"Google Calendar",action:()=>{}},{"libelle":"Microsoft Calendar",action:()=>{}}]}></Dropdown>
+		<Dropdown title={"Ajouter"} icon={"ph-calendar-plus"} options={[{"libelle":"Google Calendar",action:googleAgenda},{"libelle":"Microsoft Calendar",action:microsoftAgenda}]}></Dropdown>
 
 	</div>
 </a>

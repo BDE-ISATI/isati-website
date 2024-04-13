@@ -71,7 +71,7 @@
 </svelte:head>
 
 {#if !loaded}
-	<div id="loader" class="w-full h-dvh text-[var(--white)] bg-primary grid place-items-center z-10 absolute" out:fade={{ duration: 1000}}>
+	<div id="loader" class="w-full h-dvh text-[var(--white)] bg-primary grid place-items-center z-20 absolute overflow-hidden" out:fade={{ duration: 1000}}>
 		<Animation></Animation>
 	</div>
 {:else}

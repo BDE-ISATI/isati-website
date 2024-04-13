@@ -48,26 +48,26 @@
 
 </script>
 
-<div class="main">
+<div class="grid gap-4 grid-cols-1">
 
     <div>
-        <canvas bind:this={canvas}></canvas>
+        <canvas class="w-full h-auto" bind:this={canvas}></canvas>
     </div>
     <form spellcheck="false">
 
         <label for="rôle">Rôle</label>
-        <input id="rôle" bind:value={rôle}>
+        <input id="rôle" class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" bind:value={rôle}>
         
         <label for="personnes">Personnes</label>
-        <textarea id="personnes" bind:value={personnes}></textarea>
+        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="personnes" bind:value={personnes}></textarea>
 
         <label for="mail">Mail</label>
-        <textarea id="mail" bind:value={mail}></textarea>
+        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="mail" bind:value={mail}></textarea>
         
     </form>
     <label for="res">Résolution de l'image</label>
     <p>1/1 = image net ; 1/10 = image compressé</p>
-    <select id="res" bind:value={f}>
+    <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="res" bind:value={f}>
         {#each [1,2,3,4,5,6,7,8,9,10] as v}
             <option value={v}>1/{v}</option>
         {/each}
@@ -75,19 +75,3 @@
     <Button on:click={() => temp2.download()}>Télécharger</Button>
 
 </div>
-
-<style>
-    canvas {
-        height: auto;
-        width: 100%;
-    }
-
-    .main {
-        width : clamp(0px,100%,1000px);
-        display: grid;
-        margin:auto;
-        grid-template-columns: repeat(1,1fr);
-        gap:10px;
-    }
-    
-</style>

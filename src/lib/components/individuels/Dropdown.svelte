@@ -9,29 +9,34 @@
     export let options: {"libelle":string,"icone"?:string,action:Function}[]
 
     let opened = false
-</script>
 
-<!-- <div class="dropbox">
-    <button class="relative" on:click={() => opened=!opened}>Ajouter au calendrier</button>
-    
-    {#if opened}
-        <ul class="fold" transition:scale={{ delay: 0, duration: 300 }}>
-            {#each options as option}
-            <li on:click={() => {opened=false;option.action}}>{option.value}</li>
-            {/each}
-        </ul>
-    {/if}
-</div> -->
+    function clickOutside(element, callbackFunction) {
+      function onClick(event) {
+        if (!element.contains(event.target)) {
+          callbackFunction();
+        }
+      }
+      
+      document.body.addEventListener('click', onClick);
+      
+      return {
+        update(newCallbackFunction) {
+          callbackFunction = newCallbackFunction;
+        },
+        destroy() {
+          document.body.removeEventListener('click', onClick);
+        }
+      }
+    }
+</script>
 
 <div class="relative inline-block text-left w-30">
     <div class="w-full">
-      <button on:click={() => opened=!opened} type="button" class="text-[var(--text)] flex w-full justify-center items-center gap-x-1.5 rounded-md bg-container-700 px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-black ring-opacity-5" id="menu-button" aria-expanded="true" aria-haspopup="true">
+      <button on:click={() => opened=!opened} use:clickOutside={() => {opened=false}}  type="button" class="text-[var(--text)] flex w-full justify-center items-center gap-x-1.5 rounded-md bg-container-700 px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-black ring-opacity-5" id="menu-button" aria-expanded="true" aria-haspopup="true">
         
-        <i class="ph-fill {icon} s-BbGST1k5acv4"></i>
+        <i class="ph-fill {icon} text-2xl"></i>
         {title}
-        <svg class="-mr-1 size-4 " viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-        </svg>
+        <i class="ph ph-caret-down"></i>
       </button>
     </div>
   

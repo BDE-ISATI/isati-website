@@ -80,25 +80,25 @@
     })(title,texte,files,variante)
 
 </script>
-<div class="main">
+<div class="grid gap-4 grid-cols-2">
 
     <div>
-        <canvas bind:this={canvas}></canvas>
+        <canvas class="w-full h-auto" bind:this={canvas}></canvas>
     </div>
     <form spellcheck="false">
 
         <label for="titre">Titre</label>
-        <input name="titre" bind:value={title}>
+        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="titre" bind:value={title}>
         <label for="image">Image</label>
-        <input name="image" type="file" bind:files={files}>
+        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="image" type="file" bind:files={files}>
 
 
         <label for="texte">Contenu</label>
-        <textarea name="texte" bind:value={texte} rows="11"  ></textarea>
+        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="texte" bind:value={texte} rows="11"  ></textarea>
 
         <label for="template">Template</label>
 
-        <select name="template" bind:value={variante}>
+        <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="template" bind:value={variante}>
             <option value="./demo.png">Fond Demo (ne pas utiliser, juste pour debug)</option>
             <option value="./templates/Template_1.png" selected={true}>Fond 1</option>
             <option value="./templates/Template_2.png">Fond 2</option>
@@ -107,21 +107,8 @@
         </select>
 
     </form>
-    <Button on:click={() => temp2.download()}>Télécharger</Button>
-
-</div>
-<style>
-    canvas {
-        width: 100%;
-        height: auto;
-    }
-
-    .main {
-        width : clamp(0px,100%,1000px);
-        display: grid;
-        margin:auto;
-        grid-template-columns: repeat(2,1fr);
-        gap:10px;
-    }
+    <div class="col-span-2">
+        <Button on:click={() => temp2.download()}>Télécharger</Button>
+    </div>
     
-</style>
+</div>

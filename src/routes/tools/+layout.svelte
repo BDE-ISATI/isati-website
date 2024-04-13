@@ -11,8 +11,6 @@
 <svelte:head>
     <title>ISATI BDE</title>
     <meta name="description" content="">
-    <link rel="stylesheet" href="./app.css">
-
 </svelte:head>
 
 
@@ -32,8 +30,7 @@
         </div>
     {/key}
     
-    <!-- <Footer></Footer> -->
-    
+
 </div>
 
 <style>

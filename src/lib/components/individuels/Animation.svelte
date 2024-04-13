@@ -19,4 +19,4 @@
 
 </script>
 
-<div bind:this={lottieDiv}></div>
+<div class="h-dvh w-full" bind:this={lottieDiv}></div>
