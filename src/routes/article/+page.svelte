@@ -58,4 +58,8 @@
 		line-height: 1.75rem; /* 28px */
 	}
 
+	:global(.article a[href]) {
+		color:var(--primary);
+	}
+
 </style>

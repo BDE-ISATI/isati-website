@@ -93,12 +93,11 @@
 
     async function save(){
         let outputData = await editor.save()
-        const url = "data:application/json;base64," + btoa(JSON.stringify(outputData));
-        let a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
+
+        var a = document.createElement("a");
+        var file = new Blob([JSON.stringify(outputData)], {type: 'text/plain'});
+        a.href = URL.createObjectURL(file);
         a.download = 'file.json';
-        document.body.appendChild(a);
         a.click();
         a.remove()
     }
@@ -119,7 +118,7 @@
                         createEditor()
                     }
                 });
-                reader.readAsText(input.files[0],'ISO-8859-1');
+                reader.readAsText(input.files[0],'UTF-8');
             }  
         }
 
@@ -127,9 +126,6 @@
 
         input.remove()  
     }
-
-    $:console.log(importedData)
-
 
 </script>
 
@@ -149,5 +145,40 @@
         color:black;
         border-radius: 16px;
         border: 1px solid var(--text);
+        z-index: 0;
     }
+
+    :global(#editorjs iframe) {
+		max-width: 100%;
+		margin:auto;
+	}
+
+	:global(#editorjs h1) {
+		font-size: 3rem; /* 48px */
+		line-height: 1;
+	}
+	:global(#editorjs h2) {
+		font-size: 2.25rem; /* 36px */
+		line-height: 2.5rem; /* 40px */
+	}
+	:global(#editorjs h3) {
+		font-size: 1.875rem; /* 30px */
+		line-height: 2.25rem; /* 36px */
+	}
+	:global(#editorjs h4) {
+		font-size: 1.5rem; /* 24px */
+		line-height: 2rem; /* 32px */
+	}
+	:global(#editorjs h5) {
+		font-size: 1.25rem; /* 20px */
+		line-height: 1.75rem; /* 28px */
+	}
+	:global(#editorjs h6) {
+		font-size: 1.125rem; /* 18px */
+		line-height: 1.75rem; /* 28px */
+	}
+
+	:global(#editorjs a[href]) {
+		color:var(--primary);
+	}
 </style>
