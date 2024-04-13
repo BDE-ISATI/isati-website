@@ -13,7 +13,7 @@
 
 </script>
 
-    <nav id={id} class="menu-container w-full bg-container-800 md:bg-primary ">
+    <nav id={id} class="menu-container w-full bg-container-800 md:bg-primary z-5">
         
         <a href="/" class="menu-item logo">
             <Logo color="white"></Logo>
@@ -58,7 +58,6 @@
         left: 0;
         transition: 0.3s;
         color: var(--white) !important;
-        z-index: 3000;
         display: flex;
         justify-content: space-between;
         
