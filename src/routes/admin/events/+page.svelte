@@ -12,4 +12,6 @@
 
 </script>
 
-<TableEditor data={events}></TableEditor>
+{#if events}
+	<TableEditor data={events}></TableEditor>
+{/if}
