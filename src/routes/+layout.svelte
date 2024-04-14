@@ -28,7 +28,7 @@
 		})(data.pathname)
 	})
 
-	let f1 = fetch(apiUri + "events").then((r) => {return r.json()}).then((r) => {$events = r["data"]})
+	let f1 = fetch(apiUri + "events?f=true").then((r) => {return r.json()}).then((r) => {$events = r["data"]})
 	let f2 = fetch(apiUri + "members").then((r) => {return r.json()}).then((r) => {$members = r["data"]})
 	let f3 = fetch(apiUri + "salles/events").then((r) => {return r.json()}).then((r) => {$salles = r["data"]})
 	let f4 = fetch(apiUri + "articles").then((r) => {return r.json()}).then((r) => {$articles = r["data"]})
