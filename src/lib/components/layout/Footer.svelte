@@ -44,7 +44,7 @@
         <UR1></UR1>
     </div>
 
-
+    <a class="text-center" href="/legals">Mentions Légales</a>
 
     
 </footer>
