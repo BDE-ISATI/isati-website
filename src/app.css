@@ -4,19 +4,31 @@
 
 @font-face {
     font-family: "LeagueSpartan";
-    src: url('/fonts/LeagueSpartan.ttf');
+    src: url('/fonts/LeagueSpartan/LeagueSpartan.ttf');
 }
 
 @font-face {
     font-family: "NanamiBlack";
-    src: url('/fonts/Nanami-Heavy.otf');
+    src: url('/fonts/Nanami/Nanami-Heavy.otf');
 }
 
 @font-face {
     font-family: "Nanami";
-    src: url('/fonts/Nanami-Light.otf');
+    src: url('/fonts/Nanami/Nanami-Light.otf');
 }
 
+@font-face {
+    font-family: "AzoSansUber";
+    src: url('/fonts/AzoSans/AzoSans-Uber.woff2');
+}
+@font-face {
+    font-family: "AzoSansBlack";
+    src: url('/fonts/AzoSans/AzoSans-Black.woff2');
+}
+@font-face {
+    font-family: "AzoSansBold";
+    src: url('/fonts/AzoSans/AzoSans-Bold.woff2');
+}
 
 @layer base {
     .font-outline {
