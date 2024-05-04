@@ -14,6 +14,7 @@
     let config:configuration
 
 
+
     let formatting = (input:string) => {
 
         return {
