@@ -1,7 +1,7 @@
 <script lang="ts">
     import Button from "$lib/components/individuels/Button.svelte";
     import { afterUpdate,beforeUpdate } from "svelte";
-    import { Template2 } from "$lib/scripts/canvas";
+    import { Template } from "$lib/scripts/canvas";
     import type { configuration } from "$lib/scripts/canvas";
 
     let rôle = "Responsable"
@@ -11,7 +11,7 @@
     let canvas : HTMLCanvasElement|undefined = undefined
 
     let f:number = 5;
-    let temp2:Template2
+    let temp2:Template
     let config:configuration
 
     $: mailSize = 80/f
@@ -20,12 +20,12 @@
 
     afterUpdate(() =>{
         config = {
-            backgroundURL:"./templates/signature_template.png",
+            backgroundURL:"./mails/signature_template.png",
             height:1204/f,
             width:4815/f,
             canvas:canvas!
         }
-        temp2 = new Template2(config)
+        temp2 = new Template(config)
     })
 
     beforeUpdate(async () =>{
