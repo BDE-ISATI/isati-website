@@ -6,14 +6,15 @@
 
     let titre = "LA $PHOTO$ DE LA SEMAINE"
     let subtitle = "LE LAVAGE (TERRIFIANT) DU FRIGO DU BDE"
-    let variante:string
 
     let canvas : HTMLCanvasElement|undefined = undefined
 
     let template:Template
     let config:configuration
 
-    let eventImage : Promise<HTMLImageElement>
+    let isatiIndex:string
+    let isatiImage : Promise<HTMLImageElement>
+    
     let files
 
     let formatting = (input:string) => {
@@ -29,18 +30,6 @@
             }
     }
 
-    let formatting2 = (input:string) => {
-        return {
-                fontSize:26,
-                fontWeight:500,
-                color:"#1d1d1d",
-                specialColor:"#dc2323",
-                fontFamily:'AzoSansBlack',
-                textAlign:"left",
-                output:input,
-                letterSpacing:-1
-            }
-    }  
 
     afterUpdate(() =>{
         config = {
@@ -50,6 +39,8 @@
             canvas:canvas!
         }
         template = new Template(config)
+        isatiImage = template.loadImage(`./postes/Isatis/${isatiIndex}.png`)
+
     })
 
     beforeUpdate(async () =>{
@@ -85,7 +76,9 @@
 
         await template.drawBackground()
         await template.drawFormattedTexte(titre,65,1080-65,150,formatting)
-        await template.drawFormattedTexte(subtitle,65,1080-65,950,formatting2)
+        await template.drawTexte(subtitle,1080-65,930,"AzoSansBlack",26,"500","#1d1d1d",-1,"right")
+
+        template.drawImage(await isatiImage,0, 1080-237 ,1080,237)
 
     })
 
@@ -107,7 +100,16 @@
         <label for="image">Image</label>
         <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="image" type="file" bind:files={files}>
     
-
+        <label for="date">Isati qui court</label>
+        <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="template" bind:value={isatiIndex}>
+            <option value="1" selected={true}>Isati 1</option>
+            <option value="2">Isati 2</option>
+            <option value="3">Isati 3</option>
+            <option value="4">Isati 4</option>
+            <option value="5">Isati 5</option>
+            <option value="6">Isati 6</option>
+            <option value="7">Isati 7</option>
+        </select>
     </form>
 
     <Button on:click={() => template.download()}>Télécharger</Button>
