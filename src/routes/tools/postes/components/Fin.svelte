@@ -12,6 +12,7 @@
 
     let template:Template
     let config:configuration
+    let isatiImage : Promise<HTMLImageElement>
 
     let formatting = (input:string) => {
         return {
@@ -47,6 +48,8 @@
             canvas:canvas!
         }
         template = new Template(config)
+        isatiImage = template.loadImage(`./postes/Isatis/7.png`)
+
     })
 
     beforeUpdate(async () =>{
@@ -56,6 +59,7 @@
         await template.drawBackground()
         await template.drawFormattedTexte(titre,65,1080-65,150,formatting)
         await template.drawFormattedTexte(subtitle,110,1080-65,415,formatting2)
+        await template.drawImage(await isatiImage,0, 1080-237 ,1080,237)
 
     })
 

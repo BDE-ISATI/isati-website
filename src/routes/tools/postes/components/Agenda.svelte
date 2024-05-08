@@ -12,6 +12,7 @@
         {"jour":"MER 17", "horaires"  : "18H - 21H", "nom":"AFTERWORK","lieu":"Cave à flo"}
     ]
     let variante:string
+    let isatiIndex:string
 
     let canvas : HTMLCanvasElement|undefined = undefined
 
@@ -19,6 +20,7 @@
     let config:configuration
 
     let eventImage : Promise<HTMLImageElement>
+    let isatiImage : Promise<HTMLImageElement>
 
     let formatting = (input:string) => {
         return {
@@ -69,6 +71,8 @@
         }
         template = new Template(config)
         eventImage = template.loadImage("./postes/Page 2 - Agenda/event.png")
+        isatiImage = template.loadImage(`./postes/Isatis/${isatiIndex}.png`)
+
     })
 
     beforeUpdate(async () =>{
@@ -84,12 +88,14 @@
             y = 540 + 116 * ( j * 1.25 + (events.length%2 == 0) * events.length * 0.25 )
 
             template.drawImage(await eventImage,1080-907, y ,907,116)
-
+            
             template.drawFormattedTexte(events[i].jour    ,225,1080,y+51,formatting2)
             template.drawFormattedTexte(events[i].nom     ,475,1080,y+51,formatting2)
-
+            
             template.drawFormattedTexte(events[i].horaires,225,1080,y+95,formatting3)
             template.drawFormattedTexte(events[i].lieu    ,475,1080,y+95,formatting3)
+
+            template.drawImage(await isatiImage,0, 1080-237 ,1080,237)
         }
 
     })
@@ -108,6 +114,17 @@
         
         <label for="date">Date</label>
         <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="date" bind:value={date}></textarea>
+        
+        <label for="date">Isati qui court</label>
+        <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="template" bind:value={isatiIndex}>
+            <option value="1" selected={true}>Isati 1</option>
+            <option value="2">Isati 2</option>
+            <option value="3">Isati 3</option>
+            <option value="4">Isati 4</option>
+            <option value="5">Isati 5</option>
+            <option value="6">Isati 6</option>
+            <option value="7">Isati 7</option>
+        </select>
 
     </form>
 

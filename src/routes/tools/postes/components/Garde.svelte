@@ -13,7 +13,9 @@
     let template:Template
     let config:configuration
 
+    let files
 
+    let isatiImage : Promise<HTMLImageElement>
 
     let formatting = (input:string) => {
 
@@ -37,15 +39,54 @@
             canvas:canvas!
         }
         template = new Template(config)
+        isatiImage = template.loadImage(`./postes/Isatis/1.png`)
+
     })
 
     beforeUpdate(async () =>{
         if (!template) return
         template.clear()
+
+        if (files) {
+            // load une image 
+            var fr = new FileReader();
+            let image = new Image()
+            fr.onload = function () {
+                image.src = fr.result as string
+            }
+            fr.readAsDataURL(files[0]);
+            // on la fit à une dimension précise
+
+            let nheight : number
+            let nwidth  : number
+
+            let imageP = new Promise<HTMLImageElement>((resolve,reject) =>{
+                image.onload = function (){
+
+                    if ( image.height < image.width ) {
+                        nheight = 810
+                        nwidth = image.width / image.height * nheight
+                    } 
+                    else {
+                        nwidth = 810 
+                        nheight =  image.height / image.width * nwidth
+                    }
+
+                    resolve(image)
+                }
+            })
+
+            await template.drawImage(await imageP,1080 - nwidth,210,nwidth,nheight)
+
+        }
+
         await template.drawBackground()
 
         let y = template.drawFormattedTexte(titre,65,1080-65,192,formatting)
         template.drawFormattedTexte(date,65,1080-65, y+66,formatting)
+
+        await template.drawImage(await isatiImage,0, 1080-237 ,1080,237)
+
     })
 
 </script>
@@ -63,6 +104,9 @@
         <label for="date">Date</label>
         <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="date" bind:value={date}></textarea>
         
+        <label for="image">Image</label>
+        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="image" type="file" bind:files={files}>
+
         <label for="variante">Variante</label>
 
         <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="template" bind:value={variante}>
