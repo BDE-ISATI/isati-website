@@ -6,7 +6,6 @@
     import { writable, type Writable } from "svelte/store";
     import EditeurRaw from "./EditeurRaw.svelte";
 
-	let dialog:HTMLDialogElement
     let selected:Writable<editorItem|undefined> = writable(undefined)
 
     export let data:editorItems
@@ -16,7 +15,6 @@
 		data = data
 		
 	}
-
 	
 </script>
 

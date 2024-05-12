@@ -20,7 +20,7 @@
 
 <div class="flex relative gap-4 flex-col">
 
-	<h1 class="uppercase text-3xl font-bold mb-2"><a class="text-[var(--text)] flex" href={"/salles"}>SALLES<CaretRight/></a></h1>
+	<h1 class="uppercase text-3xl font-bold"><a class="text-[var(--text)] flex" href={"/salles"}>SALLES<CaretRight/></a></h1>
 
 	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1">
 

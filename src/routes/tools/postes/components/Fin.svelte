@@ -3,6 +3,7 @@
     import { afterUpdate,beforeUpdate } from "svelte";
     import { Template } from "$lib/scripts/canvas";
     import type { configuration } from "$lib/scripts/canvas";
+    import Input from "$lib/components/individuels/Input.svelte";
 
     let titre = "PLUS D'INFOS DANS TES $MAILS$ !"
     let subtitle = "- MAIS J'AI RIEN REÇU ?\n- VÉRIFIE TES SPAMS ET ENVOIE TON MAIL EN MP !"
@@ -73,10 +74,10 @@
     <form spellcheck="false">
 
         <label for="titre">Titre</label>
-        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="titre" bind:value={titre}></textarea>
+        <Input type="textarea"   id="titre" bind:value={titre}/>
         
         <label for="subtitle">Subtitle</label>
-        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="subtitle" bind:value={subtitle}></textarea>
+        <Input type="textarea"   id="subtitle" bind:value={subtitle}/>
     </form>
 
     <Button on:click={() => template.download()}>Télécharger</Button>

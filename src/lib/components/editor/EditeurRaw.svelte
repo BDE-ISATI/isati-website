@@ -4,7 +4,7 @@
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
     import TexteEditor from "$lib/components/editor/TexteEditor.svelte";
     import { type Writable } from "svelte/store";
-    
+    import Input from "../individuels/Input.svelte";
     export let selected:Writable<editorItem|undefined>
     export let data:editorItems
 
@@ -18,9 +18,10 @@
             <label for={key}>{key}</label>
 
             {#if data.structure[key].type == "file" }
-                <input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} id={key} >
+                <Input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} id={key} /> ⚠️ Bug
             {:else if data.structure[key].type == "date" }
-                <input type="date" bind:value={$selected[key]} id={key} >
+                <Input type="date" bind:value={$selected[key]} id={key} />
+                
             {:else if data.structure[key].type == "texteditor" }
                 {#if id}
                     {#await data.fetch(id,key)}
@@ -33,9 +34,9 @@
                     <TexteEditor editorItems={data} key={key}></TexteEditor>
                 {/if}
             {:else if data.structure[key].type == "number"} 
-                <input type="number" bind:value={$selected[key]} id={key} >
+                <Input type="number" bind:value={$selected[key]} id={key} />
             {:else} 
-                <input bind:value={$selected[key]} id={key} >
+                <Input bind:value={$selected[key]} id={key} />
             {/if}
         {/if}
     {/each}
@@ -85,12 +86,5 @@
 		padding:16px;
 	}
 
-	input {
-		width: calc(100% - 32px);
-		color:var(--text);
-		background-color: #00000055;
-		border: unset;
-		padding:16px;
-	}
 
 </style>

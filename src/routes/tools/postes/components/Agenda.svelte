@@ -3,6 +3,7 @@
     import { afterUpdate,beforeUpdate } from "svelte";
     import { Template } from "$lib/scripts/canvas";
     import type { configuration } from "$lib/scripts/canvas";
+    import Input from "$lib/components/individuels/Input.svelte";
 
     let titre = "LES $ÉVENEMENTS$ DE LA SEMAINE"
     let date = "$15/04$"
@@ -111,13 +112,13 @@
     <form spellcheck="false">
 
         <label for="titre">Titre</label>
-        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="titre" bind:value={titre}></textarea>
+        <Input type="textarea"  id="titre" bind:value={titre}/>
         
         <label for="date">Date</label>
-        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="date" bind:value={date}></textarea>
+        <Input type="textarea"  id="date" bind:value={date}/>
         
         <label for="date">Isati qui court</label>
-        <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="template" bind:value={isatiIndex}>
+        <Input type="select"  bind:value={isatiIndex}>
             <option value="1" selected={true}>Isati 1</option>
             <option value="2">Isati 2</option>
             <option value="3">Isati 3</option>
@@ -125,7 +126,7 @@
             <option value="5">Isati 5</option>
             <option value="6">Isati 6</option>
             <option value="7">Isati 7</option>
-        </select>
+        </Input>
 
     </form>
 
