@@ -7,8 +7,6 @@
     src: url('/fonts/LeagueSpartan/LeagueSpartan.ttf');
 }
 
-
-
 @layer base {
     .font-outline {
         -webkit-text-stroke: 1px rgba(0, 0, 0, 0.25);
@@ -34,7 +32,6 @@
     }
 }
 
-
 :root {
     --primary   : rgb(216, 43, 43);
     --secondary : rgb(255, 163, 163);
@@ -43,10 +40,6 @@
     --mygrey     : #F1F1F1;
     --black     : #121212;
     --dark      : #262626;
-
-
-
-
 
     --background : var(--white);
     --container  : var(--mygrey);

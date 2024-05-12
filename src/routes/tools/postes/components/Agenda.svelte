@@ -12,14 +12,15 @@
         {"jour":"MER 17", "horaires"  : "18H - 21H", "nom":"AFTERWORK","lieu":"Cave à flo"}
     ]
     let variante:string
-    let isatiIndex:string
-
+    
     let canvas : HTMLCanvasElement|undefined = undefined
-
+    
     let template:Template
     let config:configuration
-
+    
     let eventImage : Promise<HTMLImageElement>
+        
+    let isatiIndex:string
     let isatiImage : Promise<HTMLImageElement>
 
     let formatting = (input:string) => {

@@ -72,8 +72,6 @@
             await template.drawImage(await imageP,(config.width-nwidth)/2,0,nwidth,nheight)
         }
 
-        
-
         await template.drawBackground()
         await template.drawFormattedTexte(titre,65,1080-65,150,formatting)
         await template.drawTexte(subtitle,1080-65,930,"AzoSansBlack",26,"500","#1d1d1d",-1,"right")

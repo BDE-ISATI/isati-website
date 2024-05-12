@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Button from "./Button.svelte";
+    import { PaperPlaneTilt } from "phosphor-svelte";
+import Button from "./Button.svelte";
 
     let nom = ""
     let contact = ""
@@ -29,5 +30,6 @@
         <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" placeholder="mail ou réseau social" bind:value={contact} >
     </div>
     <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" placeholder="Votre message" bind:value={msg} rows="10"></textarea>
-    <Button on:click={send} icone="ph-fill ph-paper-plane-tilt">Envoyer</Button>
+    <Button on:click={send} icon={PaperPlaneTilt}>Envoyer</Button>
+    
 </div>

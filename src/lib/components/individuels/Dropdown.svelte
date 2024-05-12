@@ -1,8 +1,9 @@
 <script lang="ts">
-
+  
+    import { CaretDown } from "phosphor-svelte"
     import { scale } from 'svelte/transition';
 
-    export let icon = "ph-calendar-plus"
+    export let icon
 
     export let title = "Ajouter"
 
@@ -33,10 +34,10 @@
 <div class="relative inline-block text-left w-30">
     <div class="w-full">
       <button on:click={() => opened=!opened} use:clickOutside={() => {opened=false}}  type="button" class="text-[var(--text)] flex w-full justify-center items-center gap-x-1.5 rounded-md bg-container-700 px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-black ring-opacity-5" id="menu-button" aria-expanded="true" aria-haspopup="true">
-        
-        <i class="ph-fill {icon} text-2xl"></i>
+        <svelte:component this={icon} class="text-2xl" weight="fill"/>
         {title}
-        <i class="ph ph-caret-down"></i>
+        <CaretDown/>
+
       </button>
     </div>
   

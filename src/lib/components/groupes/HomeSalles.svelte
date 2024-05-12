@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
 	import Card from "$lib/components/individuels/Card.svelte";
+	import { CaretRight } from "phosphor-svelte"
 
 	import { salles } from "$lib/store";
 
@@ -19,7 +20,7 @@
 
 <div class="flex relative gap-4 flex-col">
 
-	<h1 class="uppercase text-3xl font-bold mb-2"><a class="text-[var(--text)]" href={"/salles"}>SALLES<i class="align-text-bottom ph ph-caret-right"></i></a></h1>
+	<h1 class="uppercase text-3xl font-bold mb-2"><a class="text-[var(--text)] flex" href={"/salles"}>SALLES<CaretRight/></a></h1>
 
 	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1">
 
