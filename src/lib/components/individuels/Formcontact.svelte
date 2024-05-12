@@ -1,6 +1,7 @@
 <script lang="ts">
     import { PaperPlaneTilt } from "phosphor-svelte";
-import Button from "./Button.svelte";
+    import Button from "./Button.svelte";
+    import Input from "./Input.svelte";
 
     let nom = ""
     let contact = ""
@@ -26,10 +27,13 @@ import Button from "./Button.svelte";
 
 <div class="flex flex-col gap-2">
     <div class="flex gap-2">
-        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" placeholder="nom" bind:value={nom}>
-        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" placeholder="mail ou réseau social" bind:value={contact} >
+
+        <Input type="text" placeholder="nom" bind:value={nom}/>
+        <Input type="text" placeholder="mail ou réseau social" bind:value={contact}/>
+
     </div>
-    <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" placeholder="Votre message" bind:value={msg} rows="10"></textarea>
+    
+    <Input type="textarea" placeholder="Votre message" bind:value={msg}/>
     <Button on:click={send} icon={PaperPlaneTilt}>Envoyer</Button>
     
 </div>

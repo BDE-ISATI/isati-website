@@ -3,6 +3,7 @@
     import { afterUpdate,beforeUpdate } from "svelte";
     import { Template } from "$lib/scripts/canvas";
     import type { configuration } from "$lib/scripts/canvas";
+    import Input from "$lib/components/individuels/Input.svelte";
 
     let titre = "LES $ACTUS$ DE LA SEMAINE"
     let date = "$15/04$"
@@ -99,17 +100,17 @@
     <form spellcheck="false">
 
         <label for="titre">Titre</label>
-        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="titre" bind:value={titre}></textarea>
+        <Input type="textarea"  id="titre" bind:value={titre}/>
         
         <label for="date">Date</label>
-        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="date" bind:value={date}></textarea>
+        <Input type="textarea"  id="date" bind:value={date}/>
         
         <label for="image">Image</label>
-        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="image" type="file" bind:files={files}>
+        <Input type="file" bind:files={files}/>
 
         <label for="variante">Variante</label>
 
-        <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="template" bind:value={variante}>
+        <Input type="select"  bind:value={variante}>
             <option value="1" selected={true}>Fond 1</option>
             <option value="2">Fond 2</option>
             <option value="3">Fond 3</option>
@@ -119,7 +120,7 @@
             <option value="7">Fond 7</option>
             <option value="8">Fond 8</option>
             <option value="9">Fond 9</option>
-        </select>
+        </Input>
 
     </form>
 

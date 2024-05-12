@@ -4,6 +4,8 @@
     import { Template } from "$lib/scripts/canvas";
     import type { configuration } from "$lib/scripts/canvas";
 
+    import Input from "$lib/components/individuels/Input.svelte";
+
     let rôle = "Responsable"
     let personnes = "Prénom Nom"
     let mail = "pole@isati.org"
@@ -69,22 +71,22 @@
         <form spellcheck="false">
 
             <label for="rôle">Rôle</label>
-            <input id="rôle" class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" bind:value={rôle}>
+            <Input id="rôle" bind:value={rôle}/>
             
             <label for="personnes">Personnes</label>
-            <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="personnes" bind:value={personnes}></textarea>
+            <Input type="textarea" id="personnes" bind:value={personnes}/>
 
             <label for="mail">Mail</label>
-            <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="mail" bind:value={mail}></textarea>
+            <Input type="textarea" id="mail" bind:value={mail}/>
             
         </form>
         <label for="res">Résolution de l'image</label>
         <p>1/1 = image net ; 1/10 = image compressé</p>
-        <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" id="res" bind:value={f}>
+        <Input type="select" id="res" bind:value={f}>
             {#each [1,2,3,4,5,6,7,8,9,10] as v}
                 <option value={v}>1/{v}</option>
             {/each}
-        </select>
+        </Input>
         <Button on:click={() => temp2.download()}>Télécharger</Button>
 
     </div>

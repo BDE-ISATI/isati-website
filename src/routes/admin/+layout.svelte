@@ -2,7 +2,9 @@
     import Button from '$lib/components/individuels/Button.svelte';
     import { onMount } from 'svelte';
     import { apiUri,getIdToken } from '$lib/config';
-    import { writable } from 'svelte/store';
+
+    import Input from '$lib/components/individuels/Input.svelte';
+
     import { logged } from '$lib/store';
 
     const url = apiUri + "/login";
@@ -58,9 +60,11 @@ onMount(async () => {
     
       <h1>Panel Admin</h1>
       <label>Login</label>
-      <input class="bg-container-800" bind:value={email}>
+      <Input bind:value={email}/>
+
       <label>Password</label>
-      <input class="bg-container-800" type="password" bind:value={password}>
+      <Input type="password" bind:value={password}/>
+      
       <Button on:click={send}>Connexion</Button>
     
   {:else}

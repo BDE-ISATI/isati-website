@@ -3,7 +3,7 @@
     import { CaretDown } from "phosphor-svelte"
     import { scale } from 'svelte/transition';
 
-    export let icon
+    export let icon : any = undefined
 
     export let title = "Ajouter"
 
