@@ -2,18 +2,18 @@
 	import Header from "$lib/components/layout/Header.svelte"
 	import { fade  } from 'svelte/transition';
 	import "../app.css";
-
-	import "@phosphor-icons/web/fill"
-	import "@phosphor-icons/web/regular"
 	
 	export let data
 
-    import { onMount } from "svelte";
-	import { apiUri, articleBucket, imgBucket } from "$lib/config";
+
+	import { apiUri } from "$lib/config";
 	import {events,members,salles,articles} from "$lib/store"
-    import Button from "$lib/components/individuels/Button.svelte";
+    
     import Navbar from "$lib/components/layout/Navbar.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
+
+	import { House, Calendar, Newspaper, GraduationCap } from "phosphor-svelte"
+
 	
 	let retour = ""
 	let loaded = false
@@ -44,22 +44,22 @@
 	{
 		title: 'Accueil',
 		route: '/',
-		class: 'ph-fill ph-house',
+		icon: House,
 	},
 	{
 		title: 'Events',
 		route: '/events',
-		class: 'ph-fill ph-calendar',
+		icon: Calendar,
 	},
 	{
 		title: 'Salles',
 		route: '/salles',
-		class: 'ph-fill ph-graduation-cap',
+		icon: GraduationCap,
 	},
 	{
 		title: 'Articles',
 		route: '/articles',
-		class: 'ph-fill ph-newspaper',
+		icon: Newspaper,
 	},
 ]
 

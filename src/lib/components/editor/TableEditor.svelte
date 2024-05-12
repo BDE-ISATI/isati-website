@@ -2,7 +2,7 @@
 	import Button from "$lib/components/individuels/Button.svelte";
 	import ButtonIcon from "$lib/components/individuels/ButtonIcon.svelte";
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
-    import TexteEditor from "$lib/components/editor/TexteEditor.svelte";
+	import { PencilSimple, Trash } from "phosphor-svelte"
     import { writable, type Writable } from "svelte/store";
     import EditeurRaw from "./EditeurRaw.svelte";
 
@@ -45,11 +45,11 @@
 				{/each}
 				<td>
 					<ButtonIcon on:click={() => {selected.set(item)}}>
-						<i class="ph-fill ph-pencil-simple"></i>
+						<PencilSimple weight="fill"/>
 					</ButtonIcon>
 				</td><td>
 					<ButtonIcon on:click={async () => {await data.delete(i);data=data}}>
-						<i class="ph-fill ph-trash"></i>
+						<Trash weight="fill"/>
 					</ButtonIcon>
 				</td>
 			</tr>

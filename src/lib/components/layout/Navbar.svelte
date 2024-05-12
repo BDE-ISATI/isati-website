@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+    import type { SvelteComponent } from "svelte";
     import Logo from "./Logo.svelte";
 
     type MenuItem = {
         title: string;
         route: string;
-        class: string;
+        icon : any;
     };
     
     export let menuItems: MenuItem[]
@@ -22,8 +23,10 @@
         <div class="navigation">
             {#each menuItems as item }
                 <a href={item.route} class="menu-item" class:selected={actual==item.route}>
-                    <i class={item.class}></i>
+                    
+                    <svelte:component this={item.icon} weight="fill" class="md:size-8 size-6"/>
                     <span class="item-title">{item.title}</span>
+
                 </a>
             {/each}
         </div>
@@ -46,10 +49,6 @@
         --size: 20px;
         font-size: var(--size);
         /* padding-top: calc(var(--size) / 4); */
-    }
-    
-    i {
-        font-size: 30px;
     }
     
     .menu-container {
@@ -121,10 +120,7 @@
             gap:0px;
             color:var(--secondary);
         }
-        
-        i {
-            font-size: 24px;    
-        }
+
         .item-title {
             --size: 16px;    
         }
