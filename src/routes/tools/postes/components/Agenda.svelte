@@ -5,13 +5,14 @@
     import type { configuration } from "$lib/scripts/canvas";
     import Input from "$lib/components/individuels/Input.svelte";
 
+    
     let titre = "LES $ÉVENEMENTS$ DE LA SEMAINE"
     let date = "$15/04$"
-    let events = [
-        {"jour":"MER 17", "horaires"  : "18H - 21H", "nom":"AFTERWORK","lieu":"Cave à flo"},
-        {"jour":"MER 17", "horaires"  : "18H - 21H", "nom":"AFTERWORK","lieu":"Cave à flo"},
-        {"jour":"MER 17", "horaires"  : "18H - 21H", "nom":"AFTERWORK","lieu":"Cave à flo"}
-    ]
+
+    interface eventsInterface {"jour":string,"horaires":string,"nom":string,"lieu":string}
+
+    let events:eventsInterface[] = []
+
     let variante:string
     
     let canvas : HTMLCanvasElement|undefined = undefined
@@ -102,6 +103,11 @@
 
     })
 
+    function addEvent() {
+        events.push( {"jour":"MER 17", "horaires"  : "18H - 21H", "nom":"AFTERWORK","lieu":"Cave à flo"} )
+        events = events
+    }
+
 </script>
 
 <div class="grid gap-4 grid-cols-2">
@@ -116,6 +122,32 @@
         
         <label for="date">Date</label>
         <Input type="textarea"  id="date" bind:value={date}/>
+
+        <form>
+            {#key events}
+                {#each events as event,i }
+
+                    <fieldset class="border p-2">
+                        <legend>Agenda {i}</legend>
+
+                        <label>Jour</label>
+                        <Input type="text" bind:value={event["jour"]}/>
+                        
+                        <label>horaires</label>
+                        <Input type="text" bind:value={event["horaires"]}/>
+                        
+                        <label>nom</label>
+                        <Input type="text" bind:value={event["nom"]}/>
+                        
+                        <label>lieu</label>
+                        <Input type="text" bind:value={event["lieu"]}/>
+                        <Button on:click={ () => {events.splice(i,1); events = events} }>Remove</Button>
+                    </fieldset>
+                {/each}
+            {/key}
+            <Button on:click={ addEvent }>Add</Button>
+
+        </form>
         
         <label for="date">Isati qui court</label>
         <Input type="select"  bind:value={isatiIndex}>
