@@ -129,8 +129,8 @@
 
 </script>
 
-<div style="display: flex;flex-direction: column;gap:16px;">
-    <div style="display:flex;justify-content:end;gap:16px;">
+<div class="flex flex-col gap-4">
+    <div class="flex gap-4 justify-end">
         <Button on:click={save}>Sauvegarder</Button>
         <Button on:click={importer}>Importer</Button>
     </div>

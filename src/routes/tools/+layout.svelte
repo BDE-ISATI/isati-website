@@ -25,7 +25,7 @@
     </div>
 
     {#key data.pathname}
-        <div class="overflow-auto block relative p-4 m-0 w-screen" in:fade={{ duration: 1000}}>
+        <div class="overflow-auto block relative p-4 m-0 w-full" in:fade={{ duration: 1000}}>
             <slot></slot>
         </div>
     {/key}

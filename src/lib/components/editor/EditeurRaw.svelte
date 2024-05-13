@@ -41,7 +41,7 @@
         {/if}
     {/each}
 
-    <div style="display:flex; gap:16px;">
+    <div class="flex gap-4">
         <Button on:click={async() => {await data.save($selected);selected.set(undefined)}}>Save</Button>
         <Button on:click={() => {selected.set(undefined)}}>Cancel</Button>
     </div>
