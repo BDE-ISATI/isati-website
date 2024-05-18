@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-    import type { SvelteComponent } from "svelte";
     import Logo from "./Logo.svelte";
 
     type MenuItem = {
@@ -42,7 +41,6 @@
         .selected{
             color:rgb( var(--color-primary) );
         }
-
     }
     
     
