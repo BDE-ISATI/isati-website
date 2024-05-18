@@ -12,10 +12,10 @@
 
 </script>
 
-<div class="container">
+<div class="text-[var(--text)] flex gap-4 flex-col">
     {#each Object.keys(data.structure) as key}
         {#if data.structure[key].editable }
-            <label for={key}>{key}</label>
+            <label  for={key}>{key}</label>
 
             {#if data.structure[key].type == "file" }
                 <Input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} id={key} /> ⚠️ Bug
@@ -46,45 +46,3 @@
         <Button on:click={() => {selected.set(undefined)}}>Cancel</Button>
     </div>
 </div>
-
-<style>
-	.container{
-        display: flex;
-        gap: 16px;
-        flex-direction: column;
-		color:var(--text);
-	}
-
-	.delete{
-		background-color: var(--primary);
-	}
-
-    label {
-        color:var(--text);
-    }
-
-	.input-bg {
-		display: none;
-	}
-
-	.label-file{
-		display: grid;
-		place-items: center;
-		position: relative;
-	}
-
-	.label-file > img {
-		height: 100px;
-		width: 100px;
-		object-fit: cover;
-	}
-
-	.label-file::after {
-		content: "Changer";
-		background-color: #00000055;
-		position: absolute;
-		padding:16px;
-	}
-
-
-</style>

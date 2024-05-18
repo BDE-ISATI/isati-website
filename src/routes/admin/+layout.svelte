@@ -55,7 +55,7 @@ onMount(async () => {
 })
 
 </script>
-<div class="container">
+<div class="flex flex-col gap-4 text-[var(--text)]">
   {#if !$logged}
     
       <h1>Panel Admin</h1>
@@ -68,7 +68,7 @@ onMount(async () => {
       <Button on:click={send}>Connexion</Button>
     
   {:else}
-    <div class="itembarre">
+    <div class="flex gap-4">
       <Button href={"/admin/events"}>Events</Button>
       <Button href={"/admin/users"}>Users</Button>
       <Button href={"/admin/salles"}>Salles</Button>
@@ -77,30 +77,3 @@ onMount(async () => {
     <slot></slot>
   {/if}
 </div>
-
-<style>
-
-.container{
-  display: flex;
-  flex-direction: column;
-  gap:16px;
-  color:var(--text);
-}
-
-.itembarre{
-  display: flex;
-  gap:16px;
-
-}
-
-form input {
-  border: 0;
-  width: calc(100% - 32px);
-
-  padding:16px;
-  color:var(--text);
-  font-size:20px;
-  outline: none;
-}
-
-</style>

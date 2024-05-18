@@ -74,7 +74,7 @@
     <form spellcheck="false">
 
         <label for="titre">Titre</label>
-        <Input type="textarea"   id="titre" bind:value={titre}/>
+        <Input type="text"   id="titre" bind:value={titre}/>
         
         <label for="subtitle">Subtitle</label>
         <Input type="textarea"   id="subtitle" bind:value={subtitle}/>
