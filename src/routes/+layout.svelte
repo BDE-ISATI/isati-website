@@ -66,15 +66,15 @@
 </script>
 
 {#if !loaded}
-	<div id="loader" class="w-full h-dvh text-white bg-primary grid place-items-center z-20 absolute overflow-hidden" out:fade={{ duration: 1000}}>
+	<div class="w-full h-dvh text-white bg-primary grid place-items-center z-20 absolute overflow-hidden" out:fade={{ duration: 1000}}>
 		<Animation></Animation>
 	</div>
 {:else}
-	<div class="app">
-		<div id="content" class="overflow-x-hidden overflow-y-auto">
+	<div in:fade={{ duration: 1000}}>
+		<div class="overflow-x-hidden overflow-y-auto">
 			<Header></Header>
 			{#key data.pathname}
-				<div class="relative max-w-screen-md mt-0 mx-auto px-4 py-4 md:pt-32 min-h-dvh" in:fade={{ duration: 1000}}>
+				<div class="relative max-w-screen-md mt-0 mx-auto px-4 py-4 md:pt-32 min-h-dvh" >
 					<slot></slot>
 				</div>
 			{/key}
