@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{svelte,js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily:{
+      'sans': ["LeagueSpartan"],
+    },
     extend: {
       colors:{
         container:{
@@ -20,6 +23,7 @@ export default {
           950: "rgb( var(--color-container-950) / <alpha-value>)",
         },
         primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
       }
     },
   },

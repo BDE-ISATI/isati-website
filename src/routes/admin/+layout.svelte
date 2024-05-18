@@ -55,7 +55,7 @@ onMount(async () => {
 })
 
 </script>
-<div class="flex flex-col gap-4 text-[var(--text)]">
+<div class="flex flex-col gap-4">
   {#if !$logged}
     
       <h1>Panel Admin</h1>

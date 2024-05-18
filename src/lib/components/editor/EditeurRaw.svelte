@@ -12,7 +12,7 @@
 
 </script>
 
-<div class="text-[var(--text)] flex gap-4 flex-col">
+<div class="text-container-100 flex gap-4 flex-col">
     {#each Object.keys(data.structure) as key}
         {#if data.structure[key].editable }
             <label  for={key}>{key}</label>

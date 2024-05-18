@@ -171,6 +171,6 @@
 	}
 
 	:global(#editorjs a[href]) {
-		color:var(--primary);
+		color:rgb( var(--color-primary) );
 	}
 </style>

@@ -8,9 +8,9 @@
 	export let href:string|undefined=undefined
 </script>
 
-<a href={href} target="_blank" class="relative w-[20rem] rounded-3xl bg-container-800 text-[var(--text)] leading-none text-[0.8125rem] shadow-md shadow-black/5 ring-1 ring-slate-700/10  p-4">
+<a href={href} target="_blank" class="relative w-[20rem] rounded-3xl bg-container-800 leading-none text-[0.8125rem] shadow-md shadow-black/5 ring-1 ring-slate-700/10  p-4">
 	{#if href}
-		<ArrowSquareIn weight="fill" class="size-4 absolute top-3 right-3 fill-[var(--text)]"/>
+		<ArrowSquareIn weight="fill" class="size-4 absolute top-3 right-3 fill-container-100"/>
 	{/if}
 
 	{#if icone !== undefined}
