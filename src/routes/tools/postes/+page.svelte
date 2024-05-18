@@ -20,6 +20,7 @@
 
 </script>
 {#if loaded}
+
     <div class="flex gap-6 flex-col">
         <Garde></Garde>
         <Agenda></Agenda>
@@ -27,4 +28,5 @@
         <PhotoSemaine></PhotoSemaine>
         <Fin></Fin>
     </div>
+
 {/if}

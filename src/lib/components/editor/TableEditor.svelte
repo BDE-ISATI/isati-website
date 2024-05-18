@@ -21,11 +21,11 @@
 {#if $selected}
 	<EditeurRaw selected={selected} data={data} ></EditeurRaw>
 {:else}
-<table >
+<table class="border-collapse table-auto w-full text-sm" >
 	<thead>
 		<tr>
 			{#each Object.keys(data.structure) as key}
-				<td>{key}</td>
+				<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">{key}</td>
 			{/each}
 		</tr>
 	</thead>
@@ -33,7 +33,7 @@
 		{#each data.items as item,i}
 			<tr>
 				{#each Object.keys(data.structure) as key}
-					<td>
+					<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">
 						{#if data.structure[key].type == "file"}
 							<img src={`${data.structure[key].bucket}${item["ID"]}.webp?${(new Date()).getTime()}`} alt="pp">
 						{:else}
@@ -41,11 +41,12 @@
 						{/if}
 					</td>
 				{/each}
-				<td>
+				<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">
 					<ButtonIcon on:click={() => {selected.set(item)}}>
 						<PencilSimple weight="fill"/>
 					</ButtonIcon>
-				</td><td>
+				</td>
+				<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">
 					<ButtonIcon on:click={async () => {await data.delete(i);data=data}}>
 						<Trash weight="fill"/>
 					</ButtonIcon>
@@ -56,15 +57,3 @@
 </table>
 <Button on:click={addEmpty}>Ajouter une entrée</Button>
 {/if}
-
-<style>
-	table {
-		max-width: 100%;
-	}
-	table td {
-		max-width: 100px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-</style>

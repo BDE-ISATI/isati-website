@@ -100,10 +100,10 @@
     <form spellcheck="false">
 
         <label for="titre">Titre</label>
-        <Input type="textarea"  id="titre" bind:value={titre}/>
+        <Input type="text"  id="titre" bind:value={titre}/>
         
         <label for="date">Date</label>
-        <Input type="textarea"  id="date" bind:value={date}/>
+        <Input type="text"  id="date" bind:value={date}/>
         
         <label for="image">Image</label>
         <Input type="file" bind:files={files}/>

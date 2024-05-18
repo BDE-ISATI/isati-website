@@ -7,7 +7,6 @@
 
     
     let titre = "LES $ÉVENEMENTS$ DE LA SEMAINE"
-    let date = "$15/04$"
 
     interface eventsInterface {"jour":string,"horaires":string,"nom":string,"lieu":string}
 
@@ -118,10 +117,7 @@
     <form spellcheck="false">
 
         <label for="titre">Titre</label>
-        <Input type="textarea"  id="titre" bind:value={titre}/>
-        
-        <label for="date">Date</label>
-        <Input type="textarea"  id="date" bind:value={date}/>
+        <Input type="text"  id="titre" bind:value={titre}/>
 
         <form>
             {#key events}
