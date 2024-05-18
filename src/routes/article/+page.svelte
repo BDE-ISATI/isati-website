@@ -15,7 +15,7 @@
 	
 </script>
 
-<div class="article flex relative gap-4 flex-col">
+<div class="article flex relative gap-4 flex-col ">
 	{#await loadArticle()}
 		Chargement de l'article
 	{:then html}
