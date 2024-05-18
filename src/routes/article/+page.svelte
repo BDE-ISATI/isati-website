@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
 	import { articleBucket } from '$lib/config.js';
 	import edjsHTML from "@editorjs/html";
 
@@ -60,6 +59,11 @@
 
 	:global(.article a[href]) {
 		color:rgb( var(--color-primary) );
+	}
+
+	:global(.article li) {
+		list-style-type:disc;
+		margin-left:1rem;
 	}
 
 </style>
