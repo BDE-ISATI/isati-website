@@ -10,7 +10,7 @@
 
 <div class="flex relative gap-4 flex-col">
 
-	<h1 class="uppercase text-3xl font-bold"><a class="text-[var(--text)] flex" href={"/articles"}>ARTICLES<CaretRight/></a></h1>
+	<h1 class="uppercase text-3xl font-bold"><a class="text-container-100 flex" href={"/articles"}>ARTICLES<CaretRight/></a></h1>
 
 	<button class="hidden md:block absolute top-24 text-4xl left-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(-300,0)}>
 		<CaretCircleLeft/>

@@ -8,7 +8,7 @@
 
 
 <div class="flex relative gap-4 flex-col">
-	<h1 class="uppercase text-3xl font-bold"><a class="text-[var(--text)] flex" href={"/equipe"}>L'équipe<CaretRight/></a></h1>
+	<h1 class="uppercase text-3xl font-bold"><a class="text-container-100 flex" href={"/equipe"}>L'équipe<CaretRight/></a></h1>
 	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1 md:grid-cols-2">
 
 		{#each $members.slice(0,4) as user}

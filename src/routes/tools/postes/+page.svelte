@@ -21,7 +21,7 @@
 </script>
 {#if loaded}
 
-    <div class="flex gap-6 flex-col">
+    <div class="flex gap-8 flex-col">
         <Garde></Garde>
         <Agenda></Agenda>
         <Events></Events>

@@ -45,19 +45,19 @@
 
 		</script>
 
-<a href={article} class="relative flex flex-col justify-between w-[20rem] gap-4 rounded-3xl bg-container-800 text-[var(--text)] text-[0.8125rem] leading-5 text-slate-900 shadow-md shadow-black/5 ring-1 ring-slate-700/10  p-4">
+<a href={article} class="relative flex flex-col justify-between w-[20rem] gap-4 rounded-3xl bg-container-800 text-[0.8125rem] leading-5 shadow-md shadow-black/5 ring-1 ring-slate-700/10  p-4">
 	{#if article}
-		<ArrowSquareIn weight="fill" class="size-4 absolute top-3 right-3 fill-[var(--text)]"/>
+		<ArrowSquareIn weight="fill" class="size-4 absolute top-3 right-3 fill-container-100"/>
 	{/if}
 
 	<div class="flex gap-4">
-		<span class="text-[var(--text)] inline-block font-bold">{main}</span>
-		<span class="text-[var(--text)] inline-block">{sub}</span>
+		<span class="inline-block font-bold">{main}</span>
+		<span class="inline-block">{sub}</span>
 	</div>
 	<div class="flex gap-4">
 		<div class="date">
-			<span class="text-[var(--text)] text-4xl">{jours[date.getDay()-1].slice(0,3)} {date.getDate()}</span>
-			<span class="text-[var(--text)] text-base">{months[date.getMonth()]}</span>
+			<span class="text-4xl">{jours[date.getDay()-1].slice(0,3)} {date.getDate()}</span>
+			<span class="text-base">{months[date.getMonth()]}</span>
 		</div>
 
 		<Dropdown title={"Ajouter"} icon={CalendarPlus} options={[{"libelle":"Google Calendar",action:googleAgenda},{"libelle":"Microsoft Calendar",action:microsoftAgenda}]}></Dropdown>

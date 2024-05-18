@@ -6,7 +6,7 @@
     export let files:any|undefined = undefined
     export let type = "text"
 
-    let classes = "shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline"
+    let classes = "shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 bg-container-700 leading-tight focus:outline"
 </script>
 
 {#if type=="textarea"}
