@@ -24,7 +24,7 @@
 			<ActusCard href="/articles?categorie=sports" text="Les sports"></ActusCard>
 		</div>
 	</div>
-	
+
 	<button class="hidden md:block absolute top-24 text-4xl right-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(300,0)}>
 		<CaretCircleRight/>
 	</button>

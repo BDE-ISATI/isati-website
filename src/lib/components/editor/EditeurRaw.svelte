@@ -15,12 +15,10 @@
 <div class="text-container-100 flex gap-4 flex-col">
     {#each Object.keys(data.structure) as key}
         {#if data.structure[key].editable }
-            <label  for={key}>{key}</label>
-
             {#if data.structure[key].type == "file" }
-                <Input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} id={key} /> ⚠️ Bug
+                <Input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} placeholder={key} /> ⚠️ Bug
             {:else if data.structure[key].type == "date" }
-                <Input type="date" bind:value={$selected[key]} id={key} />
+                <Input type="date" bind:value={$selected[key]} placeholder={key} />
                 
             {:else if data.structure[key].type == "texteditor" }
                 {#if id}
@@ -34,9 +32,9 @@
                     <TexteEditor editorItems={data} key={key}></TexteEditor>
                 {/if}
             {:else if data.structure[key].type == "number"} 
-                <Input type="number" bind:value={$selected[key]} id={key} />
+                <Input type="number" bind:value={$selected[key]} placeholder={key} />
             {:else} 
-                <Input bind:value={$selected[key]} id={key} />
+                <Input bind:value={$selected[key]} placeholder={key} />
             {/if}
         {/if}
     {/each}

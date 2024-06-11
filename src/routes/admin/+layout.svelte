@@ -59,11 +59,8 @@ onMount(async () => {
   {#if !$logged}
     
       <h1>Panel Admin</h1>
-      <label>Login</label>
-      <Input bind:value={email}/>
-
-      <label>Password</label>
-      <Input type="password" bind:value={password}/>
+      <Input placeholder="Login" bind:value={email}/>
+      <Input placeholder="Password" type="password" bind:value={password}/>
       
       <Button on:click={send}>Connexion</Button>
     

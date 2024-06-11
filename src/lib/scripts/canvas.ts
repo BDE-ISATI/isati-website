@@ -28,10 +28,10 @@ export class Template {
         this.configuration.canvas.height = this.configuration.height
         this.configuration.canvas.width = this.configuration.width
 
-        this.background = this.loadImage( configuration.backgroundURL )
+        this.background = this.loadImageUrl( configuration.backgroundURL )
     }
 
-    public loadImage(url:string) : Promise<HTMLImageElement>{
+    public loadImageUrl(url:string) : Promise<HTMLImageElement>{
         let background = new Image()
         background.width = this.configuration.width
         background.height = this.configuration.height
@@ -42,6 +42,44 @@ export class Template {
                 resolve(background)
             }
         })
+    }
+
+    public loadImageFile(file:File) : Promise<HTMLImageElement>{
+        var fr = new FileReader();
+        let image = new Image()
+
+        fr.onload = function () {
+            image.src = fr.result as string
+        }
+
+        fr.readAsDataURL(file);
+        return new Promise((resolve,reject) =>{
+            image.onload = function (){
+                resolve(image)
+            }
+        })
+    }
+
+    public drawResizeCropImage(image:HTMLImageElement,x:number,y:number,width:number,height:number){
+
+        let canvas = document.createElement("canvas")
+        let ctx = canvas.getContext("2d")
+
+        canvas.width = width
+        canvas.height = height
+
+        let r1 = image.width/image.height
+        let r2 = width/height
+
+        let nw  = r1 < r2 ? width  : r1 * height
+        let nh = r1 < r2 ? width / r1 : height
+
+        let offx = Math.abs(nw - width)/2
+        let offy = Math.abs(nh - height)/2
+
+        ctx?.drawImage(image,-offx, -offy, nw, nh)
+
+        this.ctx.drawImage(canvas,x,y,width,height)
     }
 
     public clear(){

@@ -52,8 +52,8 @@
 	<h1 class="text-3xl font-bold">LES SALLES</h1>
 	
 	<div class="flex gap-2">
-		<Input bind:value={sDate} type="date" />
-		<Input bind:value={sTime} type="time" />
+		<Input placeholder="Date" bind:value={sDate} type="date" />
+		<Input placeholder="Heure" bind:value={sTime} type="time" />
 		<Button on:click={actualize}>Change</Button>
 	</div>
 
