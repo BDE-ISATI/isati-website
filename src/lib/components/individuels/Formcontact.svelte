@@ -27,10 +27,8 @@
 
 <div class="flex flex-col gap-2">
     <div class="flex gap-2">
-
-        <Input type="text" placeholder="nom" bind:value={nom}/>
-        <Input type="text" placeholder="mail ou réseau social" bind:value={contact}/>
-
+        <Input type="text" placeholder="Nom" bind:value={nom}/>
+        <Input type="text" placeholder="Mail ou réseau social" bind:value={contact}/>
     </div>
     
     <Input type="textarea" placeholder="Votre message" bind:value={msg}/>

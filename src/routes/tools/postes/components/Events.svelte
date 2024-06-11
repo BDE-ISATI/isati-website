@@ -1,88 +1,28 @@
 <script lang="ts">
-    import Button from "$lib/components/individuels/Button.svelte";
-    import { afterUpdate,beforeUpdate } from "svelte";
-    import { Template } from "$lib/scripts/canvas";
-    import type { configuration } from "$lib/scripts/canvas";
+    import Global from "./Global.svelte";
     import Input from "$lib/components/individuels/Input.svelte";
+    import type { Template, configuration } from "$lib/scripts/canvas";
 
     let variante:string
 
-    let canvas : HTMLCanvasElement|undefined = undefined
+    export let isatiIndex:string
 
-    let template:Template
-    let config:configuration
+    let files : File[]
 
-    let files
-
-
-    let formatting = (input:string) => {
-
-        return {
-                fontSize:160,
-                fontWeight:500,
-                color:"#1d1d1d",
-                specialColor:"#dc2323",
-                fontFamily:'AzoSansUber',
-                textAlign:"left",
-                output:input,
-                letterSpacing:-6
-            }
-    }
-
-    afterUpdate(() =>{
-        config = {
-            backgroundURL:`./postes/Page 3 - Event/${variante}.png`,
-            height:1080,
-            width:1080,
-            canvas:canvas!
-        }
-        template = new Template(config)
-    })
-
-    beforeUpdate(async () =>{
-        if (!template) return
-        template.clear()
-        
+    async function beforeUpdateCallback(template:Template,config:configuration,formatting){
         if (files) {
-            // load une image 
-            var fr = new FileReader();
-            let image = new Image()
-            fr.onload = function () {
-                image.src = fr.result as string
-            }
-            fr.readAsDataURL(files[0]);
-            // on la fit à une dimension précise
-            image.onload = function (){
-                let nheight = 1080
-                let nwidth = image.width / image.height * nheight
-                template.drawImage(image,(config.width-nwidth)/2,0,nwidth,nheight)
-                template.drawBackground()
-            }
+            let image = await template.loadImageFile(files[0])
+            template.drawResizeCropImage(image,0,0,1080,1080)
         }
-        
-    })
+        await template.drawBackground()
+    }
 
 </script>
 
-<div class="grid gap-4 grid-cols-2">
-
-    <div>
-        <canvas class="w-full h-auto" bind:this={canvas}></canvas>
-    </div>
-    <form spellcheck="false">
-
-        <label for="image">Image</label>
-        <Input id="image" type="file" bind:files={files}/>
-        
-        
-        <label for="variante">Variante</label>
-        <Input type="select"  bind:value={variante}>
-            <option value="1" selected={true}>Fond 1</option>
-            <option value="2">Fond 2</option>
-        </Input>
-
-    </form>
-
-    <Button on:click={() => template.download()}>Télécharger</Button>
-
-</div>
+<Global isatiIndex={isatiIndex} backgroundURL={`./postes/Page 3 - Event/${variante}.png`} beforeUpdateCallback={beforeUpdateCallback}>
+    <Input placeholder="Image" type="file" bind:files={files}/>
+    <Input placeholder="Variante" type="select"  bind:value={variante}>
+        <option value="1" selected={true}>Fond 1</option>
+        <option value="2">Fond 2</option>
+    </Input>
+</Global>

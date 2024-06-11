@@ -63,30 +63,18 @@
 
 </script>
 
-    <div class="grid gap-4 grid-cols-1">
+<div class="grid gap-4 grid-cols-1" spellcheck="false">
 
-        <div>
-            <canvas class="w-full h-auto" bind:this={canvas}></canvas>
-        </div>
-        <form spellcheck="false">
+    <canvas class="w-full h-auto" bind:this={canvas}></canvas>
+    <Input placeholder="Rôle" bind:value={rôle}/>
+    <Input placeholder="Personnes" type="textarea" bind:value={personnes}/>
+    <Input placeholder="Mail" type="textarea" bind:value={mail}/>
 
-            <label for="rôle">Rôle</label>
-            <Input id="rôle" bind:value={rôle}/>
-            
-            <label for="personnes">Personnes</label>
-            <Input type="textarea" id="personnes" bind:value={personnes}/>
+    <Input placeholder="Résolution de l'image" type="select" bind:value={f}>
+        {#each [1,2,3,4,5,6,7,8,9,10] as v}
+            <option value={v}>1/{v}</option>
+        {/each}
+    </Input>
 
-            <label for="mail">Mail</label>
-            <Input type="textarea" id="mail" bind:value={mail}/>
-            
-        </form>
-        <label for="res">Résolution de l'image</label>
-        <p>1/1 = image net ; 1/10 = image compressé</p>
-        <Input type="select" id="res" bind:value={f}>
-            {#each [1,2,3,4,5,6,7,8,9,10] as v}
-                <option value={v}>1/{v}</option>
-            {/each}
-        </Input>
-        <Button on:click={() => temp2.download()}>Télécharger</Button>
-
-    </div>
+    <Button on:click={() => temp2.download()}>Télécharger</Button>
+</div>
