@@ -31,6 +31,18 @@ export class Template {
         this.background = this.loadImageUrl( configuration.backgroundURL )
     }
 
+    public rotatedAction(angle:number, callback: Function) {
+        this.ctx.rotate((angle * Math.PI) / 180);
+        callback()
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    public async filteredAction(filter:string, callback: Function) {
+        this.ctx.filter = filter;
+        await callback()
+        this.ctx.filter = "none";
+    }
+
     public loadImageUrl(url:string) : Promise<HTMLImageElement>{
         let background = new Image()
         background.width = this.configuration.width

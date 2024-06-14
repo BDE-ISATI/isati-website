@@ -22,6 +22,7 @@
         <a href="/tools/article"><Button>Editeur Article</Button></a>
         <a href="/tools/mails"><Button>Editeur Mails</Button></a>
         <a href="/tools/postes"><Button>Editeur Postes</Button></a>
+        <a href="/tools/birthday"><Button>Editeur Anniversaires</Button></a>
     </div>
 
     {#key data.pathname}
