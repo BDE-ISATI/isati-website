@@ -54,7 +54,7 @@
             template.rotatedAction( -11, () => template.drawResizeCropImage(image, 370,1380,390,390) )
         }
 
-        template.filteredAction( `hue-rotate(${huerotate}deg)`, async () => {await template.drawBackground()})
+        await template.filteredAction( `hue-rotate(${huerotate}deg)`, async () => {await template.drawBackground()})
         
         template.rotatedAction( 7, () => template.drawTexte(nom,550,1320,'Nanami',80,"1","#000000",0,"center") )
         template.rotatedAction( -10, () => template.drawTexte(rôle,600,1800,'Nanami',40,"1","#dc2323",0,"center") )
