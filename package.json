@@ -13,17 +13,17 @@
     "@editorjs/link-autocomplete": "^0.1.0",
     "@editorjs/marker": "^1.4.0",
     "@editorjs/underline": "^1.1.0",
-    "@playwright/test": "^1.43.1",
-    "@sveltejs/adapter-static": "^3.0.1",
-    "@sveltejs/kit": "^2.5.5",
-    "@sveltejs/vite-plugin-svelte": "^3.1.0",
-    "@types/node": "^20.12.7",
+    "@playwright/test": "^1.44.1",
+    "@sveltejs/adapter-static": "^3.0.2",
+    "@sveltejs/kit": "^2.5.16",
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "@types/node": "^20.14.2",
     "autoprefixer": "^10.4.19",
     "phosphor-svelte": "^2.0.1",
     "postcss": "^8.4.38",
-    "svelte": "^4.2.14",
-    "tailwindcss": "^3.4.3",
-    "terser": "^5.31.0"
+    "svelte": "^4.2.18",
+    "tailwindcss": "^3.4.4",
+    "terser": "^5.31.1"
   },
   "type": "module",
   "dependencies": {
@@ -36,7 +36,7 @@
     "@editorjs/image": "^2.9.0",
     "@editorjs/link": "^2.6.2",
     "@editorjs/list": "^1.9.0",
-    "@editorjs/paragraph": "^2.11.4",
+    "@editorjs/paragraph": "^2.11.5",
     "@editorjs/quote": "^2.6.0",
     "@editorjs/table": "^2.3.0",
     "@phosphor-icons/web": "^2.1.1",
@@ -44,7 +44,7 @@
     "editorjs-drag-drop": "^1.1.14",
     "lottie-web": "^5.12.2",
     "sharp": "^0.33.4",
-    "simple-icons": "^12.2.0",
-    "vite": "^5.2.13"
+    "simple-icons": "^12.3.0",
+    "vite": "^5.3.1"
   }
 }
