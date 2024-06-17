@@ -2,7 +2,9 @@
     import Button from '$lib/components/individuels/Button.svelte';
     import { onMount } from 'svelte';
     import { apiUri,getIdToken } from '$lib/config';
-    import { writable } from 'svelte/store';
+
+    import Input from '$lib/components/individuels/Input.svelte';
+
     import { logged } from '$lib/store';
 
     const url = apiUri + "/login";
@@ -53,18 +55,17 @@ onMount(async () => {
 })
 
 </script>
-<div class="container">
+<div class="flex flex-col gap-4">
   {#if !$logged}
     
       <h1>Panel Admin</h1>
-      <label>Login</label>
-      <input class="bg-container-800" bind:value={email}>
-      <label>Password</label>
-      <input class="bg-container-800" type="password" bind:value={password}>
+      <Input placeholder="Login" bind:value={email}/>
+      <Input placeholder="Password" type="password" bind:value={password}/>
+      
       <Button on:click={send}>Connexion</Button>
     
   {:else}
-    <div class="itembarre">
+    <div class="flex gap-4">
       <Button href={"/admin/events"}>Events</Button>
       <Button href={"/admin/users"}>Users</Button>
       <Button href={"/admin/salles"}>Salles</Button>
@@ -73,30 +74,3 @@ onMount(async () => {
     <slot></slot>
   {/if}
 </div>
-
-<style>
-
-.container{
-  display: flex;
-  flex-direction: column;
-  gap:16px;
-  color:var(--text);
-}
-
-.itembarre{
-  display: flex;
-  gap:16px;
-
-}
-
-form input {
-  border: 0;
-  width: calc(100% - 32px);
-
-  padding:16px;
-  color:var(--text);
-  font-size:20px;
-  outline: none;
-}
-
-</style>

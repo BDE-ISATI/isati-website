@@ -1,10 +1,9 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
-	import ButtonIcon from "$lib/components/individuels/ButtonIcon.svelte";
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
     import TexteEditor from "$lib/components/editor/TexteEditor.svelte";
     import { type Writable } from "svelte/store";
-    
+    import Input from "../individuels/Input.svelte";
     export let selected:Writable<editorItem|undefined>
     export let data:editorItems
 
@@ -12,15 +11,14 @@
 
 </script>
 
-<div class="container">
+<div class="text-container-100 flex gap-4 flex-col">
     {#each Object.keys(data.structure) as key}
         {#if data.structure[key].editable }
-            <label for={key}>{key}</label>
-
             {#if data.structure[key].type == "file" }
-                <input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} id={key} >
+                <Input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} placeholder={key} />
             {:else if data.structure[key].type == "date" }
-                <input type="date" bind:value={$selected[key]} id={key} >
+                <Input type="date" bind:value={$selected[key]} placeholder={key} />
+                
             {:else if data.structure[key].type == "texteditor" }
                 {#if id}
                     {#await data.fetch(id,key)}
@@ -33,64 +31,15 @@
                     <TexteEditor editorItems={data} key={key}></TexteEditor>
                 {/if}
             {:else if data.structure[key].type == "number"} 
-                <input type="number" bind:value={$selected[key]} id={key} >
+                <Input type="number" bind:value={$selected[key]} placeholder={key} />
             {:else} 
-                <input bind:value={$selected[key]} id={key} >
+                <Input bind:value={$selected[key]} placeholder={key} />
             {/if}
         {/if}
     {/each}
 
-    <div style="display:flex; gap:16px;">
+    <div class="flex gap-4">
         <Button on:click={async() => {await data.save($selected);selected.set(undefined)}}>Save</Button>
         <Button on:click={() => {selected.set(undefined)}}>Cancel</Button>
     </div>
 </div>
-
-<style>
-	.container{
-        display: flex;
-        gap: 16px;
-        flex-direction: column;
-		color:var(--text);
-	}
-
-	.delete{
-		background-color: var(--primary);
-	}
-
-    label {
-        color:var(--text);
-    }
-
-	.input-bg {
-		display: none;
-	}
-
-	.label-file{
-		display: grid;
-		place-items: center;
-		position: relative;
-	}
-
-	.label-file > img {
-		height: 100px;
-		width: 100px;
-		object-fit: cover;
-	}
-
-	.label-file::after {
-		content: "Changer";
-		background-color: #00000055;
-		position: absolute;
-		padding:16px;
-	}
-
-	input {
-		width: calc(100% - 32px);
-		color:var(--text);
-		background-color: #00000055;
-		border: unset;
-		padding:16px;
-	}
-
-</style>

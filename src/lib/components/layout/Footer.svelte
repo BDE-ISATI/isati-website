@@ -26,9 +26,9 @@
         <a href="https://forms.gle/tPL5Txmq9Qb5t2Pn6" target="_blank">Nous soumettre votre article</a>
     </div>
         
-    <div class="networks max-w-md w-full m-auto grid grid-cols-3 gap-8 justify-items-center">
+    <div class="max-w-md w-full m-auto grid grid-cols-3 gap-8 justify-items-center fill-current">
         {#each icons as icon}
-            <ButtonIcon href={icon.url} color={icon.icon.hex} target="_blank">
+            <ButtonIcon href={icon.url} target="_blank">
                 {@html icon.icon.svg}
             </ButtonIcon>
         {/each}
@@ -46,13 +46,5 @@
 
     <a class="text-center" href="/legals">Mentions Légales</a>
 
-    
 </footer>
 
-<style>
-
-.networks :global(svg) {
-    fill: currentColor;
-}
-
-</style>

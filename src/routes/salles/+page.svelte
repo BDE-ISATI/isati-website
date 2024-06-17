@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
-import Card from "$lib/components/individuels/Card.svelte";
+	import Card from "$lib/components/individuels/Card.svelte";
+	import Input from "$lib/components/individuels/Input.svelte";
     import { apiUri } from "$lib/config";
 
 	import { salles } from "$lib/store";
@@ -51,8 +52,8 @@ import Card from "$lib/components/individuels/Card.svelte";
 	<h1 class="text-3xl font-bold">LES SALLES</h1>
 	
 	<div class="flex gap-2">
-		<input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" bind:value={sDate} type="date" />
-		<input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" bind:value={sTime} type="time" />
+		<Input placeholder="Date" bind:value={sDate} type="date" />
+		<Input placeholder="Heure" bind:value={sTime} type="time" />
 		<Button on:click={actualize}>Change</Button>
 	</div>
 

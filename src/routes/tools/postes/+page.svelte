@@ -1,114 +1,70 @@
 <script lang="ts">
-    import Button from "$lib/components/individuels/Button.svelte";
-    import { Template2 } from "$lib/scripts/canvas";
-    import type { configuration } from "$lib/scripts/canvas";
-    import { onMount } from "svelte";
-    let title = "Grand titre"
-    let texte = "#Titre\nsalut ceci est une démonstration"
-    let variante:string|undefined = undefined
-    let files:FileList|undefined = undefined
+    import Agenda from "./components/Agenda.svelte";
+    import Garde from "./components/Garde.svelte";
+    import Events from "./components/Events.svelte";
+    import PhotoSemaine from "./components/PhotoSemaine.svelte";
+    import Fin from "./components/Fin.svelte";
+    import ButtonIcon from "$lib/components/individuels/ButtonIcon.svelte";
+    import { PlusCircle,CaretCircleLeft,CaretCircleRight } from "phosphor-svelte";
+    import Input from "$lib/components/individuels/Input.svelte";
+    import Supplementaire from "./components/Supplementaire.svelte";
 
-    let canvas : HTMLCanvasElement|undefined = undefined
+    let f1 = (new FontFace('AzoSansBold', 'url(/fonts/AzoSans/AzoSans-Bold.woff2)')).load()
+    let f2 = (new FontFace('AzoSansBlack', 'url(/fonts/AzoSans/AzoSans-Black.woff2)')).load()
+    let f3 = (new FontFace('AzoSansUber', 'url(/fonts/AzoSans/AzoSans-Uber.woff2)')).load()
 
-    let config:configuration
-    let temp2:Template2
-
-    onMount(() => {
-        config ={
-            backgroundURL:variante!,
-            height:1440,
-            width:1440,
-            canvas:canvas!
+    Promise.all([f1, f2, f3]).then((r) => { 
+        for (let f of r){
+            document.fonts.add(f);
         }
-        temp2 = new Template2(config)
-    }
-    )
-    let formatting = (input:string) => {
-        if (input.startsWith("#")){
-            return {
-                fontSize:80,
-                fontWeight:700,
-                color:"#262626",
-                fontFamily:'LeagueSpartan',
-                textAlign:"left",
-                output:input.slice(1)
-            }
-        }
-        else {
-            return {
-                fontSize:60,
-                fontWeight:500,
-                color:"#262626",
-                fontFamily:'LeagueSpartan',
-                textAlign:"left",
-                output:input
-            }
-        }
-    }
+        loaded = true 
+    })
 
-    $:( async (title,texte,files,variante) => {
+    let loaded = false
 
-        temp2.clear()
-        await temp2.drawBackground()
+    let bindSelected = Garde
+    let components = [Garde]
 
-        temp2.drawTexte(title,190,235,'LeagueSpartan',120,"900","#D82B2B","left")
-
-        let y = temp2.drawFormattedTexte(texte,150,config.width-150,235+120+50,formatting)
-
-        if (files) {
-            // load une image 
-
-            var fr = new FileReader();
-            let image = new Image()
-
-            fr.onload = function () {
-                image.src = fr.result as string
-            }
-
-            fr.readAsDataURL(files[0]);
-
-            // on la fit à une dimension précise
-            image.onload = function (){
-                let nheight = 500
-                let nwidth = image.width / image.height * nheight
-
-                temp2.drawImage(image,(config.width-nwidth)/2,y,nwidth,nheight)
-            }
-
-        }
-
-    })(title,texte,files,variante)
+	let scrolling:HTMLDivElement
 
 </script>
-<div class="grid gap-4 grid-cols-2">
 
-    <div>
-        <canvas class="w-full h-auto" bind:this={canvas}></canvas>
+<div class="flex relative gap-4 flex-col">
+    <button class="hidden md:block absolute top-60 text-4xl left-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(-400,0)}>
+        <CaretCircleLeft/>
+    </button>
+
+    <div class="overflow-y-hidden overflow-x-scroll scroll-smooth" style="scrollbar-width: none" bind:this={scrolling}>
+        <div class="flex gap-4 w-fit py-4 px-1">
+        {#if loaded}
+
+
+            {#each components as comp,i}
+                <div class="w-80">
+                    <svelte:component this={comp} isatiIndex={(Math.round(i*6/(components.length-1))+1).toString()}></svelte:component>
+                </div>
+            {/each}
+
+            <div class="w-40 flex flex-col gap-8">
+                <Input type="select" placeholder="Type de page" bind:value={bindSelected}>
+                    <option value={Agenda}>Page agenda</option>
+                    <option value={Events}>Page events</option>
+                    <option value={Supplementaire}>Page poste verticale</option>
+                    <option value={PhotoSemaine}>Page photo de la semaine</option>
+                    <option value={Fin}>Page de fin</option>
+                </Input>
+                
+                <ButtonIcon on:click={() => {components.push(bindSelected);components=components;scrolling.scrollBy(1000,0);}}>
+                    <PlusCircle></PlusCircle>
+                </ButtonIcon>
+            </div>
+                
+        {/if}
+
+        </div>
     </div>
-    <form spellcheck="false">
 
-        <label for="titre">Titre</label>
-        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="titre" bind:value={title}>
-        <label for="image">Image</label>
-        <input class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="image" type="file" bind:files={files}>
-
-
-        <label for="texte">Contenu</label>
-        <textarea class="shadow-black/5 ring-1 ring-slate-700/10 appearance-none rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="texte" bind:value={texte} rows="11"  ></textarea>
-
-        <label for="template">Template</label>
-
-        <select class="shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full p-2 text-[var(--text)] bg-container-700 leading-tight focus:outline" name="template" bind:value={variante}>
-            <option value="./demo.png">Fond Demo (ne pas utiliser, juste pour debug)</option>
-            <option value="./templates/Template_1.png" selected={true}>Fond 1</option>
-            <option value="./templates/Template_2.png">Fond 2</option>
-            <option value="./templates/Template_3.png">Fond 3</option>
-            <option value="./templates/Template_4.png">Fond 4</option>
-        </select>
-
-    </form>
-    <div class="col-span-2">
-        <Button on:click={() => temp2.download()}>Télécharger</Button>
-    </div>
-    
+    <button class="hidden md:block absolute top-60 text-4xl right-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(400,0)}>
+        <CaretCircleRight/>
+    </button>
 </div>

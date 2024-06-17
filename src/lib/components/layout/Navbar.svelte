@@ -4,7 +4,7 @@
     type MenuItem = {
         title: string;
         route: string;
-        class: string;
+        icon : any;
     };
     
     export let menuItems: MenuItem[]
@@ -13,17 +13,19 @@
 
 </script>
 
-    <nav id={id} class="menu-container w-full bg-container-800 md:bg-primary z-5">
+    <nav id={id} class="md:rounded-none py-2 px-4 md:top-0 md:bottom-auto flex justify-between select-none md:p-4 g-4 fixed bottom-0 left-0 text-white w-full bg-container-800 z-5 md:bg-primary rounded-t-3xl shadow-2xl md:shadow-none">
         
-        <a href="/" class="menu-item logo">
+        <a href="/" class="md:flex hidden place-items-center cursor-pointer gap-4 logo no-underline">
             <Logo color="white"></Logo>
         </a>
 
-        <div class="navigation">
+        <div class="flex justify-around md:justify-end flex-1 md:gap-8">
             {#each menuItems as item }
-                <a href={item.route} class="menu-item" class:selected={actual==item.route}>
-                    <i class={item.class}></i>
-                    <span class="item-title">{item.title}</span>
+                <a href={item.route} class:selected={actual==item.route} class="md:flex-row flex-col md:gap-4 md:text-white md:hover:text-secondary hover:text-primary gap-0 flex place-items-center cursor-pointer text-secondary no-underline">
+                    
+                    <svelte:component this={item.icon} weight="fill" class="md:size-8 size-6"/>
+                    <span class="md:text-xl text-base">{item.title}</span>
+
                 </a>
             {/each}
         </div>
@@ -31,102 +33,13 @@
 
 <style>
 
-    
-    
-    a {
-        color:var(--white);
-        text-decoration: unset;
-    }
-
-    .menu-item:hover{
-        color:var(--secondary);
-    }
-    
-    .item-title {
-        --size: 20px;
-        font-size: var(--size);
-        /* padding-top: calc(var(--size) / 4); */
-    }
-    
-    i {
-        font-size: 30px;
-    }
-    
-    .menu-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        transition: 0.3s;
-        color: var(--white) !important;
-        display: flex;
-        justify-content: space-between;
-        
-        /* background-color: var(--primary); */
-        user-select: none;
-        padding:16px;
-        gap:16px;
-    }
-    
-    .navigation {
-        display: flex;
-        justify-content: flex-end;
-        flex:1;
-        gap: 32px;
-    }
-    
-    .menu-item {
-        display: flex;
-        place-items: center;
-        cursor: pointer;
-        gap:16px;
-    }
-    
-    .menu-item:hover * {
-        border-color: var(--red);
-        color: var(--red);
-        fill: var(--red);
-    }
-
     .selected{
-        color:var(--secondary);
+        color:rgb( var(--color-secondary) );
     }
     
     @media screen and (max-width: 767px) {
         .selected{
-            color:var(--primary) !important;
-        }
-        .menu-container{
-            border-radius: 32px 32px 0px 0px ;
-            padding:8px 16px;
-            box-shadow: var(--shadow);
-            top:unset;
-            bottom: 0;
-        }
-        
-        .menu-item:hover{
-            color:var(--primary);
-        }
-        
-        .logo{
-            display: none;
-        }
-        
-        .navigation {
-            justify-content: space-around;
-            gap:unset;
-        }
-        
-        .menu-item{
-            flex-direction: column;
-            gap:0px;
-            color:var(--secondary);
-        }
-        
-        i {
-            font-size: 24px;    
-        }
-        .item-title {
-            --size: 16px;    
+            color:rgb( var(--color-primary) );
         }
     }
     

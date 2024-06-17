@@ -2,11 +2,10 @@
 	import Button from "$lib/components/individuels/Button.svelte";
 	import ButtonIcon from "$lib/components/individuels/ButtonIcon.svelte";
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
-    import TexteEditor from "$lib/components/editor/TexteEditor.svelte";
+	import { PencilSimple, Trash } from "phosphor-svelte"
     import { writable, type Writable } from "svelte/store";
     import EditeurRaw from "./EditeurRaw.svelte";
 
-	let dialog:HTMLDialogElement
     let selected:Writable<editorItem|undefined> = writable(undefined)
 
     export let data:editorItems
@@ -16,18 +15,17 @@
 		data = data
 		
 	}
-
 	
 </script>
 
 {#if $selected}
 	<EditeurRaw selected={selected} data={data} ></EditeurRaw>
 {:else}
-<table >
+<table class="border-collapse table-auto w-full text-sm" >
 	<thead>
 		<tr>
 			{#each Object.keys(data.structure) as key}
-				<td>{key}</td>
+				<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">{key}</td>
 			{/each}
 		</tr>
 	</thead>
@@ -35,7 +33,7 @@
 		{#each data.items as item,i}
 			<tr>
 				{#each Object.keys(data.structure) as key}
-					<td>
+					<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">
 						{#if data.structure[key].type == "file"}
 							<img src={`${data.structure[key].bucket}${item["ID"]}.webp?${(new Date()).getTime()}`} alt="pp">
 						{:else}
@@ -43,13 +41,14 @@
 						{/if}
 					</td>
 				{/each}
-				<td>
+				<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">
 					<ButtonIcon on:click={() => {selected.set(item)}}>
-						<i class="ph-fill ph-pencil-simple"></i>
+						<PencilSimple weight="fill"/>
 					</ButtonIcon>
-				</td><td>
+				</td>
+				<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">
 					<ButtonIcon on:click={async () => {await data.delete(i);data=data}}>
-						<i class="ph-fill ph-trash"></i>
+						<Trash weight="fill"/>
 					</ButtonIcon>
 				</td>
 			</tr>
@@ -58,15 +57,3 @@
 </table>
 <Button on:click={addEmpty}>Ajouter une entrée</Button>
 {/if}
-
-<style>
-	table {
-		max-width: 100%;
-	}
-	table td {
-		max-width: 100px;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-</style>

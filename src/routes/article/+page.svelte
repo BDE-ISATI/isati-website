@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { onMount } from "svelte";
 	import { articleBucket } from '$lib/config.js';
 	import edjsHTML from "@editorjs/html";
 
@@ -15,7 +14,7 @@
 	
 </script>
 
-<div class="article flex relative gap-4 flex-col">
+<div class="article flex relative gap-4 flex-col ">
 	{#await loadArticle()}
 		Chargement de l'article
 	{:then html}
@@ -59,7 +58,12 @@
 	}
 
 	:global(.article a[href]) {
-		color:var(--primary);
+		color:rgb( var(--color-primary) );
+	}
+
+	:global(.article li) {
+		list-style-type:disc;
+		margin-left:1rem;
 	}
 
 </style>

@@ -2,18 +2,18 @@
 	import Header from "$lib/components/layout/Header.svelte"
 	import { fade  } from 'svelte/transition';
 	import "../app.css";
-
-	import "@phosphor-icons/web/fill"
-	import "@phosphor-icons/web/regular"
 	
 	export let data
 
-    import { onMount } from "svelte";
-	import { apiUri, articleBucket, imgBucket } from "$lib/config";
+
+	import { apiUri } from "$lib/config";
 	import {events,members,salles,articles} from "$lib/store"
-    import Button from "$lib/components/individuels/Button.svelte";
+    
     import Navbar from "$lib/components/layout/Navbar.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
+
+	import { House, Calendar, Newspaper, GraduationCap } from "phosphor-svelte"
+
 	
 	let retour = ""
 	let loaded = false
@@ -44,37 +44,37 @@
 	{
 		title: 'Accueil',
 		route: '/',
-		class: 'ph-fill ph-house',
+		icon: House,
 	},
 	{
 		title: 'Events',
 		route: '/events',
-		class: 'ph-fill ph-calendar',
+		icon: Calendar,
 	},
 	{
 		title: 'Salles',
 		route: '/salles',
-		class: 'ph-fill ph-graduation-cap',
+		icon: GraduationCap,
 	},
 	{
 		title: 'Articles',
 		route: '/articles',
-		class: 'ph-fill ph-newspaper',
+		icon: Newspaper,
 	},
 ]
 
 </script>
 
 {#if !loaded}
-	<div id="loader" class="w-full h-dvh text-[var(--white)] bg-primary grid place-items-center z-20 absolute overflow-hidden" out:fade={{ duration: 1000}}>
+	<div class="w-full h-dvh text-white bg-primary grid place-items-center z-20 absolute overflow-hidden" out:fade={{ duration: 1000}}>
 		<Animation></Animation>
 	</div>
 {:else}
-	<div class="app">
-		<div id="content" class="overflow-x-hidden overflow-y-auto">
+	<div in:fade={{ duration: 1000}}>
+		<div class="overflow-x-hidden overflow-y-auto">
 			<Header></Header>
 			{#key data.pathname}
-				<div class="relative max-w-screen-md mt-0 mx-auto px-4 py-4 md:pt-32 min-h-dvh" in:fade={{ duration: 1000}}>
+				<div class="relative max-w-screen-md mt-0 mx-auto px-4 py-4 md:pt-32 min-h-dvh" >
 					<slot></slot>
 				</div>
 			{/key}
