@@ -54,7 +54,7 @@ export abstract class editorItems {
     }
 
     */
-    public async save(item:editorItem) {
+    public async save(item:editorItem): Promise<Response> {      
         let method = item[this.primary] == undefined ? "PUT" : "PATCH" 
 
         let req = await fetch(this.bddUri, {
@@ -64,7 +64,7 @@ export abstract class editorItems {
                 Authorization: `Bearer ${getIdToken()}`
             }
         })
-
+        
         let resp = await req.json()
 
         if (method=="PUT") {
@@ -112,14 +112,11 @@ export class userEditorStructure extends editorItems {
     async save(item:editorItem): Promise<Response> {
 
         let photoInput = this.toBeProcessed["photo"] as HTMLInputElement
-
         if (photoInput.files?.length == 1){
             let outputData = await getDataPhoto(photoInput)
-            item["photo"] = outputData;
-            photoInput!.files = null;
+            item.photo = outputData;
         }
-
-        return super.save(item)
+        return await super.save(item)
     }
 
     constructor(data:editorItem[]) {
@@ -182,7 +179,7 @@ export class articleEditorStructure extends editorItems {
         let outputData = await (this.toBeProcessed["article"] as EditorJS).save()
         item["article"] = outputData
 
-        return super.save(item)
+        return await super.save(item)
     }
 
     async fetch(id:string,key:string) : Promise<Object>{

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
-	import ButtonIcon from "$lib/components/individuels/ButtonIcon.svelte";
     import type { editorItems,editorItem } from "$lib/scripts/editorStructure";
     import TexteEditor from "$lib/components/editor/TexteEditor.svelte";
     import { type Writable } from "svelte/store";
@@ -16,7 +15,7 @@
     {#each Object.keys(data.structure) as key}
         {#if data.structure[key].editable }
             {#if data.structure[key].type == "file" }
-                <Input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} placeholder={key} /> ⚠️ Bug
+                <Input type="file" bind:files={$selected[key]} bind:this={data.toBeProcessed[key]} placeholder={key} />
             {:else if data.structure[key].type == "date" }
                 <Input type="date" bind:value={$selected[key]} placeholder={key} />
                 
