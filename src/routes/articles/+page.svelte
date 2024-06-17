@@ -20,7 +20,7 @@
 
 	<h1 class="uppercase text-3xl font-bold">Les articles {categorie ? `- ${categorie}` : ""}</h1>
 
-	<div class="content">
+	<div class="grid gap-8 place-items-center grid-cols-1 md:grid-cols-2">
 		{#each filtered_article as article}
 			<DoubleCardArticle id={article.ID} description={article.description} categorie={article.categorie} main={article.nom}></DoubleCardArticle>
 		{/each}
@@ -28,26 +28,3 @@
 	</div>
 	
 </div>
-
-<style>
-
-	.main {
-		display: flex;
-		flex-direction: column;
-		gap:15px;
-	}
-
-    .content {
-		display: grid;
-		grid-template-columns: repeat(2,1fr);
-		gap:30px;
-		place-items: center;
-	}
-
-	@media (max-width : 767px) {
-		.content {
-			grid-template-columns: repeat(1,1fr);
-		}
-	}
-
-</style>

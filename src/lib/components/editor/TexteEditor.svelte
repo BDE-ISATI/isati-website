@@ -129,24 +129,16 @@
 
 </script>
 
-<div style="display: flex;flex-direction: column;gap:16px;">
-    <div style="display:flex;justify-content:end;gap:16px;">
+<div class="flex flex-col gap-4">
+    <div class="flex gap-4 justify-end">
         <Button on:click={save}>Sauvegarder</Button>
         <Button on:click={importer}>Importer</Button>
     </div>
-    <div id="editorjs" bind:this={editordiv}></div>
+    <div id="editorjs" class="px-16 py-4 text-black bg-white rounded-2xl z-0 border " bind:this={editordiv}></div>
 </div>
 
 
 <style>
-    #editorjs {
-        padding:16px 64px;
-        background-color: #fff;
-        color:black;
-        border-radius: 16px;
-        border: 1px solid var(--text);
-        z-index: 0;
-    }
 
     :global(#editorjs iframe) {
 		max-width: 100%;
@@ -179,6 +171,6 @@
 	}
 
 	:global(#editorjs a[href]) {
-		color:var(--primary);
+		color:rgb( var(--color-primary) );
 	}
 </style>
