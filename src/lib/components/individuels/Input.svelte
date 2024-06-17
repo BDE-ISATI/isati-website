@@ -3,6 +3,8 @@
     export let placeholder = ""
     export let value:any|undefined = undefined
     export let files:any|undefined = undefined
+    export let min:number|undefined = undefined
+    export let max:number|undefined = undefined
     export let type = "text"
 
     let id = btoa(placeholder + type + Date.now().toString());
@@ -16,7 +18,9 @@
     {:else if type=="file"}
         <input id={id} type="file" placeholder={placeholder} bind:files={files} class={classes}/>
     {:else if type=="number"}
-        <input id={id} type="number" placeholder={placeholder} bind:value={value} class={classes}/>
+        <input id={id} type="number" min={min} max={max} placeholder={placeholder} bind:value={value} class={classes}/>
+    {:else if type=="range"}
+        <input id={id} type="range" min={min} max={max} placeholder={placeholder} bind:value={value} class={classes}/>
     {:else if type=="date"}
         <input id={id} type="date" placeholder={placeholder} bind:value={value} class={classes}/>
     {:else if type=="time"}
@@ -30,6 +34,7 @@
     {:else}
         <input id={id} type="text" placeholder={placeholder} bind:value={value} class={classes}/>
     {/if}
+
 
     {#if placeholder}
         <label for={id} class="absolute tracking-[.03125em] duration-300 -translate-y-2.5 scale-75 top-2.5 origin-[0] left-4 peer-focus:left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-2.5">
