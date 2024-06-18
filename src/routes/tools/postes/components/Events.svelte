@@ -1,7 +1,7 @@
 <script lang="ts">
     import Global from "./Global.svelte";
     import Input from "$lib/components/individuels/Input.svelte";
-    import type { Template, configuration } from "$lib/scripts/canvas";
+    import type { Template, configuration } from "canvas-editor";
 
     let variante:string
 

@@ -2,7 +2,7 @@
  
     import Global from "./Global.svelte";
     import Input from "$lib/components/individuels/Input.svelte";
-    import type { Template, configuration } from "$lib/scripts/canvas";
+    import type { Template, configuration } from "canvas-editor";
 
     let titre = "PLUS D'INFOS DANS TES $MAILS$ !"
     let subtitle = "- MAIS J'AI RIEN REÇU ?\n- VÉRIFIE TES SPAMS ET ENVOIE TON MAIL EN MP !"

@@ -40,6 +40,7 @@
     "@editorjs/quote": "^2.6.0",
     "@editorjs/table": "^2.3.0",
     "@phosphor-icons/web": "^2.1.1",
+    "canvas-editor": "github:AquaBx/CanvasEditor",
     "cssnano": "^7.0.2",
     "editorjs-drag-drop": "^1.1.14",
     "lottie-web": "^5.12.2",
