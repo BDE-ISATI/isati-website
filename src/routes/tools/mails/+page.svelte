@@ -1,8 +1,8 @@
 <script lang="ts">
     import Button from "$lib/components/individuels/Button.svelte";
     import { afterUpdate,beforeUpdate } from "svelte";
-    import { Template } from "$lib/scripts/canvas";
-    import type { configuration } from "$lib/scripts/canvas";
+    import { Template } from "canvas-editor";
+    import type { configuration } from "canvas-editor";
 
     import Input from "$lib/components/individuels/Input.svelte";
 

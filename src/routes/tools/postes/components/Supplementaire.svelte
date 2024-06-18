@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Template, configuration } from "$lib/scripts/canvas";
+    import type { Template, configuration } from "canvas-editor";
     import Input from "$lib/components/individuels/Input.svelte";
     import Global from "./Global.svelte";
 

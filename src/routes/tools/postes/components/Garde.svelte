@@ -1,6 +1,6 @@
 <script lang="ts">
     import Input from "$lib/components/individuels/Input.svelte";
-    import type { Template, configuration } from "$lib/scripts/canvas";
+    import type { Template, configuration } from "canvas-editor";
     import Global from "./Global.svelte";
 
     let titre = "LES $ACTUS$ DE LA SEMAINE"
