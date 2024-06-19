@@ -1,80 +1,72 @@
 <script lang="ts">
     import Button from "$lib/components/individuels/Button.svelte";
-    import { afterUpdate,beforeUpdate } from "svelte";
-    import { Template } from "canvas-editor";
-    import type { configuration } from "canvas-editor";
+    import { onMount } from "svelte";
+    import { Template,CE_Picture,CE_Text,CE_Vec2 } from "canvas-editor";
 
     import Input from "$lib/components/individuels/Input.svelte";
 
-    let rôle = "Responsable"
+    let template = new Template(new CE_Vec2(963,241))
+
+    let rôle = new CE_Text('Nanami',30,"1","#D82B2B",0,"right")
+    rôle.data = "Responsable"
+    rôle.position.x = 780
+
     let personnes = "Prénom Nom"
-    let mail = "pole@isati.org"
 
-    let canvas : HTMLCanvasElement|undefined = undefined
-
-    let f:number = 5;
-    let temp2:Template
-    let config:configuration
-
-    $: mailSize = 80/f
-    $: subtitleSize = 150/f
-    $: titleSize = 225/f;
-
-    let f1 = (new FontFace('Nanami', 'url(/fonts/Nanami/Nanami-Light.otf)')).load()
-    let f2 = (new FontFace('NanamiBlack', 'url(/fonts/Nanami/Nanami-Heavy.otf)')).load()
-
+    let mail = new CE_Text('Nanami',16,"1","#ffffff",0,"right")
+    mail.position = new CE_Vec2(950,234)
+    mail.data = "pole@isati.org"
     
-    let loaded = new Promise( (resolve, reject) => Promise.all([f1,f2]).then((r) => { 
-        for (let f of r){
-            document.fonts.add(f);
-        }
-        resolve(undefined)
-    }))
+    let background = new CE_Picture()
+    background.resize(new CE_Vec2(963,241))
+    template.add(background)
 
-    afterUpdate(() =>{
-        config = {
-            backgroundURL:"./mails/signature_template.png",
-            height:1204/f,
-            width:4815/f,
-            canvas:canvas!
-        }
-        temp2 = new Template(config)
+    onMount(async ()=>{
+        await background.loadFromUrl("./mails/signature_template.png")
+
+        document.fonts.add(await (new FontFace('Nanami', 'url(/fonts/Nanami/Nanami-Light.otf)')).load())
+        document.fonts.add(await (new FontFace('NanamiBlack', 'url(/fonts/Nanami/Nanami-Heavy.otf)')).load())
+
+        loop()
     })
 
-    beforeUpdate(async () =>{
-        if (!temp2) return
-        await loaded
 
-        temp2.clear()
-        await temp2.drawBackground()
+    function loop(){
+        if (template.destroyed) {return}
 
-        let personnesSplitted = personnes.split("\n")
+        try {
+            template.draw()
+            let personnesSplitted = personnes.split("\n")
 
-        let y = (config.height - (subtitleSize + (personnesSplitted.length-1)*titleSize))/2
+            let t = new CE_Text('NanamiBlack',45,"1","#262626",0,"right")
 
-        for (let personne of personnesSplitted){
-            temp2.drawTexte(personne,4000/f,y,'NanamiBlack',titleSize,"1","#262626",0,"right")
-            y+=titleSize
+            let y = (template.size.y - (mail.fontSize + (personnesSplitted.length-1)*t.fontSize))/2
+            
+            for (let personne of personnesSplitted){
+                t.position = new CE_Vec2(800,y)
+                t.data = personne
+                t.draw(template.ctx)
+                y+=t.fontSize
+            }
+
+            mail.draw(template.ctx)
+            rôle.position.y = y
+            rôle.draw(template.ctx)
+        } catch (error) {
+            //console.log(error)
         }
 
-        temp2.drawTexte(mail,4750/f,1170/f,'Nanami',mailSize,"1","#ffffff",0,"right")
-        temp2.drawTexte(rôle,3900/f,y,'Nanami',subtitleSize,"1","#D82B2B",0,"right")
-    })
+        requestAnimationFrame(loop);
+    }
 
 </script>
 
 <div class="grid gap-4 grid-cols-1" spellcheck="false">
 
-    <canvas class="w-full h-auto" bind:this={canvas}></canvas>
-    <Input placeholder="Rôle" bind:value={rôle}/>
+    <canvas class="w-full h-auto" bind:this={template.canvas}></canvas>
+    <Input placeholder="Rôle" bind:value={rôle.data}/>
     <Input placeholder="Personnes" type="textarea" bind:value={personnes}/>
-    <Input placeholder="Mail" type="textarea" bind:value={mail}/>
+    <Input placeholder="Mail" type="text" bind:value={mail.data}/>
 
-    <Input placeholder="Résolution de l'image" type="select" bind:value={f}>
-        {#each [1,2,3,4,5,6,7,8,9,10] as v}
-            <option value={v}>1/{v}</option>
-        {/each}
-    </Input>
-
-    <Button on:click={() => temp2.download()}>Télécharger</Button>
+    <Button on:click={() => template.download("mail")}>Télécharger</Button>
 </div>
