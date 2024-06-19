@@ -1,38 +1,66 @@
 <script lang="ts">
     import Button from "$lib/components/individuels/Button.svelte";
     import Input from "$lib/components/individuels/Input.svelte";
-    import type { Template, configuration } from "canvas-editor";
+    import { CE_FormattedText, CE_Picture, CE_Text, CE_Vec2, type Template } from "canvas-editor";
     import Global from "./Global.svelte";
-    let titre = "LES $ÉVENEMENTS$ DE LA SEMAINE"
+    import { afterUpdate } from "svelte";
+    import { formatting } from "./format";
+
+    let titre = new CE_FormattedText(formatting.f1,999)
+    titre.position = new CE_Vec2(65,150)
+    titre.data = "LES $ÉVENEMENTS$ DE LA SEMAINE"
 
     interface eventsInterface {"jour":string,"horaires":string,"nom":string,"lieu":string}
 
     let events:eventsInterface[] = []
     export let isatiIndex:string
-    let eventImage : HTMLImageElement
 
-    async function afterUpdateCallback(template:Template,config:configuration){
-        eventImage = await template.loadImageUrl("./postes/Page 2 - Agenda/event.png")
+    let eventImage = new CE_Picture()
+    eventImage.resize(new CE_Vec2(907,116))
+    eventImage.position.x = 1080-907
+
+    afterUpdate(async() => {
+        await eventImage.loadFromUrl("./postes/Page 2 - Agenda/event.png")
+    })
+
+
+
+    let text1 = new CE_FormattedText(formatting.f2,1080)
+    let text2 = new CE_FormattedText(formatting.f3,1080)
+
+    async function addAfterBackground(template:Template){
+        template.add(titre)
     }
 
-    async function beforeUpdateCallback(template:Template,config:configuration,formatting){
+    async function drawAfterBackground(template:Template){
 
-        await template.drawBackground()
-
-        template.drawFormattedTexte(titre,65,1080-65,150,formatting.f1)
 
         let y = 0
         for (let i in events){
+
             let j = parseInt(i) - Math.floor(events.length/2)
             y = 540 + 116 * ( j * 1.25 + +(events.length%2 == 0) * events.length * 0.25 )
 
-            template.drawImage(eventImage,1080-907, y ,907,116)
+            eventImage.position.y =  y
+            eventImage.draw(template.ctx)
+
+            text1.position.x = 225
+            text1.position.y = y+51
+            text1.data = events[i].jour
+            text1.draw(template.ctx)
+
+            text1.position.x = 475
+            text1.data = events[i].nom
+            text1.draw(template.ctx)
             
-            template.drawFormattedTexte(events[i].jour    ,225,1080,y+51,formatting.f2)
-            template.drawFormattedTexte(events[i].nom     ,475,1080,y+51,formatting.f2)
-            
-            template.drawFormattedTexte(events[i].horaires,225,1080,y+95,formatting.f3)
-            template.drawFormattedTexte(events[i].lieu    ,475,1080,y+95,formatting.f3)
+            text2.position.x = 225
+            text2.position.y = y+95
+            text2.data = events[i].horaires
+            text2.draw(template.ctx)
+
+            text2.position.x = 475
+            text2.data = events[i].lieu
+            text2.draw(template.ctx)
         }
     }
 
@@ -43,8 +71,8 @@
 
 </script>
 
-<Global isatiIndex={isatiIndex} backgroundURL={`./postes/Page 2 - Agenda/fond.png`} beforeUpdateCallback={beforeUpdateCallback} afterUpdateCallback={afterUpdateCallback}>
-    <Input placeholder="Titre" type="text" bind:value={titre}/>
+<Global isatiIndex={isatiIndex} backgroundURL={`./postes/Page 2 - Agenda/fond.png`} addAfterBackground={addAfterBackground} drawAfterBackground={drawAfterBackground}>
+    <Input placeholder="Titre" type="text" bind:value={titre.data}/>
 
     {#each events as event,i }
 
