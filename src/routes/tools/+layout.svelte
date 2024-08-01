@@ -25,6 +25,7 @@
         <a href="/tools/birthday"><Button>Editeur Anniversaires</Button></a>
         <a href="/tools/club-jeu"><Button>Editeur Club Jeu</Button></a>
         <a href="/tools/club-jap"><Button>Editeur Club Japonais</Button></a>
+        <a href="/tools/volley"><Button>Editeur Volley</Button></a>
     </div>
 
     {#key data.pathname}
