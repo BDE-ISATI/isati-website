@@ -2,27 +2,14 @@
 	import HomeEvents from "$lib/components/groupes/HomeEvents.svelte";
 	import HomeEquipe from "$lib/components/groupes/HomeEquipe.svelte";
 	import HomeSalles from "$lib/components/groupes/HomeSalles.svelte";
-	import HomeActus from "$lib/components/groupes/HomeActus.svelte";
 </script>
 
-<div class="cont grid gap-8 grid-cols-2 w-full">
+<div class="cont grid gap-8 grid-cols-1 w-full">
 	<HomeEvents></HomeEvents>
 	<HomeSalles></HomeSalles>
-	<HomeActus></HomeActus>
 	<HomeEquipe></HomeEquipe>
 </div>
 
 <style>
 
-	.cont > :global(:nth-child(1)) { grid-area: 1 / 1 / 2 / 2; }
-	.cont > :global(:nth-child(2)) { grid-area: 1 / 2 / 2 / 3; }
-	.cont > :global(:nth-child(3)) { grid-area: 2 / 1 / 3 / 3; }
-	.cont > :global(:nth-child(4)) { grid-area: 3 / 1 / 4 / 3; }
-
-	@media (max-width : 767px) {
-		.cont > :global(:nth-child(1)) { grid-area: 1 / 1 / 2 / 3; }
-		.cont > :global(:nth-child(2)) { grid-area: 2 / 1 / 3 / 3; }
-		.cont > :global(:nth-child(3)) { grid-area: 3 / 1 / 4 / 3; }
-		.cont > :global(:nth-child(4)) { grid-area: 4 / 1 / 5 / 3; }
-	}
 </style>

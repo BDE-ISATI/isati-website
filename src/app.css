@@ -26,6 +26,9 @@
         --color-container-300 : 37 37 37;
         --color-container-400 : 48 48 48;
         
+        /* light grey */
+        --color-container-500 : 206 206 206;
+
         /* Couleurs Background */
         --color-container-600 : 215 215 215;
         --color-container-700 : 228 228 228;
@@ -41,6 +44,8 @@
             --color-container-200 : 242 242 242;
             --color-container-300 : 228 228 228;
             --color-container-400 : 215 215 215;
+
+            --color-container-500 : 126 126 126;
 
             --color-container-600 : 48 48 48;
             --color-container-700 : 37 37 37;

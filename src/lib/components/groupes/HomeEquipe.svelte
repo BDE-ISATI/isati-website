@@ -1,19 +1,21 @@
 <script lang="ts">
 	import Card from "$lib/components/individuels/Card.svelte";
 	import { CaretRight } from "phosphor-svelte"
+    import NewCardLine from "../individuels/NewCardLine.svelte";
 
 	import { members } from "$lib/store";
+    import NewCard from "../individuels/NewCard.svelte";
 
 </script>
+<div class="flex relative gap-4 flex-col items-center">
 
+	<h1 class="uppercase text-3xl font-bold flex justify-center"><a class="text-container-100 flex" href={"/equipe"}>L'Équipe<CaretRight/></a></h1>
 
-<div class="flex relative gap-4 flex-col">
-	<h1 class="uppercase text-3xl font-bold"><a class="text-container-100 flex" href={"/equipe"}>L'équipe<CaretRight/></a></h1>
-	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1 md:grid-cols-2">
-
+	<NewCard title="Bureau restreint">
 		{#each $members.slice(0,4) as user}
-			<Card main={user.nom} sub={user.rôle} href={user.contact} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></Card>
+			<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></NewCardLine>
+			<hr class="m-2 w-2/3 self-center border-container-500 ">	
 		{/each}
-	</div>
+	</NewCard>
 
 </div>
