@@ -43,6 +43,7 @@
     "canvas-editor": "github:AquaBx/CanvasEditor",
     "cssnano": "^7.0.2",
     "editorjs-drag-drop": "^1.1.14",
+    "hammerjs": "^2.0.8",
     "lottie-web": "^5.12.2",
     "sharp": "^0.33.4",
     "simple-icons": "^12.3.0",
