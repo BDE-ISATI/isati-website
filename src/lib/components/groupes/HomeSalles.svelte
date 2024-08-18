@@ -6,6 +6,7 @@
 	import { salles } from "$lib/store";
     import NewCard from "../individuels/NewCard.svelte";
     import NewCardLine from "../individuels/NewCardLine.svelte";
+    import { bucket } from "$lib/config";
 
     function stringify_date(time:number){
         if (time == undefined) return 'updating';
@@ -31,7 +32,7 @@
 			</div>
 		{:else}
 			{#each $salles.vacant.slice(0,2) as salle}
-				<NewCardLine primary={salleFormat(salle.type,salle.salleID)} secondary={"libre"} tertiary={"Libre jusqu'au " + stringify_date(salle.until)} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></NewCardLine>
+				<NewCardLine primary={salleFormat(salle.type,salle.salleID)} secondary={"libre"} tertiary={"Libre jusqu'au " + stringify_date(salle.until)} icone={`${bucket}/members/${user.ID}.webp`}></NewCardLine>
 			{/each}
 		{/if}
 	</NewCard>

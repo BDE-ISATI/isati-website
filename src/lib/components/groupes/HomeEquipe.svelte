@@ -5,6 +5,7 @@
 
 	import { members } from "$lib/store";
     import NewCard from "../individuels/NewCard.svelte";
+    import { bucket } from "$lib/config";
 
 </script>
 <div class="flex relative gap-4 flex-col items-center">
@@ -13,7 +14,7 @@
 
 	<NewCard title="Bureau restreint">
 		{#each $members.slice(0,4) as user}
-			<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} icone={`https://website-members-pictures.s3.eu-west-3.amazonaws.com/${user.ID}.webp`}></NewCardLine>
+			<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} icone={`${bucket}/members/${user.ID}.webp`}></NewCardLine>
 			<hr class="m-2 w-2/3 self-center border-container-500 ">	
 		{/each}
 	</NewCard>
