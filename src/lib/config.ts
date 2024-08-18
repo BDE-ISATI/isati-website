@@ -1,6 +1,5 @@
 export let apiUri = "https://eqf8l881oc.execute-api.eu-west-3.amazonaws.com/Prod/"
-export let imgBucket = "https://website-members-pictures.s3.eu-west-3.amazonaws.com/"
-export let articleBucket = "https://website-articles-bucket.s3.eu-west-3.amazonaws.com/"
+export let bucket = "https://isati-website-s3.s3.eu-west-3.amazonaws.com"
 
 export function getCookies(){
 

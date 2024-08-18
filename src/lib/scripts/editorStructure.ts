@@ -1,4 +1,4 @@
-import { apiUri, articleBucket, getIdToken, imgBucket } from "$lib/config"
+import { apiUri, getIdToken, bucket } from "$lib/config"
 import type EditorJS from '@editorjs/editorjs'
 
 export type editorItem = Record<string,any>
@@ -129,7 +129,7 @@ export class userEditorStructure extends editorItems {
             "contact" : {type:"text",editable:true},
             "rôle" : {type:"text",editable:true},
             "ordre" : {type:"number",editable:true},
-            "photo" : {type:"file",bucket:imgBucket,editable:true},
+            "photo" : {type:"file",bucket:`${bucket}/members/`,editable:true},
         }
     }
 }
@@ -138,17 +138,27 @@ export class eventEditorStructure extends editorItems {
     bddUri: string = apiUri+"/events/update"
     primary = "ID"
 
+    async save(item:editorItem): Promise<Response> {
+
+        let photoInput = this.toBeProcessed["POSTER"] as HTMLInputElement
+        if (photoInput.files?.length == 1){
+            let outputData = await getDataPhoto(photoInput)
+            item.photo = outputData;
+        }
+        return await super.save(item)
+    }
+
     constructor(data:editorItem[]) {
         super()
         this.items = data;
 
         this.structure = {
             "ID" : {type:"text",editable:false},
-            "nom" : {type:"text",editable:true},
-            "emplacement" : {type:"text",editable:true},
-            "date" : {type:"date",editable:true},
-            "type" : {type:"text",editable:true},
-            "article" : {type:"text",editable:true},
+            "SUMMARY" : {type:"text",editable:false},
+            "LOCATIONS" : {type:"text",editable:false},
+            "DTSTART" : {type:"text",editable:false},
+            "DTEND" : {type:"text",editable:false},
+            "POSTER" : {type:"file",bucket:`${bucket}/events/`,editable:true},
         }
     }
 }
@@ -199,7 +209,7 @@ export class articleEditorStructure extends editorItems {
             "nom" : {type:"text",editable:true},
             "categorie" : {type:"text",editable:true},
             "description" : {type:"text",editable:true},
-            "article" : {type:"texteditor",bucket:articleBucket,editable:true},
+            "article" : {type:"texteditor",bucket:`${bucket}/articles/`,editable:true},
         }
 
         this.items.forEach(element => {
