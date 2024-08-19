@@ -13,7 +13,7 @@
 
 </script>
 
-    <nav id={id} class="md:rounded-none py-2 px-4 md:top-0 md:bottom-auto flex justify-between select-none md:p-4 g-4 fixed bottom-0 left-0 text-white w-full bg-container-800 z-5 md:bg-primary rounded-t-3xl shadow-2xl md:shadow-none">
+    <nav id={id} class="md:rounded-none py-2 px-4 md:top-0 md:bottom-auto flex justify-between select-none md:p-4 g-4 fixed bottom-0 left-0 text-white w-full bg-container-800 z-5 md:bg-primary rounded-t-3xl shadow-2xl md:shadow-none z-20">
         
         <a href="/" class="md:flex hidden place-items-center cursor-pointer gap-4 logo no-underline">
             <Logo color="white"></Logo>

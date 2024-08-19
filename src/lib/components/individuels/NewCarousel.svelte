@@ -12,26 +12,20 @@
 
     let carousel:HTMLDivElement
     let globalIndex = 0
-    let way = 0
 
     onMount(() =>{
         var mc = new Hammer.Manager(carousel)
 
-        var Pan = new Hammer.Pan();
+        var Pan = new Hammer.Pan({ direction: Hammer.DIRECTION_HORIZONTAL });
         mc.add(Pan);
 
-        // listen to events...
-        mc.on("panleft", function(ev) {
-            way = 1
-        });
-
-        mc.on("panright", function(ev) {
-            way = -1
-        });
-
         mc.on("panend", function(ev) {
-            globalIndex = Math.max(Math.min(events.length-1,globalIndex+way),0)
-            way = 0
+            if (ev.direction == 2) {
+                globalIndex = Math.min(events.length-1,globalIndex+1)
+            }
+            else if (ev.direction == 4) {
+                globalIndex = Math.max(globalIndex-1,0)
+            }
         })
 
     })
