@@ -11,7 +11,5 @@
 <div class="flex relative gap-4 flex-col items-center">
 	<h1 class="uppercase text-3xl font-bold flex justify-center"><a class="text-container-100 flex" href={"/salles"}>EVENTS<CaretRight/></a></h1>
 
-	<NewCarousel events={$events}>
-
-	</NewCarousel>
+	<NewCarousel events={$events}></NewCarousel>
 </div>

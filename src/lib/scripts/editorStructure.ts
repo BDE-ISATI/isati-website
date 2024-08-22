@@ -1,5 +1,6 @@
 import { apiUri, getIdToken, bucket } from "$lib/config"
 import type EditorJS from '@editorjs/editorjs'
+import Compressor from "compressorjs";
 
 export type editorItem = Record<string,any>
 
@@ -40,6 +41,27 @@ export abstract class editorItems {
     addEmpty() {
 		this.items.push({})
 	}
+
+    public async save_to_s3(filename:string,contentType:string,data:File){
+        let req = await fetch(apiUri+"/s3/authorizer", {
+            method: "POST",
+            body: JSON.stringify({"filename":filename}),
+            headers: {
+                Authorization: `Bearer ${getIdToken()}`
+            }
+        })
+        
+        let resp = await req.json()
+        let uri = resp.data
+
+        let req2 = await fetch(uri, {
+            method: "PUT",
+            body: data,
+            headers: {
+                "Content-Type": contentType
+            }
+        })
+    }
 
     /*
     Fonction de base pour save dans la base de données.
@@ -142,8 +164,16 @@ export class eventEditorStructure extends editorItems {
 
         let photoInput = this.toBeProcessed["POSTER"] as HTMLInputElement
         if (photoInput.files?.length == 1){
-            let outputData = await getDataPhoto(photoInput)
-            item.photo = outputData;
+            let ctx = this
+
+            
+            new Compressor(photoInput.files[0], {
+                quality: 0.8,
+                mimeType: "image/webp",
+                success(result) {
+                    ctx.save_to_s3("events/"+item.ID+'.webp','image/webp',result)
+                }
+            })
         }
         return await super.save(item)
     }

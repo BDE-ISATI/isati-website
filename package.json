@@ -42,6 +42,7 @@
     "@editorjs/table": "^2.3.0",
     "@phosphor-icons/web": "^2.1.1",
     "canvas-editor": "github:AquaBx/CanvasEditor",
+    "compressorjs": "^1.2.1",
     "cssnano": "^7.0.2",
     "editorjs-drag-drop": "^1.1.14",
     "googleapis": "^142.0.0",
