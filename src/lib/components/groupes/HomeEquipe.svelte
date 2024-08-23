@@ -8,15 +8,17 @@
     import { bucket } from "$lib/config";
 
 </script>
-<div class="flex relative gap-4 flex-col items-center">
+<div class="inline-block">
+	<div class="flex relative gap-4 flex-col items-center">
 
-	<h1 class="uppercase text-3xl font-bold flex justify-center"><a class="text-container-100 flex" href={"/equipe"}>L'Équipe<CaretRight/></a></h1>
+		<h1 class="uppercase text-3xl font-bold flex justify-center"><a class="text-container-100 flex" href={"/equipe"}>L'Équipe<CaretRight/></a></h1>
 
-	<NewCard title="Bureau restreint">
-		{#each $members.slice(0,4) as user}
-			<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} image={`${bucket}/members/${user.ID}.webp`}></NewCardLine>
-			<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
-		{/each}
-	</NewCard>
+		<NewCard title="Bureau restreint">
+			{#each $members.slice(0,4) as user}
+				<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} image={`${bucket}/members/${user.ID}.webp`}></NewCardLine>
+				<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
+			{/each}
+		</NewCard>
 
+	</div>
 </div>

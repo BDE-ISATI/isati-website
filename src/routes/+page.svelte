@@ -4,7 +4,7 @@
 	import HomeSalles from "$lib/components/groupes/HomeSalles.svelte";
 </script>
 
-<div class="cont grid gap-8 grid-cols-1 w-full">
+<div class="columns-xs *:my-4 text-center">
 	<HomeEvents></HomeEvents>
 	<HomeSalles></HomeSalles>
 	<HomeEquipe></HomeEquipe>
