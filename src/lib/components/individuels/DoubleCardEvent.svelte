@@ -56,8 +56,8 @@
 	</div>
 	<div class="flex gap-4">
 		<div class="date">
-			<span class="text-4xl">{jours[date.getDay()-1].slice(0,3)} {date.getDate()}</span>
-			<span class="text-base">{months[date.getMonth()]}</span>
+			<!-- <span class="text-4xl">{jours[date.getDay()-1].slice(0,3)} {date.getDate()}</span>
+			<span class="text-base">{months[date.getMonth()]}</span> -->
 		</div>
 
 		<Dropdown title={"Ajouter"} icon={CalendarPlus} options={[{"libelle":"Google Calendar",action:googleAgenda},{"libelle":"Microsoft Calendar",action:microsoftAgenda}]}></Dropdown>

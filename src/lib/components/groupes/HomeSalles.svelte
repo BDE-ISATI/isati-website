@@ -1,23 +1,21 @@
 <script lang="ts">
-	import Button from "$lib/components/individuels/Button.svelte";
-	import Card from "$lib/components/individuels/Card.svelte";
 	import { CaretRight } from "phosphor-svelte"
-
 	import { salles } from "$lib/store";
     import NewCard from "../individuels/NewCard.svelte";
     import NewCardLine from "../individuels/NewCardLine.svelte";
-    import { bucket } from "$lib/config";
+    import IconeAmphi from "../logo/IconeAmphi.svelte";
+    import IconeSalle from "../logo/IconeSalle.svelte";
 
     function stringify_date(time:number){
         if (time == undefined) return 'updating';
 
         let date = new Date(time*1000)
         
-        return date.toLocaleString('fr')
+        return date.toLocaleString('fr',{day: '2-digit',"month":'2-digit',hour:"2-digit",minute:"2-digit"})
     }
 
 	function salleFormat(type:string,salle:string) {
-		return `${type.charAt(0).toUpperCase() + type.slice(1)} ${salle}`
+		return `${salle}`
 	}
 </script>
 
@@ -32,8 +30,10 @@
 			</div>
 		{:else}
 			{#each $salles.vacant.slice(0,2) as salle}
-				<NewCardLine primary={salleFormat(salle.type,salle.salleID)} secondary={"libre"} tertiary={"Libre jusqu'au " + stringify_date(salle.until)} icone={`${bucket}/members/${user.ID}.webp`}></NewCardLine>
+				<NewCardLine icone={salle.type=="salle" ? IconeSalle : IconeAmphi} iconeBgClass={"bg-[#2BD02B] rounded-xl"} primary={salleFormat(salle.type,salle.salleID)} secondary={"Libre"} tertiary={"Jusqu'au " + stringify_date(salle.until)}></NewCardLine>
+				<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
 			{/each}
 		{/if}
+		
 	</NewCard>
 </div>

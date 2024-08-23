@@ -46,11 +46,11 @@
 		route: '/',
 		icon: House,
 	},
-	{
-		title: 'Events',
-		route: '/events',
-		icon: Calendar,
-	},
+	// {
+	// 	title: 'Events',
+	// 	route: '/events',
+	// 	icon: Calendar,
+	// },
 	{
 		title: 'Salles',
 		route: '/salles',
