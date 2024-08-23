@@ -66,6 +66,7 @@
 	}
 
 </script>
+
 <div class="flex relative gap-4 flex-col items-center">
 
 	<h1 class="text-3xl font-bold">LES SALLES</h1>
