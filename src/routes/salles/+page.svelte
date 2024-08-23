@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
-	import Card from "$lib/components/individuels/Card.svelte";
 	import Input from "$lib/components/individuels/Input.svelte";
     import NewCard from "$lib/components/individuels/NewCard.svelte";
     import NewCardLine from "$lib/components/individuels/NewCardLine.svelte";

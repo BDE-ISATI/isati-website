@@ -12,7 +12,7 @@
     import Navbar from "$lib/components/layout/Navbar.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
 
-	import { House, Calendar, Newspaper, GraduationCap } from "phosphor-svelte"
+	import { House, Calendar, Newspaper, GraduationCap, UserList } from "phosphor-svelte"
 
 	
 	let retour = ""
@@ -71,9 +71,9 @@
 		icon: GraduationCap,
 	},
 	{
-		title: 'Articles',
-		route: '/articles',
-		icon: Newspaper,
+		title: 'Équipe',
+		route: '/equipe',
+		icon: UserList,
 	},
 ]
 
