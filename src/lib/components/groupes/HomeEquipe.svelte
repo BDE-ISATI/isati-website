@@ -14,8 +14,8 @@
 
 	<NewCard title="Bureau restreint">
 		{#each $members.slice(0,4) as user}
-			<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} icone={`${bucket}/members/${user.ID}.webp`}></NewCardLine>
-			<hr class="m-2 w-2/3 self-center border-container-500 ">	
+			<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} image={`${bucket}/members/${user.ID}.webp`}></NewCardLine>
+			<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
 		{/each}
 	</NewCard>
 
