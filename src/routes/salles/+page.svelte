@@ -66,7 +66,7 @@
 	}
 
 </script>
-<div class="flex relative gap-4 flex-col">
+<div class="flex relative gap-4 flex-col items-center">
 
 	<h1 class="text-3xl font-bold">LES SALLES</h1>
 	
@@ -76,13 +76,14 @@
 		<Button on:click={actualize}>Change</Button>
 	</div>
 
-	<h2 class="text-2xl font-bold">Les salles libres</h2>
-	{#each Object.keys(salles_m) as key}
-		<NewCard title={`Bâtiment ${key}`}>
-			{#each salles_m[key] as salle}
+	<div class="columns-xs *:my-4 text-center w-full">
+		{#each Object.keys(salles_m) as key}
+			<NewCard title={`Bâtiment ${key}`}>
+				{#each salles_m[key] as salle}
 				<NewCardLine icone={salle.type=="salle" ? IconeSalle : IconeAmphi} iconeBgClass={salle.state=="Libre" ? "bg-[#2BD02B] rounded-xl" : "bg-primary rounded-xl"} primary={salle.salleID} secondary={salle.state} tertiary={`Jusqu'au ${stringify_date(salle.until)}`}></NewCardLine>
 				<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
-			{/each}
-		</NewCard>
-	{/each}
+				{/each}
+			</NewCard>
+		{/each}
+	</div>
 </div>
