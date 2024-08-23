@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Button from "$lib/components/individuels/Button.svelte";
-	import DoubleCardEvent from "$lib/components/individuels/DoubleCardEvent.svelte";
+	// import Button from "$lib/components/individuels/Button.svelte";
+	// import DoubleCardEvent from "$lib/components/individuels/DoubleCardEvent.svelte";
 
 	import { events_public } from "$lib/store";
     import Calendar from "./calendar.svelte";
@@ -18,7 +18,7 @@
 
 	<div class="content">
 		{#each $events_public as event}
-			<DoubleCardEvent sub={event.emplacement} main={event.nom} date={new Date(event.date)} article={event.article}></DoubleCardEvent>
+			<!-- <DoubleCardEvent sub={event.emplacement} main={event.nom} date={new Date(event.date)} article={event.article}></DoubleCardEvent> -->
 		{/each}
 	</div>
 </div>
