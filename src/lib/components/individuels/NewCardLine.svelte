@@ -19,7 +19,7 @@
             <svelte:component this={icone}></svelte:component>
         {/if}
     </div>
-    <div class="flex-auto flex flex-col justify-evenly">
+    <div class="text-left flex-auto flex flex-col justify-evenly">
         <div class="leading-none font-bold text-lg">{primary}</div>
         <div class="leading-none mt-1 font-normal text-sm">{secondary}</div>
     </div>

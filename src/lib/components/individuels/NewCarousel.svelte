@@ -1,14 +1,9 @@
 
 <script lang="ts">
-    import { bucket } from "$lib/config";
     import * as Hammer from "hammerjs";
     import { onMount } from "svelte";
 
     export let events
-
-    events = events.filter((row) => {
-        return row.POSTER
-    })
 
     let carousel:HTMLDivElement
     let globalIndex = 0
@@ -54,7 +49,9 @@
             </div>
         {:else}
             {#each events as event,i }
-                <img draggable=false class="select-none transition duration-300 absolute rounded-3xl w-80 aspect-[0.707] { getSide(globalIndex,i) }" src={bucket + "/events/" + event.ID + ".webp"} alt="">
+                {#if event.photo}
+                    <img draggable=false class="select-none transition duration-300 absolute rounded-3xl w-80 aspect-[0.707] { getSide(globalIndex,i) }" src={event.photo} alt="">
+                {/if}
             {/each}
         {/if}
     </div>
