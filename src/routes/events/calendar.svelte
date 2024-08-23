@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { events } from "$lib/store";
+    import { events, events_public } from "$lib/store";
 
     var date = new Date();
 
@@ -31,7 +31,7 @@
             <time class="leading-6 bg-primary size-5 grid place-items-center text-white font-bold rounded-full text-xs">{day.getDate()}</time>
         
             <ol class="flex gap-1 flex-col mt-1">
-                {#each $events as event}
+                {#each $events_public as event}
                     {#if day.getDate() == new Date(event.date).getDate() && day.getMonth() == new Date(event.date).getMonth()}
                         <a class="text-sm text-ellipsis	overflow-hidden bg-container-800 px-1 py-0.5 rounded-lg w-full leading-0" href={event.article ? `/article?id=${event.article}` : undefined}>{event.nom}</a>	
                     {/if}

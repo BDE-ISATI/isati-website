@@ -35,7 +35,7 @@
 				{#each Object.keys(data.structure) as key}
 					<td class="p-2 overflow-hidden max-w-24 text-ellipsis whitespace-nowrap">
 						{#if data.structure[key].type == "file"}
-							<img src={`${data.structure[key].bucket}${item["ID"]}.webp?${(new Date()).getTime()}`} alt="pp">
+							<img src={item[key]} alt="pp">
 						{:else}
 							{item[key]}
 						{/if}

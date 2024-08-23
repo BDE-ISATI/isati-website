@@ -4,12 +4,6 @@ import Compressor from "compressorjs";
 
 export type editorItem = Record<string,any>
 
-
-// changePhoto(e:Event & { currentTarget: EventTarget & HTMLInputElement; }) {
-//     const inputElement = e.target as HTMLInputElement;
-//     this.photo = URL.createObjectURL(inputElement.files![0]);
-// }
-
 async function getDataPhoto(input:HTMLInputElement) : Promise<string> {
     return new Promise((resolve) => {
         var fr = new FileReader();
@@ -33,7 +27,6 @@ export abstract class editorItems {
         type:string,
         editable:boolean,
         restriction?:string,
-        bucket?:string
     }> = {}
     
     actionsBeforeSave : Function[] = []
@@ -135,8 +128,18 @@ export class userEditorStructure extends editorItems {
 
         let photoInput = this.toBeProcessed["photo"] as HTMLInputElement
         if (photoInput.files?.length == 1){
-            let outputData = await getDataPhoto(photoInput)
-            item.photo = outputData;
+            let ctx = this
+
+            new Compressor(photoInput.files[0], {
+                quality: 0.8,
+                mimeType: "image/webp",
+                width:128,
+                height:128,
+                resize:"cover",
+                success(result) {
+                    ctx.save_to_s3("members/"+item.ID+'.webp','image/webp',result)
+                }
+            })
         }
         return await super.save(item)
     }
@@ -151,7 +154,8 @@ export class userEditorStructure extends editorItems {
             "contact" : {type:"text",editable:true},
             "rôle" : {type:"text",editable:true},
             "ordre" : {type:"number",editable:true},
-            "photo" : {type:"file",bucket:`${bucket}/members/`,editable:true},
+            "groupe" : {type:"text",editable:true},
+            "photo" : {type:"file",editable:true},
         }
     }
 }
@@ -162,11 +166,10 @@ export class eventEditorStructure extends editorItems {
 
     async save(item:editorItem): Promise<Response> {
 
-        let photoInput = this.toBeProcessed["POSTER"] as HTMLInputElement
+        let photoInput = this.toBeProcessed["photo"] as HTMLInputElement
         if (photoInput.files?.length == 1){
             let ctx = this
 
-            
             new Compressor(photoInput.files[0], {
                 quality: 0.8,
                 mimeType: "image/webp",
@@ -188,7 +191,7 @@ export class eventEditorStructure extends editorItems {
             "LOCATIONS" : {type:"text",editable:false},
             "DTSTART" : {type:"text",editable:false},
             "DTEND" : {type:"text",editable:false},
-            "POSTER" : {type:"file",bucket:`${bucket}/events/`,editable:true},
+            "photo" : {type:"file",editable:true},
         }
     }
 }

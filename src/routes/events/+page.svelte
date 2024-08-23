@@ -2,7 +2,7 @@
 	import Button from "$lib/components/individuels/Button.svelte";
 	import DoubleCardEvent from "$lib/components/individuels/DoubleCardEvent.svelte";
 
-	import { events } from "$lib/store";
+	import { events_public } from "$lib/store";
     import Calendar from "./calendar.svelte";
 
 
@@ -17,7 +17,7 @@
 	<Calendar></Calendar>
 
 	<div class="content">
-		{#each $events as event}
+		{#each $events_public as event}
 			<DoubleCardEvent sub={event.emplacement} main={event.nom} date={new Date(event.date)} article={event.article}></DoubleCardEvent>
 		{/each}
 	</div>

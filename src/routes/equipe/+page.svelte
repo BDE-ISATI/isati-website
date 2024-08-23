@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Button from "$lib/components/individuels/Button.svelte";
-	import Card from "$lib/components/individuels/Card.svelte";
-    import { bucket } from "$lib/config";
-
-	import { members } from "$lib/store";
+	import NewCard from "$lib/components/individuels/NewCard.svelte";
+    import NewCardLine from "$lib/components/individuels/NewCardLine.svelte";
+	import { members_public } from "$lib/store";
 
 </script>
 
@@ -13,8 +12,13 @@
 
 	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1 md:grid-cols-2">
 
-		{#each $members as user}
-			<Card main={user.nom} sub={user.rôle} href={user.contact} icone={`${bucket}/members/${user.ID}.webp`}></Card>
+		{#each Object.keys($members_public) as grp}
+			<NewCard title={grp}>
+				{#each $members_public[grp] as user}
+					<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} image={user.photo}></NewCardLine>
+					<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
+				{/each}
+			</NewCard>
 		{/each}
 	</div>
 

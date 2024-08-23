@@ -7,7 +7,7 @@
 
 
 	import { apiUri } from "$lib/config";
-	import {events,members,salles,articles} from "$lib/store"
+	import {salles,articles, members_private, members_public, events_public, events_private} from "$lib/store"
     
     import Navbar from "$lib/components/layout/Navbar.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
@@ -28,8 +28,22 @@
 		})(data.pathname)
 	})
 
-	let f1 = fetch(apiUri + "events?f=true").then((r) => {return r.json()}).then((r) => {$events = r["data"]})
-	let f2 = fetch(apiUri + "members").then((r) => {return r.json()}).then((r) => {$members = r["data"]})
+	let f1 = fetch(apiUri + "events").then((r) => {return r.json()}).then((r) => {
+		$events_public = r["data"].filter((el)=>{return el.photo!=null})
+		$events_private = r["data"]
+	})
+	let f2 = fetch(apiUri + "members").then((r) => {return r.json()}).then((r) => {
+
+		$members_public = {}
+		$members_private = r["data"]
+
+		for (let mb of $members_private){
+			let grp = mb.groupe
+			if (!(mb.groupe in $members_public)) {$members_public[grp] = []}
+			$members_public[grp].push(mb)
+		}
+
+	})
 	let f3 = fetch(apiUri + "salles/events").then((r) => {return r.json()}).then((r) => {$salles = r["data"]})
 	let f4 = fetch(apiUri + "articles").then((r) => {return r.json()}).then((r) => {$articles = r["data"]})
 
