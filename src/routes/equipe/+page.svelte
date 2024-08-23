@@ -10,8 +10,7 @@
 
 	<h1 class="uppercase text-3xl font-bold">L'équipe</h1>
 
-	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1 md:grid-cols-2">
-
+	<div class="columns-xs *:my-4 text-center w-full">
 		{#each Object.keys($members_public) as grp}
 			<NewCard title={grp}>
 				{#each $members_public[grp] as user}
