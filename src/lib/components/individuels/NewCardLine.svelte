@@ -11,7 +11,7 @@
 	export let href:string|undefined=undefined
 </script>
 
-<a href={href} target="_blank" class="flex w-full eading-none gap-4">
+<a href={href} class="flex w-full eading-none gap-4">
     <div class={iconeBgClass}>
         {#if image}
             <img src={image} class="inline-block h-10 w-10 rounded-xl" alt={"image" + primary}> 
