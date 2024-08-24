@@ -11,7 +11,7 @@
 </script>
 
 {#if !hidden}
-    <div out:fade={{ duration: 100}} in:fade={{ duration: 100}} class="w-screen h-screen fixed right-0 bottom-0 z-20">
+    <div out:fade={{ duration: 100}} in:fade={{ duration: 100}} class="w-screen h-screen fixed right-0 bottom-0 z-30">
         <button on:click={hide} class="w-full h-full bg-container-900 bg-opacity-70"></button>
         <div class="fixed bottom-0 left-0 right-0 z-40 w-full p-4 overflow-y-auto transition-transform bg-container-800">
             

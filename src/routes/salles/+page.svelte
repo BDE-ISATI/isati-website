@@ -103,6 +103,6 @@
 	{/each}
 </Mansory>
 
-<div class="fixed bottom-8 right-8">
+<div class="fixed bottom-20 right-8 sm:bottom-8">
 	<ButtonIcon bgColor="bg-primary" on:click={() => {hidden=false}}><Gear></Gear></ButtonIcon>
 </div>
