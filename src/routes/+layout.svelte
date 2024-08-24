@@ -88,7 +88,7 @@
 		<div class="overflow-x-hidden overflow-y-auto">
 			<Header></Header>
 			{#key data.pathname}
-				<div class="relative max-w-screen-xl mt-0 mx-auto px-4 py-4 md:pt-32 min-h-dvh" >
+				<div class="relative max-w-screen-xl mt-0 mx-auto px-4 py-4 sm:pt-32 min-h-dvh">
 					<slot></slot>
 				</div>
 			{/key}

@@ -3,15 +3,13 @@
 	import HomeEquipe from "$lib/components/groupes/HomeEquipe.svelte";
 	import HomeSalles from "$lib/components/groupes/HomeSalles.svelte";
     import HomeClubs from "$lib/components/groupes/HomeClubs.svelte";
+    import Mansory from "$lib/components/individuels/Mansory.svelte";
+    import Drawer from "$lib/components/individuels/Drawer.svelte";
 </script>
 
-<div class="columns-xs *:my-4 text-center">
+<Mansory>
 	<HomeEvents></HomeEvents>
 	<HomeSalles></HomeSalles>
 	<HomeEquipe></HomeEquipe>
 	<HomeClubs></HomeClubs>
-</div>
-
-<style>
-
-</style>
+</Mansory>

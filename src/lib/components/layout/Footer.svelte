@@ -5,6 +5,8 @@
     import Isati from "$lib/components/logo/Isati.svelte"
     import ESIR from "$lib/components/logo/ESIR.svelte"
     import UR1 from "$lib/components/logo/UR1.svelte"
+    import Drawer from "../individuels/Drawer.svelte";
+    import FormContact from "../individuels/FormContact.svelte";
 
     let icons = [
         {url:"https://www.instagram.com/isatibde/",icon:siInstagram},
@@ -15,9 +17,11 @@
         {url:"https://www.linkedin.com/company/bde-isati/",icon:siLinkedin},
     ]
     
+
+    let hidden = true
 </script>
 
-<footer class="w-full bg-container-800 grid gap-8 p-8 pb-24 md:pb-8">    
+<footer class="w-full bg-container-800 grid gap-8 p-8 pb-24 sm:pb-8">    
     <div class="max-w-md w-full m-auto grid grid-cols-3 gap-8 justify-items-center fill-current">
         {#each icons as icon}
             <ButtonIcon href={icon.url} target="_blank">
@@ -32,6 +36,11 @@
     </div>
     <div class="max-w-md w-full m-auto flex justify-between">
         <a href="/tools">Nos outils</a>
+        <a on:click={() => {hidden=false}}>Nous contacter</a>
         <a class="text-center" href="/legals">Mentions Légales</a>
     </div>
 </footer>
+
+<Drawer title="Contact" hidden={hidden} hide={()=>{hidden=true}}>
+    <FormContact></FormContact>
+</Drawer>
