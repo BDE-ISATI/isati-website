@@ -26,9 +26,11 @@
     })
 
     function getSide(globalIndex:number,index:number) {
-        if (globalIndex>index) return "-left-20 -rotate-3 scale-75 opacity-60 z-0"
+        if (globalIndex>index+1) return "-left-20 -rotate-3 scale-75 opacity-0 z-0"
+        if (globalIndex==index+1) return "-left-20 -rotate-3 scale-75 opacity-60 z-0"
         if (globalIndex==index) return "left-0 z-10"
-        if (globalIndex<index) return "-right-20 rotate-3 scale-75 opacity-60 z-0"
+        if (globalIndex==index-1) return "-right-20 rotate-3 scale-75 opacity-60 z-0"
+        if (globalIndex<index-1) return "-right-20 rotate-3 scale-75 opacity-0 z-0"
     }
 
 </script>

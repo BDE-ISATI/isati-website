@@ -36,7 +36,7 @@
     </div>
     <div class="max-w-md w-full m-auto flex justify-between">
         <a href="/tools">Nos outils</a>
-        <a on:click={() => {hidden=false}}>Nous contacter</a>
+        <a on:click={() => {hidden=false}}>Contact</a>
         <a class="text-center" href="/legals">Mentions Légales</a>
     </div>
 </footer>
