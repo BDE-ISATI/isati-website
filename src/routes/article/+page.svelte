@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { articleBucket } from '$lib/config.js';
+	import { bucket } from '$lib/config.js';
 	import edjsHTML from "@editorjs/html";
 
 	let params = new URLSearchParams(document.location.search);
@@ -7,7 +7,7 @@
 
 	async function loadArticle() {
 		const edjsParser = edjsHTML();
-		let req = await fetch( articleBucket + id + ".json")
+		let req = await fetch( bucket + "/articles/" + id + ".json")
 		let data = await req.json()
 		return edjsParser.parse(data).join("")
 	}

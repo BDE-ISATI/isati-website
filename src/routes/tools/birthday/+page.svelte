@@ -1,82 +1,85 @@
 <script lang="ts">
     import Button from "$lib/components/individuels/Button.svelte";
-    import { afterUpdate,beforeUpdate } from "svelte";
-    import { Template } from "$lib/scripts/canvas";
-    import type { configuration } from "$lib/scripts/canvas";
+    import { afterUpdate,beforeUpdate, onMount } from "svelte";
+    import { Template,CE_Picture,CE_Text,CE_Vec2 } from "canvas-editor";
+
 
     import Input from "$lib/components/individuels/Input.svelte";
 
-    let rôle = "Respo WEI"
-    let nom = "Hippolyte"
     let files1: File[]
     let files2: File[]
     let huerotate:number = 0
 
-    let canvas : HTMLCanvasElement|undefined = undefined
+    let template:Template = new Template(new CE_Vec2(1394,2944))
 
-    let template:Template
-    let config:configuration
+    let image1 = new CE_Picture()
+    image1.angle = 7
+    image1.position = new CE_Vec2(270,715)
+    image1.resize(new CE_Vec2(1095,1170))
+    template.add(image1)
 
-    let f1 = (new FontFace('Nanami', 'url(/fonts/Nanami/Nanami-Light.otf)')).load()
-    let f2 = (new FontFace('NanamiBlack', 'url(/fonts/Nanami/Nanami-Heavy.otf)')).load()
+    let image2 = new CE_Picture()
+    image2.angle = -11
+    image2.position = new CE_Vec2(420,2080)
+    image2.resize(new CE_Vec2(500,590))
+    template.add(image2)
     
-    let loaded = new Promise( (resolve, reject) => Promise.all([f1,f2]).then((r) => { 
-        for (let f of r){
-            document.fonts.add(f);
-        }
-        resolve(undefined)
-    }))
+    let background = new CE_Picture()
+    template.add(background)
 
-    afterUpdate(() =>{
-        config = {
-            backgroundURL:"./anniversaire/fond.png",
-            height:2944,
-            width:1394,
-            canvas:canvas!
-        }
-        
-        template = new Template(config)
+    let nom = new CE_Text('Nanami',115,"1","#000000",0,"center")
+    nom.position = new CE_Vec2(780,2005)
+    nom.angle = 7
+    nom.data = "Hippolyte"
+    template.add(nom)
+
+    let rôle = new CE_Text('Nanami',45,"1","#dc2323",0,"center")
+    rôle.position = new CE_Vec2(670,2730)
+    rôle.angle = -11
+    rôle.data = "Respo WEI"
+    template.add(rôle)
+
+    onMount(async () => {
+        document.fonts.add(await (new FontFace('Nanami', 'url(/fonts/Nanami/Nanami-Light.otf)')).load());
+        document.fonts.add(await (new FontFace('NanamiBlack', 'url(/fonts/Nanami/Nanami-Heavy.otf')).load());
+
+        await background.loadFromUrl("./anniversaire/fond.png")
+
+        loop()
     })
 
-    let cx = 1.12
-    let cy = 1.515
-
-    beforeUpdate(async () =>{
-        if (!template) return
-        await loaded
-        template.clear()
-
-        if (files1) {
-            // load une image 
-            let image = await template.loadImageFile(files1[0])
-            template.rotatedAction( 7, () => template.drawResizeCropImage(image, 270,715,1095,1170) )
+    afterUpdate(async () =>{
+        if (files1){
+            await image1.loadFromFile(files1[0])
         }
 
-        if (files2) {
-            // load une image 
-            let image = await template.loadImageFile(files2[0])
-            template.rotatedAction( -11, () => template.drawResizeCropImage(image, 420,2080,500,590) )
+        if (files2){
+            await image2.loadFromFile(files2[0])
         }
+        background.filter = `hue-rotate(${huerotate}deg)`
+        rôle.filter = `hue-rotate(${huerotate}deg)`
 
-        await template.filteredAction( `hue-rotate(${huerotate}deg)`, async () => {await template.drawBackground()})
-        
-        template.rotatedAction( 7, () => template.drawTexte(nom,780,2005,'Nanami',115,"1","#000000",0,"center") )
-        await template.filteredAction( `hue-rotate(${huerotate}deg)`, () => template.rotatedAction( -11, () => template.drawTexte(rôle,670,2730,'Nanami',45,"1","#dc2323",0,"center") ) )
     })
+
+    function loop() {
+        if (template.destroyed) {return}
+        template.draw()
+        requestAnimationFrame(loop);
+    }
 
 </script>
 
 <div class="grid gap-4 grid-cols-1" spellcheck="false">
 
-    <canvas class="w-auto max-h-96 place-self-center" bind:this={canvas}></canvas>
+    <canvas class="w-auto max-h-96 place-self-center" bind:this={template.canvas}></canvas>
 
-    <Input placeholder="Nom" bind:value={nom}/>
-    <Input placeholder="Rôle" bind:value={rôle}/>
+    <Input placeholder="Nom" bind:value={nom.data}/>
+    <Input placeholder="Rôle" bind:value={rôle.data}/>
 
     <Input placeholder="Image 1" type="file" bind:files={files1}/>
     <Input placeholder="Image 2" type="file" bind:files={files2}/>
 
     <Input placeholder="Hue Rotate" type="range" min={0} max={360} bind:value={huerotate}/>
 
-    <Button on:click={() => template.download()}>Télécharger</Button>
+    <Button on:click={() => template.download("Anniversaire")}>Télécharger</Button>
 </div>

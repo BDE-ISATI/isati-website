@@ -1,13 +1,8 @@
-import { apiUri, articleBucket, getIdToken, imgBucket } from "$lib/config"
+import { apiUri, getIdToken, bucket } from "$lib/config"
 import type EditorJS from '@editorjs/editorjs'
+import Compressor from "compressorjs";
 
 export type editorItem = Record<string,any>
-
-
-// changePhoto(e:Event & { currentTarget: EventTarget & HTMLInputElement; }) {
-//     const inputElement = e.target as HTMLInputElement;
-//     this.photo = URL.createObjectURL(inputElement.files![0]);
-// }
 
 async function getDataPhoto(input:HTMLInputElement) : Promise<string> {
     return new Promise((resolve) => {
@@ -32,7 +27,6 @@ export abstract class editorItems {
         type:string,
         editable:boolean,
         restriction?:string,
-        bucket?:string
     }> = {}
     
     actionsBeforeSave : Function[] = []
@@ -40,6 +34,27 @@ export abstract class editorItems {
     addEmpty() {
 		this.items.push({})
 	}
+
+    public async save_to_s3(filename:string,contentType:string,data:File){
+        let req = await fetch(apiUri+"/s3/authorizer", {
+            method: "POST",
+            body: JSON.stringify({"filename":filename}),
+            headers: {
+                Authorization: `Bearer ${getIdToken()}`
+            }
+        })
+        
+        let resp = await req.json()
+        let uri = resp.data
+
+        let req2 = await fetch(uri, {
+            method: "PUT",
+            body: data,
+            headers: {
+                "Content-Type": contentType
+            }
+        })
+    }
 
     /*
     Fonction de base pour save dans la base de données.
@@ -113,8 +128,18 @@ export class userEditorStructure extends editorItems {
 
         let photoInput = this.toBeProcessed["photo"] as HTMLInputElement
         if (photoInput.files?.length == 1){
-            let outputData = await getDataPhoto(photoInput)
-            item.photo = outputData;
+            let ctx = this
+
+            new Compressor(photoInput.files[0], {
+                quality: 0.8,
+                mimeType: "image/webp",
+                width:128,
+                height:128,
+                resize:"cover",
+                success(result) {
+                    ctx.save_to_s3("members/"+item.ID+'.webp','image/webp',result)
+                }
+            })
         }
         return await super.save(item)
     }
@@ -129,7 +154,8 @@ export class userEditorStructure extends editorItems {
             "contact" : {type:"text",editable:true},
             "rôle" : {type:"text",editable:true},
             "ordre" : {type:"number",editable:true},
-            "photo" : {type:"file",bucket:imgBucket,editable:true},
+            "groupe" : {type:"text",editable:true},
+            "photo" : {type:"file",editable:true},
         }
     }
 }
@@ -138,17 +164,34 @@ export class eventEditorStructure extends editorItems {
     bddUri: string = apiUri+"/events/update"
     primary = "ID"
 
+    async save(item:editorItem): Promise<Response> {
+
+        let photoInput = this.toBeProcessed["photo"] as HTMLInputElement
+        if (photoInput.files?.length == 1){
+            let ctx = this
+
+            new Compressor(photoInput.files[0], {
+                quality: 0.8,
+                mimeType: "image/webp",
+                success(result) {
+                    ctx.save_to_s3("events/"+item.ID+'.webp','image/webp',result)
+                }
+            })
+        }
+        return await super.save(item)
+    }
+
     constructor(data:editorItem[]) {
         super()
         this.items = data;
 
         this.structure = {
             "ID" : {type:"text",editable:false},
-            "nom" : {type:"text",editable:true},
-            "emplacement" : {type:"text",editable:true},
-            "date" : {type:"date",editable:true},
-            "type" : {type:"text",editable:true},
-            "article" : {type:"text",editable:true},
+            "SUMMARY" : {type:"text",editable:false},
+            "LOCATIONS" : {type:"text",editable:false},
+            "DTSTART" : {type:"text",editable:false},
+            "DTEND" : {type:"text",editable:false},
+            "photo" : {type:"file",editable:true},
         }
     }
 }
@@ -199,7 +242,7 @@ export class articleEditorStructure extends editorItems {
             "nom" : {type:"text",editable:true},
             "categorie" : {type:"text",editable:true},
             "description" : {type:"text",editable:true},
-            "article" : {type:"texteditor",bucket:articleBucket,editable:true},
+            "article" : {type:"texteditor",bucket:`${bucket}/articles/`,editable:true},
         }
 
         this.items.forEach(element => {
