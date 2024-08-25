@@ -16,12 +16,11 @@
         {url:"https://www.youtube.com/@isatibde",icon:siYoutube},
         {url:"https://www.linkedin.com/company/bde-isati/",icon:siLinkedin},
     ]
-    
 
     let hidden = true
 </script>
 
-<footer class="w-full bg-container-800 grid gap-8 p-8 pb-24 sm:pb-8 sm:mt-16">    
+<footer class="w-full bg-container-800 grid gap-8 p-8 pb-24 sm:pb-8 mt-16">    
     <div class="max-w-md w-full m-auto grid grid-cols-3 gap-8 justify-items-center fill-current">
         {#each icons as icon}
             <ButtonIcon href={icon.url} target="_blank">
