@@ -7,7 +7,7 @@
 
 </script>
 
-<h1 class="uppercase text-3xl font-bold">L'équipe</h1>
+<h1 class="uppercase text-3xl font-bold text-center">L'équipe</h1>
 
 <Mansory>
 	{#each Object.keys($members_public) as grp}
