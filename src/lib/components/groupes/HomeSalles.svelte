@@ -1,36 +1,38 @@
 <script lang="ts">
-	import Button from "$lib/components/individuels/Button.svelte";
-	import Card from "$lib/components/individuels/Card.svelte";
-	import { CaretRight } from "phosphor-svelte"
-
 	import { salles } from "$lib/store";
+    import NewCard from "../individuels/NewCard.svelte";
+    import NewCardLine from "../individuels/NewCardLine.svelte";
+    import IconeAmphi from "../logo/IconeAmphi.svelte";
+    import IconeSalle from "../logo/IconeSalle.svelte";
+    import HomeCommon from "./HomeCommon.svelte";
+	import Button from "$lib/components/individuels/Button.svelte";
 
     function stringify_date(time:number){
         if (time == undefined) return 'updating';
 
         let date = new Date(time*1000)
         
-        return date.toLocaleString('fr')
+        return date.toLocaleString('fr',{day: '2-digit',"month":'2-digit',hour:"2-digit",minute:"2-digit"})
     }
 
 	function salleFormat(type:string,salle:string) {
-		return `${type.charAt(0).toUpperCase() + type.slice(1)} ${salle}`
+		return `${salle}`
 	}
 </script>
 
-<div class="flex relative gap-4 flex-col">
-
-	<h1 class="uppercase text-3xl font-bold"><a class="text-container-100 flex" href={"/salles"}>SALLES<CaretRight/></a></h1>
-
-	<div class="grid grid-flow-row-dense w-full gap-2 place-items-center grid-cols-1">
-
+<HomeCommon title="Les salles">
+	<NewCard title="Libres">
 		{#if $salles.vacant.length == 0}
-			<span>Aucune salle de libre 😞</span>
+			<div class="flex flex-col justify-center gap-4 w-36 m-auto">
+				<svg class="h-28 fill-container-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 436 482"><path d="M265.827 280.522l.07 1.64c.12 3.76.06 7.54-.18 11.32 3.53-3.58 7.08-8 10.13-13.38.65-1.15 1.27-2.31 1.85-3.5-4.25 1.79-8.28 3.04-11.87 3.92zm166.04-234.56L212.027.112c-3.31-.69-6.53 1.9-6.53 5.27v167.12c.06.18.13.36.2.54 1.49 3.91 3.1 7.81 4.79 11.66a91.27 91.27 0 0 1 9.48-.51c11.72 0 22.24 2.49 31.25 7.41 7.73 4.23 12.84 9.42 17.34 14 5.2 5.29 9.69 9.86 17.66 12.9 5.17 1.97 10.8 2.97 16.75 2.97 3.2 0 6.57-.29 9.99-.88l9.1-1.54-2.28 8.94c-1.03 4.03-2.38 7.94-4.05 11.69l.05.75a106.3 106.3 0 0 1-1.29 24.25c-4.72 27.72-18.15 43.76-31.15 59.28-11.52 13.75-22.41 26.75-26.51 47.58-3.72 18.88-2.03 34.86 5.02 47.59l167.46 34.92c3.31.69 6.52-1.9 6.52-5.27V50.812c0-2.37-1.63-4.37-3.96-4.85zm-59.56 92.17c0 4.76-3.91 7.82-8.75 6.81l-85.78-17.89c-4.83-1.01-8.76-5.7-8.76-10.46v-17.78c0-4.77 3.93-7.82 8.76-6.81l85.78 17.89c4.84 1.01 8.75 5.69 8.75 10.46v17.78zm31.18 145.84c-8.25-1.72-14.92-9.7-14.92-17.83s6.67-13.33 14.92-11.61c8.24 1.72 14.93 9.7 14.93 17.83s-6.69 13.33-14.93 11.61zm-127.64-3.87c.65-1.15 1.27-2.31 1.85-3.5-4.25 1.79-8.28 3.04-11.87 3.92l.07 1.64c.12 3.76.06 7.54-.18 11.32 3.53-3.58 7.08-8 10.13-13.38zm-10.02.42l.07 1.64c.12 3.76.06 7.54-.18 11.32 3.53-3.58 7.08-8 10.13-13.38.65-1.15 1.27-2.31 1.85-3.5-4.25 1.79-8.28 3.04-11.87 3.92z"/><path d="M307.637 242.482c3.39-6.12 5.25-11.79 6.32-15.97-4.41.75-10.21 1.33-16.68.68-.67-.07-1.36-.15-2.05-.25-3.58-.49-7.34-1.39-11.15-2.84-16.77-6.39-20.35-18.82-35.74-27.23a51.81 51.81 0 0 0-10.17-4.2l-1.34-.38-1.29-.33a64.81 64.81 0 0 0-1.62-.37c-1.2-.26-2.45-.48-3.76-.68-6.44-.95-14.13-1.06-23.31.29l-1.35-2.98c-1.83-4.1-3.65-8.45-5.41-13.04-1.91-4.99-3.57-9.82-5.02-14.43-2.47 2.17-5.6 5.38-8.43 9.82-2.22 3.49-3.66 6.78-4.6 9.45l-9.44-14.55-11.5-17.12c-5.73 15.39-13.47 42.98-9.1 76.78 2.03 15.66 6.17 28.86 10.35 39.11-.96 2.25-3.8 8.01-10.27 11.75-3.43 1.98-6.69 2.7-8.88 2.99a99.87 99.87 0 0 0 13.78 4.34l1.62.37 3.17.64a100.19 100.19 0 0 0 5.07.81l2.43.3c2.4.26 4.7.42 6.91.51a3.75 3.75 0 0 0 .34.01 101.98 101.98 0 0 0 6.75.03l2.82-.12a24.98 24.98 0 0 1-7.15 3.83c-3.47 1.19-6.62 1.41-8.95 1.34-.5-.01-.96-.04-1.38-.08l-.6-.06c2.75 8.29 5.61 19.15 7.14 32.1.59 5.06 2.05 17.44.72 30.12-1.18 11.24-4.26 19.89-8.14 27.82 1.46 14.97-.56 33.18-6.03 54.22l-3.53 13.55-6.42-12.44c-1.82-3.53-3.77-6.91-5.85-10.14-1.1 3.75-2.07 7.78-2.87 12.17a129.82 129.82 0 0 0-1.94 16.69 119.25 119.25 0 0 0 10.79 7.48c1.26.77 2.54 1.53 3.84 2.26l3.93 2.12c11.97 6.17 25.24 10.52 39.06 12.84 2.31.38 4.63.71 6.96.99a140.98 140.98 0 0 0 31.08.2l3.64-.43h.01l3.63-.53 3.62-.63h.01l3.61-.73c9.61-2.08 19.04-5.23 28.05-9.52 5.83-2.78 14.91-7.66 25.02-15.83-7.97-1.33-29.49-6.05-43.4-24.51a56.76 56.76 0 0 1-6.53-11.12c-8.84-19.96-4.7-40.95-3.47-47.2 9.11-46.21 49.03-56.13 57.63-106.71 1.7-10.02 1.5-18.3 1.22-22.87l-2.15 1.68zm-22.79 32.85c-.17.41-.35.83-.54 1.25a65.26 65.26 0 0 1-1.66 3.53l-.38.74a69.39 69.39 0 0 1-1.2 2.21c-7.6 13.39-17.75 20.98-23.24 24.52 1.45-7.31 2.38-15.8 2.07-25.22-.07-2.29-.22-4.5-.42-6.64 2.3-.39 6.52-1.23 11.69-3.04l1.07-.39 1.38-.52 1.41-.57 1.22-.52.95-.42a75.35 75.35 0 0 0 3.4-1.66l1.1-.58 1.13-.63c1.42-.8 2.85-1.68 4.28-2.64a35.84 35.84 0 0 0 .78-.53 32.24 32.24 0 0 0 .61-.42c-.77 3.44-1.92 7.35-3.65 11.53zm-122.02 114.8c.09 11.62-1.71 25.94-6.32 43.68a130.37 130.37 0 0 0-8.47-14.17 117.84 117.84 0 0 0-4.22-5.73c-5.42-6.91-12.21-13.96-20.69-20.26-36.5-27.09-64.91-11.63-94.91-38.16-18.67-16.51-29.86-41.99-28.02-66.53 1.55-20.67 12.04-37.23 12.76-38.28 6.75-9.94 14.19-16.66 16.87-19-.97 8.62-1.24 22.82 5.01 38.21 2.77 6.81 6.2 12.34 9.43 16.65-.25-2.09-.37-4.97.2-8.38a31.64 31.64 0 0 1 2.51-8.1c3.78 9.76 10.6 23.52 23.47 36.2 29.35 28.92 60.47 22.17 79.43 43.48 5.37 6.05 10.38 15.04 12.21 29.09.46 3.45.72 7.21.74 11.3z"/></svg>
+				<span class="text-container-500 text-center font-extrabold text-sm">Aucune salle n’est libre pour le moment</span>
+			</div>
 		{:else}
 			{#each $salles.vacant.slice(0,2) as salle}
-				<Card main={salleFormat(salle.type,salle.salleID)} sub={"Libre jusqu'au " + stringify_date(salle.until)} icone_text={salle.batimentID}></Card>
+			<NewCardLine icone={salle.type=="salle" ? IconeSalle : IconeAmphi} iconeBgClass={"bg-[#2BD02B] rounded-xl"} primary={salleFormat(salle.type,salle.salleID)} secondary={"Libre"} tertiary={"Jusqu'au " + stringify_date(salle.until)}></NewCardLine>
+			<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
 			{/each}
 		{/if}
-
-	</div>
-</div>
+		<Button href="/salles">Voir Plus</Button>
+	</NewCard>
+</HomeCommon>

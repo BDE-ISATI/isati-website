@@ -9,7 +9,7 @@
 
     let id = btoa(placeholder + type + Date.now().toString());
 
-    let classes = "placeholder:opacity-0 peer transition shadow-black/5 ring-1 ring-slate-700/10 rounded-md w-full pb-2 pt-5 px-4 bg-container-700 leading-tight focus:outline"
+    let classes = "placeholder:opacity-0 peer transition shadow-black/5 ring-1 ring-slate-700/10 rounded-xl w-full pb-2 pt-5 px-4 bg-container-700 leading-tight focus:outline"
 </script>
 <svelte:options accessors />
 

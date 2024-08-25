@@ -30,10 +30,6 @@
 </script>
 
 <div class="flex relative gap-4 flex-col">
-    <button class="hidden md:block absolute top-60 text-4xl left-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(-400,0)}>
-        <CaretCircleLeft/>
-    </button>
-
     <div class="overflow-y-hidden overflow-x-scroll scroll-smooth" style="scrollbar-width: none" bind:this={scrolling}>
         <div class="flex gap-4 w-fit py-4 px-1">
         {#if loaded}
@@ -60,11 +56,6 @@
             </div>
                 
         {/if}
-
         </div>
     </div>
-
-    <button class="hidden md:block absolute top-60 text-4xl right-[-60px] text-container-600" on:click={()=>scrolling.scrollBy(400,0)}>
-        <CaretCircleRight/>
-    </button>
 </div>

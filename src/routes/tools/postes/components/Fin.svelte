@@ -2,22 +2,27 @@
  
     import Global from "./Global.svelte";
     import Input from "$lib/components/individuels/Input.svelte";
-    import type { Template, configuration } from "$lib/scripts/canvas";
-
-    let titre = "PLUS D'INFOS DANS TES $MAILS$ !"
-    let subtitle = "- MAIS J'AI RIEN REÇU ?\n- VÉRIFIE TES SPAMS ET ENVOIE TON MAIL EN MP !"
-        
+    import { CE_FormattedText, CE_Vec2, type Template } from "canvas-editor";
+    import { formatting } from "./format";
+       
     export let isatiIndex:string
+    
+    let titre = new CE_FormattedText(formatting.f1,999)
+    titre.position = new CE_Vec2(65,150)
+    titre.data = "PLUS D'INFOS DANS TES $MAILS$ !"
 
-    async function beforeUpdateCallback(template:Template,config:configuration,formatting){
-        await template.drawBackground()
-        await template.drawFormattedTexte(titre,65,1080-65,150,formatting.f1)
-        await template.drawFormattedTexte(subtitle,110,1080-65,415,formatting.f4)
+    let subtitle = new CE_FormattedText(formatting.f4,999)
+    subtitle.position = new CE_Vec2(110,415)
+    subtitle.data = "- MAIS J'AI RIEN REÇU ?\n- VÉRIFIE TES SPAMS ET ENVOIE TON MAIL EN MP !"
+
+    async function addAfterBackground(template:Template){
+        template.add(titre)
+        template.add(subtitle)
     }
 
 </script>
 
-<Global isatiIndex={isatiIndex} backgroundURL={`./postes/Page 6 - Fin/fond.png`} beforeUpdateCallback={beforeUpdateCallback}>
-    <Input placeholder="Titre" type="text" bind:value={titre}/>
-    <Input placeholder="Subtitle" type="textarea" bind:value={subtitle}/>
+<Global isatiIndex={isatiIndex} backgroundURL={`./postes/Page 6 - Fin/fond.png`} addAfterBackground={addAfterBackground}>
+    <Input placeholder="Titre" type="text" bind:value={titre.data}/>
+    <Input placeholder="Subtitle" type="textarea" bind:value={subtitle.data}/>
 </Global>
