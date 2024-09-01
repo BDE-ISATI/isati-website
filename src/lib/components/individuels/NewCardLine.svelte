@@ -24,7 +24,9 @@
         <div class="leading-none mt-1 font-normal text-sm">{secondary}</div>
     </div>
     <div class="text-right flex-auto flex flex-col justify-evenly">
-        <div class="flex justify-end"><ArrowSquareIn weight="fill" class="block size-4 fill-container-100"/></div>
+        <div class="flex justify-end">
+            <ArrowSquareIn weight="fill" class="block size-4 fill-container-100 {href ? "fill-container-100" : "fill-container-800"}"/>
+        </div>
         <div class="leading-none mt-1 font-normal text-sm">{tertiary}</div>    
     </div>
 </a>
