@@ -29,8 +29,9 @@
 	})
 
 	let f1 = fetch(apiUri + "events").then((r) => {return r.json()}).then((r) => {
-		$events_public = r["data"].filter((el)=>{return el.photo!=null})
-		$events_private = r["data"]
+		let data = r["data"].sort((a,b) => {return a.DTSTART - b.DTSTART})
+		$events_public = data.filter((el)=>{return el.photo!=null})
+		$events_private = data
 	})
 	let f2 = fetch(apiUri + "members").then((r) => {return r.json()}).then((r) => {
 
