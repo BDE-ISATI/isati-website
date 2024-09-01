@@ -9,11 +9,11 @@
 
     let id = btoa(placeholder + type + Date.now().toString());
 
-    let classes = "placeholder:opacity-0 peer transition shadow-black/5 ring-1 ring-slate-700/10 rounded-xl w-full pb-2 pt-5 px-4 bg-container-700 leading-tight focus:outline"
+    let classes = "h-full placeholder:opacity-0 peer transition shadow-black/5 ring-1 ring-slate-700/10 rounded-xl w-full pb-2 pt-5 px-4 bg-container-700 leading-tight focus:outline"
 </script>
 <svelte:options accessors />
 
-<div class="relative ">
+<div class="relative min-h-12">
     {#if type=="textarea"}
         <textarea rows="10" id={id} placeholder={placeholder} bind:value={value} class={classes}/>
     {:else if type=="file"}
