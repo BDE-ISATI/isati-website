@@ -84,7 +84,7 @@
 </script>
 
 
-<h1 class="text-3xl font-bold">LES SALLES</h1>
+<h1 class="text-3xl font-bold text-center">LES SALLES</h1>
 
 <Drawer title="Options" hidden={hidden} hide={()=>{hidden=true}}> 
 	<Input placeholder="Date" bind:value={sDate} type="date" />
