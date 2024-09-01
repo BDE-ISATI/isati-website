@@ -10,7 +10,7 @@
 
     let icons = [
         {url:"https://www.instagram.com/isatibde/",icon:siInstagram},
-        {url:"https://discord.gg/jfpVdAZT",icon:siDiscord},
+        {url:"https://discord.gg/9HcWAxXEkR",icon:siDiscord},
         {url:"https://www.facebook.com/isati.lisatis",icon:siFacebook},
         {url:"https://github.com/organizations/BDE-ISATI",icon:siGithub},
         {url:"https://www.youtube.com/@isatibde",icon:siYoutube},
