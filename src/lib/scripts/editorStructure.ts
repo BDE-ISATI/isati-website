@@ -1,4 +1,4 @@
-import { apiUri, getIdToken, bucket } from "$lib/config"
+import { apiUri, getIdToken, bucket, getAccessToken } from "$lib/config"
 import type EditorJS from '@editorjs/editorjs'
 import Compressor from "compressorjs";
 
@@ -38,10 +38,10 @@ export abstract class editorItems {
     public async save_to_s3(filename:string,contentType:string,data:File){
         let req = await fetch(apiUri+"/s3/authorizer", {
             method: "POST",
-            body: JSON.stringify({"filename":filename}),
-            headers: {
-                Authorization: `Bearer ${getIdToken()}`
-            }
+            body: JSON.stringify({
+                filename:filename,
+                AccessToken:getAccessToken()
+            }),
         })
         
         let resp = await req.json()
@@ -49,10 +49,10 @@ export abstract class editorItems {
 
         let req2 = await fetch(uri, {
             method: "PUT",
-            body: data,
-            headers: {
-                "Content-Type": contentType
-            }
+            body: JSON.stringify({
+                ...data,
+                AccessToken:getAccessToken()
+            }),
         })
     }
 
@@ -74,10 +74,10 @@ export abstract class editorItems {
 
         let req = await fetch(this.bddUri, {
             method: method,
-            body: JSON.stringify(item),
-            headers: {
-                Authorization: `Bearer ${getIdToken()}`
-            }
+            body: JSON.stringify({
+                ...item,
+                AccessToken:getAccessToken()
+            }),
         })
         
         let resp = await req.json()
@@ -104,10 +104,10 @@ export abstract class editorItems {
 
             let req = await fetch(this.bddUri, {
                 method: "DELETE",
-                body: JSON.stringify(formData),
-                headers: {
-                    Authorization: `Bearer ${getIdToken()}`
-                }
+                body:JSON.stringify({
+                    ...formData,
+                    AccessToken:getAccessToken()
+                }),
             });
 
             let resp = await req.json()
