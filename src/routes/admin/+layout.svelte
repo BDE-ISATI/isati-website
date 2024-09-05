@@ -1,56 +1,35 @@
 <script lang="ts">
     import Button from '$lib/components/individuels/Button.svelte';
     import { onMount } from 'svelte';
-    import { apiUri,getIdToken } from '$lib/config';
-
-    import Input from '$lib/components/individuels/Input.svelte';
-
-    import { logged } from '$lib/store';
-
-    const url = apiUri + "/login";
-    
-
-let email: ""
-let password: ""
-
-async function send(){
-  const response = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify({
-      email: email,
-      password: password
-    }),
-  });
-
-  let data = await response.json()
-
-  document.cookie = `AccessToken=${data.AuthenticationResult.AccessToken};max-age=${data.AuthenticationResult.ExpiresIn}`;
-  document.cookie = `RefreshToken=${data.AuthenticationResult.RefreshToken};max-age=${data.AuthenticationResult.ExpiresIn}`;
-  document.cookie = `IdToken=${data.AuthenticationResult.IdToken};max-age=${data.AuthenticationResult.ExpiresIn}`;
-  $logged = true
-
-}
+    import { apiUri,getAccessToken,getIdToken } from '$lib/config';
+    import { logged } from '$lib/store';    
 
 async function check() {
-  if (!getIdToken()) { return false }
+  if (!getAccessToken()) { return false }
   try {
-    let req = await fetch(apiUri+"/login/test", {
+    let req = await fetch(apiUri+"/login", {
         method: "POST",
-        headers: {
-            Authorization: `Bearer ${getIdToken()}`
-        }
+        body: JSON.stringify({
+          AccessToken:getAccessToken()
+        }),
     });
     return req.status == 200
   }
   catch {
     return false
   }
-  
 }
 
 onMount(async () => {
   if (!$logged){
     $logged = await check()
+  }
+  
+  let params = new URLSearchParams(document.location.hash.slice(1));
+
+  if (params.get("access_token")){
+    document.cookie = `AccessToken=${params.get("access_token")};max-age=${params.get("expires_in")}`;
+    document.location.href = document.location.origin + document.location.pathname
   }
 })
 
@@ -59,12 +38,9 @@ onMount(async () => {
   {#if !$logged}
     
       <h1>Panel Admin</h1>
-      <Input placeholder="Login" bind:value={email}/>
-      <Input placeholder="Password" type="password" bind:value={password}/>
-      
-      <Button on:click={send}>Connexion</Button>
-    
-  {:else}
+      <Button href="https://isati-website-admin.auth.eu-west-3.amazoncognito.com/oauth2/authorize?client_id=1v43031b45oid7o1053srdcnt6&response_type=token&scope=aws.cognito.signin.user.admin&redirect_uri={document.location.origin}/admin">Connexion Google</Button>
+  
+    {:else}
     <div class="flex gap-4">
       <Button href={"/admin/events"}>Events</Button>
       <Button href={"/admin/users"}>Users</Button>

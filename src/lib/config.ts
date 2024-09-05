@@ -21,3 +21,7 @@ export function getCookies(){
 export function getIdToken(){
     return getCookies()["IdToken"]
 }
+
+export function getAccessToken(){
+    return getCookies()["AccessToken"]
+}
