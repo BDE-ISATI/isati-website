@@ -29,7 +29,7 @@ onMount(async () => {
 
   if (params.get("access_token")){
     document.cookie = `AccessToken=${params.get("access_token")};max-age=${params.get("expires_in")}`;
-    document.location.hash = ""
+    document.location.href = document.location.origin + document.location.pathname
   }
 })
 
