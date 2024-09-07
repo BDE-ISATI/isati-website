@@ -38,7 +38,7 @@ onMount(async () => {
   {#if !$logged}
     
       <h1>Panel Admin</h1>
-      <Button href="https://isati-website-admin.auth.eu-west-3.amazoncognito.com/oauth2/authorize?client_id=1v43031b45oid7o1053srdcnt6&response_type=token&scope=aws.cognito.signin.user.admin&redirect_uri={document.location.origin}/admin">Connexion Google</Button>
+      <Button href="https://isati-website-admin.auth.eu-west-3.amazoncognito.com/oauth2/authorize?client_id=1d4b520v71nvj2246faogjorrv&response_type=token&scope=aws.cognito.signin.user.admin&redirect_uri={document.location.origin}/admin">Connexion Google</Button>
   
     {:else}
     <div class="flex gap-4">
