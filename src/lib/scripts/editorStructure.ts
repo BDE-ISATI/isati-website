@@ -49,10 +49,7 @@ export abstract class editorItems {
 
         let req2 = await fetch(uri, {
             method: "PUT",
-            body: JSON.stringify({
-                ...data,
-                AccessToken:getAccessToken()
-            }),
+            body: data,
         })
     }
 
