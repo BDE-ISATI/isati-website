@@ -5,7 +5,7 @@
 
     let nom = ""
     let contact = ""
-    let pôle = "@everyone"
+    let pôle = ""
     let msg = ""
     let url = "https://discord.com/api/webhooks/1227688957962354779/lBbZ01Y6tE-_SfjIpa8rfzZy1b5KwZsEY_PR8fcYgNMOu35r3PpG7iOcaBZLWQOui8Ro"
 
@@ -40,7 +40,7 @@
             <option value="<@&1226550092786438224>">Bureau Restreint</option>
             <option value="<@&1226550269073162403>">Pôle Tutorat</option>
             <option value="<@&1226550404351922207>">Pôle Event</option>
-            <option value="@everyone">Autre</option>
+            <option value="">Autre</option>
         </Input>
         <Input type="text" placeholder="Mail ou réseau social" bind:value={contact}/>
     </div>
