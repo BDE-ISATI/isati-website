@@ -8,6 +8,8 @@
     import { PlusCircle,CaretCircleLeft,CaretCircleRight } from "phosphor-svelte";
     import Input from "$lib/components/individuels/Input.svelte";
     import Supplementaire from "./components/Supplementaire.svelte";
+  import Button from "../../../lib/components/individuels/Button.svelte";
+  import Texte from "./components/Texte.svelte";
 
     let f1 = (new FontFace('AzoSansBold', 'url(/fonts/AzoSans/AzoSans-Bold.woff2)')).load()
     let f2 = (new FontFace('AzoSansBlack', 'url(/fonts/AzoSans/AzoSans-Black.woff2)')).load()
@@ -27,6 +29,11 @@
 
 	let scrolling:HTMLDivElement
 
+    function deleteComponent(i:number){
+        components.splice(i,1)
+        components = components
+    }
+
 </script>
 
 <div class="flex relative gap-4 flex-col">
@@ -34,10 +41,10 @@
         <div class="flex gap-4 w-fit py-4 px-1">
         {#if loaded}
 
-
             {#each components as comp,i}
                 <div class="w-80">
                     <svelte:component this={comp} isatiIndex={(Math.round(i*6/(components.length-1))+1).toString()}></svelte:component>
+                    <Button on:click={() => {deleteComponent(i)}}>Supprimer ce poste</Button>
                 </div>
             {/each}
 
@@ -48,6 +55,7 @@
                     <option value={Supplementaire}>Page poste verticale</option>
                     <option value={PhotoSemaine}>Page photo de la semaine</option>
                     <option value={Fin}>Page de fin</option>
+                    <option value={Texte}>Texte</option>
                 </Input>
                 
                 <ButtonIcon on:click={() => {components.push(bindSelected);components=components;scrolling.scrollBy(1000,0);}}>
