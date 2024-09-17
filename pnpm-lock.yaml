@@ -25,7 +25,7 @@ importers:
         version: 2.8.7
       '@editorjs/html':
         specifier: github:BDE-ISATI/editorjs-html
-        version: editorjs-html@https://codeload.github.com/BDE-ISATI/editorjs-html/tar.gz/3c94fc863466ecf38b34b1b70cb461faaad0657f
+        version: editorjs-html@git+https://git@github.com:BDE-ISATI/editorjs-html.git#3c94fc863466ecf38b34b1b70cb461faaad0657f
       '@editorjs/image':
         specifier: ^2.9.3
         version: 2.9.3
@@ -49,7 +49,7 @@ importers:
         version: 2.1.1
       canvas-editor:
         specifier: github:AquaBx/CanvasEditor
-        version: https://codeload.github.com/AquaBx/CanvasEditor/tar.gz/e3396d1efe3c33931ddac093f645430d373ad081(@types/node@22.5.5)(jiti@1.21.6)(postcss@8.4.47)(yaml@2.5.1)
+        version: git+https://git@github.com:AquaBx/CanvasEditor.git#bcd6ff980fc24fcef349add35d6e5964c0b5ee1e(@types/node@22.5.5)(jiti@1.21.6)(postcss@8.4.47)(yaml@2.5.1)
       compressorjs:
         specifier: ^1.2.1
         version: 1.2.1
@@ -69,7 +69,7 @@ importers:
         specifier: ^13.8.0
         version: 13.10.0
       vite:
-        specifier: ^5.4.3
+        specifier: ^5.4.6
         version: 5.4.6(@types/node@22.5.5)(terser@5.32.0)
     devDependencies:
       '@editorjs/link-autocomplete':
@@ -771,8 +771,8 @@ packages:
   caniuse-lite@1.0.30001660:
     resolution: {integrity: sha512-GacvNTTuATm26qC74pt+ad1fW15mlQ/zuTzzY1ZoIzECTP8HURDfF43kNxPgf7H1jmelCBQTTbBNxdSXOA7Bqg==}
 
-  canvas-editor@https://codeload.github.com/AquaBx/CanvasEditor/tar.gz/e3396d1efe3c33931ddac093f645430d373ad081:
-    resolution: {tarball: https://codeload.github.com/AquaBx/CanvasEditor/tar.gz/e3396d1efe3c33931ddac093f645430d373ad081}
+  canvas-editor@git+https://git@github.com:AquaBx/CanvasEditor.git#bcd6ff980fc24fcef349add35d6e5964c0b5ee1e:
+    resolution: {commit: bcd6ff980fc24fcef349add35d6e5964c0b5ee1e, repo: git@github.com:AquaBx/CanvasEditor.git, type: git}
     version: 1.0.0
 
   chokidar@3.6.0:
@@ -914,8 +914,8 @@ packages:
   editorjs-drag-drop@1.1.16:
     resolution: {integrity: sha512-yOyKZqqZepkdbDQbAw1bZr3mQewkT4a9QgufWW3Aoy1qcTka8uHR01T/dGHqrpyYrF56ykyidPyp0LX79LEHHQ==}
 
-  editorjs-html@https://codeload.github.com/BDE-ISATI/editorjs-html/tar.gz/3c94fc863466ecf38b34b1b70cb461faaad0657f:
-    resolution: {tarball: https://codeload.github.com/BDE-ISATI/editorjs-html/tar.gz/3c94fc863466ecf38b34b1b70cb461faaad0657f}
+  editorjs-html@git+https://git@github.com:BDE-ISATI/editorjs-html.git#3c94fc863466ecf38b34b1b70cb461faaad0657f:
+    resolution: {commit: 3c94fc863466ecf38b34b1b70cb461faaad0657f, repo: git@github.com:BDE-ISATI/editorjs-html.git, type: git}
     version: 3.4.4
 
   electron-to-chromium@1.5.24:
@@ -2252,7 +2252,7 @@ snapshots:
 
   caniuse-lite@1.0.30001660: {}
 
-  canvas-editor@https://codeload.github.com/AquaBx/CanvasEditor/tar.gz/e3396d1efe3c33931ddac093f645430d373ad081(@types/node@22.5.5)(jiti@1.21.6)(postcss@8.4.47)(yaml@2.5.1):
+  canvas-editor@git+https://git@github.com:AquaBx/CanvasEditor.git#bcd6ff980fc24fcef349add35d6e5964c0b5ee1e(@types/node@22.5.5)(jiti@1.21.6)(postcss@8.4.47)(yaml@2.5.1):
     dependencies:
       ts-node: 10.9.2(@types/node@22.5.5)(typescript@5.6.2)
       tsup: 8.3.0(jiti@1.21.6)(postcss@8.4.47)(typescript@5.6.2)(yaml@2.5.1)
@@ -2429,7 +2429,7 @@ snapshots:
 
   editorjs-drag-drop@1.1.16: {}
 
-  editorjs-html@https://codeload.github.com/BDE-ISATI/editorjs-html/tar.gz/3c94fc863466ecf38b34b1b70cb461faaad0657f: {}
+  editorjs-html@git+https://git@github.com:BDE-ISATI/editorjs-html.git#3c94fc863466ecf38b34b1b70cb461faaad0657f: {}
 
   electron-to-chromium@1.5.24: {}
 
