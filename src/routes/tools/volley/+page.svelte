@@ -20,6 +20,7 @@
     let date = new CE_Text('Mustardo',300,"1","#F39B29",0,"center")
     date.position = new CE_Vec2(1242.5,830)
     date.data = "jeudi 14"
+    date.strokes = [{width:30,color:"black"},{width:15,color:"white"}]
     template.add(date)
 
 
@@ -27,27 +28,33 @@
     let equipe1 = new CE_Text('Impact',470,"1","#F39B29",0,"right")
     equipe1.position = new CE_Vec2(1090,3850)
     equipe1.data = "ESIR"
+    equipe1.strokes = [{width:20,color:"black"}]
     template.add(equipe1)
 
     let equipe2 = new CE_Text('Impact',470,"1","#F39B29",0,"left")
     equipe2.position = new CE_Vec2(1395,3850)
     equipe2.data = "INSA"
+    equipe2.strokes = [{width:20,color:"black"}]
     template.add(equipe2)
 
-    let heure = new CE_Text('Athletic',250,"1","black",0,"center") // #f4f9e4
+    let heure = new CE_Text('Athletic',280,"1","#f4f9e4",40,"center")
     heure.position = new CE_Vec2(1242.5,3550)
     heure.data = "20:30"
+    heure.strokes = [{width:20,color:"black"}]
     template.add(heure)
 
     let vs = new CE_Text('Funkydori',350,"800","#951D33",0,"center")
     vs.position = new CE_Vec2(700,4100)
     vs.angle = -8
     vs.data = "VS"
+    vs.strokes = [{width:30,color:"black"},{width:15,color:"white"}]
+
     template.add(vs)
 
-    let salle = new CE_Text('Cinema',350,"400","black",0,"center") // #f4f9e4
-    salle.position = new CE_Vec2(1242.5,4500)
+    let salle = new CE_Text('Cinema',350,"400","#f4f9e4",0,"center") 
+    salle.position = new CE_Vec2(1242.5,4300)
     salle.data = "salle courtemanche"
+    salle.strokes = [{width:20,color:"black"}]
     template.add(salle)
 
 
