@@ -61,7 +61,7 @@
     onMount(async () => {
         document.fonts.add(await (new FontFace('Impact', 'url(/fonts/impact.ttf)')).load());
         document.fonts.add(await (new FontFace('Athletic', 'url(/fonts/athletic.ttf)')).load());
-        document.fonts.add(await (new FontFace('Mustardo', 'url(/fonts/mustardo.ttf)')).load());
+        document.fonts.add(await (new FontFace('Mustardo', 'url(/fonts/MUSTARDO.OTF)')).load());
         document.fonts.add(await (new FontFace('Cinema', 'url(/fonts/cinema-script.woff2)')).load());
         document.fonts.add(await (new FontFace('Funkydori', 'url(/fonts/funkydori.woff2)')).load());
 
