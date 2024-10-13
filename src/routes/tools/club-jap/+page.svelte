@@ -21,7 +21,7 @@
 
 
     onMount(async () => {
-        document.fonts.add(await (new FontFace('Mistral', 'url(/fonts/MISTRAL.TTF)')).load());
+        document.fonts.add(await (new FontFace('Mistral', 'url(/fonts/mistral.ttf)')).load());
 
         await background.loadFromUrl("./clubs/fond_jap.png")
 
