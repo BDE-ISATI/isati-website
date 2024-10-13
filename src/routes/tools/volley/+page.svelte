@@ -86,6 +86,10 @@
     afterUpdate(async () =>{
         background1.filter = `hue-rotate(${huerotate1}deg)`
         background2.filter = `hue-rotate(${huerotate2}deg)`
+        vs.filter = `hue-rotate(${huerotate2}deg)`
+        equipe1.filter = `hue-rotate(${huerotate1}deg)`
+        equipe2.filter = `hue-rotate(${huerotate1}deg)`
+        date.filter = `hue-rotate(${huerotate1}deg)`
     })
 
     function loop() {
