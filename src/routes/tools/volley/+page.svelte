@@ -23,19 +23,31 @@
     date.strokes = [{width:30,color:"black"},{width:15,color:"white"}]
     template.add(date)
 
-
-
     let equipe1 = new CE_Text('Impact',470,"1","#F39B29",0,"right")
     equipe1.position = new CE_Vec2(1090,3850)
     equipe1.data = "ESIR"
     equipe1.strokes = [{width:20,color:"black"}]
+
+    let equipe12 = new CE_Text('Impact',470,"1","#F4F9E4",0,"right")
+    equipe12.position = new CE_Vec2(1090+20,3850+15)
+    $:equipe12.data = equipe1.data
+    equipe12.strokes = [{width:20,color:"black"}]
+    template.add(equipe12)
     template.add(equipe1)
+
 
     let equipe2 = new CE_Text('Impact',470,"1","#F39B29",0,"left")
     equipe2.position = new CE_Vec2(1395,3850)
     equipe2.data = "INSA"
     equipe2.strokes = [{width:20,color:"black"}]
+
+    let equipe22 = new CE_Text('Impact',470,"1","#F4F9E4",0,"left")
+    equipe22.position = new CE_Vec2(1395+20,3850+15)
+    $:equipe22.data = equipe2.data
+    equipe22.strokes = [{width:20,color:"black"}]
+    template.add(equipe22)
     template.add(equipe2)
+
 
     let heure = new CE_Text('Athletic',280,"1","#f4f9e4",40,"center")
     heure.position = new CE_Vec2(1242.5,3550)
@@ -86,7 +98,6 @@
 </script>
 
 <div class="grid gap-4 grid-cols-1" spellcheck="false">
-
     <canvas class="w-auto max-h-96 place-self-center" bind:this={template.canvas}></canvas>
 
     <Input placeholder="Date" bind:value={date.data}/>
@@ -98,6 +109,6 @@
 
     <Input placeholder="Hue Rotate 1" type="range" min={0} max={360} bind:value={huerotate1}/>
     <Input placeholder="Hue Rotate 2" type="range" min={0} max={360} bind:value={huerotate2}/>
-
+    
     <Button on:click={() => template.download("Anniversaire")}>Télécharger</Button>
 </div>
