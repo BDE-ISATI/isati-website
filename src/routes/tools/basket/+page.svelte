@@ -17,6 +17,9 @@
     let background2 = new CE_Picture()
     template.add(background2)
 
+    let background3 = new CE_Picture()
+    template.add(background3)
+
     let date = new CE_Text('Mustardo',300,"1","#F39B29",0,"center")
     date.position = new CE_Vec2(1242.5,830)
     date.data = "jeudi 14"
@@ -77,14 +80,16 @@
         document.fonts.add(await (new FontFace('Cinema', 'url(/fonts/cinema-script.woff2)')).load());
         document.fonts.add(await (new FontFace('Funkydori', 'url(/fonts/funkydori.woff2)')).load());
 
-        await background1.loadFromUrl("./volley/Dessous_volley.png")
-        await background2.loadFromUrl("./volley/flamme_volley.png")
+        await background1.loadFromUrl("./basket/Calque_fond.png")
+        await background2.loadFromUrl("./basket/Calque_rouge.png")
+        await background3.loadFromUrl("./basket/Calque_jaune.png")
 
         loop()
     })
 
     afterUpdate(async () =>{
         background1.filter = `hue-rotate(${huerotate1}deg)`
+        background3.filter = `hue-rotate(${huerotate1}deg)`
         background2.filter = `hue-rotate(${huerotate2}deg)`
         vs.filter = `hue-rotate(${huerotate2}deg)`
         equipe1.filter = `hue-rotate(${huerotate1}deg)`
