@@ -16,8 +16,6 @@
 
 
 <div class="flex flex-col gap-4">
-
-    
     <div class="flex justify-evenly">
         <a href="/tools/article"><Button>Editeur Article</Button></a>
         <a href="/tools/mails"><Button>Editeur Mails</Button></a>
@@ -26,6 +24,7 @@
         <a href="/tools/club-jeu"><Button>Editeur Club Jeu</Button></a>
         <a href="/tools/club-jap"><Button>Editeur Club Japonais</Button></a>
         <a href="/tools/volley"><Button>Editeur Volley</Button></a>
+        <a href="/tools/basket"><Button>Editeur Basket</Button></a>
     </div>
 
     {#key data.pathname}
@@ -33,6 +32,4 @@
             <slot></slot>
         </div>
     {/key}
-    
-
 </div>
