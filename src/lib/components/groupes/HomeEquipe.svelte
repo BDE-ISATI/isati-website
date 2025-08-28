@@ -12,9 +12,13 @@
 <HomeCommon title="L'Équipe">
 	<NewCard title={key}>
 		{#if Object.keys($members_public).length > 0}
-			{#each $members_public[key] as user}
-				<NewCardLine primary={user.nom} secondary={user.rôle} href={user.contact} image={user.photo}></NewCardLine>
-				<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
+			{#each $members_public[key] ?? [] as user}
+			<NewCardLine 
+				primary={user.nom} 
+				secondary={user.rôle} 
+				href={user.contact} 
+				image={user.photo} />
+			<hr class="m-2 w-2/3 self-center border-container-500 last:hidden">	
 			{/each}
 		{/if}
 		<Button href={"/equipe"}>Voir Plus</Button>
