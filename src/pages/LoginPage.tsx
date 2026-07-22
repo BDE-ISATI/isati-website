@@ -12,6 +12,7 @@ import Input from "@/shared/components/ui/Input";
 import { isAllowedEmail } from "@/shared/lib/validation";
 import cn from "@/shared/utils/cn";
 
+
 import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
 import eyeOff from "@/assets/icons/eye-closed.svg";
 import eye from "@/assets/icons/eye-open.svg";
@@ -22,8 +23,8 @@ function Login() {
     document.title = "Connexion | ISATI";
   }, []);
 
-
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  const user = useAuthStore((s) => s.user)
   const { isLoading, login, error } = useAuth();
   const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginFields>();
   const [ eyeState, setEyeState ] = useState(false);
@@ -33,14 +34,20 @@ function Login() {
 
   
   function onLogin(data: LoginFields) {
-    login(data, { onSuccess: () => reset() });
+    login(data, { onSuccess: () => { 
+      reset();
+    }});
   }
 
   function handleToggle() {
     setEyeState((c) => !c)
   }
 
-  if (isLoggedIn) return <Navigate to="/" />;
+  if (isLoggedIn) {
+    return user?.level ? <Navigate to="/" replace/> : <Navigate to="/onboarding" replace/>;
+  }
+  
+
 
   return (
     <>
@@ -58,6 +65,7 @@ function Login() {
         <div className="relative" >
           <div inert={isLoading} className={cn("transition duration-200", isLoading && "blur-sm pointer-events-none select-none")}>
             <form noValidate onSubmit={handleSubmit(onLogin)} className="flex flex-col gap-4">
+              
               {/* email */}
               <div className="flex flex-col gap-1">
                 <label htmlFor="email" className="text-sm font-medium">

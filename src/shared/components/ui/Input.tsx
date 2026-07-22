@@ -2,9 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
 import cn from "@/shared/utils/cn";
 
-interface InputProps
-  extends Omit<ComponentProps<"input">, "size">,
-    VariantProps<typeof inputVariants> {}
+interface InputProps extends Omit<ComponentProps<"input">, "size">, VariantProps<typeof inputVariants> {}
 
 export { inputVariants };
 export default function Input({ className, variant, size, ...props }: InputProps) {

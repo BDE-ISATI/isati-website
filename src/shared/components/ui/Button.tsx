@@ -7,6 +7,7 @@ interface ButtonsProps extends ButtonHTMLAttributes<HTMLButtonElement>, VariantP
 }
 
 export { buttonVariants };
+
 export default function Button({ children, className, variant, size, ...props } : ButtonsProps){
   return (
     <button className={cn(buttonVariants({variant, size, className}))} {...props} >

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import pb from '@/shared/lib/pocketbase'
-import type { RecordModel } from "pocketbase";
+import { ClientResponseError, type RecordModel } from "pocketbase";
 
 
 interface AuthState {
@@ -17,7 +17,8 @@ export const useAuthStore = create<AuthState>(() => ({
       if (pb.authStore.isValid) { 
         await pb.collection('users').authRefresh();
       }
-    } catch {
+    } catch(err) {
+      if (err instanceof ClientResponseError && err.isAbort) return;
       pb.authStore.clear();
     }
   }

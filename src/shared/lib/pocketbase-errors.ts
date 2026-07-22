@@ -19,22 +19,3 @@ export function getFieldError(error: ClientResponseError | null, field: string) 
   const response = code ? ERROR_TABLE[field]?.[code]: "Erreur inconnue"
   return response;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/** Renvoie le message FR de l'erreur d'un champ précis, ou null s'il n'y en a pas. */
-// export function getFieldError(error: ClientResponseError | null, field: string): string | null {
-//   const data = error?.response?.data?.[field] as FieldErrorData | undefined;
-//   if (!data) return null;
-//   const specific = data.code ? FIELD_ERROR_MESSAGES[field]?.[data.code] : undefined;
-//   return specific ?? translateErrorCode(data.code, data.message);
-// }

@@ -17,6 +17,7 @@ import eyeOff from "@/assets/icons/eye-closed.svg";
 import eye from "@/assets/icons/eye-open.svg";
 
 function Register() {
+  
   useEffect(() => {
     document.title = "Inscription | ISATI";
   }, []);
@@ -43,7 +44,9 @@ function Register() {
     setEyeConfirmState((c) => !c);
   }
 
-  if (isLoggedIn) return <Navigate to="/" />;
+  if (isLoggedIn) return <Navigate to="/" replace/>;
+
+  
 
   const emailServerError = getFieldError(errorPB, "email");
   const passwordServerError = getFieldError(errorPB, "password");
@@ -56,7 +59,8 @@ function Register() {
         <h2 className="mb-6 text-2xl font-semibold">Inscription</h2>
 
         <div className="relative">
-          <div inert={isLoading}
+          <div
+            inert={isLoading}
             className={cn(
               "transition duration-200",
               isLoading && "blur-sm pointer-events-none select-none",
