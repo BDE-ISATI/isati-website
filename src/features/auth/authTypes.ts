@@ -10,6 +10,3 @@ export type RegisterFields = {
   passwordConfirm: string;
 }
 
-export interface RegisterData extends RegisterFields {
-  account_type: string
-}
