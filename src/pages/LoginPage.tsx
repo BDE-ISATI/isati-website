@@ -16,6 +16,7 @@ import cn from "@/shared/utils/cn";
 import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
 import eyeOff from "@/assets/icons/eye-closed.svg";
 import eye from "@/assets/icons/eye-open.svg";
+import CircleAlert from "@/assets/icons/circle-alert.svg?react"
 
 function Login() {
 
@@ -75,9 +76,13 @@ function Login() {
                   {...register("email", {required: "Ce champ est requis.", validate: (value) => isAllowedEmail(value) || "Utilisez votre adresse universitaire."})}
                 />
                 {errors.email && (
-                  <span className="text-xs text-status-critical">
+                  <div className="flex flex-row items-center text-status-critical gap-1">
+                    <CircleAlert className="w-3 h-3"/>
+                    <p className="text-xs">
                     {errors.email.message}
-                  </span>
+                    </p>
+                  </div>
+                  
                 )}
               </div>
 
@@ -87,7 +92,7 @@ function Login() {
                   Mot de passe
                 </label>
 
-                <div className= "flex mb-4 relative">
+                <div className= "flex relative">
                   <Input id="password" type={eyeState ? "text" : "password"} variant={errors.password ? "erreur" : "normal"} 
                     {...register("password", { required: "Ce champ est requis." })}
                   />
@@ -96,23 +101,31 @@ function Login() {
                   </span>
                 </div>
             
-
                 {errors.password && (
-                  <span className="text-xs text-status-critical">
-                    {errors.password.message}
-                  </span>
+                  <div className="text-status-critical flex flex-row items-center gap-1">
+                    <CircleAlert className="w-3 h-3"/>
+                    <p className="text-xs ">
+                      {errors.password.message}
+                    </p>
+                  </div>
+                  
                 )}
               </div>
-
-              {error && (
-                <p className="rounded-md border border-status-critical  px-3 py-2 text-sm text-status-critical">
-                  {error instanceof ClientResponseError && error.status === 400 ? "Email ou mot de passe incorrect." : "Une erreur est survenue. Veuillez réessayer."}
-                </p>
-              )}
 
               <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading ? "Connexion…" : "Se connecter"}
               </Button>
+
+              {error && (
+                <div className="flex flex-row items-center text-status-critical gap-2"> 
+                  <CircleAlert className="w-4 h-4"/>
+                  <p className="text-sm ">
+                    {error instanceof ClientResponseError && error.status === 400 ? "Email ou mot de passe incorrect." : "Une erreur est survenue. Veuillez réessayer."}
+                  </p>
+                </div>
+                
+              )}
+
             </form>
           </div>
           {isLoading && (

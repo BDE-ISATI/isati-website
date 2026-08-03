@@ -18,7 +18,11 @@ function Home() {
     <div>
       <VerificationBanner />
       <Navbar />
-      
+          
+
+
+
+
     </div>
   )
 

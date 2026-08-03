@@ -7,7 +7,7 @@ import RegisterPage from '@/pages/RegisterPage.tsx'
 import OnboardingPage from '@/pages/OnboardingPage.tsx'
 import AuthLayout from '@/pages/AuthLayout.tsx'
 import Home from '@/pages/Home.tsx'
-
+import Profile from '@/pages/Profile.tsx'
 
 function App() {
 
@@ -26,6 +26,7 @@ function App() {
           <Route path="register" element={<RegisterPage />} />
           <Route path="onboarding" element={<OnboardingPage />} />
         </Route>
+        <Route path="/profile/:username" element={<Profile />} />
       </Routes>
         
     </>

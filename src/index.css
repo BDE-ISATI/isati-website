@@ -24,7 +24,7 @@
   --color-destructive: #b52020;          /* erreurs, suppression */
   --color-destructive-foreground: #ffffff;
 
-  --color-warning: #FAD800 ;              /* bannières d'avertissement (ex: compte non vérifié) */
+  --color-warning: #fad800 ;              /* bannières d'avertissement (ex: compte non vérifié) */
   --color-warning-foreground: #1a1a1a;
 
   --color-border: #e5e5e5;               /* bordures par défaut */

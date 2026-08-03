@@ -15,6 +15,7 @@ import cn from "@/shared/utils/cn";
 import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
 import eyeOff from "@/assets/icons/eye-closed.svg";
 import eye from "@/assets/icons/eye-open.svg";
+import CircleAlert from "@/assets/icons/circle-alert.svg?react"
 
 function Register() {
   
@@ -90,14 +91,20 @@ function Register() {
                   })}
                 />
                 {errors.email && (
-                  <span className="text-xs text-status-critical">
-                    {errors.email.message}
-                  </span>
+                  <div className="flex flex-row items-center gap-1 text-status-critical">
+                    <CircleAlert className="w-3 h-3"/>
+                    <span className="text-xs text-status-critical">
+                      {errors.email.message}
+                    </span>
+                  </div>
                 )}
                 {emailServerError && (
-                  <span className="text-xs text-status-critical">
-                    {emailServerError}
-                  </span>
+                  <div className="flex flex-row items-center gap-1 text-status-critical">
+                    <CircleAlert className="w-3 h-3"/>
+                    <span className="text-xs">
+                      {emailServerError}
+                    </span>
+                  </div>
                 )}
               </div>
 
@@ -106,7 +113,7 @@ function Register() {
                 <label htmlFor="password" className="text-sm font-medium">
                   Mot de passe
                 </label>
-                <div className="flex mb-4 relative">
+                <div className="flex relative">
                   <Input
                     id="password"
                     type={eyeState ? "text" : "password"}
@@ -132,14 +139,20 @@ function Register() {
                 </div>
 
                 {errors.password && (
-                  <span className="text-xs text-status-critical">
-                    {errors.password.message}
-                  </span>
+                  <div className="flex flex-row items-center gap-1 text-status-critical">
+                    <CircleAlert className="w-3 h-3"/>
+                    <span className="text-xs">
+                      {errors.password.message}
+                    </span>
+                  </div>
                 )}
                 {passwordServerError && (
-                  <span className="text-xs text-status-critical">
-                    {passwordServerError}
-                  </span>
+                  <div className="flex flex-row items-center gap-1 text-status-critical">
+                    <CircleAlert className="w-3 h-3"/>
+                    <span className="text-xs">
+                      {passwordServerError}
+                    </span>
+                  </div>
                 )}
               </div>
 
@@ -152,7 +165,7 @@ function Register() {
                   Confirmer le mot de passe
                 </label>
 
-                <div className="flex mb-4 relative">
+                <div className="flex relative">
                   <Input
                     id="passwordConfirm"
                     type={eyeConfirmState ? "text" : "password"}
@@ -175,21 +188,31 @@ function Register() {
                   </span>
                 </div>
                 {errors.passwordConfirm && (
-                  <span className="text-xs text-status-critical">
+                  <div className="flex flex-row items-center gap-1 text-status-critical">
+                    <CircleAlert className="w-3 h-3"/>
+                    <p className="text-xs ">
                     {errors.passwordConfirm.message}
-                  </span>
+                    </p>
+                  </div>
+                  
                 )}
               </div>
 
-              {errorPB && !errorPB.response?.data && (
-                <p className="rounded-md border border-status-critical bg-status-critical/10 px-3 py-2 text-sm text-status-critical">
-                  Une erreur est survenue. Veuillez réessayer.
-                </p>
-              )}
+              
 
               <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading ? "Inscription…" : "S'inscrire"}
               </Button>
+              {errorPB && !errorPB.response?.data && (
+                <div className="flex flex-row items-center text-status-critical gap-2">
+                  <CircleAlert className="w-4 h-4"/>
+                  <p className="text-sm" >
+                    Une erreur est survenue. Veuillez réessayer.
+                  </p>
+                </div>
+                
+              )}
+             
             </form>
           </div>
           {isLoading && (
