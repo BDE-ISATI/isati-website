@@ -12,17 +12,10 @@ function Home() {
   }, []);
   
 
-  
-
   return ( 
     <div>
       <VerificationBanner />
       <Navbar />
-          
-
-
-
-
     </div>
   )
 

@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import pb from "@/shared/lib/pocketbase";
 import { useAuthStore } from "../store/useAuthStore";
-import { years, levels, specialities } from "@/features/auth/constants/onBoarding";
+import { years, levels, specialities } from "@/shared/constants/education";
 import { useNavigate } from 'react-router'; 
 
 export default function useOnboarding() {

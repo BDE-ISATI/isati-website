@@ -22,11 +22,12 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-primary text-primary-foreground hover:bg-primary/90",
-        secondary: "border border-border bg-secondary text-secondary-foreground hover:bg-muted",
-        accent: "bg-accent text-accent-foreground hover:bg-accent/90",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        ghost: "bg-transparent text-foreground hover:bg-muted"
+        primary: "bg-primary text-primary-foreground hover:bg-primary/90 active:bg-primary/80",
+        secondary: "border border-border bg-secondary text-secondary-foreground hover:bg-border active:bg-border/70",
+        accent: "bg-accent text-accent-foreground hover:bg-accent/90 active:bg-accent/80",
+        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 active:bg-destructive/80",
+        ghost: "bg-transparent text-foreground hover:bg-muted active:bg-border",
+        sidebar: "w-full justify-start gap-2 border border-border bg-card text-card-foreground hover:bg-muted hover:text-accent active:bg-border aria-[current=page]:bg-accent aria-[current=page]:text-accent-foreground aria-[current=page]:border-accent"
       },
       size: {
         small: "text-sm px-2 py-1",

@@ -34,7 +34,7 @@ export default function Navbar() {
 
           <Popover className="relative">
             <PopoverButton className="rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-              <img className="h-10 w-10 rounded-full bg-accent-foreground" src={pb.files.getURL(user, user.avatar)} alt="?" />
+              <img className="h-10 w-10 rounded-full bg-accent-foreground" src={pb.files.getURL(user, user.avatar, { thumb: "50x50" })} alt="?" />
             </PopoverButton>
 
             <PopoverPanel

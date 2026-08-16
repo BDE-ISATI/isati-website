@@ -8,7 +8,7 @@ import cn from "@/shared/utils/cn";
 import Button from "@/shared/components/ui/Button";
 import chevronDown from "@/assets/icons/chevron-down.svg"
 import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
-import { years, levels, specialities } from "@/features/auth/constants/onBoarding";
+import { years, levels, specialities } from "@/shared/constants/education";
 import useOnboarding from "@/features/auth/hooks/useOnboarding";
 import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
 

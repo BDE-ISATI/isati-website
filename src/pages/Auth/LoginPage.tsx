@@ -34,7 +34,7 @@ function Login() {
   const registered = searchParams.get("registered");
 
   
-  function onLogin(data: LoginFields) {
+  function onLogin(data: LoginFields) { 
     login(data, { onSuccess: () => { 
       reset();
     }});
