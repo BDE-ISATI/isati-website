@@ -7,6 +7,7 @@ import RegisterPage from '@/pages/Auth/RegisterPage'
 import OnboardingPage from '@/pages/Auth/OnboardingPage'
 import AuthLayout from '@/pages/Auth/AuthLayout'
 import Home from '@/pages/Home.tsx'
+import Layout from '@/shared/components/layout/Layout'
 import Profile from '@/pages/Profile/Profile'
 import NotFound from '@/pages/NotFound'
 
@@ -26,22 +27,25 @@ function App() {
   return (
     <>
       <Routes>
-        <Route index element={<Home />}  />
+        <Route element={<Layout />}>
+          <Route index element={<Home />}  />
+
+          <Route path="/profile/:username" element={<Profile />}>
+            <Route index element={<Navigate to="account" replace/>} />
+            <Route path="account" element={<Account />}/>
+            <Route path="activities" element={<Activities />}/>
+            <Route path="clubs" element={<Clubs />}/>
+            <Route path="tools" element={<Tools />}/>
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
+        </Route>
+
         <Route element={<AuthLayout />}>
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="onboarding" element={<OnboardingPage />} />
         </Route>
-
-        <Route path="/profile/:username" element={<Profile />}>
-          <Route index element={<Navigate to="account" replace/>} />
-          <Route path="account" element={<Account />}/>
-          <Route path="activities" element={<Activities />}/>
-          <Route path="clubs" element={<Clubs />}/>
-          <Route path="tools" element={<Tools />}/>
-        </Route>
-
-        <Route path="*" element={<NotFound />} />
       </Routes>
         
     </>

@@ -1,6 +1,6 @@
 import ButtonLink from "@/shared/components/ui/ButtonLink";
 import { Outlet} from "react-router";
-import logoAuthPage from "@/assets/isati_logo/isati_login_register.png"
+import logoAuthPage from "@/assets/logos/isati_login_register.png"
 
 
 

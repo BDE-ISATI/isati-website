@@ -57,7 +57,7 @@ export default function ChangeUsernameField({ username, onConfirm, isLoading, er
                     <Button type="submit" size="small" disabled={isChecking || isLoading} className="shrink-0">
                       Confirmer
                     </Button>
-                    <Button type="button" onClick={handleToggle} variant="destructiveGhost" size="small" aria-label="Annuler" className="shrink-0 p-1.5">
+                    <Button type="button" onClick={handleToggle} variant="destructiveGhost" size="icon" aria-label="Annuler" className="shrink-0">
                       <XIcon className="w-4 h-4" />
                     </Button>
                   </>
@@ -73,7 +73,7 @@ export default function ChangeUsernameField({ username, onConfirm, isLoading, er
             <dt className="text-muted-foreground">Nom d'utilisateur</dt>
             <dd className="truncate">{username}</dd>
           </div>
-          <Button onClick={handleToggle} variant="secondary" size="small" className="gap-1.5 shrink-0">
+          <Button onClick={handleToggle} variant="secondary" size="small" className="shrink-0">
             <PenIcon className="w-4 h-4" />
             Changer
           </Button>

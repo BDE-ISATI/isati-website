@@ -1,6 +1,5 @@
 import ProfileBanner from "@/features/profile/components/ProfileBanner";
 import NotFound from "@/pages/NotFound";
-import Navbar from "@/shared/components/layout/Navbar";
 import useGetProfileRecord from "@/features/profile/hooks/useGetProfileRecord";
 import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
 import { Outlet, useParams } from "react-router";
@@ -24,13 +23,9 @@ export default function Profile() {
   }, [user]);
 
   if (isLoading) return (
-    <>
-      <Navbar />
-      <div className="flex flex-1 items-center justify-center">
-        <IsatiAnimation />
-      </div>
-    </>
-    
+    <div className="flex flex-1 items-center justify-center">
+      <IsatiAnimation />
+    </div>
   )
   
   if (!user || error) {
@@ -38,8 +33,6 @@ export default function Profile() {
   }
 
   return (
-    <>
-      <Navbar />
       <div className="mx-auto w-full max-w-3xl px-4 py-4 md:py-6 flex flex-col gap-4 md:gap-6">
         <ProfileBanner user={user} />
         <div className="flex flex-col md:flex-row gap-4 items-stretch md:items-start">
@@ -51,6 +44,5 @@ export default function Profile() {
           </section>
         </div>
       </div>
-    </>
   );
 }

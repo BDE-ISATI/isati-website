@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 import Input from "@/shared/components/ui/Input";
-import CircleAlert from "@/assets/icons/circle-alert.svg?react"
+import Error from "@/shared/components/ui/Error";
 import Check from "@/assets/icons/check.svg?react"
 import Loader from "@/assets/icons/loader.svg?react"
 
@@ -19,7 +19,7 @@ export default function UsernameInput({ showStatus, isChecking, isUnique, valida
     <div className="flex flex-col gap-1">
       <div className="flex flex-row items-center gap-2">
         <Input type="text"
-          variant={validationError ? "erreur" : (!showStatus || isChecking ? "normal" : (isUnique ? "ok" : "erreur"))}
+          variant={validationError ? "error" : (!showStatus || isChecking ? "normal" : (isUnique ? "success" : "error"))}
           {...inputProps}
         />
         {actions}
@@ -27,12 +27,7 @@ export default function UsernameInput({ showStatus, isChecking, isUnique, valida
 
       <div className="flex flex-row items-center gap-2">
         {validationError ? (
-          <div className="flex flex-row items-center gap-1 text-status-critical">
-            <CircleAlert className="w-3 h-3 shrink-0"/>
-            <span className="text-xs">
-              {validationError}
-            </span>
-          </div>
+          <Error message={validationError}/>
         ) : showStatus && (
           isChecking ? (
             <div className="flex flex-row items-center gap-1 text-muted-foreground">
@@ -49,23 +44,11 @@ export default function UsernameInput({ showStatus, isChecking, isUnique, valida
               </span>
             </div>
           ) : (
-            <div className="flex flex-row items-center gap-1 text-status-critical">
-              <CircleAlert className="w-3 h-3 shrink-0"/>
-              <span className="text-xs">
-                Déjà utilisé
-              </span>
-            </div>
+            <Error message="Déjà utilisé"/>
           )
         )}
 
-        {submitError && (
-          <div className="flex flex-row items-center gap-1 ml-auto text-status-critical">
-            <CircleAlert className="w-3 h-3 shrink-0"/>
-            <span className="text-xs text-right">
-              {submitError}
-            </span>
-          </div>
-        )}
+        <Error message={submitError} className="ml-auto text-right"/>
       </div>
     </div>
   );

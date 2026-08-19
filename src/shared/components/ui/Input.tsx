@@ -12,13 +12,13 @@ export default function Input({ className, variant, size, ...props }: InputProps
 }
 
 const inputVariants = cva(
-  "w-full rounded-md border bg-background text-foreground focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50",
+  "w-full rounded-md border bg-background text-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {
-        normal: "border-input focus:ring-ring",
-        erreur: "border-status-critical focus:ring-status-critical",
-        ok: "border-status-success focus:ring-status-success",
+        normal: "border-input focus-visible:ring-ring",
+        error: "border-status-critical focus-visible:ring-status-critical",
+        success: "border-status-success focus-visible:ring-status-success",
       },
       size: {
         small: "text-sm px-2 py-1",

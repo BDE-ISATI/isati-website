@@ -13,6 +13,7 @@ import useUpdatePassword from "@/features/profile/hooks/useUpdatePassword";
 import type { PasswordFields } from "@/features/profile/profileTypes";
 import DeleteAccountField from "@/features/profile/components/DeleteAccountField";
 import useDeleteAccount from "@/features/profile/hooks/useDeleteAccount";
+import { useAuthStore } from "@/features/auth/store/useAuthStore";
 
 
 interface AccountContext {
@@ -26,6 +27,7 @@ interface AccountContext {
 export default function Account() {
   
   const { user, isForeign } = useOutletContext<AccountContext>();
+  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const navigate = useNavigate()
 
   const { update: updateUsername, isLoading: isLoadingUsernameUpdate, error: errorUsernameUpdate } = useUpdateUsername()
@@ -52,7 +54,9 @@ export default function Account() {
   }
 
   if (isForeign) {
-    return <Navigate to={`/profile/${user.username}/activities`} replace/>
+    // Sans session (ex. juste après une déconnexion), on sort du profil au lieu
+    // de rebasculer sur un autre onglet : sinon cette redirection écrase celle du logout.
+    return <Navigate to={isLoggedIn ? `/profile/${user.username}/activities` : "/"} replace/>
   }
 
   return (

@@ -1,16 +1,21 @@
 import { useEffect, useState } from "react";
 
-import { Listbox,  ListboxOption, ListboxOptions } from '@headlessui/react'
+import { Listbox } from '@headlessui/react'
 import StyledListboxButton from "@/shared/components/ui/StyledListboxButton"
+import StyledListboxOptions from "@/shared/components/ui/StyledListboxOptions"
+import StyledListboxOption from "@/shared/components/ui/StyledListboxOption"
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import { Navigate } from "react-router";
 import cn from "@/shared/utils/cn";
 import Button from "@/shared/components/ui/Button";
 import chevronDown from "@/assets/icons/chevron-down.svg"
-import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
 import { years, levels, specialities } from "@/shared/constants/education";
 import useOnboarding from "@/features/auth/hooks/useOnboarding";
 import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
+import Error from "@/shared/components/ui/Error";
+
+import Logo from "@/assets/logos/isati.svg?react";
+import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 
 function Onboarding() {
   
@@ -46,7 +51,7 @@ function Onboarding() {
     <>
       <div className="relative w-full max-w-sm">
         {/* Logo ISATI et texte*/}
-        <img src={logoISATINoBGRed} alt="ISATI" className="mb-8 h-16 w-auto"/>
+        <Logo className="mb-8 h-16 w-auto text-accent"/>
         
         <div inert={loading} className={cn("transition duration-200",loading && "blur-sm pointer-events-none select-none",)}> 
         <h2 className="mb-6 text-2xl font-semibold">Finalisez votre compte ISATI</h2>
@@ -57,23 +62,19 @@ function Onboarding() {
         </label>
 
         <Listbox value={selectedLevel} onChange={handleLevelChange}>
-          <StyledListboxButton variant="normal" size="medium" className="mb-4">
+          <StyledListboxButton className="mb-4">
             <span className={cn(!selectedLevel && "text-muted-foreground")}>
               {selectedLevel?.name ?? "---"}
             </span>
-
-            <span className="flex size-2 shrink-0 justify-around items-center">
-              <img className="absolute mr-5" src={chevronDown} />
-            </span>
-
+            <img className="h-4 w-4 shrink-0" src={chevronDown} alt="" />
           </StyledListboxButton>
-          <ListboxOptions anchor="bottom" className="w-(--button-width) mt-1 rounded-md border border-input bg-background p-1 shadow-md focus:outline-none [--anchor-gap:0.25rem]">
+          <StyledListboxOptions>
             {levels.map((level) => (
-              <ListboxOption key={level.key} value={level} className="cursor-pointer rounded-md px-3 py-2 text-base text-foreground data-focus:bg-muted data-selected:font-medium">
+              <StyledListboxOption key={level.key} value={level}>
                 {level.name}
-              </ListboxOption>
+              </StyledListboxOption>
             ))}
-          </ListboxOptions>
+          </StyledListboxOptions>
         </Listbox>
         
         
@@ -84,21 +85,19 @@ function Onboarding() {
         </label>
 
         <Listbox value={selectedYear} onChange={setSelectedYear}>
-          <StyledListboxButton variant="normal" size="medium" className="mb-4">
+          <StyledListboxButton className="mb-4">
             <span className={cn(!selectedYear && "text-muted-foreground")}>
               {selectedYear?.name ?? "---"}
             </span>
-            <span className="flex size-2 justify-around items-center">
-              <img className="absolute mr-5" src={chevronDown} />
-            </span>
+            <img className="h-4 w-4 shrink-0" src={chevronDown} alt="" />
           </StyledListboxButton>
-          <ListboxOptions anchor="bottom" className="w-(--button-width) mt-1 rounded-md border border-input bg-background p-1 shadow-md focus:outline-none [--anchor-gap:0.25rem]">
+          <StyledListboxOptions>
             {years.map((year) => (
-              <ListboxOption key={year.key} value={year} className="cursor-pointer rounded-md px-3 py-2 text-base text-foreground data-focus:bg-muted data-selected:font-medium">
+              <StyledListboxOption key={year.key} value={year}>
                 {year.name}
-              </ListboxOption>
+              </StyledListboxOption>
             ))}
-          </ListboxOptions>
+          </StyledListboxOptions>
         </Listbox></> : null }
         
 
@@ -108,22 +107,20 @@ function Onboarding() {
             Spécialité
           </label>
 
-          <StyledListboxButton variant="normal" size="medium" className="mb-4">
+          <StyledListboxButton className="mb-4">
             <span className={cn(!selectedSpeciality && "text-muted-foreground")}>
               {selectedSpeciality?.name ?? "---"}
             </span>
-            <span className="flex size-2 justify-around items-center">
-              <img className="absolute mr-5" src={chevronDown} />
-            </span>
+            <img className="h-4 w-4 shrink-0" src={chevronDown} alt="" />
           </StyledListboxButton>
 
-          <ListboxOptions anchor="bottom" className="w-(--button-width) mt-1 rounded-md border border-input bg-background p-1 shadow-md focus:outline-none [--anchor-gap:0.25rem]" >
+          <StyledListboxOptions>
             {specialities.map((speciality) => (
-              <ListboxOption key={speciality.key} value={speciality} className="cursor-pointer rounded-md px-3 py-2 text-base text-foreground data-focus:bg-muted data-selected:font-medium" >
+              <StyledListboxOption key={speciality.key} value={speciality}>
                 {speciality.name}
-              </ListboxOption>
+              </StyledListboxOption>
             ))}
-          </ListboxOptions>
+          </StyledListboxOptions>
 
         </Listbox> : null}
 
@@ -132,10 +129,8 @@ function Onboarding() {
           Finaliser
         </Button>
 
-        {error ? 
-        <p className="rounded-md border border-status-critical bg-status-critical/10 px-3 py-2 text-sm text-status-critical">     
-          Une erreur est survenue. Veuillez réessayer. {error.message}
-        </p>: null}
+        <Error message={getFirstErrorMessage(error)} />
+          
       </div>
       {loading && <LoadingOverlay />}
 

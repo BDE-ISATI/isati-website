@@ -11,12 +11,12 @@ import Button from "@/shared/components/ui/Button";
 import Input from "@/shared/components/ui/Input";
 import cn from "@/shared/utils/cn";
 
-
-import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
 import { getFirstErrorMessage, hasErrorCode } from "@/shared/lib/pocketbase-errors";
 import VerificationBanner from "@/shared/components/layout/VerificationBanner";
 import Error from "@/shared/components/ui/Error";
+
+import Logo from "@/assets/logos/isati.svg?react";
 
 function Login() {
 
@@ -55,7 +55,7 @@ function Login() {
 
   return (
     <>
-      <img src={logoISATINoBGRed} alt="ISATI" className="mb-8 h-16 w-auto"/>
+      <Logo className="mb-8 h-16 w-auto text-accent"/>
       <div className="w-full max-w-sm">
         <h2 className="mb-6 text-2xl font-semibold">Connexion</h2>
 
@@ -70,7 +70,7 @@ function Login() {
                 <label htmlFor="email" className="text-sm font-medium">
                   Email
                 </label>
-                <Input id="email" type="email" variant={errors.email ? "erreur" : "normal"}
+                <Input id="email" type="email" variant={errors.email ? "error" : "normal"}
                   {...register("email", {required: "Ce champ est requis."})} //, validate: (value) => isAllowedEmail(value) || "Utilisez votre adresse universitaire."
                 />
 
@@ -84,7 +84,7 @@ function Login() {
                   Mot de passe
                 </label>
 
-                <PasswordInput id="password" autoComplete="current-password" variant={errors.password ? "erreur" : "normal"}
+                <PasswordInput id="password" autoComplete="current-password" variant={errors.password ? "error" : "normal"}
                   {...register("password", { required: "Ce champ est requis." })}
                 />
 

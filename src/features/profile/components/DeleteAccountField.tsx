@@ -4,7 +4,6 @@ import Button from "@/shared/components/ui/Button";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
 import type { DeleteAccountFields } from "../profileTypes";
 import XIcon from "@/assets/icons/x.svg?react"
-import CircleAlert from "@/assets/icons/circle-alert.svg?react"
 import Error from "@/shared/components/ui/Error";
 
 interface DeleteAccountFieldProps {
@@ -40,26 +39,21 @@ export default function DeleteAccountField({ onConfirm, isLoading, error }: Dele
                   size="small"
                   autoFocus
                   autoComplete="current-password"
-                  variant={errors.password || error ? "erreur" : "normal"}
+                  variant={errors.password || error ? "error" : "normal"}
                   wrapperClassName="min-w-0 grow"
                   {...register("password", { required: "Ce champ est requis." })}
                 />
                 <Button type="submit" variant="destructive" size="small" disabled={isLoading} className="shrink-0">
                   Confirmer
                 </Button>
-                <Button type="button" onClick={handleToggle} variant="destructiveGhost" size="small" aria-label="Annuler" className="shrink-0 p-1.5">
+                <Button type="button" onClick={handleToggle} variant="destructiveGhost" size="icon" aria-label="Annuler" className="shrink-0">
                   <XIcon className="w-4 h-4" />
                 </Button>
               </div>
 
               <Error message={errors.password?.message}/>
 
-              {error && (
-                <div className="flex flex-row items-center gap-1 text-status-critical">
-                  <CircleAlert className="w-3 h-3 shrink-0"/>
-                  <span className="text-xs">{error.message}</span>
-                </div>
-              )}
+              <Error message={error?.message}/>
             </form>
           </dd>
         </>

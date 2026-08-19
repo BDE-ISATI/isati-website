@@ -5,9 +5,9 @@ import Button from "@/shared/components/ui/Button";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
 import { getFieldError } from "@/shared/lib/pocketbase-errors";
 import type { PasswordFields } from "../profileTypes";
+import Error from "@/shared/components/ui/Error";
 import PenIcon from "@/assets/icons/pen.svg?react"
 import XIcon from "@/assets/icons/x.svg?react"
-import CircleAlert from "@/assets/icons/circle-alert.svg?react"
 import Check from "@/assets/icons/check.svg?react"
 
 interface ChangePasswordFieldProps {
@@ -53,21 +53,11 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
                   size="small"
                   autoFocus
                   autoComplete="current-password"
-                  variant={errors.oldPassword || oldPasswordServerError ? "erreur" : "normal"}
+                  variant={errors.oldPassword || oldPasswordServerError ? "error" : "normal"}
                   {...register("oldPassword", { required: "Ce champ est requis." })}
                 />
-                {errors.oldPassword && (
-                  <div className="flex flex-row items-center gap-1 text-status-critical">
-                    <CircleAlert className="w-3 h-3 shrink-0"/>
-                    <span className="text-xs">{errors.oldPassword.message}</span>
-                  </div>
-                )}
-                {oldPasswordServerError && (
-                  <div className="flex flex-row items-center gap-1 text-status-critical">
-                    <CircleAlert className="w-3 h-3 shrink-0"/>
-                    <span className="text-xs">{oldPasswordServerError}</span>
-                  </div>
-                )}
+                <Error message={errors.oldPassword?.message}/>
+                <Error message={oldPasswordServerError}/>
               </div>
 
               {/* Nouveau mot de passe */}
@@ -79,7 +69,7 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
                   id="password"
                   size="small"
                   autoComplete="new-password"
-                  variant={errors.password || passwordServerError ? "erreur" : "normal"}
+                  variant={errors.password || passwordServerError ? "error" : "normal"}
                   {...register("password", {
                     required: "Ce champ est requis.",
                     minLength: { value: 4, message: "4 caractères minimum." },
@@ -88,18 +78,8 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
                       "Le nouveau mot de passe doit être différent de l'ancien.",
                   })}
                 />
-                {errors.password && (
-                  <div className="flex flex-row items-center gap-1 text-status-critical">
-                    <CircleAlert className="w-3 h-3 shrink-0"/>
-                    <span className="text-xs">{errors.password.message}</span>
-                  </div>
-                )}
-                {passwordServerError && (
-                  <div className="flex flex-row items-center gap-1 text-status-critical">
-                    <CircleAlert className="w-3 h-3 shrink-0"/>
-                    <span className="text-xs">{passwordServerError}</span>
-                  </div>
-                )}
+                <Error message={errors.password?.message}/>
+                <Error message={passwordServerError}/>
               </div>
 
               {/* Confirmation du nouveau mot de passe */}
@@ -111,7 +91,7 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
                   id="passwordConfirm"
                   size="small"
                   autoComplete="new-password"
-                  variant={errors.passwordConfirm ? "erreur" : "normal"}
+                  variant={errors.passwordConfirm ? "error" : "normal"}
                   {...register("passwordConfirm", {
                     required: "Veuillez confirmer le mot de passe.",
                     validate: (value) =>
@@ -119,28 +99,20 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
                       "Les mots de passe ne correspondent pas.",
                   })}
                 />
-                {errors.passwordConfirm && (
-                  <div className="flex flex-row items-center gap-1 text-status-critical">
-                    <CircleAlert className="w-3 h-3 shrink-0"/>
-                    <span className="text-xs">{errors.passwordConfirm.message}</span>
-                  </div>
-                )}
+                <Error message={errors.passwordConfirm?.message}/>
               </div>
 
               <div className="flex flex-row items-center justify-end gap-2">
                 <Button type="submit" size="small" disabled={isLoading} className="shrink-0">
                   Confirmer
                 </Button>
-                <Button type="button" onClick={handleToggle} variant="destructiveGhost" size="small" aria-label="Annuler" className="shrink-0 p-1.5">
+                <Button type="button" onClick={handleToggle} variant="destructiveGhost" size="icon" aria-label="Annuler" className="shrink-0">
                   <XIcon className="w-4 h-4" />
                 </Button>
               </div>
 
-              {error && !oldPasswordServerError && !passwordServerError && (
-                <div className="flex flex-row items-center gap-1 text-status-critical">
-                  <CircleAlert className="w-3 h-3 shrink-0"/>
-                  <span className="text-xs">{error.message}</span>
-                </div>
+              {!oldPasswordServerError && !passwordServerError && (
+                <Error message={error?.message}/>
               )}
             </form>
           </dd>
@@ -158,7 +130,7 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
               <dd className="truncate">Changez de mot de passe</dd>
             )}
           </div>
-          <Button onClick={handleToggle} variant="secondary" size="small" className="gap-1.5 shrink-0">
+          <Button onClick={handleToggle} variant="secondary" size="small" className="shrink-0">
             <PenIcon className="w-4 h-4" />
             Changer
           </Button>

@@ -12,12 +12,13 @@ import Button from "@/shared/components/ui/Button";
 import Input from "@/shared/components/ui/Input";
 import cn from "@/shared/utils/cn";
 
-import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
 import UsernameInput from "@/shared/components/ui/UsernameInput";
 import useDebounce from "@/features/profile/hooks/useDebounce";
 import useIsUsernameUnique from "@/features/profile/hooks/useIsUsernameUnique";
 import Error from "@/shared/components/ui/Error";
+
+import Logo from "@/assets/logos/isati.svg?react";
 
 function Register() {
   
@@ -49,7 +50,8 @@ function Register() {
 
   return (
     <>
-      <img src={logoISATINoBGRed} alt="ISATI" className="mb-8 h-16 w-auto" />
+  
+      <Logo className="mb-8 h-16 w-auto text-accent"/>
 
       <div className="w-full max-w-sm">
         <h2 className="mb-6 text-2xl font-semibold">Inscription</h2>
@@ -91,7 +93,7 @@ function Register() {
                   id="email"
                   type="email"
                   variant={
-                    errors.email || emailServerError ? "erreur" : "normal"
+                    errors.email || emailServerError ? "error" : "normal"
                   }
                   {...register("email", {
                     required: "Ce champ est requis.",
@@ -112,7 +114,7 @@ function Register() {
                 <PasswordInput
                   id="password"
                   autoComplete="new-password"
-                  variant={errors.password || passwordServerError ? "erreur" : "normal"}
+                  variant={errors.password || passwordServerError ? "error" : "normal"}
                   {...register("password", {
                     required: "Ce champ est requis.",
                     minLength: { value: 4, message: "4 caractères minimum." },
@@ -133,7 +135,7 @@ function Register() {
                 <PasswordInput
                   id="passwordConfirm"
                   autoComplete="new-password"
-                  variant={errors.passwordConfirm || passwordConfirmServerError ? "erreur" : "normal"}
+                  variant={errors.passwordConfirm || passwordConfirmServerError ? "error" : "normal"}
                   {...register("passwordConfirm", {
                     required: "Veuillez confirmer le mot de passe.",
                     validate: (value) => value === getValues("password") || "Les mots de passe ne correspondent pas.",

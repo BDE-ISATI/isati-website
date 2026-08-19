@@ -8,7 +8,7 @@ interface ButtonsProps extends NavLinkProps, VariantProps<typeof buttonVariants>
   children: ReactNode;
 }
 
-export default function Button({ children, className, variant, size, ...props } : ButtonsProps){
+export default function ButtonLink({ children, className, variant, size, ...props } : ButtonsProps){
   return (
     <NavLink className={cn(buttonVariants({variant, size, className}))} {...props}>
       {children}

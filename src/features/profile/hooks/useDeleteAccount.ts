@@ -8,18 +8,11 @@ type MutationProps = {
   id: string
 }
 
-interface DeleteAccountError {
-  message: string;
-  response: {
-    data: Record<string, { code: string; message: string }>;
-  };
-}
-
 export default function useDeleteAccount() {
 
   const navigate = useNavigate()
 
-  const mutation = useMutation<{success: boolean}, DeleteAccountError ,MutationProps>({
+  const mutation = useMutation<{success: boolean}, ClientResponseError ,MutationProps>({
     mutationFn: async ({id, password} : MutationProps) => {
       const url = `${pb.baseURL}/api/isati/delete-user`
       const response = await fetch(url, {

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-import Navbar from "@/shared/components/layout/Navbar";
 
 
 
@@ -11,11 +10,10 @@ function Home() {
     document.title = 'Accueil | ISATI';
   }, []);
   
+ 
 
-  return ( 
-    <div>
-      <Navbar />
-    </div>
+  return (
+    <></>
   )
 
 }

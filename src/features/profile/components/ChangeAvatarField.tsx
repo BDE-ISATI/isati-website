@@ -9,7 +9,7 @@ import Button from "@/shared/components/ui/Button";
 import ImageCrop from "@/shared/components/ui/ImageCrop";
 import ChangeAvatarButton from "./ChangeAvatarButton";
 import XIcon from "@/assets/icons/x.svg?react"
-import CircleAlert from "@/assets/icons/circle-alert.svg?react"
+import Error from "@/shared/components/ui/Error";
 
 const AVATAR_SIZES = [
   { thumb: "200x200", className: "w-16 h-16 sm:w-28 sm:h-28" },
@@ -82,7 +82,7 @@ export default function ChangeAvatarField({ user, onConfirm, isLoading, error }:
               <Button onClick={handleConfirm} size="small" disabled={isCompressing || isLoading || !croppedArea} className="shrink-0">
                 Confirmer
               </Button>
-              <Button onClick={handleCancel} variant="destructiveGhost" size="small" aria-label="Annuler" className="shrink-0 p-1.5">
+              <Button onClick={handleCancel} variant="destructiveGhost" size="icon" aria-label="Annuler" className="shrink-0">
                 <XIcon className="w-4 h-4" />
               </Button>
             </div>
@@ -107,14 +107,7 @@ export default function ChangeAvatarField({ user, onConfirm, isLoading, error }:
         </div>
       )}
 
-      {(cropError || error) && (
-        <div className="flex flex-row items-center gap-1 text-status-critical">
-          <CircleAlert className="w-3 h-3 shrink-0"/>
-          <span className="text-xs">
-            {cropError ?? error?.message}
-          </span>
-        </div>
-      )}
+      <Error message={cropError ?? error?.message}/>
     </div>
   );
 }

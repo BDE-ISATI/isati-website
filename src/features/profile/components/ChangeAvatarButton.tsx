@@ -23,7 +23,7 @@ export default function ChangeAvatarButton( { onFileSelect, disabled } :  Change
   return (
     <>
       <input ref={fileSelectorRef} accept="image/*" type="file" className="hidden" onChange={handleOnchangeInput}/>
-      <Button onClick={() => fileSelectorRef.current?.click()} disabled={disabled} variant="secondary" size="small" className="gap-1.5 shrink-0">
+      <Button onClick={() => fileSelectorRef.current?.click()} disabled={disabled} variant="secondary" size="small" className="shrink-0">
         <PenIcon className="w-4 h-4" />
         Changer
       </Button>
