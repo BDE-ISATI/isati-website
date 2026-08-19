@@ -4,26 +4,38 @@ import Wrench from "@/assets/icons/wrench.svg?react";
 import User from "@/assets/icons/user-round.svg?react";
 import Club from "@/assets/icons/sport-shoe.svg?react";
 
+interface ProfileSidebarProps {
+  foreign: boolean
+}
 
-export default function ProfileSidebar() {
+export default function ProfileSidebar({ foreign }: ProfileSidebarProps) {
+  
   return (
     <nav className="grid grid-cols-2 gap-2 md:flex md:flex-col">
-      <ButtonLink to="account" variant="sidebar" size="small">
+      
+      {!foreign ?
+        <ButtonLink to="account" variant="sidebar" size="small">
         <User className="w-4 h-4" />
-        Mon compte
-      </ButtonLink>
+          Mon compte
+        </ButtonLink> : null
+      }
+      
+      
       <ButtonLink to="activities" variant="sidebar" size="small">
         <Users className="w-4 h-4" />
-        Mes activités
+        {!foreign ? "Mes activités": "Activités"}
       </ButtonLink>
       <ButtonLink to="clubs" variant="sidebar" size="small">
         <Club className="w-4 h-4" />
-        Mes clubs
+        {!foreign ? "Mes clubs": "Clubs"}
       </ButtonLink>
+      
+      {!foreign ?
       <ButtonLink to="tools" variant="sidebar" size="small">
         <Wrench className="w-4 h-4" />
-        Mes outils
-      </ButtonLink>
+        {!foreign ? "Mes outils": "Outils"}
+      </ButtonLink>: null
+      }
     </nav>
   );
 }

@@ -10,7 +10,7 @@ import chevronDown from "@/assets/icons/chevron-down.svg"
 import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
 import { years, levels, specialities } from "@/shared/constants/education";
 import useOnboarding from "@/features/auth/hooks/useOnboarding";
-import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
+import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
 
 function Onboarding() {
   
@@ -38,14 +38,13 @@ function Onboarding() {
   }
 
   function handleOnboarding() {
-    console.log(selectedLevel,selectedSpeciality,selectedYear)
     onBoard({level: selectedLevel, year: selectedYear, speciality: selectedSpeciality})
   }
 
   
   return (
     <>
-      <div className="w-full max-w-sm">
+      <div className="relative w-full max-w-sm">
         {/* Logo ISATI et texte*/}
         <img src={logoISATINoBGRed} alt="ISATI" className="mb-8 h-16 w-auto"/>
         
@@ -138,11 +137,7 @@ function Onboarding() {
           Une erreur est survenue. Veuillez réessayer. {error.message}
         </p>: null}
       </div>
-      {loading && (
-        <div className="absolute inset-0 grid place-items-center">
-          <IsatiAnimation style={{ width: 320, height: 180 }} />
-        </div>
-      )}
+      {loading && <LoadingOverlay />}
 
       </div>
     </>

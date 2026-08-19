@@ -1,8 +1,9 @@
 import pb from "@/shared/lib/pocketbase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { ClientResponseError, RecordModel } from "pocketbase";
 
 
-interface useUpdateUsernameProps {
+type MutationProps = {
     userId: string,
     username: string,
 }
@@ -12,10 +13,8 @@ export default function useUpdateUsername() {
     
     const queryClient = useQueryClient();
 
-    const updateMutation = useMutation({
-        mutationFn: async ({ userId, username}: useUpdateUsernameProps) => {
-            const lastUsernameUpdate = await pb.collection('users').getOne(userId, { fields: 'username_changed_at'})
-            if (lastUsernameUpdate.username_changed_at)
+    const updateMutation = useMutation<RecordModel,ClientResponseError,MutationProps>({
+        mutationFn: async ({ userId, username}: MutationProps) => {
             return await pb.collection('users').update(userId, {
                 username: username,
             })

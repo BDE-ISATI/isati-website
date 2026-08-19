@@ -1,21 +1,71 @@
 import type { ClientResponseError } from "pocketbase";
 
-interface FieldErrorData {
-  code?: string; 
-  message?: string;
-}
 
 const ERROR_TABLE: Record<string, Record<string, string>> = {
   email: {
      validation_not_unique: "Cette adresse email est déjà utilisée.",
-     validation_invalid_email: "Adresse email invalide."
-   }
+     validation_invalid_email: "Adresse email invalide.",
+     validation_required: "Ce champ est requis.",
+     email_not_verified: "Veuillez vérifier votre email avant de vous connecter.",
+   },
+  oldPassword: {
+     validation_invalid_old_password: "Mot de passe actuel incorrect.",
+     validation_required: "Ce champ est requis."
+   },
+  password: {
+     validation_min_text_constraint: "4 caractères minimum.",
+     validation_max_text_constraint: "71 caractères maximum.",
+     validation_required: "Ce champ est requis.",
+   },
+
+  passwordConfirm: {
+    validation_values_mismatch: "Les mots de passe ne correspondent pas.",
+    validation_required: "Ce champ est requis.",
+  },
+  username: {
+    validation_not_unique: "Nom d'utilisateur est déjà utilisé.",
+    validation_invalid_username: "Nom d'utilisateur invalide.",
+    validation_required: "Ce champ est requis.",
+  }
+}
+
+export function getFirstErrorMessage(error: ClientResponseError | null): string | undefined {
+  if (!error) return undefined;
+
+  const data = error.response?.data as Record<string, ValueType> | undefined;
+  if (!data) return error.message;
+
+  for (const field of Object.keys(data)) {
+    const fieldError = data[field];
+    if (!fieldError) continue;
+
+    const translated = ERROR_TABLE[field]?.[fieldError.code];
+    if (translated) return translated;
+  }
+
+  return error.message;
 }
 
 export function getFieldError(error: ClientResponseError | null, field: string) {
-  const data: FieldErrorData | undefined = error?.response.data?.[field];
-  if (!data) return null;
-  const code = data.code;
-  const response = code ? ERROR_TABLE[field]?.[code]: "Erreur inconnue"
-  return response;
+  if (!error) return
+  const fieldError = error.response.data?.[field]
+  if (!fieldError) return
+  return ERROR_TABLE[field]?.[fieldError.code];
+}
+
+
+type ValueType = {
+  code: string,
+  message: string
+}
+
+export function hasErrorCode(error: ClientResponseError | null, code: string): boolean {
+  if (!error) return false
+  
+  const data = error.response?.data as Record<string, ValueType> | undefined
+  if (!data) return false 
+
+  return Object.values(data).some((value) => {
+    return value.code === code
+  })
 }

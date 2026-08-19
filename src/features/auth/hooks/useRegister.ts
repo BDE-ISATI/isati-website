@@ -14,22 +14,17 @@ export default function useRegister() {
 
   const registerMutation = useMutation<RecordModel, ClientResponseError, RegisterFields>({
     mutationFn: async (data: RegisterFields) => {
-      const minDuration = new Promise((resolve) => setTimeout(resolve, 1000));
-      
+
       const registerData = {
         account_type: "eleve",
-        ...[data]
+        ...data
       }
+      return await pb.collection('users').create(registerData)
 
-      try {
-        return await pb.collection('users').create(registerData)
-      } finally {
-        await minDuration;
-      }
     },
     onSuccess: async (_record, variables) =>  {
       sendVerification(variables.email)
-      navigate("/login")
+      navigate("/login", {state: variables.email})
     },
   })
 

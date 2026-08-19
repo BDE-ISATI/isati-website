@@ -1,10 +1,13 @@
 import ButtonLink from "@/shared/components/ui/ButtonLink";
-import { Outlet } from "react-router";
+import { Outlet} from "react-router";
 import logoAuthPage from "@/assets/isati_logo/isati_login_register.png"
 
 
+
 function AuthLayout() {
+  
   return (
+    
     <div className="flex min-h-screen">
       <div className="relative flex w-full flex-col md:w-2/3">
         <header className="p-4">

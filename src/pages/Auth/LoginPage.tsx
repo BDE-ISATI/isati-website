@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
-import { NavLink, Navigate, useSearchParams } from "react-router";
+import { NavLink, Navigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { ClientResponseError } from "pocketbase";
+
 
 import useAuth from "@/features/auth/hooks/useAuth";
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import type { LoginFields } from "@/features/auth/authTypes";
-import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
+import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
 import Button from "@/shared/components/ui/Button";
 import Input from "@/shared/components/ui/Input";
-import { isAllowedEmail } from "@/shared/lib/validation";
 import cn from "@/shared/utils/cn";
 
 
 import logoISATINoBGRed from "@/assets/logoISATINoBGRed.svg";
-import eyeOff from "@/assets/icons/eye-closed.svg";
-import eye from "@/assets/icons/eye-open.svg";
-import CircleAlert from "@/assets/icons/circle-alert.svg?react"
+import PasswordInput from "@/shared/components/ui/PasswordInput";
+import { getFirstErrorMessage, hasErrorCode } from "@/shared/lib/pocketbase-errors";
+import VerificationBanner from "@/shared/components/layout/VerificationBanner";
+import Error from "@/shared/components/ui/Error";
 
 function Login() {
 
@@ -28,27 +28,30 @@ function Login() {
   const user = useAuthStore((s) => s.user)
   const { isLoading, login, error } = useAuth();
   const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginFields>();
-  const [ eyeState, setEyeState ] = useState(false);
+  const [ unverifiedEmail, setUnverifiedEmail ] = useState<string | null>(null)
 
-  const [ searchParams ] = useSearchParams();
-  const registered = searchParams.get("registered");
 
-  
-  function onLogin(data: LoginFields) { 
-    login(data, { onSuccess: () => { 
-      reset();
-    }});
-  }
-
-  function handleToggle() {
-    setEyeState((c) => !c)
+  function onLogin(data: LoginFields) {
+    login(data, {
+      onSuccess: () => {
+        reset();
+        setUnverifiedEmail(null);
+      },
+      onError: (error, variables) => {
+        if (hasErrorCode(error, "email_not_verified")) {
+          setUnverifiedEmail(variables.email);
+        } else {
+          setUnverifiedEmail(null);
+        }
+      }
+  });
   }
 
   if (isLoggedIn) {
     return user?.level ? <Navigate to="/" replace/> : <Navigate to="/onboarding" replace/>;
   }
   
-
+  
 
   return (
     <>
@@ -56,12 +59,7 @@ function Login() {
       <div className="w-full max-w-sm">
         <h2 className="mb-6 text-2xl font-semibold">Connexion</h2>
 
-        {/* Vérification email */}
-        {registered && (
-          <p className="mb-4 text-sm text-status-success">
-            Un email de vérification a été envoyé.
-          </p>
-        )}
+       
 
         <div className="relative" >
           <div inert={isLoading} className={cn("transition duration-200", isLoading && "blur-sm pointer-events-none select-none")}>
@@ -73,17 +71,11 @@ function Login() {
                   Email
                 </label>
                 <Input id="email" type="email" variant={errors.email ? "erreur" : "normal"}
-                  {...register("email", {required: "Ce champ est requis.", validate: (value) => isAllowedEmail(value) || "Utilisez votre adresse universitaire."})}
+                  {...register("email", {required: "Ce champ est requis."})} //, validate: (value) => isAllowedEmail(value) || "Utilisez votre adresse universitaire."
                 />
-                {errors.email && (
-                  <div className="flex flex-row items-center text-status-critical gap-1">
-                    <CircleAlert className="w-3 h-3"/>
-                    <p className="text-xs">
-                    {errors.email.message}
-                    </p>
-                  </div>
-                  
-                )}
+
+                <Error message={errors.email?.message}/>
+                
               </div>
 
               {/* Mot de passe*/}
@@ -92,47 +84,25 @@ function Login() {
                   Mot de passe
                 </label>
 
-                <div className= "flex relative">
-                  <Input id="password" type={eyeState ? "text" : "password"} variant={errors.password ? "erreur" : "normal"} 
-                    {...register("password", { required: "Ce champ est requis." })}
-                  />
-                  <span className="flex justify-around items-center" onClick={handleToggle}>
-                    <img className="absolute mr-10" src={eyeState ? eye: eyeOff}/>
-                  </span>
-                </div>
-            
-                {errors.password && (
-                  <div className="text-status-critical flex flex-row items-center gap-1">
-                    <CircleAlert className="w-3 h-3"/>
-                    <p className="text-xs ">
-                      {errors.password.message}
-                    </p>
-                  </div>
-                  
-                )}
+                <PasswordInput id="password" autoComplete="current-password" variant={errors.password ? "erreur" : "normal"}
+                  {...register("password", { required: "Ce champ est requis." })}
+                />
+
+                <Error message={errors.password?.message}/>
+
               </div>
 
               <Button type="submit" disabled={isLoading} className="w-full">
                 {isLoading ? "Connexion…" : "Se connecter"}
               </Button>
 
-              {error && (
-                <div className="flex flex-row items-center text-status-critical gap-2"> 
-                  <CircleAlert className="w-4 h-4"/>
-                  <p className="text-sm ">
-                    {error instanceof ClientResponseError && error.status === 400 ? "Email ou mot de passe incorrect." : "Une erreur est survenue. Veuillez réessayer."}
-                  </p>
-                </div>
-                
-              )}
+              <Error message={getFirstErrorMessage(error)}/>
 
+              {unverifiedEmail && <VerificationBanner email={unverifiedEmail} />}
+              
             </form>
           </div>
-          {isLoading && (
-            <div className="absolute inset-0 grid place-items-center">
-              <IsatiAnimation style={{ width: 320, height: 180 }} />
-            </div>
-          )}
+          {isLoading && <LoadingOverlay />}
         </div>
 
         <p className="mt-6 text-sm text-muted-foreground">

@@ -1,8 +1,9 @@
 import pb from "@/shared/lib/pocketbase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import type { ClientResponseError, RecordModel } from "pocketbase";
 
 
-interface useUpdateProfilePictureProps {
+type MutationProps = {
     userId: string,
     avatarFile: File,
 }
@@ -12,8 +13,8 @@ export default function useUpdateProfilePicture() {
     
     const queryClient = useQueryClient();
 
-    const updateMutation = useMutation({
-        mutationFn: async ({ userId, avatarFile}: useUpdateProfilePictureProps) => {
+    const updateMutation = useMutation<RecordModel,ClientResponseError,MutationProps>({
+        mutationFn: async ({ userId, avatarFile}: MutationProps) => {
             return await pb.collection('users').update(userId, {
                 avatar: avatarFile,
             })

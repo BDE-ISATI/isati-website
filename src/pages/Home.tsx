@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
-import VerificationBanner from '@/shared/components/layout/VerificationBanner';
 import Navbar from "@/shared/components/layout/Navbar";
+
 
 
 
@@ -14,7 +14,6 @@ function Home() {
 
   return ( 
     <div>
-      <VerificationBanner />
       <Navbar />
     </div>
   )

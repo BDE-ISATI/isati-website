@@ -39,7 +39,7 @@ export default function Navbar() {
 
             <PopoverPanel
               anchor="bottom end"
-              className="mt-4 flex w-48 flex-col rounded-md bg-white p-1 shadow-md [--anchor-gap:0.25rem] [--anchor-padding:1rem]"
+              className="gap-1 mt-4 flex w-48 flex-col rounded-md bg-white p-1 shadow-md [--anchor-gap:0.25rem] [--anchor-padding:1rem]"
             >
               <NavLink to={`/profile/${user.username}` } className="rounded-md px-3 py-2 text-sm hover:bg-neutral-100">
                 Mon profile

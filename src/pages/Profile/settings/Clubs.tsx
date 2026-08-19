@@ -5,6 +5,7 @@ interface ClubsContext {
   isLoading: boolean,
   user: NoInfer<UsersRecord>,
   error: Error | null,
+  isForeign: boolean
 }
 
 

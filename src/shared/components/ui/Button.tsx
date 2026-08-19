@@ -26,6 +26,7 @@ const buttonVariants = cva(
         secondary: "border border-border bg-secondary text-secondary-foreground hover:bg-border active:bg-border/70",
         accent: "bg-accent text-accent-foreground hover:bg-accent/90 active:bg-accent/80",
         destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 active:bg-destructive/80",
+        destructiveGhost: "bg-destructive/10 text-destructive hover:bg-destructive/20 active:bg-destructive/30",
         ghost: "bg-transparent text-foreground hover:bg-muted active:bg-border",
         sidebar: "w-full justify-start gap-2 border border-border bg-card text-card-foreground hover:bg-muted hover:text-accent active:bg-border aria-[current=page]:bg-accent aria-[current=page]:text-accent-foreground aria-[current=page]:border-accent"
       },
