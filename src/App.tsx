@@ -29,15 +29,13 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />}  />
-
           <Route path="/profile/:username" element={<Profile />}>
-            <Route index element={<Navigate to="account" replace/>} />
+            <Route index element={<Navigate to="account" />} />
             <Route path="account" element={<Account />}/>
             <Route path="activities" element={<Activities />}/>
             <Route path="clubs" element={<Clubs />}/>
             <Route path="tools" element={<Tools />}/>
           </Route>
-
           <Route path="*" element={<NotFound />} />
         </Route>
 
@@ -46,6 +44,7 @@ function App() {
           <Route path="register" element={<RegisterPage />} />
           <Route path="onboarding" element={<OnboardingPage />} />
         </Route>
+        
       </Routes>
         
     </>

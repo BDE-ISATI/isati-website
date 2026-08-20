@@ -4,12 +4,8 @@ import pb from "@/shared/lib/pocketbase";
 
 import type { LoginFields } from "@/features/auth/authTypes";
 import { type ClientResponseError, type RecordAuthResponse } from 'pocketbase';
-import { useNavigate } from 'react-router';
-
 
 export default function useAuth() {
-
-  const navigate = useNavigate()
 
   const logout = () => {
     pb.authStore.clear();

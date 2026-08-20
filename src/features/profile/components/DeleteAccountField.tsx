@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@/shared/components/ui/Button";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
 import type { DeleteAccountFields } from "../profileTypes";
 import XIcon from "@/assets/icons/x.svg?react"
 import Error from "@/shared/components/ui/Error";
+import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
+import type { ClientResponseError } from "pocketbase";
+
 
 interface DeleteAccountFieldProps {
   onConfirm: (password: string) => void,
   isLoading: boolean,
-  error: Error | null,
+  error: ClientResponseError | null,
 }
 
 export default function DeleteAccountField({ onConfirm, isLoading, error }: DeleteAccountFieldProps) {
@@ -21,6 +24,8 @@ export default function DeleteAccountField({ onConfirm, isLoading, error }: Dele
     reset();
     setIsEditing(!isEditing);
   }
+
+
 
   return (
     <div className="flex flex-col gap-1 p-3 text-sm">
@@ -53,7 +58,8 @@ export default function DeleteAccountField({ onConfirm, isLoading, error }: Dele
 
               <Error message={errors.password?.message}/>
 
-              <Error message={error?.message}/>
+              <Error message={getFirstErrorMessage(error)}/>
+
             </form>
           </dd>
         </>
@@ -65,6 +71,7 @@ export default function DeleteAccountField({ onConfirm, isLoading, error }: Dele
               Supprimer mon compte
             </Button>
           </dd>
+  
         </>
       )}
     </div>

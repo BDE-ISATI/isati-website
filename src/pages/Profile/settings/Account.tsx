@@ -54,8 +54,6 @@ export default function Account() {
   }
 
   if (isForeign) {
-    // Sans session (ex. juste après une déconnexion), on sort du profil au lieu
-    // de rebasculer sur un autre onglet : sinon cette redirection écrase celle du logout.
     return <Navigate to={isLoggedIn ? `/profile/${user.username}/activities` : "/"} replace/>
   }
 
@@ -85,7 +83,7 @@ export default function Account() {
             username={user.username}
             onConfirm={handleUsernameChange}
             isLoading={isLoadingUsernameUpdate}
-            error={errorUsernameUpdate}
+            error={errorUsernameUpdate} 
           />
 
           <ChangePasswordField 

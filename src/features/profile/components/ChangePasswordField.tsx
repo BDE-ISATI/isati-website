@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import type { ClientResponseError } from "pocketbase";
 import Button from "@/shared/components/ui/Button";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
-import { getFieldError } from "@/shared/lib/pocketbase-errors";
+import { getFieldError, getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import type { PasswordFields } from "../profileTypes";
 import Error from "@/shared/components/ui/Error";
 import PenIcon from "@/assets/icons/pen.svg?react"
@@ -15,7 +15,7 @@ interface ChangePasswordFieldProps {
   onReset: () => void,
   isLoading: boolean,
   isSuccess: boolean,
-  error: Error | null,
+  error: ClientResponseError | null,
 }
 
 export default function ChangePasswordField({ onConfirm, onReset, isLoading, isSuccess, error }: ChangePasswordFieldProps) {
@@ -23,9 +23,8 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
   const [ isEditing, setIsEditing ] = useState<boolean>(false);
   const { register, handleSubmit, formState: { errors }, getValues, reset } = useForm<PasswordFields>();
 
-  const serverError = error as ClientResponseError | null;
-  const oldPasswordServerError = getFieldError(serverError, "oldPassword");
-  const passwordServerError = getFieldError(serverError, "password");
+  const oldPasswordServerError = getFieldError(error, "oldPassword");
+  const passwordServerError = getFieldError(error, "password");
 
   const isOpen = isEditing && !isSuccess;
 
@@ -48,11 +47,7 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
                 <label htmlFor="oldPassword" className="text-muted-foreground">
                   Mot de passe actuel
                 </label>
-                <PasswordInput
-                  id="oldPassword"
-                  size="small"
-                  autoFocus
-                  autoComplete="current-password"
+                <PasswordInput id="oldPassword" size="small" autoFocus autoComplete="current-password"
                   variant={errors.oldPassword || oldPasswordServerError ? "error" : "normal"}
                   {...register("oldPassword", { required: "Ce champ est requis." })}
                 />
@@ -65,14 +60,8 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
                 <label htmlFor="password" className="text-muted-foreground">
                   Nouveau mot de passe
                 </label>
-                <PasswordInput
-                  id="password"
-                  size="small"
-                  autoComplete="new-password"
-                  variant={errors.password || passwordServerError ? "error" : "normal"}
-                  {...register("password", {
-                    required: "Ce champ est requis.",
-                    minLength: { value: 4, message: "4 caractères minimum." },
+                <PasswordInput id="password" size="small" autoComplete="new-password" variant={errors.password || passwordServerError ? "error" : "normal"}
+                  {...register("password", {  required: "Ce champ est requis.", minLength: { value: 4, message: "4 caractères minimum." },
                     validate: (value) =>
                       value !== getValues("oldPassword") ||
                       "Le nouveau mot de passe doit être différent de l'ancien.",
@@ -87,13 +76,8 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
                 <label htmlFor="passwordConfirm" className="text-muted-foreground">
                   Confirmer le nouveau mot de passe
                 </label>
-                <PasswordInput
-                  id="passwordConfirm"
-                  size="small"
-                  autoComplete="new-password"
-                  variant={errors.passwordConfirm ? "error" : "normal"}
-                  {...register("passwordConfirm", {
-                    required: "Veuillez confirmer le mot de passe.",
+                <PasswordInput id="passwordConfirm" size="small" autoComplete="new-password" variant={errors.passwordConfirm ? "error" : "normal"}
+                  {...register("passwordConfirm", { required: "Veuillez confirmer le mot de passe.",
                     validate: (value) =>
                       value === getValues("password") ||
                       "Les mots de passe ne correspondent pas.",
@@ -112,7 +96,7 @@ export default function ChangePasswordField({ onConfirm, onReset, isLoading, isS
               </div>
 
               {!oldPasswordServerError && !passwordServerError && (
-                <Error message={error?.message}/>
+                <Error message={getFirstErrorMessage(error)}/>
               )}
             </form>
           </dd>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@/shared/components/ui/Button";
 import UsernameInput from "@/shared/components/ui/UsernameInput";
@@ -7,12 +7,14 @@ import useIsUsernameUnique from "../hooks/useIsUsernameUnique";
 import type { UsernameFields } from "../profileTypes";
 import PenIcon from "@/assets/icons/pen.svg?react"
 import XIcon from "@/assets/icons/x.svg?react"
+import type { ClientResponseError } from "pocketbase";
+import { getRawFieldError } from "@/shared/lib/pocketbase-errors";
 
 interface ChangeUsernameFieldProps {
   username?: string,
   onConfirm: (newUsername: string) => void,
   isLoading: boolean,
-  error: Error | null,
+  error: ClientResponseError | null,
 }
 
 export default function ChangeUsernameField({ username, onConfirm, isLoading, error }: ChangeUsernameFieldProps) {
@@ -51,7 +53,7 @@ export default function ChangeUsernameField({ username, onConfirm, isLoading, er
                 isChecking={isChecking}
                 isUnique={isUnique}
                 validationError={errors.newUsername?.message}
-                submitError={error?.message}
+                submitError={getRawFieldError(error, "username")}
                 actions={
                   <>
                     <Button type="submit" size="small" disabled={isChecking || isLoading} className="shrink-0">

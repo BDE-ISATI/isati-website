@@ -26,6 +26,7 @@ export default function PasswordInput({ className, wrapperClassName, ...inputPro
         className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         <img className="w-4 h-4" src={isVisible ? eye : eyeOff} alt="" />
+
       </button>
     </div>
   );

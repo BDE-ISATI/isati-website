@@ -28,6 +28,7 @@ export default function Profile() {
     </div>
   )
   
+  
   if (!user || error) {
     return <NotFound />;
   }

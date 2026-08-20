@@ -14,25 +14,15 @@ export default function useDeleteAccount() {
 
   const mutation = useMutation<{success: boolean}, ClientResponseError ,MutationProps>({
     mutationFn: async ({id, password} : MutationProps) => {
-      const url = `${pb.baseURL}/api/isati/delete-user`
-      const response = await fetch(url, {
+      return await pb.send('/api/isati/delete-user', {
         method: 'POST',
-        headers: {
-          'Authorization': pb.authStore.token,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({password, id})
+        body: { password, id },
       })
-      const json = await response.json().catch(() => ({}));
-      if (!response.ok) throw new ClientResponseError({ url, status: response.status, response: json });
-      return response.json()
     },
     onSuccess: () => {
       pb.authStore.clear()
       navigate('/', {replace:true})
     }
-
-
   })
 
   return { delete: mutation.mutate, isLoading: mutation.isPending, error: mutation.error }

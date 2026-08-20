@@ -16,6 +16,7 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
      validation_min_text_constraint: "4 caractères minimum.",
      validation_max_text_constraint: "71 caractères maximum.",
      validation_required: "Ce champ est requis.",
+     invalid_password: "Mot de passe incorrect.",
    },
 
   passwordConfirm: {
@@ -26,6 +27,18 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
     validation_not_unique: "Nom d'utilisateur est déjà utilisé.",
     validation_invalid_username: "Nom d'utilisateur invalide.",
     validation_required: "Ce champ est requis.",
+    insufficient_permissions: "Vous n'avez pas le droit de modifier ce pseudo.",
+  },
+  account: {
+    insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
+    not_authenticated: "Vous devez être connecté pour effectuer cette action.",
+    account_deleted: "Ce compte n'existe plus.",
+  },
+  id: {
+    user_not_found: "Utilisateur introuvable.",
+  },
+  avatar: {
+    insufficient_permissions: "Vous n'avez pas le droit de modifier cet avatar."
   }
 }
 
@@ -39,7 +52,7 @@ export function getFirstErrorMessage(error: ClientResponseError | null): string 
     const fieldError = data[field];
     if (!fieldError) continue;
 
-    const translated = ERROR_TABLE[field]?.[fieldError.code];
+    const translated = ERROR_TABLE[field]?.[fieldError.code] ?? fieldError.message;
     if (translated) return translated;
   }
 
@@ -50,7 +63,14 @@ export function getFieldError(error: ClientResponseError | null, field: string) 
   if (!error) return
   const fieldError = error.response.data?.[field]
   if (!fieldError) return
-  return ERROR_TABLE[field]?.[fieldError.code];
+  return ERROR_TABLE[field]?.[fieldError.code] ?? fieldError.message;
+}
+
+export function getRawFieldError(error: ClientResponseError | null, field: string): string | undefined {
+  if (!error) return;
+  const fieldError = error.response.data?.[field];
+  if (!fieldError) return;
+  return fieldError.message; // le message backend brut, tel quel, sans passer par ERROR_TABLE
 }
 
 

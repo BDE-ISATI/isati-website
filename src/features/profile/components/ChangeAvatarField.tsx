@@ -10,6 +10,7 @@ import ImageCrop from "@/shared/components/ui/ImageCrop";
 import ChangeAvatarButton from "./ChangeAvatarButton";
 import XIcon from "@/assets/icons/x.svg?react"
 import Error from "@/shared/components/ui/Error";
+import type { ClientResponseError } from "pocketbase";
 
 const AVATAR_SIZES = [
   { thumb: "200x200", className: "w-16 h-16 sm:w-28 sm:h-28" },
@@ -29,7 +30,7 @@ interface ChangeAvatarFieldProps {
   user: NoInfer<UsersRecord>,
   onConfirm: (avatarFile: File) => void,
   isLoading: boolean,
-  error: Error | null,
+  error: ClientResponseError | null,
 }
 
 export default function ChangeAvatarField({ user, onConfirm, isLoading, error }: ChangeAvatarFieldProps) {
