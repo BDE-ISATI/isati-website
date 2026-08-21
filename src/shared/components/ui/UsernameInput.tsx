@@ -1,29 +1,47 @@
-import type { ComponentProps, ReactNode } from "react";
+import { useEffect, useState, type ChangeEvent, type ComponentProps } from "react";
 import Input from "@/shared/components/ui/Input";
 import Error from "@/shared/components/ui/Error";
+import useDebounce from "@/shared/hook/useDebounce";
+import useIsUsernameUnique from "@/shared/hook/useIsUsernameUnique";
 import Check from "@/assets/icons/check.svg?react"
 import Loader from "@/assets/icons/loader.svg?react"
+import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 
 interface UsernameInputProps extends ComponentProps<typeof Input> {
-  showStatus: boolean,
-  isChecking: boolean,
-  isUnique?: boolean,
   validationError?: string,
   submitError?: string,
-  actions?: ReactNode,
 }
 
 
-export default function UsernameInput({ showStatus, isChecking, isUnique, validationError, submitError, actions, ...inputProps }: UsernameInputProps) {
+
+
+
+
+export default function UsernameInput({ validationError, submitError, onChange, ...inputProps }: UsernameInputProps) {
+
+  const [ username, setUsername ] = useState<string>("");
+  const debouncedUsername = useDebounce(username, 300);
+  const { isLoading, isUnique , error} = useIsUsernameUnique(debouncedUsername);
+
+  const showStatus = username.length >= 2;
+  const isChecking = isLoading || username !== debouncedUsername;
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    setUsername(event.target.value);
+    onChange?.(event);
+  }
+
+  useEffect(() => {
+    console.dir(error)
+  },[error])
+
   return (
-    <div className="flex flex-col gap-1">
-      <div className="flex flex-row items-center gap-2">
-        <Input type="text"
-          variant={validationError ? "error" : (!showStatus || isChecking ? "normal" : (isUnique ? "success" : "error"))}
-          {...inputProps}
-        />
-        {actions}
-      </div>
+    <div className="flex w-full flex-col gap-1">
+      <Input type="text"
+        variant={validationError ? "error" : (!showStatus || isChecking ? "normal" : (isUnique ? "success" : "error"))}
+        onChange={handleChange}
+        {...inputProps}
+      />
 
       <div className="flex flex-row items-center gap-2">
         {validationError ? (
@@ -44,7 +62,7 @@ export default function UsernameInput({ showStatus, isChecking, isUnique, valida
               </span>
             </div>
           ) : (
-            <Error message="Déjà utilisé"/>
+            <Error message={error ? getFirstErrorMessage(error) : "Déjà utilisé"}/>
           )
         )}
 

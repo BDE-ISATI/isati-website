@@ -14,8 +14,6 @@ import cn from "@/shared/utils/cn";
 
 import PasswordInput from "@/shared/components/ui/PasswordInput";
 import UsernameInput from "@/shared/components/ui/UsernameInput";
-import useDebounce from "@/features/profile/hooks/useDebounce";
-import useIsUsernameUnique from "@/features/profile/hooks/useIsUsernameUnique";
 import Error from "@/shared/components/ui/Error";
 
 import Logo from "@/assets/logos/isati.svg?react";
@@ -30,15 +28,7 @@ function Register() {
   
   // Hook formulaire + inscription
   const { isLoading: isLoadingRegister, register: registerAccount, error: registerError } = useRegister();
-  const { register, handleSubmit, formState: { errors }, getValues, watch } = useForm<RegisterFields>();
-
-  // Username
-  const username = watch("username");
-  const debouncedUsername = useDebounce(username, 300);
-  const { isLoading: isLoadingUnique, isUnique } = useIsUsernameUnique(debouncedUsername);
-
-  const showStatus = username?.length >= 2;
-  const isChecking = isLoadingUnique || username !== debouncedUsername;
+  const { register, handleSubmit, formState: { errors }, getValues } = useForm<RegisterFields>();
 
   const usernameServerError = getFieldError(registerError, "username");
   const emailServerError = getFieldError(registerError, "email");
@@ -69,9 +59,6 @@ function Register() {
                   Nom d'utilisateur
                 </label>
                 <UsernameInput
-                  showStatus={showStatus}
-                  isChecking={isChecking}
-                  isUnique={isUnique}
                   validationError={errors.username?.message}
                   submitError={usernameServerError}
                   id="username"
@@ -147,7 +134,7 @@ function Register() {
 
               </div>
 
-              <Button type="submit" disabled={isLoadingRegister || isChecking || !isUnique } className="w-full">
+              <Button type="submit" disabled={isLoadingRegister} className="w-full">
                 {isLoadingRegister ? "Inscription…" : "S'inscrire"}
               </Button>
      

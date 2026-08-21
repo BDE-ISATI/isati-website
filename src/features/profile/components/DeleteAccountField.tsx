@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@/shared/components/ui/Button";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
@@ -24,8 +24,6 @@ export default function DeleteAccountField({ onConfirm, isLoading, error }: Dele
     reset();
     setIsEditing(!isEditing);
   }
-
-
 
   return (
     <div className="flex flex-col gap-1 p-3 text-sm">
