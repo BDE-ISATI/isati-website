@@ -13,11 +13,13 @@ export const Collections = {
 	Superusers: "_superusers",
 	Article: "article",
 	Challenge: "challenge",
+	ChallengeCategory: "challenge_category",
 	Club: "club",
 	ClubActivity: "club_activity",
 	ClubMember: "club_member",
+	Faction: "faction",
 	Participation: "participation",
-	Policy: "policy",
+	Policies: "policies",
 	Roles: "roles",
 	Status: "status",
 	Team: "team",
@@ -122,22 +124,63 @@ export type ArticleRecord = {
 	updated: IsoAutoDateString
 }
 
+export const ChallengeDifficultyOptions = {
+	"E1": "1",
+	"E2": "2",
+	"E3": "3",
+	"E4": "4",
+	"E5": "5",
+} as const
+export type ChallengeDifficultyOptions = typeof ChallengeDifficultyOptions[keyof typeof ChallengeDifficultyOptions]
+
+export const ChallengePhaseOptions = {
+	"parcours": "parcours",
+	"olympiades": "olympiades",
+} as const
+export type ChallengePhaseOptions = typeof ChallengePhaseOptions[keyof typeof ChallengePhaseOptions]
+
+export const ChallengeScopeOptions = {
+	"individual": "individual",
+	"team": "team",
+} as const
+export type ChallengeScopeOptions = typeof ChallengeScopeOptions[keyof typeof ChallengeScopeOptions]
+
+export const ChallengeProofTypeOptions = {
+	"image": "image",
+	"video": "video",
+	"link": "link",
+} as const
+export type ChallengeProofTypeOptions = typeof ChallengeProofTypeOptions[keyof typeof ChallengeProofTypeOptions]
 export type ChallengeRecord = {
-	category?: string
+	category?: RecordIdString[]
 	created: IsoAutoDateString
 	description?: string
-	difficulty?: string
+	difficulty?: ChallengeDifficultyOptions
 	end_date?: IsoDateString
 	id: string
 	image?: FileNameString
 	location?: GeoPoint
 	max_validations?: number
+	phase?: ChallengePhaseOptions
 	points?: number
+	proof_type?: ChallengeProofTypeOptions[]
+	relation?: RecordIdString
+	scope?: ChallengeScopeOptions
 	start_date?: IsoDateString
 	title?: string
 	type?: string
 	updated: IsoAutoDateString
-	wei_id?: string
+	wei?: RecordIdString
+}
+
+export type ChallengeCategoryRecord = {
+	color?: string
+	created: IsoAutoDateString
+	icon?: FileNameString
+	id: string
+	name?: string
+	updated: IsoAutoDateString
+	wei?: RecordIdString
 }
 
 export type ClubRecord = {
@@ -149,7 +192,7 @@ export type ClubRecord = {
 }
 
 export type ClubActivityRecord = {
-	club_id?: string
+	club?: RecordIdString
 	created: IsoAutoDateString
 	date?: IsoDateString
 	description?: string
@@ -159,31 +202,52 @@ export type ClubActivityRecord = {
 	updated: IsoAutoDateString
 }
 
+export const ClubMemberRoleOptions = {
+	"member": "member",
+	"president": "president",
+} as const
+export type ClubMemberRoleOptions = typeof ClubMemberRoleOptions[keyof typeof ClubMemberRoleOptions]
 export type ClubMemberRecord = {
-	club_id?: string
+	club?: RecordIdString
 	created: IsoAutoDateString
 	id: string
 	joined_at?: IsoDateString
-	member_id?: string
-	role?: string
+	role?: ClubMemberRoleOptions
 	updated: IsoAutoDateString
+	user?: RecordIdString
 }
 
+export type FactionRecord = {
+	color?: string
+	created: IsoAutoDateString
+	description?: string
+	id: string
+	logo?: FileNameString
+	name?: string
+	updated: IsoAutoDateString
+	wei?: RecordIdString
+}
+
+export const ParticipationRoleOptions = {
+	"team_leader": "team_leader",
+	"student": "student",
+} as const
+export type ParticipationRoleOptions = typeof ParticipationRoleOptions[keyof typeof ParticipationRoleOptions]
 export type ParticipationRecord = {
 	created: IsoAutoDateString
 	id: string
-	role?: string
-	team_id?: string
+	role?: ParticipationRoleOptions
+	team?: RecordIdString
 	updated: IsoAutoDateString
-	user_id?: string
+	user?: RecordIdString
 }
 
-export type PolicyRecord = {
-	action?: string
+export type PoliciesRecord = {
+	action: string
 	created: IsoAutoDateString
 	id: string
 	name?: string
-	resource?: string
+	resource: string
 	updated: IsoAutoDateString
 }
 
@@ -199,7 +263,7 @@ export type RolesRecord = {
 }
 
 export type StatusRecord = {
-	author_id?: string
+	author?: RecordIdString
 	created: IsoAutoDateString
 	expires_at?: IsoDateString
 	id: string
@@ -207,18 +271,17 @@ export type StatusRecord = {
 	reason?: string
 	type?: string
 	updated: IsoAutoDateString
-	user_id?: string
+	user?: RecordIdString
 }
 
 export type TeamRecord = {
 	color?: string
 	created: IsoAutoDateString
 	description?: string
-	faction?: string
 	id: string
 	name?: string
 	updated: IsoAutoDateString
-	wei_id?: string
+	wei?: RecordIdString
 }
 
 export const UsersSchoolYearOptions = {
@@ -245,6 +308,7 @@ export type UsersRecord = {
 	account_type?: string
 	avatar?: FileNameString
 	created: IsoAutoDateString
+	deleted?: IsoDateString
 	email: string
 	emailVisibility?: boolean
 	id: string
@@ -255,15 +319,16 @@ export type UsersRecord = {
 	speciality?: UsersSpecialityOptions
 	tokenKey: string
 	updated: IsoAutoDateString
-	username?: string
+	username: string
 	username_changed_at?: IsoDateString
 	verified?: boolean
 }
 
 export type ValidationRecord = {
-	challenge_id?: string
+	challenge?: RecordIdString
 	created: IsoAutoDateString
 	id: string
+	points_awarded?: number
 	proof_file?: FileNameString
 	proof_text?: string
 	public?: boolean
@@ -271,16 +336,25 @@ export type ValidationRecord = {
 	reviewed_at?: IsoDateString
 	status?: string
 	submitted_at?: IsoDateString
+	team?: RecordIdString
 	updated: IsoAutoDateString
-	user_id?: string
-	validator_id?: string
+	user?: RecordIdString
+	validator?: RecordIdString
 }
 
-export type WeiRecord = {
+export type WeiRecord<Tdefault_points = unknown> = {
 	created: IsoAutoDateString
+	date?: IsoDateString
+	default_points?: null | Tdefault_points
 	description?: string
+	ending_date?: IsoDateString
 	id: string
 	location?: GeoPoint
+	registration_closes_at?: IsoDateString
+	registration_opens_at?: IsoDateString
+	reveal_at?: IsoDateString
+	show_location?: boolean
+	starting_date?: IsoDateString
 	theme?: string
 	title?: string
 	updated: IsoAutoDateString
@@ -295,17 +369,19 @@ export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemF
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
 export type ArticleResponse<Texpand = unknown> = Required<ArticleRecord> & BaseSystemFields<Texpand>
 export type ChallengeResponse<Texpand = unknown> = Required<ChallengeRecord> & BaseSystemFields<Texpand>
+export type ChallengeCategoryResponse<Texpand = unknown> = Required<ChallengeCategoryRecord> & BaseSystemFields<Texpand>
 export type ClubResponse<Texpand = unknown> = Required<ClubRecord> & BaseSystemFields<Texpand>
 export type ClubActivityResponse<Texpand = unknown> = Required<ClubActivityRecord> & BaseSystemFields<Texpand>
 export type ClubMemberResponse<Texpand = unknown> = Required<ClubMemberRecord> & BaseSystemFields<Texpand>
+export type FactionResponse<Texpand = unknown> = Required<FactionRecord> & BaseSystemFields<Texpand>
 export type ParticipationResponse<Texpand = unknown> = Required<ParticipationRecord> & BaseSystemFields<Texpand>
-export type PolicyResponse<Texpand = unknown> = Required<PolicyRecord> & BaseSystemFields<Texpand>
+export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
 export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
 export type StatusResponse<Texpand = unknown> = Required<StatusRecord> & BaseSystemFields<Texpand>
 export type TeamResponse<Texpand = unknown> = Required<TeamRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 export type ValidationResponse<Texpand = unknown> = Required<ValidationRecord> & BaseSystemFields<Texpand>
-export type WeiResponse<Texpand = unknown> = Required<WeiRecord> & BaseSystemFields<Texpand>
+export type WeiResponse<Tdefault_points = unknown, Texpand = unknown> = Required<WeiRecord<Tdefault_points>> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
@@ -317,11 +393,13 @@ export type CollectionRecords = {
 	_superusers: SuperusersRecord
 	article: ArticleRecord
 	challenge: ChallengeRecord
+	challenge_category: ChallengeCategoryRecord
 	club: ClubRecord
 	club_activity: ClubActivityRecord
 	club_member: ClubMemberRecord
+	faction: FactionRecord
 	participation: ParticipationRecord
-	policy: PolicyRecord
+	policies: PoliciesRecord
 	roles: RolesRecord
 	status: StatusRecord
 	team: TeamRecord
@@ -338,11 +416,13 @@ export type CollectionResponses = {
 	_superusers: SuperusersResponse
 	article: ArticleResponse
 	challenge: ChallengeResponse
+	challenge_category: ChallengeCategoryResponse
 	club: ClubResponse
 	club_activity: ClubActivityResponse
 	club_member: ClubMemberResponse
+	faction: FactionResponse
 	participation: ParticipationResponse
-	policy: PolicyResponse
+	policies: PoliciesResponse
 	roles: RolesResponse
 	status: StatusResponse
 	team: TeamResponse
