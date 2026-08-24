@@ -1,5 +1,9 @@
 import type { ClientResponseError } from "pocketbase";
 
+type ValueType = {
+  code: string,
+  message: string
+}
 
 const ERROR_TABLE: Record<string, Record<string, string>> = {
   email: {
@@ -45,7 +49,7 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
 export function getFirstErrorMessage(error: ClientResponseError | null): string | undefined {
   if (!error) return undefined;
 
-  const data = error.response?.data as Record<string, ValueType> | undefined;
+  const data = getData(error)
   if (!data) return error.message;
 
   for (const field of Object.keys(data)) {
@@ -53,7 +57,7 @@ export function getFirstErrorMessage(error: ClientResponseError | null): string 
     if (!fieldError) continue;
 
     const translated = ERROR_TABLE[field]?.[fieldError.code] ?? fieldError.message;
-    if (translated) return translated;
+    return translated;
   }
 
   return error.message;
@@ -61,31 +65,30 @@ export function getFirstErrorMessage(error: ClientResponseError | null): string 
 
 export function getFieldError(error: ClientResponseError | null, field: string) {
   if (!error) return
-  const fieldError = error.response.data?.[field]
+  const fieldError = getData(error)?.[field] 
   if (!fieldError) return
   return ERROR_TABLE[field]?.[fieldError.code] ?? fieldError.message;
 }
 
 export function getRawFieldError(error: ClientResponseError | null, field: string): string | undefined {
   if (!error) return;
-  const fieldError = error.response.data?.[field];
+  const fieldError = getData(error)?.[field];
   if (!fieldError) return;
-  return fieldError.message; // le message backend brut, tel quel, sans passer par ERROR_TABLE
-}
-
-
-type ValueType = {
-  code: string,
-  message: string
+  return fieldError.message;
 }
 
 export function hasErrorCode(error: ClientResponseError | null, code: string): boolean {
   if (!error) return false
   
-  const data = error.response?.data as Record<string, ValueType> | undefined
+  const data = getData(error)
   if (!data) return false 
 
   return Object.values(data).some((value) => {
     return value.code === code
   })
+}
+
+
+function getData(error: ClientResponseError | null) {
+  return error?.response?.data as Record<string, ValueType> | undefined
 }
