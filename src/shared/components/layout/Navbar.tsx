@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import Button from "@/shared/components/ui/Button";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
@@ -17,9 +17,18 @@ export default function Navbar() {
   const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const user = useAuthStore((s) => s.user);
   const { logout } = useAuth();
+  const { pathname } = useLocation();
+
+  const isLandingPage = pathname === "/" && !isLoggedIn;
 
   return (
-    <nav className="flex h-24 items-center justify-between bg-accent px-6 text-accent-foreground">
+    <nav 
+      className={`flex h-24 items-center justify-between px-6 z-50 ${
+        isLandingPage 
+          ? "absolute top-0 left-0 w-full bg-transparent text-white" 
+          : "bg-accent text-accent-foreground"
+      }`}
+    >
       
       <Link to="/" className="flex items-center" aria-label="Accueil ISATI">
         <Logo className="h-16 w-auto text-white"/>
