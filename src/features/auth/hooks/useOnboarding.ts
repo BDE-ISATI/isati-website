@@ -20,7 +20,7 @@ export default function useOnboarding() {
 
   const navigate = useNavigate()
 
-  const onboardingMutation = useMutation<RecordModel, ClientResponseError, MutationProps>({
+  return useMutation<RecordModel, ClientResponseError, MutationProps>({
     mutationFn: async (data: MutationProps) => {
       const updateData = {
         speciality: data.speciality?.key,
@@ -37,9 +37,5 @@ export default function useOnboarding() {
       navigate("/")
     }
   })
-
-  return  { onBoard: onboardingMutation.mutate, error: onboardingMutation.error, loading: onboardingMutation.isPending }
-
-
 
 }

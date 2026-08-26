@@ -10,13 +10,13 @@ type VerificationBannerProps = {
 
 export default function VerificationBanner({ email }: VerificationBannerProps) {
 
-  const { sendVerification, isLoading, coolDown } = useVerification();
+  const { mutate: sendVerification, isPending, coolDown } = useVerification();
 
 
   return (
- 
-    <Button variant="ghost" size="small" className="shrink-0" onClick={() => sendVerification(email)} disabled={isLoading || coolDown > 0}>
-      {isLoading ? "Envoi…" : coolDown > 0 ? `${coolDown}s` : "Renvoyer l'email"}
+
+    <Button variant="ghost" size="small" className="shrink-0" onClick={() => sendVerification(email)} disabled={isPending || coolDown > 0}>
+      {isPending ? "Envoi…" : coolDown > 0 ? `${coolDown}s` : "Renvoyer l'email"}
     </Button>
 
   );

@@ -1,18 +1,17 @@
 import pb from "@/shared/lib/pocketbase"
-import useGetRoles from "@/features/roles/hooks/useGetRoles";
 import RoleBadge from "@/features/roles/components/RoleBadge";
-import type { UsersRecord } from "@/shared/types/pocketbase-types";
+import type { UserWithRoles } from "@/shared/types/sharedTypes";
 import { years, levels, specialities } from "@/shared/constants/education";
 
 interface ProfileBannerProps {
-  user: UsersRecord
+  user: UserWithRoles
 }
 
 
 export default function ProfileBanner({ user } : ProfileBannerProps) {
 
+  const roles = user.expand?.roles ?? []
   const avatarURL = user.avatar ? pb.files.getURL(user, user.avatar, { thumb: '200x200' }) : undefined;
-  const { roles } = useGetRoles(user.roles);
   const year = years.find((s) => s.key === user.school_year)?.name
   const level = levels.find((s) => s.key === user.level)?.name
   const speciality = specialities.find((s) => s.key === user.speciality)?.name
@@ -61,7 +60,7 @@ export default function ProfileBanner({ user } : ProfileBannerProps) {
             </div>
           </dl>
 
-          {roles && roles.length > 0 && (
+          {roles.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {roles.map((role) => (
                 <RoleBadge key={role.id} role={role} />

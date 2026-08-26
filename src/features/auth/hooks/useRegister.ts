@@ -10,9 +10,9 @@ import { useNavigate } from 'react-router';
 
 export default function useRegister() {
   const navigate = useNavigate();
-  const { sendVerification } = useVerification()
+  const verification = useVerification()
 
-  const registerMutation = useMutation<RecordModel, ClientResponseError, RegisterFields>({
+  return useMutation<RecordModel, ClientResponseError, RegisterFields>({
     mutationFn: async (data: RegisterFields) => {
 
       const registerData = {
@@ -23,11 +23,9 @@ export default function useRegister() {
 
     },
     onSuccess: async (_record, variables) =>  {
-      sendVerification(variables.email)
+      verification.mutate(variables.email)
       navigate("/login", {state: variables.email})
     },
   })
-
-  return { isLoading: registerMutation.isPending , register: registerMutation.mutate, error: registerMutation.error}
 
 }

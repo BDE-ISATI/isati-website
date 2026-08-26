@@ -24,15 +24,14 @@ function Login() {
     document.title = "Connexion | ISATI";
   }, []);
 
-  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const user = useAuthStore((s) => s.user)
-  const { isLoading, login, error } = useAuth();
+  const login = useAuth();
   const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginFields>();
   const [ unverifiedEmail, setUnverifiedEmail ] = useState<string | null>(null)
 
 
   function onLogin(data: LoginFields) {
-    login(data, {
+    login.mutate(data, {
       onSuccess: () => {
         reset();
         setUnverifiedEmail(null);
@@ -47,8 +46,8 @@ function Login() {
   });
   }
 
-  if (isLoggedIn) {
-    return user?.level ? <Navigate to="/" replace/> : <Navigate to="/onboarding" replace/>;
+  if (user) {
+    return user.level ? <Navigate to="/" replace/> : <Navigate to="/onboarding" replace/>;
   }
   
   
@@ -62,7 +61,7 @@ function Login() {
        
 
         <div className="relative" >
-          <div inert={isLoading} className={cn("transition duration-200", isLoading && "blur-sm pointer-events-none select-none")}>
+          <div inert={login.isPending} className={cn("transition duration-200", login.isPending && "blur-sm pointer-events-none select-none")}>
             <form noValidate onSubmit={handleSubmit(onLogin)} className="flex flex-col gap-4">
               
               {/* email */}
@@ -92,17 +91,17 @@ function Login() {
 
               </div>
 
-              <Button type="submit" disabled={isLoading} className="w-full">
-                {isLoading ? "Connexion…" : "Se connecter"}
+              <Button type="submit" disabled={login.isPending} className="w-full">
+                {login.isPending ? "Connexion…" : "Se connecter"}
               </Button>
 
-              <Error message={getFirstErrorMessage(error)}/>
+              <Error message={getFirstErrorMessage(login.error)}/>
 
               {unverifiedEmail && <VerificationBanner email={unverifiedEmail} />}
               
             </form>
           </div>
-          {isLoading && <LoadingOverlay />}
+          {login.isPending && <LoadingOverlay />}
         </div>
 
         <p className="mt-6 text-sm text-muted-foreground">

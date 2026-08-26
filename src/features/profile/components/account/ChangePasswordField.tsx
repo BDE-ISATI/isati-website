@@ -4,7 +4,7 @@ import type { ClientResponseError } from "pocketbase";
 import Button from "@/shared/components/ui/Button";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
 import { getFieldError, getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
-import type { PasswordFields } from "../profileTypes";
+import type { PasswordFields } from "@/features/profile/profileTypes";
 import Error from "@/shared/components/ui/Error";
 import PenIcon from "@/assets/icons/pen.svg?react"
 import XIcon from "@/assets/icons/x.svg?react"

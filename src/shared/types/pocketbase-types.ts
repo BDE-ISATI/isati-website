@@ -11,21 +11,21 @@ export const Collections = {
 	Mfas: "_mfas",
 	Otps: "_otps",
 	Superusers: "_superusers",
-	Article: "article",
-	Challenge: "challenge",
-	ChallengeCategory: "challenge_category",
-	Club: "club",
-	ClubActivity: "club_activity",
+	Articles: "articles",
+	ChallengeCategories: "challenge_categories",
+	Challenges: "challenges",
+	ClubActivities: "club_activities",
 	ClubMember: "club_member",
-	Faction: "faction",
-	Participation: "participation",
+	Clubs: "clubs",
+	Factions: "factions",
+	Participations: "participations",
 	Policies: "policies",
 	Roles: "roles",
 	Status: "status",
-	Team: "team",
+	Teams: "teams",
 	Users: "users",
-	Validation: "validation",
-	Wei: "wei",
+	Validations: "validations",
+	Weis: "weis",
 } as const
 export type Collections = typeof Collections[keyof typeof Collections]
 
@@ -112,7 +112,7 @@ export type SuperusersRecord = {
 	verified?: boolean
 }
 
-export type ArticleRecord = {
+export type ArticlesRecord = {
 	author_id?: string
 	content?: string
 	created: IsoAutoDateString
@@ -124,56 +124,7 @@ export type ArticleRecord = {
 	updated: IsoAutoDateString
 }
 
-export const ChallengeDifficultyOptions = {
-	"E1": "1",
-	"E2": "2",
-	"E3": "3",
-	"E4": "4",
-	"E5": "5",
-} as const
-export type ChallengeDifficultyOptions = typeof ChallengeDifficultyOptions[keyof typeof ChallengeDifficultyOptions]
-
-export const ChallengePhaseOptions = {
-	"parcours": "parcours",
-	"olympiades": "olympiades",
-} as const
-export type ChallengePhaseOptions = typeof ChallengePhaseOptions[keyof typeof ChallengePhaseOptions]
-
-export const ChallengeScopeOptions = {
-	"individual": "individual",
-	"team": "team",
-} as const
-export type ChallengeScopeOptions = typeof ChallengeScopeOptions[keyof typeof ChallengeScopeOptions]
-
-export const ChallengeProofTypeOptions = {
-	"image": "image",
-	"video": "video",
-	"link": "link",
-} as const
-export type ChallengeProofTypeOptions = typeof ChallengeProofTypeOptions[keyof typeof ChallengeProofTypeOptions]
-export type ChallengeRecord = {
-	category?: RecordIdString[]
-	created: IsoAutoDateString
-	description?: string
-	difficulty?: ChallengeDifficultyOptions
-	end_date?: IsoDateString
-	id: string
-	image?: FileNameString
-	location?: GeoPoint
-	max_validations?: number
-	phase?: ChallengePhaseOptions
-	points?: number
-	proof_type?: ChallengeProofTypeOptions[]
-	relation?: RecordIdString
-	scope?: ChallengeScopeOptions
-	start_date?: IsoDateString
-	title?: string
-	type?: string
-	updated: IsoAutoDateString
-	wei?: RecordIdString
-}
-
-export type ChallengeCategoryRecord = {
+export type ChallengeCategoriesRecord = {
 	color?: string
 	created: IsoAutoDateString
 	icon?: FileNameString
@@ -183,15 +134,56 @@ export type ChallengeCategoryRecord = {
 	wei?: RecordIdString
 }
 
-export type ClubRecord = {
+export const ChallengesDifficultyOptions = {
+	"E1": "1",
+	"E2": "2",
+	"E3": "3",
+	"E4": "4",
+	"E5": "5",
+} as const
+export type ChallengesDifficultyOptions = typeof ChallengesDifficultyOptions[keyof typeof ChallengesDifficultyOptions]
+
+export const ChallengesPhaseOptions = {
+	"parcours": "parcours",
+	"olympiades": "olympiades",
+} as const
+export type ChallengesPhaseOptions = typeof ChallengesPhaseOptions[keyof typeof ChallengesPhaseOptions]
+
+export const ChallengesScopeOptions = {
+	"individual": "individual",
+	"team": "team",
+} as const
+export type ChallengesScopeOptions = typeof ChallengesScopeOptions[keyof typeof ChallengesScopeOptions]
+
+export const ChallengesProofTypeOptions = {
+	"image": "image",
+	"video": "video",
+	"link": "link",
+} as const
+export type ChallengesProofTypeOptions = typeof ChallengesProofTypeOptions[keyof typeof ChallengesProofTypeOptions]
+export type ChallengesRecord = {
+	category?: RecordIdString[]
 	created: IsoAutoDateString
 	description?: string
+	difficulty?: ChallengesDifficultyOptions
+	end_date?: IsoDateString
 	id: string
-	name?: string
+	image?: FileNameString
+	location?: GeoPoint
+	max_validations?: number
+	phase?: ChallengesPhaseOptions
+	points?: number
+	proof_type?: ChallengesProofTypeOptions[]
+	relation?: RecordIdString
+	scope?: ChallengesScopeOptions
+	start_date?: IsoDateString
+	title?: string
+	type?: string
 	updated: IsoAutoDateString
+	wei?: RecordIdString
 }
 
-export type ClubActivityRecord = {
+export type ClubActivitiesRecord = {
 	club?: RecordIdString
 	created: IsoAutoDateString
 	date?: IsoDateString
@@ -217,7 +209,15 @@ export type ClubMemberRecord = {
 	user?: RecordIdString
 }
 
-export type FactionRecord = {
+export type ClubsRecord = {
+	created: IsoAutoDateString
+	description?: string
+	id: string
+	name?: string
+	updated: IsoAutoDateString
+}
+
+export type FactionsRecord = {
 	color?: string
 	created: IsoAutoDateString
 	description?: string
@@ -228,15 +228,15 @@ export type FactionRecord = {
 	wei?: RecordIdString
 }
 
-export const ParticipationRoleOptions = {
+export const ParticipationsRoleOptions = {
 	"team_leader": "team_leader",
 	"student": "student",
 } as const
-export type ParticipationRoleOptions = typeof ParticipationRoleOptions[keyof typeof ParticipationRoleOptions]
-export type ParticipationRecord = {
+export type ParticipationsRoleOptions = typeof ParticipationsRoleOptions[keyof typeof ParticipationsRoleOptions]
+export type ParticipationsRecord = {
 	created: IsoAutoDateString
 	id: string
-	role?: ParticipationRoleOptions
+	role?: ParticipationsRoleOptions
 	team?: RecordIdString
 	updated: IsoAutoDateString
 	user?: RecordIdString
@@ -274,7 +274,7 @@ export type StatusRecord = {
 	user?: RecordIdString
 }
 
-export type TeamRecord = {
+export type TeamsRecord = {
 	color?: string
 	created: IsoAutoDateString
 	description?: string
@@ -324,7 +324,7 @@ export type UsersRecord = {
 	verified?: boolean
 }
 
-export type ValidationRecord = {
+export type ValidationsRecord = {
 	challenge?: RecordIdString
 	created: IsoAutoDateString
 	id: string
@@ -342,22 +342,22 @@ export type ValidationRecord = {
 	validator?: RecordIdString
 }
 
-export type WeiRecord<Tdefault_points = unknown> = {
+export type WeisRecord<Tdefault_points = unknown> = {
 	created: IsoAutoDateString
 	date?: IsoDateString
 	default_points?: null | Tdefault_points
 	description?: string
-	ending_date?: IsoDateString
 	id: string
 	location?: GeoPoint
 	registration_closes_at?: IsoDateString
 	registration_opens_at?: IsoDateString
 	reveal_at?: IsoDateString
 	show_location?: boolean
-	starting_date?: IsoDateString
 	theme?: string
 	title?: string
 	updated: IsoAutoDateString
+	weekend_ends_at?: IsoDateString
+	weekend_starts_at?: IsoDateString
 	year?: string
 }
 
@@ -367,21 +367,21 @@ export type ExternalauthsResponse<Texpand = unknown> = Required<ExternalauthsRec
 export type MfasResponse<Texpand = unknown> = Required<MfasRecord> & BaseSystemFields<Texpand>
 export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemFields<Texpand>
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
-export type ArticleResponse<Texpand = unknown> = Required<ArticleRecord> & BaseSystemFields<Texpand>
-export type ChallengeResponse<Texpand = unknown> = Required<ChallengeRecord> & BaseSystemFields<Texpand>
-export type ChallengeCategoryResponse<Texpand = unknown> = Required<ChallengeCategoryRecord> & BaseSystemFields<Texpand>
-export type ClubResponse<Texpand = unknown> = Required<ClubRecord> & BaseSystemFields<Texpand>
-export type ClubActivityResponse<Texpand = unknown> = Required<ClubActivityRecord> & BaseSystemFields<Texpand>
+export type ArticlesResponse<Texpand = unknown> = Required<ArticlesRecord> & BaseSystemFields<Texpand>
+export type ChallengeCategoriesResponse<Texpand = unknown> = Required<ChallengeCategoriesRecord> & BaseSystemFields<Texpand>
+export type ChallengesResponse<Texpand = unknown> = Required<ChallengesRecord> & BaseSystemFields<Texpand>
+export type ClubActivitiesResponse<Texpand = unknown> = Required<ClubActivitiesRecord> & BaseSystemFields<Texpand>
 export type ClubMemberResponse<Texpand = unknown> = Required<ClubMemberRecord> & BaseSystemFields<Texpand>
-export type FactionResponse<Texpand = unknown> = Required<FactionRecord> & BaseSystemFields<Texpand>
-export type ParticipationResponse<Texpand = unknown> = Required<ParticipationRecord> & BaseSystemFields<Texpand>
+export type ClubsResponse<Texpand = unknown> = Required<ClubsRecord> & BaseSystemFields<Texpand>
+export type FactionsResponse<Texpand = unknown> = Required<FactionsRecord> & BaseSystemFields<Texpand>
+export type ParticipationsResponse<Texpand = unknown> = Required<ParticipationsRecord> & BaseSystemFields<Texpand>
 export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
 export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
 export type StatusResponse<Texpand = unknown> = Required<StatusRecord> & BaseSystemFields<Texpand>
-export type TeamResponse<Texpand = unknown> = Required<TeamRecord> & BaseSystemFields<Texpand>
+export type TeamsResponse<Texpand = unknown> = Required<TeamsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
-export type ValidationResponse<Texpand = unknown> = Required<ValidationRecord> & BaseSystemFields<Texpand>
-export type WeiResponse<Tdefault_points = unknown, Texpand = unknown> = Required<WeiRecord<Tdefault_points>> & BaseSystemFields<Texpand>
+export type ValidationsResponse<Texpand = unknown> = Required<ValidationsRecord> & BaseSystemFields<Texpand>
+export type WeisResponse<Tdefault_points = unknown, Texpand = unknown> = Required<WeisRecord<Tdefault_points>> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
@@ -391,21 +391,21 @@ export type CollectionRecords = {
 	_mfas: MfasRecord
 	_otps: OtpsRecord
 	_superusers: SuperusersRecord
-	article: ArticleRecord
-	challenge: ChallengeRecord
-	challenge_category: ChallengeCategoryRecord
-	club: ClubRecord
-	club_activity: ClubActivityRecord
+	articles: ArticlesRecord
+	challenge_categories: ChallengeCategoriesRecord
+	challenges: ChallengesRecord
+	club_activities: ClubActivitiesRecord
 	club_member: ClubMemberRecord
-	faction: FactionRecord
-	participation: ParticipationRecord
+	clubs: ClubsRecord
+	factions: FactionsRecord
+	participations: ParticipationsRecord
 	policies: PoliciesRecord
 	roles: RolesRecord
 	status: StatusRecord
-	team: TeamRecord
+	teams: TeamsRecord
 	users: UsersRecord
-	validation: ValidationRecord
-	wei: WeiRecord
+	validations: ValidationsRecord
+	weis: WeisRecord
 }
 
 export type CollectionResponses = {
@@ -414,21 +414,21 @@ export type CollectionResponses = {
 	_mfas: MfasResponse
 	_otps: OtpsResponse
 	_superusers: SuperusersResponse
-	article: ArticleResponse
-	challenge: ChallengeResponse
-	challenge_category: ChallengeCategoryResponse
-	club: ClubResponse
-	club_activity: ClubActivityResponse
+	articles: ArticlesResponse
+	challenge_categories: ChallengeCategoriesResponse
+	challenges: ChallengesResponse
+	club_activities: ClubActivitiesResponse
 	club_member: ClubMemberResponse
-	faction: FactionResponse
-	participation: ParticipationResponse
+	clubs: ClubsResponse
+	factions: FactionsResponse
+	participations: ParticipationsResponse
 	policies: PoliciesResponse
 	roles: RolesResponse
 	status: StatusResponse
-	team: TeamResponse
+	teams: TeamsResponse
 	users: UsersResponse
-	validation: ValidationResponse
-	wei: WeiResponse
+	validations: ValidationsResponse
+	weis: WeisResponse
 }
 
 // Utility types for create/update operations

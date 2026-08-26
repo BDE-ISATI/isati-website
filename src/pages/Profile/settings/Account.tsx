@@ -1,60 +1,52 @@
-import type { UsersRecord } from "@/shared/types/pocketbase-types"
 import { Navigate, useOutletContext } from "react-router";
 
 import cn from "@/shared/utils/cn";
-import ChangeAvatarField from "@/features/profile/components/ChangeAvatarField";
-import ChangeUsernameField from "@/features/profile/components/ChangeUsernameField";
+import ChangeAvatarField from "@/features/profile/components/account/ChangeAvatarField";
+import ChangeUsernameField from "@/features/profile/components/account/ChangeUsernameField";
 import useUpdateUsername from "@/features/profile/hooks/useUpdateUsername";
 import useUpdateProfilePicture from "@/features/profile/hooks/useUpdateProfilePicture";
 import { useNavigate } from "react-router";
 import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
-import ChangePasswordField from "@/features/profile/components/ChangePasswordField";
+import ChangePasswordField from "@/features/profile/components/account/ChangePasswordField";
 import useUpdatePassword from "@/features/profile/hooks/useUpdatePassword";
 import type { PasswordFields } from "@/features/profile/profileTypes";
-import DeleteAccountField from "@/features/profile/components/DeleteAccountField";
+import DeleteAccountField from "@/features/profile/components/account/DeleteAccountField";
 import useDeleteAccount from "@/features/profile/hooks/useDeleteAccount";
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
-
-
-interface AccountContext {
-  isLoading: boolean,
-  user: NoInfer<UsersRecord>,
-  error: Error | null,
-  isForeign: boolean
-}
+import type { ProfileOutletContext } from "@/features/profile/profileTypes";
 
  
 export default function Account() {
   
-  const { user, isForeign } = useOutletContext<AccountContext>();
-  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  const { user, isForeign } = useOutletContext<ProfileOutletContext>();
+  const loggedInUser = useAuthStore((s) => s.user);
   const navigate = useNavigate()
 
-  const { update: updateUsername, isLoading: isLoadingUsernameUpdate, error: errorUsernameUpdate } = useUpdateUsername()
-  const { update: updateAvatar, isLoading: isLoadingAvatarUpdate, error: errorAvatarUpdate } = useUpdateProfilePicture()
-  const { update: updatePassword, reset: resetPasswordUpdate, isLoading: isLoadingPasswordUpdate, isSuccess: isSuccessPasswordUpdate, error: errorPasswordUpdate } = useUpdatePassword()
-  const { delete: deleteAccount, isLoading: isLoadingAccountDelete, error: errorAccountDelete } = useDeleteAccount()
+  const usernameUpdate = useUpdateUsername()
+  const avatarUpdate = useUpdateProfilePicture()
+  const passwordUpdate = useUpdatePassword()
+  const accountDelete = useDeleteAccount()
 
-  const isBusy = isLoadingAvatarUpdate || isLoadingUsernameUpdate || isLoadingPasswordUpdate || isLoadingAccountDelete;
+  const isBusy = avatarUpdate.isPending || usernameUpdate.isPending || passwordUpdate.isPending || accountDelete.isPending;
 
   function handlePasswordChange(fields: PasswordFields) {
-    updatePassword({ userId: user.id, email: user.email, ...fields })
+    passwordUpdate.mutate({ userId: user.id, email: user.email, ...fields })
   }
 
   function handleAccountDelete(password: string) {
-    deleteAccount({ id: user.id, password })
+    accountDelete.mutate({ id: user.id, password })
   }
 
   function handleUsernameChange(newUsername: string) {
-    updateUsername({userId: user.id, username: newUsername}, { onSuccess: () => navigate(`/profile/${newUsername}/account`, { replace: true })})
+    usernameUpdate.mutate({userId: user.id, username: newUsername}, { onSuccess: () => navigate(`/profile/${newUsername}/account`, { replace: true })})
   }
 
   function handleAvatarChange(avatarFile: File) {
-    updateAvatar({ userId: user.id, avatarFile })
+    avatarUpdate.mutate({ userId: user.id, avatarFile })
   }
 
   if (isForeign) {
-    return <Navigate to={isLoggedIn ? `/profile/${user.username}/activities` : "/"} replace/>
+    return <Navigate to={loggedInUser ? `/profile/${user.username}/activities` : "/"} replace/>
   }
 
   return (
@@ -75,29 +67,29 @@ export default function Account() {
           <ChangeAvatarField
             user={user}
             onConfirm={handleAvatarChange}
-            isLoading={isLoadingAvatarUpdate}
-            error={errorAvatarUpdate}
+            isLoading={avatarUpdate.isPending}
+            error={avatarUpdate.error}
           />
 
           <ChangeUsernameField
             username={user.username}
             onConfirm={handleUsernameChange}
-            isLoading={isLoadingUsernameUpdate}
-            error={errorUsernameUpdate} 
+            isLoading={usernameUpdate.isPending}
+            error={usernameUpdate.error}
           />
 
-          <ChangePasswordField 
+          <ChangePasswordField
             onConfirm={handlePasswordChange}
-            onReset={resetPasswordUpdate}
-            isLoading={isLoadingPasswordUpdate}
-            isSuccess={isSuccessPasswordUpdate}
-            error={errorPasswordUpdate}
+            onReset={passwordUpdate.reset}
+            isLoading={passwordUpdate.isPending}
+            isSuccess={passwordUpdate.isSuccess}
+            error={passwordUpdate.error}
           />
 
           <DeleteAccountField
             onConfirm={handleAccountDelete}
-            isLoading={isLoadingAccountDelete}
-            error={errorAccountDelete}
+            isLoading={accountDelete.isPending}
+            error={accountDelete.error}
           />
 
         </dl>

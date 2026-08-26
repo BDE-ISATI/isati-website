@@ -12,22 +12,16 @@ type MutationProps = {
 }
 
 export default function useUpdatePassword() {
-  const updatePasswordMutation = useMutation<RecordAuthResponse<RecordModel>, ClientResponseError,MutationProps>({
+  return useMutation<RecordAuthResponse<RecordModel>, ClientResponseError,MutationProps>({
     mutationFn: async ({ userId, email, oldPassword, password, passwordConfirm }: MutationProps) => {
       await pb.collection('users').update(userId, {
         oldPassword,
         password,
         passwordConfirm,
       });
-      return await pb.collection('users').authWithPassword(email, password);
+      return await pb.collection('users').authWithPassword(email, password, {
+        expand: "roles.policies"
+      });
     },
   });
-
-  return {
-    update: updatePasswordMutation.mutate,
-    reset: updatePasswordMutation.reset,
-    isLoading: updatePasswordMutation.isPending,
-    isSuccess: updatePasswordMutation.isSuccess,
-    error: updatePasswordMutation.error,
-  };
 }

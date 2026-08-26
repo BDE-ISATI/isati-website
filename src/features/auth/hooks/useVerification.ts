@@ -35,6 +35,6 @@ export default function useVerification() {
     }
   }, [coolDown > 0])
 
-  return { sendVerification: verificationMutation.mutate, isLoading: verificationMutation.isPending, coolDown, error:verificationMutation.error}
+  return { ...verificationMutation, coolDown }
 
 }

@@ -26,27 +26,28 @@ function Register() {
     document.title = "Inscription | ISATI";
   }, []);
 
-  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  const user = useAuthStore((s) => s.user);
   
   // Hook formulaire + inscription
-  const { isLoading: isLoadingRegister, register: registerAccount, error: registerError } = useRegister();
+  const registerMutation = useRegister();
   const { register, handleSubmit, formState: { errors }, getValues, watch } = useForm<RegisterFields>();
 
   // Username
   const username = watch("username");
   const debouncedUsername = useDebounce(username, 300);
-  const { isLoading: isLoadingUnique, isUnique } = useIsUsernameUnique(debouncedUsername);
+  const usernameQuery = useIsUsernameUnique(debouncedUsername);
+  const isUnique = usernameQuery.data;
 
   const showStatus = username?.length >= 2;
-  const isChecking = isLoadingUnique || username !== debouncedUsername;
+  const isChecking = usernameQuery.isLoading || username !== debouncedUsername;
 
-  const usernameServerError = getFieldError(registerError, "username");
-  const emailServerError = getFieldError(registerError, "email");
-  const passwordServerError = getFieldError(registerError, "password");
-  const passwordConfirmServerError = getFieldError(registerError, "passwordConfirm");
+  const usernameServerError = getFieldError(registerMutation.error, "username");
+  const emailServerError = getFieldError(registerMutation.error, "email");
+  const passwordServerError = getFieldError(registerMutation.error, "password");
+  const passwordConfirmServerError = getFieldError(registerMutation.error, "passwordConfirm");
 
 
-  if (isLoggedIn) return <Navigate to="/" replace/>;
+  if (user) return <Navigate to="/" replace/>;
 
   return (
     <>
@@ -56,13 +57,13 @@ function Register() {
       <div className="w-full max-w-sm">
         <h2 className="mb-6 text-2xl font-semibold">Inscription</h2>
         <div className="relative">
-          <div inert={isLoadingRegister}
+          <div inert={registerMutation.isPending}
             className={cn(
               "transition duration-200",
-              isLoadingRegister && "blur-sm pointer-events-none select-none",
+              registerMutation.isPending && "blur-sm pointer-events-none select-none",
             )}
           >
-            <form noValidate onSubmit={handleSubmit((data) => registerAccount(data))} className="flex flex-col gap-4">
+            <form noValidate onSubmit={handleSubmit((data) => registerMutation.mutate(data))} className="flex flex-col gap-4">
               {/* Username */}
               <div className="flex flex-col gap-1">
                 <label htmlFor="username" className="text-sm font-medium">
@@ -147,15 +148,15 @@ function Register() {
 
               </div>
 
-              <Button type="submit" disabled={isLoadingRegister || isChecking || !isUnique } className="w-full">
-                {isLoadingRegister ? "Inscription…" : "S'inscrire"}
+              <Button type="submit" disabled={registerMutation.isPending || isChecking || !isUnique } className="w-full">
+                {registerMutation.isPending ? "Inscription…" : "S'inscrire"}
               </Button>
-     
-              <Error message={getFirstErrorMessage(registerError)}/>
-             
+
+              <Error message={getFirstErrorMessage(registerMutation.error)}/>
+
             </form>
           </div>
-          {isLoadingRegister && <LoadingOverlay />}
+          {registerMutation.isPending && <LoadingOverlay />}
         </div>
 
         <p className="mt-6 text-sm text-muted-foreground">

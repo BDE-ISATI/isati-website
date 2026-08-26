@@ -13,7 +13,7 @@ export default function useUpdateUsername() {
     
     const queryClient = useQueryClient();
 
-    const updateMutation = useMutation<RecordModel,ClientResponseError,MutationProps>({
+    return useMutation<RecordModel,ClientResponseError,MutationProps>({
         mutationFn: async ({ userId, username}: MutationProps) => {
             return await pb.collection('users').update(userId, {
                 username: username,
@@ -22,7 +22,5 @@ export default function useUpdateUsername() {
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['profile'] })
 
     })
-
-    return { update: updateMutation.mutate , isLoading: updateMutation.isPending, error: updateMutation.error }
 
 }

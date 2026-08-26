@@ -23,16 +23,15 @@ function Onboarding() {
     document.title = "Onboarding | ISATI";
   }, []);
 
-  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const user = useAuthStore((s) => s.user)
-  const { onBoard, error, loading } = useOnboarding()
+  const onboarding = useOnboarding()
 
   const [ selectedLevel, setSelectedLevel ] = useState<(typeof levels)[number] | null>(null)
   const [ selectedYear, setSelectedYear ] = useState<(typeof years)[number] | null>(null)
   const [ selectedSpeciality, setSelectedSpeciality ] = useState<(typeof specialities)[number] | null>(null)
 
-  if (!isLoggedIn) return <Navigate to="/" replace/>;
-  if (user?.level) return <Navigate to="/" replace/>;
+  if (!user) return <Navigate to="/" replace/>;
+  if (user.level) return <Navigate to="/" replace/>;
 
   function handleLevelChange(data: (typeof levels)[number] | null) {
     setSelectedLevel(data)
@@ -43,7 +42,7 @@ function Onboarding() {
   }
 
   function handleOnboarding() {
-    onBoard({level: selectedLevel, year: selectedYear, speciality: selectedSpeciality})
+    onboarding.mutate({level: selectedLevel, year: selectedYear, speciality: selectedSpeciality})
   }
 
   
@@ -53,7 +52,7 @@ function Onboarding() {
         {/* Logo ISATI et texte*/}
         <Logo className="mb-8 h-16 w-auto text-accent"/>
         
-        <div inert={loading} className={cn("transition duration-200",loading && "blur-sm pointer-events-none select-none",)}> 
+        <div inert={onboarding.isPending} className={cn("transition duration-200",onboarding.isPending && "blur-sm pointer-events-none select-none",)}>
         <h2 className="mb-6 text-2xl font-semibold">Finalisez votre compte ISATI</h2>
         
         {/* Listbox Niveau */}
@@ -129,10 +128,10 @@ function Onboarding() {
           Finaliser
         </Button>
 
-        <Error message={getFirstErrorMessage(error)} />
-          
+        <Error message={getFirstErrorMessage(onboarding.error)} />
+
       </div>
-      {loading && <LoadingOverlay />}
+      {onboarding.isPending && <LoadingOverlay />}
 
       </div>
     </>

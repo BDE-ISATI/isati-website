@@ -12,7 +12,7 @@ export default function useDeleteAccount() {
 
   const navigate = useNavigate()
 
-  const mutation = useMutation<{success: boolean}, ClientResponseError ,MutationProps>({
+  return useMutation<{success: boolean}, ClientResponseError ,MutationProps>({
     mutationFn: async ({id, password} : MutationProps) => {
       return await pb.send('/api/isati/delete-user', {
         method: 'POST',
@@ -24,8 +24,5 @@ export default function useDeleteAccount() {
       navigate('/', {replace:true})
     }
   })
-
-  return { delete: mutation.mutate, isLoading: mutation.isPending, error: mutation.error }
-
 
 }

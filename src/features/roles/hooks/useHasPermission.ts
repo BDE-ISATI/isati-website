@@ -1,22 +1,6 @@
-import useGetRoles from './useGetRoles';
+import { useAuthStore } from "@/features/auth/store/useAuthStore";
 
-export default function useHasPermission(
-  userRoleIds: string[] | undefined,
-  resource: string,
-  action: string
-) {
-  const { roles, isLoading } = useGetRoles(userRoleIds);
-  const allowed = roles?.some((role) =>{
-    return role.expand?.policies?.some((p) => { 
-      
-      const isAdminWildcard = p.resource === "all" && p.action === "all";
-      const matches = p.resource === resource && p.action === action;
-      return isAdminWildcard || matches;
-    })
-  }
-    
-    
-  ) ?? false;
-
-  return { allowed, isLoading };
+export default function useHasPermission(action: string, resource: string): boolean {
+  const permissions = useAuthStore((s) => s.permissions);
+  return permissions.has("all:all") || permissions.has(`${action}:${resource}`);
 }

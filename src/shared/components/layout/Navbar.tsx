@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import Button from "@/shared/components/ui/Button";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
-import useAuth from "@/features/auth/hooks/useAuth";
+import { logout } from "@/features/auth/lib/auth";
 import { CloseButton, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import pb from "@/shared/lib/pocketbase";
 
@@ -14,9 +14,7 @@ import Logo from "@/assets/logos/isati_notext.svg?react";
 
 
 export default function Navbar() {
-  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
   const user = useAuthStore((s) => s.user);
-  const { logout } = useAuth();
 
   return (
     <nav className="flex h-24 items-center justify-between bg-accent px-6 text-accent-foreground">
@@ -26,7 +24,7 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-4">
-        {isLoggedIn && user ? (
+        {user ? (
           <Popover className="relative">
             <PopoverButton className="group block cursor-pointer rounded-full outline-none">
               <img

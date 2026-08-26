@@ -13,7 +13,7 @@ export default function useUpdateProfilePicture() {
     
     const queryClient = useQueryClient();
 
-    const updateMutation = useMutation<RecordModel,ClientResponseError,MutationProps>({
+    return useMutation<RecordModel,ClientResponseError,MutationProps>({
         mutationFn: async ({ userId, avatarFile}: MutationProps) => {
             return await pb.collection('users').update(userId, {
                 avatar: avatarFile,
@@ -22,7 +22,5 @@ export default function useUpdateProfilePicture() {
         onSuccess: () => queryClient.invalidateQueries({ queryKey: ['profile'] })
 
     })
-
-    return { update: updateMutation.mutate , isLoading: updateMutation.isPending, error: updateMutation.error }
 
 }

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@/shared/components/ui/Button";
 import UsernameInput from "@/shared/components/ui/UsernameInput";
-import useDebounce from "../hooks/useDebounce";
-import useIsUsernameUnique from "../hooks/useIsUsernameUnique";
-import type { UsernameFields } from "../profileTypes";
+import useDebounce from "@/features/profile/hooks/useDebounce";
+import useIsUsernameUnique from "@/features/profile/hooks/useIsUsernameUnique";
+import type { UsernameFields } from "@/features/profile/profileTypes";
 import PenIcon from "@/assets/icons/pen.svg?react"
 import XIcon from "@/assets/icons/x.svg?react"
 import type { ClientResponseError } from "pocketbase";
@@ -24,10 +24,11 @@ export default function ChangeUsernameField({ username, onConfirm, isLoading, er
 
   const newUsername = watch("newUsername");
   const usernameDebonce = useDebounce(newUsername, 300);
-  const { isLoading: isLoadingUnique, isUnique } = useIsUsernameUnique(usernameDebonce);
+  const usernameQuery = useIsUsernameUnique(usernameDebonce);
+  const isUnique = usernameQuery.data;
 
   const showStatus = newUsername?.length > 2;
-  const isChecking = isLoadingUnique || newUsername !== usernameDebonce;
+  const isChecking = usernameQuery.isLoading || newUsername !== usernameDebonce;
 
   function handleToggle() {
     reset();

@@ -1,3 +1,5 @@
+import type { UserWithRoles } from "@/shared/types/sharedTypes";
+
 export type UsernameFields = {
     newUsername: string,
 }
@@ -11,3 +13,9 @@ export type PasswordFields = {
 export type DeleteAccountFields = {
     password: string,
 }
+
+export type ProfileOutletContext = {
+  user: UserWithRoles,
+  isForeign: boolean
+}
+
