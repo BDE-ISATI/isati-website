@@ -1,4 +1,4 @@
-import type { WeisResponse } from "@/shared/types/pocketbase-types";
+import type { WeiWithLocation } from "@/shared/types/sharedTypes";
 import weiMilestones from "@/features/wei/libs/milestones";
 import StepProgress from "@/shared/components/ui/StepProgress";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
@@ -6,15 +6,17 @@ import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 import cn from "@/shared/utils/cn";
 
 type WeiCardProps = {
-  wei: WeisResponse;
+  wei: WeiWithLocation;
   className?: string;
 };
 
 export default function WeiCard({ wei, className }: WeiCardProps) {
   const milestone = weiMilestones(wei);
 
-  const hasLocation =
-    wei.show_location && wei.location && (wei.location.lat !== 0 || wei.location.lon !== 0);
+  const locationText = !wei.location
+    ? "À définir"
+    : wei.expand?.location?.label || "Masqué";
+
 
   return (
     <article
@@ -42,7 +44,7 @@ export default function WeiCard({ wei, className }: WeiCardProps) {
 
         <p className="text-sm">
           <span className="text-muted-foreground">Lieu : </span>
-          {hasLocation ? `${wei.location.lat.toFixed(4)}, ${wei.location.lon.toFixed(4)}` : "Masqué"}
+          {locationText}
         </p>
 
         {milestone && (

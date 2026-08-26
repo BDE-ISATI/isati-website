@@ -23,6 +23,7 @@ function currentPermissions(): Set<string> {
   );
 }
 
+
 export const useAuthStore = create<AuthState>(() => ({
   user: currentUser(),
   permissions: currentPermissions(),

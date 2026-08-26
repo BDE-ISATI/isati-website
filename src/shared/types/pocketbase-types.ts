@@ -18,6 +18,7 @@ export const Collections = {
 	ClubMember: "club_member",
 	Clubs: "clubs",
 	Factions: "factions",
+	Locations: "locations",
 	Participations: "participations",
 	Policies: "policies",
 	Roles: "roles",
@@ -163,18 +164,18 @@ export const ChallengesProofTypeOptions = {
 export type ChallengesProofTypeOptions = typeof ChallengesProofTypeOptions[keyof typeof ChallengesProofTypeOptions]
 export type ChallengesRecord = {
 	category?: RecordIdString[]
+	color?: string
 	created: IsoAutoDateString
 	description?: string
 	difficulty?: ChallengesDifficultyOptions
 	end_date?: IsoDateString
 	id: string
 	image?: FileNameString
-	location?: GeoPoint
+	location?: RecordIdString
 	max_validations?: number
 	phase?: ChallengesPhaseOptions
 	points?: number
 	proof_type?: ChallengesProofTypeOptions[]
-	relation?: RecordIdString
 	scope?: ChallengesScopeOptions
 	start_date?: IsoDateString
 	title?: string
@@ -226,6 +227,15 @@ export type FactionsRecord = {
 	name?: string
 	updated: IsoAutoDateString
 	wei?: RecordIdString
+}
+
+export type LocationsRecord = {
+	created: IsoAutoDateString
+	geo_point?: GeoPoint
+	hidden?: boolean
+	id: string
+	label?: string
+	updated: IsoAutoDateString
 }
 
 export const ParticipationsRoleOptions = {
@@ -342,17 +352,14 @@ export type ValidationsRecord = {
 	validator?: RecordIdString
 }
 
-export type WeisRecord<Tdefault_points = unknown> = {
+export type WeisRecord = {
 	created: IsoAutoDateString
-	date?: IsoDateString
-	default_points?: null | Tdefault_points
 	description?: string
 	id: string
-	location?: GeoPoint
+	location?: RecordIdString
+	parcours_starts_at?: IsoDateString
 	registration_closes_at?: IsoDateString
 	registration_opens_at?: IsoDateString
-	reveal_at?: IsoDateString
-	show_location?: boolean
 	theme?: string
 	title?: string
 	updated: IsoAutoDateString
@@ -374,6 +381,7 @@ export type ClubActivitiesResponse<Texpand = unknown> = Required<ClubActivitiesR
 export type ClubMemberResponse<Texpand = unknown> = Required<ClubMemberRecord> & BaseSystemFields<Texpand>
 export type ClubsResponse<Texpand = unknown> = Required<ClubsRecord> & BaseSystemFields<Texpand>
 export type FactionsResponse<Texpand = unknown> = Required<FactionsRecord> & BaseSystemFields<Texpand>
+export type LocationsResponse<Texpand = unknown> = Required<LocationsRecord> & BaseSystemFields<Texpand>
 export type ParticipationsResponse<Texpand = unknown> = Required<ParticipationsRecord> & BaseSystemFields<Texpand>
 export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
 export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
@@ -381,7 +389,7 @@ export type StatusResponse<Texpand = unknown> = Required<StatusRecord> & BaseSys
 export type TeamsResponse<Texpand = unknown> = Required<TeamsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 export type ValidationsResponse<Texpand = unknown> = Required<ValidationsRecord> & BaseSystemFields<Texpand>
-export type WeisResponse<Tdefault_points = unknown, Texpand = unknown> = Required<WeisRecord<Tdefault_points>> & BaseSystemFields<Texpand>
+export type WeisResponse<Texpand = unknown> = Required<WeisRecord> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
@@ -398,6 +406,7 @@ export type CollectionRecords = {
 	club_member: ClubMemberRecord
 	clubs: ClubsRecord
 	factions: FactionsRecord
+	locations: LocationsRecord
 	participations: ParticipationsRecord
 	policies: PoliciesRecord
 	roles: RolesRecord
@@ -421,6 +430,7 @@ export type CollectionResponses = {
 	club_member: ClubMemberResponse
 	clubs: ClubsResponse
 	factions: FactionsResponse
+	locations: LocationsResponse
 	participations: ParticipationsResponse
 	policies: PoliciesResponse
 	roles: RolesResponse

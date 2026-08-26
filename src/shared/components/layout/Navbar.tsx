@@ -51,7 +51,7 @@ export default function Navbar() {
               </div>
 
               <div className="flex flex-col gap-1 p-3">
-                <CloseButton as={ButtonLink} to={`/profile/${user.username}`} variant="ghost" size="menu">
+                <CloseButton as={ButtonLink} to={`/profile/${user.username}/account`} variant="ghost" size="menu">
                   <UserIcon className="h-5 w-5 text-muted-foreground" />
                   Mon profil
                 </CloseButton>

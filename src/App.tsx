@@ -19,6 +19,8 @@ import Wei from '@/pages/Wei/Wei';
 import WeiPanel from '@/pages/Wei/WeiPanel';
 import WeiDetail from '@/pages/Wei/WeiDetail';
 import RequirePermission from '@/features/roles/components/RequirePermission';
+import Challenge from '@/pages/Wei/Challenge';
+import ChallengeDetail from '@/pages/Wei/ChallengeDetail';
 
 function App() {
 
@@ -34,6 +36,8 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />}  />
           <Route path="/wei" element={<Wei />}/>
+          <Route path="/wei/challenge" element={<Challenge />}/>
+          <Route path="/wei/challenge/:challengeId" element={<ChallengeDetail />}/>
 
           <Route element={<RequirePermission action="view" resource="wei_panel" />}>
             <Route path="/wei/panel" element={<WeiPanel />}/>

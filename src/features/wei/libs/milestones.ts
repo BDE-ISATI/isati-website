@@ -20,7 +20,7 @@ export default function weiMilestones(wei: WeisResponse | null, now: Date = new 
     { id: "creation", label: "Création", value: wei.created },
     { id: "reg_open", label: "Ouverture des inscriptions", value: wei.registration_opens_at },
     { id: "reg_close", label: "Fermeture des inscriptions", value: wei.registration_closes_at },
-    { id: "reveal", label: "Reveal", value: wei.reveal_at },
+    { id: "reveal", label: "Début du parcours", value: wei.parcours_starts_at },
     { id: "weekend_start", label: "Début du week-end", value: wei.weekend_starts_at },
     { id: "weekend_end", label: "Fin du week-end", value: wei.weekend_ends_at },
   ];

@@ -14,7 +14,7 @@ export default function WeiDetail() {
       {wei.error && <Error message="Impossible de charger ce WEI." />}
 
       {record ? (
-        <WeiCard wei={record} />
+        <p>test</p>
       ) : (
         !wei.isPending && <p className="text-sm text-muted-foreground">WEI introuvable.</p>
       )}
