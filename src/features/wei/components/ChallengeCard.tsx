@@ -5,17 +5,12 @@ import type { ChallengeWithRelations } from "@/shared/types/sharedTypes";
 import ChallengeDifficulty from "@/features/wei/components/ChallengeDifficulty";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
+import { parsePbDate } from "@/shared/lib/dates";
 import cn from "@/shared/utils/cn";
 
 interface ChallengeCardProps {
   challenge: ChallengeWithRelations
   className?: string
-}
-
-function parseDate(iso?: string) {
-  if (!iso) return null;
-  const time = new Date(iso.replace(" ", "T")).getTime();
-  return Number.isNaN(time) ? null : time;
 }
 
 function formatRemaining(ms: number) {
@@ -36,8 +31,8 @@ export default function ChallengeCard({ challenge, className }: ChallengeCardPro
     return () => window.clearInterval(id);
   }, []);
 
-  const start = parseDate(challenge.start_date);
-  const end = parseDate(challenge.end_date);
+  const start = parsePbDate(challenge.start_date)?.getTime() ?? null;
+  const end = parsePbDate(challenge.end_date)?.getTime() ?? null;
   const notStarted = start !== null && start > now;
   const target = notStarted ? start : end;
 

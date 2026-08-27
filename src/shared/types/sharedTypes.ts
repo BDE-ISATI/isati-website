@@ -5,8 +5,8 @@ export type UserWithRoles = UsersResponse<{
 }>;
 
 export type MaskedLocation =
-  Omit<LocationsResponse, "label" | "geo_point">
-  & Partial<Pick<LocationsResponse, "label" | "geo_point">>;
+  Omit<LocationsResponse, "label">
+  & Partial<Pick<LocationsResponse, "label">>;
 
 export type WeiWithLocation = WeisResponse<{
   location?: MaskedLocation

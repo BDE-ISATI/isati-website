@@ -1,5 +1,5 @@
 import useTeams from "@/features/wei/hooks/queries/useTeams";
-import useAllWei from "@/features/wei/hooks/queries/useAllWei";
+import useWeis from "@/features/wei/hooks/queries/useWeis";
 import { useEffect, useState } from "react";
 
 function Home() {
@@ -11,7 +11,7 @@ function Home() {
 
   const [ weiId, setWeiId ] = useState<string>()
 
-  const wei = useAllWei()
+  const wei = useWeis()
   const teams = useTeams(weiId)
 
   if (wei.data && !weiId) {

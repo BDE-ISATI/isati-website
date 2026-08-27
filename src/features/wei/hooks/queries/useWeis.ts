@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import type { WeiWithLocation } from "@/shared/types/sharedTypes";
 
 
-export default function useAllWei() {
+export default function useWeis() {
 
   return  useQuery({
     queryKey: ["weis"],

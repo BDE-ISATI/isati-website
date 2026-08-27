@@ -43,6 +43,18 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
   },
   avatar: {
     insufficient_permissions: "Vous n'avez pas le droit de modifier cet avatar."
+  },
+  locations: {
+    insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
+  },
+  challenges: {
+    insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
+  },
+  challenge_categories: {
+    insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
+  },
+  weis: {
+    insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
   }
 }
 

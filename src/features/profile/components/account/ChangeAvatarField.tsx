@@ -63,7 +63,8 @@ export default function ChangeAvatarField({ user, onConfirm, isLoading, error }:
     try {
       const croppedBlob = await cropImage(imageSrc, croppedArea);
       const croppedFile = new File([croppedBlob], "avatar.webp", { type: "image/webp" });
-      onConfirm(await imageCompression(croppedFile, COMPRESSION_OPTIONS));
+      const compressed = await imageCompression(croppedFile, COMPRESSION_OPTIONS);
+      onConfirm(new File([compressed], "avatar.webp", { type: "image/webp" }));
       handleCancel();
     } catch {
       setCropError("Impossible de traiter cette image.");

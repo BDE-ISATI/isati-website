@@ -5,12 +5,10 @@ import type { WeiWithLocation } from "@/shared/types/sharedTypes";
 
 export default function useWei(weiId?: string) {
 
-  return  useQuery({
+  return useQuery({
     queryKey: ["wei", weiId],
     queryFn: async () => {
-      const filter = pb.filter("id = {:weiId}", {weiId: weiId})
-      return await pb.collection('weis').getFullList<WeiWithLocation>({
-        filter: filter,
+      return await pb.collection("weis").getOne<WeiWithLocation>(weiId!, {
         expand: "location"
       })
     },

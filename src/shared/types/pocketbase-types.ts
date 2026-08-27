@@ -37,11 +37,6 @@ export type RecordIdString = string
 export type FileNameString = string & { readonly filename: unique symbol }
 export type HTMLString = string
 
-export type GeoPoint = {
-	lon: number
-	lat: number
-}
-
 type ExpandType<T> = unknown extends T
 	? T extends unknown
 		? { expand?: unknown }
@@ -128,11 +123,9 @@ export type ArticlesRecord = {
 export type ChallengeCategoriesRecord = {
 	color?: string
 	created: IsoAutoDateString
-	icon?: FileNameString
 	id: string
 	name?: string
 	updated: IsoAutoDateString
-	wei?: RecordIdString
 }
 
 export const ChallengesDifficultyOptions = {
@@ -179,7 +172,6 @@ export type ChallengesRecord = {
 	scope?: ChallengesScopeOptions
 	start_date?: IsoDateString
 	title?: string
-	type?: string
 	updated: IsoAutoDateString
 	wei?: RecordIdString
 }
@@ -231,7 +223,6 @@ export type FactionsRecord = {
 
 export type LocationsRecord = {
 	created: IsoAutoDateString
-	geo_point?: GeoPoint
 	hidden?: boolean
 	id: string
 	label?: string
@@ -250,6 +241,7 @@ export type ParticipationsRecord = {
 	team?: RecordIdString
 	updated: IsoAutoDateString
 	user?: RecordIdString
+	wei?: RecordIdString
 }
 
 export type PoliciesRecord = {

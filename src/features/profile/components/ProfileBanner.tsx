@@ -2,6 +2,7 @@ import pb from "@/shared/lib/pocketbase"
 import RoleBadge from "@/features/roles/components/RoleBadge";
 import type { UserWithRoles } from "@/shared/types/sharedTypes";
 import { years, levels, specialities } from "@/shared/constants/education";
+import { parsePbDate } from "@/shared/lib/dates";
 
 interface ProfileBannerProps {
   user: UserWithRoles
@@ -16,7 +17,7 @@ export default function ProfileBanner({ user } : ProfileBannerProps) {
   const level = levels.find((s) => s.key === user.level)?.name
   const speciality = specialities.find((s) => s.key === user.speciality)?.name
 
-  const memberSince = new Date(user.created).toLocaleDateString('fr-FR', {
+  const memberSince = parsePbDate(user.created)?.toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

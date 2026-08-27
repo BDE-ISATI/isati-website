@@ -18,9 +18,13 @@ import Tools from '@/pages/Profile/settings/Tools';
 import Wei from '@/pages/Wei/Wei';
 import WeiPanel from '@/pages/Wei/WeiPanel';
 import WeiDetail from '@/pages/Wei/WeiDetail';
+import WeiNew from '@/pages/Wei/WeiNew';
+import WeiEdit from '@/pages/Wei/WeiEdit';
 import RequirePermission from '@/features/roles/components/RequirePermission';
 import Challenge from '@/pages/Wei/Challenge';
 import ChallengeDetail from '@/pages/Wei/ChallengeDetail';
+import ChallengeNew from '@/pages/Wei/ChallengeNew';
+import ChallengeEdit from '@/pages/Wei/ChallengeEdit';
 
 function App() {
 
@@ -39,9 +43,19 @@ function App() {
           <Route path="/wei/challenge" element={<Challenge />}/>
           <Route path="/wei/challenge/:challengeId" element={<ChallengeDetail />}/>
 
+          <Route element={<RequirePermission action="create" resource="challenges" />}>
+            <Route path="/wei/challenge/new" element={<ChallengeNew />}/>
+            <Route path="/wei/challenge/:challengeId/edit" element={<ChallengeEdit />}/>
+          </Route>
+
           <Route element={<RequirePermission action="view" resource="wei_panel" />}>
             <Route path="/wei/panel" element={<WeiPanel />}/>
             <Route path="/wei/panel/:weiId" element={<WeiDetail />}/>
+          </Route>
+
+          <Route element={<RequirePermission action="create" resource="weis" />}>
+            <Route path="/wei/new" element={<WeiNew />}/>
+            <Route path="/wei/:weiId/edit" element={<WeiEdit />}/>
           </Route>
           
           

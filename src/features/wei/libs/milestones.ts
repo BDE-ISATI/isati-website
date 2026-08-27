@@ -1,9 +1,10 @@
 import type { WeisResponse } from "@/shared/types/pocketbase-types";
 import type { StepProgressStep } from "@/shared/components/ui/StepProgress";
+import { parsePbDate } from "@/shared/lib/dates";
 
 function startOfLocalDay(iso: string): number | null {
-  const d = new Date(iso.replace(" ", "T"));
-  if (Number.isNaN(d.getTime())) return null;
+  const d = parsePbDate(iso);
+  if (!d) return null;
   return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
 }
 
@@ -40,12 +41,15 @@ export default function weiMilestones(wei: WeisResponse | null, now: Date = new 
     : last === milestones.length - 1 ? last
     : last + 0.5;
 
-  const steps: StepProgressStep[] = milestones.map((m) => ({
-    id: m.id,
-    label: m.label,
-    sublabel: m.value ? fmt.format(new Date(m.value.replace(" ", "T"))) : "à définir",
-    tone: m.value ? "default" : "warning",
-  }));
+  const steps: StepProgressStep[] = milestones.map((m) => {
+    const date = parsePbDate(m.value);
+    return {
+      id: m.id,
+      label: m.label,
+      sublabel: date ? fmt.format(date) : "à définir",
+      tone: date ? "default" : "warning",
+    };
+  });
 
   return { steps, value };
 }
