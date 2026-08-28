@@ -1,11 +1,12 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 import { Link } from "react-router";
 import pb from "@/shared/lib/pocketbase";
 import type { ChallengeWithRelations } from "@/shared/types/sharedTypes";
 import ChallengeDifficulty from "@/features/wei/components/ChallengeDifficulty";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
-import { parsePbDate } from "@/shared/lib/dates";
+import challengeWindow from "@/features/wei/libs/challenge";
+import useNow from "@/shared/hooks/useNow";
 import cn from "@/shared/utils/cn";
 
 interface ChallengeCardProps {
@@ -13,33 +14,11 @@ interface ChallengeCardProps {
   className?: string
 }
 
-function formatRemaining(ms: number) {
-  const total = Math.floor(ms / 1000);
-  const days = Math.floor(total / 86400);
-  const clock = [Math.floor((total % 86400) / 3600), Math.floor((total % 3600) / 60), total % 60]
-    .map((v) => String(v).padStart(2, "0"))
-    .join(":");
-  return days > 0 ? `${days} j ${clock}` : clock;
-}
-
 export default function ChallengeCard({ challenge, className }: ChallengeCardProps) {
-  const [now, setNow] = useState(() => Date.now());
+  const now = useNow();
   const canViewHidden = useHasPermission("view", "challenges");
 
-  useEffect(() => {
-    const id = window.setInterval(() => setNow(Date.now()), 1000);
-    return () => window.clearInterval(id);
-  }, []);
-
-  const start = parsePbDate(challenge.start_date)?.getTime() ?? null;
-  const end = parsePbDate(challenge.end_date)?.getTime() ?? null;
-  const notStarted = start !== null && start > now;
-  const target = notStarted ? start : end;
-
-  const countdown =
-    target === null ? "—"
-    : target <= now ? "Terminé"
-    : `${notStarted ? "Disponible dans" : "Se termine dans"} ${formatRemaining(target - now)}`;
+  const { notStarted, countdown } = challengeWindow(challenge, now);
 
   const title = challenge.title || "Prochain défi";
   const difficulty = Number(challenge.difficulty);

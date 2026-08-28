@@ -37,6 +37,8 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
     insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
     not_authenticated: "Vous devez être connecté pour effectuer cette action.",
     account_deleted: "Ce compte n'existe plus.",
+    email_not_verified: "Veuillez vérifier votre adresse e-mail",
+    account_suspended: "Vous n'avez plus le droit d'intéragire avec votre compte."
   },
   id: {
     user_not_found: "Utilisateur introuvable.",
@@ -55,7 +57,40 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
   },
   weis: {
     insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
-  }
+    wei_not_found: "Le wei selectionné n'éxiste pas.",
+    registrations_closed: "Les inscriptions au wei sont fermés."
+  },
+  wei: {
+    registrations_closed: "Les inscriptions au WEI ne sont pas ouvertes.",
+    already_registered: "Vous êtes déjà inscrit à ce WEI.",
+  },
+  participations: {
+    insufficient_permissions: "Vous n'avez pas le droit de vous inscrire à ce WEI.",
+    validation_not_unique: "Vous êtes déjà inscrit à ce WEI.",
+    validation_required: "Ce champ est requis.",
+  },
+  validations: {
+    insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
+    already_submitted: "Vous avez déjà envoyé une preuve pour ce défi.",
+    challenge_closed: "Ce défi n'est pas ouvert aux demandes de validation.",
+    challenge_not_found: "Ce défi n'existe plus.",
+    not_assigned: "Vous devez être inscrit au WEI et affecté à une équipe.",
+  },
+  challenge: {
+    validation_required: "Ce champ est requis.",
+    challenge_closed: "Ce défi n'est pas ouvert aux demandes de validation.",
+  },
+  proof_file: {
+    validation_required: "Une preuve est requise.",
+    validation_file_size_limit: "Ce fichier est trop lourd.",
+    validation_invalid_mime_type: "Ce type de fichier n'est pas accepté pour ce défi.",
+    invalid_proof_type: "Ce type de preuve n'est pas accepté pour ce défi.",
+  },
+  proof_text: {
+    validation_required: "Ce champ est requis.",
+    validation_is_url: "Lien invalide.",
+    invalid_proof_type: "Ce défi n'accepte pas de preuve sous forme de lien.",
+  },
 }
 
 export function getFirstErrorMessage(error: ClientResponseError | null): string | undefined {

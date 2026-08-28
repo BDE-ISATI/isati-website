@@ -14,8 +14,15 @@ const fmt = new Intl.DateTimeFormat("fr-FR", {
   year: "numeric"
 });
 
-export default function weiMilestones(wei: WeisResponse | null, now: Date = new Date()): { steps: StepProgressStep[] ; value: number } | null {
+type WeiMilestonesOptions = {
+  now?: Date
+  includeCreation?: boolean
+};
+
+export default function weiMilestones(wei: WeisResponse | null, options: WeiMilestonesOptions = {}): { steps: StepProgressStep[] ; value: number } | null {
   if (!wei) return null
+
+  const { now = new Date(), includeCreation = true } = options;
 
   const milestones = [
     { id: "creation", label: "Création", value: wei.created },
@@ -24,7 +31,7 @@ export default function weiMilestones(wei: WeisResponse | null, now: Date = new 
     { id: "reveal", label: "Début du parcours", value: wei.parcours_starts_at },
     { id: "weekend_start", label: "Début du week-end", value: wei.weekend_starts_at },
     { id: "weekend_end", label: "Fin du week-end", value: wei.weekend_ends_at },
-  ];
+  ].filter((milestone) => includeCreation || milestone.id !== "creation");
 
   const days = milestones.map((m) => (m.value ? startOfLocalDay(m.value) : null));
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();

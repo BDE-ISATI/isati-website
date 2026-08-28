@@ -4,6 +4,7 @@ import useChallenge from "@/features/wei/hooks/queries/useChallenge";
 import ChallengeForm from "@/features/wei/components/ChallengeForm";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Error from "@/shared/components/ui/Error";
+import NotFound from "@/pages/NotFound";
 
 export default function ChallengeEdit() {
 
@@ -13,6 +14,8 @@ export default function ChallengeEdit() {
   useEffect(() => {
     document.title = "Modifier un défi | ISATI";
   }, []);
+
+  if (challenge.error?.status === 404) return <NotFound />;
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-4 md:py-6">

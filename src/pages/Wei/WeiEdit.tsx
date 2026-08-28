@@ -4,6 +4,7 @@ import useWei from "@/features/wei/hooks/queries/useWei";
 import WeiForm from "@/features/wei/components/WeiForm";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Error from "@/shared/components/ui/Error";
+import NotFound from "@/pages/NotFound";
 
 export default function WeiEdit() {
 
@@ -13,6 +14,8 @@ export default function WeiEdit() {
   useEffect(() => {
     document.title = "Modifier un WEI | ISATI";
   }, []);
+
+  if (wei.error?.status === 404) return <NotFound />;
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-4 md:py-6">

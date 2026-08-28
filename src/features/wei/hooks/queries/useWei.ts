@@ -12,7 +12,8 @@ export default function useWei(weiId?: string) {
         expand: "location"
       })
     },
-    enabled: !!weiId
+    enabled: !!weiId,
+    retry: (failureCount, error) => error.status !== 404 && failureCount < 3
   })
 
 }

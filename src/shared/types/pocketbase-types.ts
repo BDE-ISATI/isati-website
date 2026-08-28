@@ -234,10 +234,19 @@ export const ParticipationsRoleOptions = {
 	"student": "student",
 } as const
 export type ParticipationsRoleOptions = typeof ParticipationsRoleOptions[keyof typeof ParticipationsRoleOptions]
+
+export const ParticipationsStateOptions = {
+	"pending": "pending",
+	"assigned": "assigned",
+	"cancelled": "cancelled",
+} as const
+export type ParticipationsStateOptions = typeof ParticipationsStateOptions[keyof typeof ParticipationsStateOptions]
 export type ParticipationsRecord = {
 	created: IsoAutoDateString
 	id: string
+	registered_at?: IsoDateString
 	role?: ParticipationsRoleOptions
+	state?: ParticipationsStateOptions
 	team?: RecordIdString
 	updated: IsoAutoDateString
 	user?: RecordIdString
@@ -326,7 +335,14 @@ export type UsersRecord = {
 	verified?: boolean
 }
 
+export const ValidationsSelectOptions = {
+	"accepted": "accepted",
+	"pending": "pending",
+	"refused": "refused",
+} as const
+export type ValidationsSelectOptions = typeof ValidationsSelectOptions[keyof typeof ValidationsSelectOptions]
 export type ValidationsRecord = {
+	archived?: boolean
 	challenge?: RecordIdString
 	created: IsoAutoDateString
 	id: string
@@ -336,7 +352,7 @@ export type ValidationsRecord = {
 	public?: boolean
 	reason?: string
 	reviewed_at?: IsoDateString
-	status?: string
+	select?: ValidationsSelectOptions
 	submitted_at?: IsoDateString
 	team?: RecordIdString
 	updated: IsoAutoDateString

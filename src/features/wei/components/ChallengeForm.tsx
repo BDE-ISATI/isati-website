@@ -20,6 +20,7 @@ import {
   ChallengesScopeOptions,
 } from "@/shared/types/pocketbase-types";
 import pb from "@/shared/lib/pocketbase";
+import { PHASE_LABELS, PROOF_TYPE_LABELS, SCOPE_LABELS } from "@/features/wei/libs/challenge";
 import { fromDateTimeInput, toDateTimeInput } from "@/shared/lib/dates";
 import { getFieldError, getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Button from "@/shared/components/ui/Button";
@@ -34,22 +35,6 @@ import cn from "@/shared/utils/cn";
 
 const DEFAULT_COLOR = "#d82b2b";
 const HEX_PATTERN = /^#[0-9a-fA-F]{6}$/;
-
-const PHASE_LABELS: Record<ChallengesPhaseOptions, string> = {
-  parcours: "Parcours",
-  olympiades: "Olympiades",
-};
-
-const SCOPE_LABELS: Record<ChallengesScopeOptions, string> = {
-  individual: "Individuel",
-  team: "Équipe",
-};
-
-const PROOF_TYPE_LABELS: Record<ChallengesProofTypeOptions, string> = {
-  image: "Image",
-  video: "Vidéo",
-  link: "Lien",
-};
 
 interface ChallengeFormProps {
   challenge?: ChallengeWithRelations

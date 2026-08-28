@@ -1,27 +1,58 @@
 import { Link } from "react-router";
 import Button from "@/shared/components/ui/Button";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
+import cn from "@/shared/utils/cn";
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import { logout } from "@/features/auth/lib/auth";
 import { CloseButton, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import pb from "@/shared/lib/pocketbase";
+import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
+import useWeiImmersive from "@/features/wei/hooks/useWeiImmersive";
+import weiPhase from "@/features/wei/libs/phase";
 
 import UserIcon from "@/assets/icons/user-round.svg?react"
 import LogoutIcon from "@/assets/icons/log-out.svg?react"
 import Logo from "@/assets/logos/isati_notext.svg?react";
+import Tail from "@/assets/logos/isati_tail.svg?react";
 
 
 
 
 export default function Navbar() {
   const user = useAuthStore((s) => s.user);
+  const currentWei = useCurrentWei();
+  const wei = weiPhase(currentWei.data ?? null)?.isActive ? currentWei.data : null;
+
+  const isTransparent = useWeiImmersive();
 
   return (
-    <nav className="flex h-24 items-center justify-between bg-accent px-6 text-accent-foreground">
-      
+    <nav
+      className={cn(
+        "relative flex h-24 items-center justify-between px-6 text-accent-foreground transition-colors duration-300 motion-reduce:transition-none",
+        isTransparent ? "bg-transparent" : "bg-accent",
+      )}
+    >
+
       <Link to="/" className="flex items-center" aria-label="Accueil ISATI">
         <Logo className="h-16 w-auto text-white"/>
       </Link>
+
+      {wei && (
+        <Link
+          to="/wei"
+          aria-label="WEI"
+          className="absolute left-1/2 flex -translate-x-1/2 items-center justify-center transition-transform duration-200 hover:scale-105 motion-reduce:transition-none"
+        >
+          <Tail
+            viewBox="0 315 949 385"
+            aria-hidden="true"
+            className="h-16 w-40 text-white sm:h-20 sm:w-52"
+          />
+          <span className="absolute text-xl font-bold tracking-wide text-accent sm:text-2xl">
+            WEI
+          </span>
+        </Link>
+      )}
 
       <div className="flex items-center gap-4">
         {user ? (

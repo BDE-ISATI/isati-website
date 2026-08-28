@@ -21,8 +21,11 @@ import WeiDetail from '@/pages/Wei/WeiDetail';
 import WeiNew from '@/pages/Wei/WeiNew';
 import WeiEdit from '@/pages/Wei/WeiEdit';
 import RequirePermission from '@/features/roles/components/RequirePermission';
+import RequireWeiStarted from '@/features/wei/components/RequireWeiStarted';
+import RequireChallengeSubmittable from '@/features/wei/components/RequireChallengeSubmittable';
 import Challenge from '@/pages/Wei/Challenge';
 import ChallengeDetail from '@/pages/Wei/ChallengeDetail';
+import ChallengeValidate from '@/pages/Wei/ChallengeValidate';
 import ChallengeNew from '@/pages/Wei/ChallengeNew';
 import ChallengeEdit from '@/pages/Wei/ChallengeEdit';
 
@@ -40,8 +43,15 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />}  />
           <Route path="/wei" element={<Wei />}/>
-          <Route path="/wei/challenge" element={<Challenge />}/>
-          <Route path="/wei/challenge/:challengeId" element={<ChallengeDetail />}/>
+          
+          <Route element={<RequirePermission action="view" resource="challenges" fallback={<RequireWeiStarted />} />}>
+            <Route path="/wei/challenge" element={<Challenge />}/>
+            <Route path="/wei/challenge/:challengeId" element={<ChallengeDetail />}/>
+          </Route>
+
+          <Route element={<RequirePermission action="view" resource="validations" fallback={<RequireChallengeSubmittable />} />}>
+            <Route path="/wei/challenge/:challengeId/validate" element={<ChallengeValidate />}/>
+          </Route>
 
           <Route element={<RequirePermission action="create" resource="challenges" />}>
             <Route path="/wei/challenge/new" element={<ChallengeNew />}/>

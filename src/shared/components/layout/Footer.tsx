@@ -1,4 +1,6 @@
 import { NavLink } from "react-router";
+import useWeiImmersive from "@/features/wei/hooks/useWeiImmersive";
+import cn from "@/shared/utils/cn";
 
 import Fur from "@/assets/fur.svg?react";
 
@@ -16,11 +18,24 @@ import UnivRennes from "@/assets/logos/univ-rennnes.svg?react";
 
 export default function Footer() {
 
+  const isTransparent = useWeiImmersive();
+
   return (
     <footer className="mt-auto">
-      <Fur preserveAspectRatio="none" className="block h-12 w-full text-accent sm:h-16"/>
+      <Fur
+        preserveAspectRatio="none"
+        className={cn(
+          "block h-12 w-full transition-colors duration-300 motion-reduce:transition-none sm:h-16",
+          isTransparent ? "text-transparent" : "text-accent",
+        )}
+      />
 
-      <div className="-mt-px bg-accent text-accent-foreground">
+      <div
+        className={cn(
+          "-mt-px text-accent-foreground transition-colors duration-300 motion-reduce:transition-none",
+          isTransparent ? "bg-transparent" : "bg-accent",
+        )}
+      >
         <div className="mx-auto max-w-5xl px-6 py-10">
 
           <div className="mx-auto grid w-full max-w-md grid-cols-3 items-center justify-items-center gap-x-4 gap-y-10 sm:gap-x-8">

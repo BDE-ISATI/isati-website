@@ -12,7 +12,8 @@ export default function useChallenge(challengeId?: string) {
         expand: "category,location"
       })
     },
-    enabled: !!challengeId
+    enabled: !!challengeId,
+    retry: (failureCount, error) => error.status !== 404 && failureCount < 3
   })
 
 }

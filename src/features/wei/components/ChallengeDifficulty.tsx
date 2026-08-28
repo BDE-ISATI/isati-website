@@ -2,6 +2,7 @@ import cn from "@/shared/utils/cn";
 
 interface ChallengeDifficultyProps {
   level: number
+  showLabel?: boolean
   className?: string
 }
 
@@ -13,7 +14,7 @@ const levels = [
   { label: "Extrême", fill: "bg-foreground" },
 ];
 
-export default function ChallengeDifficulty({ level, className }: ChallengeDifficultyProps) {
+export default function ChallengeDifficulty({ level, showLabel, className }: ChallengeDifficultyProps) {
   const filled = Math.min(Math.max(Math.round(level) || 0, 0), levels.length);
   const current = levels[filled - 1];
 
@@ -33,6 +34,12 @@ export default function ChallengeDifficulty({ level, className }: ChallengeDiffi
           )}
         />
       ))}
+
+      {showLabel && current && (
+        <span aria-hidden="true" className="ml-1 text-xs font-medium">
+          {current.label}
+        </span>
+      )}
     </div>
   );
 }
