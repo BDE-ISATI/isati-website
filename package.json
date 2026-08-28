@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "types": "pocketbase-typegen --db ../isati-backend/pb_data/data.db --out ./src/shared/types/pocketbase-types.ts"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
@@ -20,6 +21,7 @@
     "color2k": "^2.0.4",
     "lottie-react": "^2.4.1",
     "pocketbase": "^0.27.0",
+    "pocketbase-typegen": "^1.5.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-easy-crop": "^6.2.3",

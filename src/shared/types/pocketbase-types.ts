@@ -16,8 +16,9 @@ export const Collections = {
 	Club: "club",
 	ClubActivity: "club_activity",
 	ClubMember: "club_member",
+	OrganigrammeMember: "organigramme_member",
 	Participation: "participation",
-	Policy: "policy",
+	Policies: "policies",
 	Roles: "roles",
 	Status: "status",
 	Team: "team",
@@ -169,6 +170,26 @@ export type ClubMemberRecord = {
 	updated: IsoAutoDateString
 }
 
+export const OrganigrammeMemberPoleOptions = {
+	"Restreint": "Restreint",
+	"Evèvenement": "Evèvenement",
+	"Communication": "Communication",
+	"Sport & Culture": "Sport & Culture",
+	"Santé": "Santé",
+	"Formation": "Formation",
+} as const
+export type OrganigrammeMemberPoleOptions = typeof OrganigrammeMemberPoleOptions[keyof typeof OrganigrammeMemberPoleOptions]
+export type OrganigrammeMemberRecord = {
+	avatar?: FileNameString
+	created: IsoAutoDateString
+	id: string
+	instagram?: string
+	name?: string
+	pole?: OrganigrammeMemberPoleOptions
+	role?: string
+	updated: IsoAutoDateString
+}
+
 export type ParticipationRecord = {
 	created: IsoAutoDateString
 	id: string
@@ -178,7 +199,7 @@ export type ParticipationRecord = {
 	user_id?: string
 }
 
-export type PolicyRecord = {
+export type PoliciesRecord = {
 	action?: string
 	created: IsoAutoDateString
 	id: string
@@ -245,6 +266,7 @@ export type UsersRecord = {
 	account_type?: string
 	avatar?: FileNameString
 	created: IsoAutoDateString
+	deleted?: IsoDateString
 	email: string
 	emailVisibility?: boolean
 	id: string
@@ -255,7 +277,7 @@ export type UsersRecord = {
 	speciality?: UsersSpecialityOptions
 	tokenKey: string
 	updated: IsoAutoDateString
-	username?: string
+	username: string
 	username_changed_at?: IsoDateString
 	verified?: boolean
 }
@@ -298,8 +320,9 @@ export type ChallengeResponse<Texpand = unknown> = Required<ChallengeRecord> & B
 export type ClubResponse<Texpand = unknown> = Required<ClubRecord> & BaseSystemFields<Texpand>
 export type ClubActivityResponse<Texpand = unknown> = Required<ClubActivityRecord> & BaseSystemFields<Texpand>
 export type ClubMemberResponse<Texpand = unknown> = Required<ClubMemberRecord> & BaseSystemFields<Texpand>
+export type OrganigrammeMemberResponse<Texpand = unknown> = Required<OrganigrammeMemberRecord> & BaseSystemFields<Texpand>
 export type ParticipationResponse<Texpand = unknown> = Required<ParticipationRecord> & BaseSystemFields<Texpand>
-export type PolicyResponse<Texpand = unknown> = Required<PolicyRecord> & BaseSystemFields<Texpand>
+export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
 export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
 export type StatusResponse<Texpand = unknown> = Required<StatusRecord> & BaseSystemFields<Texpand>
 export type TeamResponse<Texpand = unknown> = Required<TeamRecord> & BaseSystemFields<Texpand>
@@ -320,8 +343,9 @@ export type CollectionRecords = {
 	club: ClubRecord
 	club_activity: ClubActivityRecord
 	club_member: ClubMemberRecord
+	organigramme_member: OrganigrammeMemberRecord
 	participation: ParticipationRecord
-	policy: PolicyRecord
+	policies: PoliciesRecord
 	roles: RolesRecord
 	status: StatusRecord
 	team: TeamRecord
@@ -341,8 +365,9 @@ export type CollectionResponses = {
 	club: ClubResponse
 	club_activity: ClubActivityResponse
 	club_member: ClubMemberResponse
+	organigramme_member: OrganigrammeMemberResponse
 	participation: ParticipationResponse
-	policy: PolicyResponse
+	policies: PoliciesResponse
 	roles: RolesResponse
 	status: StatusResponse
 	team: TeamResponse

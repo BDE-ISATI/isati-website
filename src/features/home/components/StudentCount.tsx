@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import IsatIcon from "@/assets/logos/isati_notext.svg?react"
+
 interface EsirPeopleTextProps {
   totalStudents?: number;
   dispersionLevel?: number; 
@@ -85,7 +87,6 @@ export default function StudentCount({
     for (let i = 0; i < totalStudents; i++) {
       const baseCoord = rawCoords[i % rawCoords.length];
       
-      // Application de la variable dispersionLevel
       const dispersionX = Math.sin(i * 12.9898) * dispersionLevel;
       const dispersionY = Math.cos(i * 78.233) * dispersionLevel;
 
@@ -100,15 +101,16 @@ export default function StudentCount({
     return { coords: result, totalWidth: offsetX };
   }, [totalStudents, dispersionLevel]);
 
-  return (
-    <section className="flex flex-row items-center justify-center py-5 px-4 bg-red-600 text-white select-none">
+  // Définition de la taille de votre SVG
+  const ICON_SIZE = 16;
 
+  return (
+    <section className="flex flex-row items-center justify-center py-5 px-4 bg-accent text-white select-none">
         <div className="flex flex-col text-center mb-10">
         <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
           + de <span className="text-[100px]">{totalStudents}</span> Étudiants à l'
         </h2>
       </div>
-
 
       <div className="w-full max-w-5xl overflow-x-auto flex justify-center p-4">
         <svg
@@ -118,25 +120,18 @@ export default function StudentCount({
           {points.coords.map((pt, i) => (
             <g
               key={i}
-              transform={`translate(${pt.x}, ${pt.y})`}
-              className="group cursor-pointer hover:scale-100 transition-transform duration-150 origin-bottom"
+              transform={`translate(${pt.x - ICON_SIZE / 2}, ${pt.y - ICON_SIZE / 2})`}
+              className="group cursor-pointer hover:scale-125 transition-transform duration-150 origin-center"
             >
-              <circle
-                cx="0"
-                cy="-4"
-                r="2.5"
-                className="fill-white group-hover:fill-white transition-colors duration-150"
-              />
-              <path
-                d="M -4,4 C -4,0 -2,-1 0,-1 C 2,-1 4,0 4,4 Z"
-                className="fill-white stroke-slate-950 stroke-[0.5px] group-hover:fill-white transition-colors duration-150"
+              <IsatIcon 
+                width={8} 
+                height={8} 
+                className="fill-white group-hover:fill-gray-200 transition-colors"
               />
             </g>
           ))}
         </svg>
       </div>
-
-    
     </section>
   );
 }
