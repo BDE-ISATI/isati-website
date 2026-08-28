@@ -17,12 +17,12 @@ import OrganigrammeSection from "@/features/home/components/OrganigrammeSection"
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import OrganigrammeEdit from "@/features/home/components/OrganigrammeEdit";
 import ListeClubs from "@/features/home/components/ListeClubs";
-import Salles from "@/features/home/components/Salles";
+import Salles from "@/pages/Salles";
 
 
 function Home() {
 
-  const isLoggedIn = useAuthStore((s) => s.isLoggedIn);
+  const isLoggedIn = useAuthStore((s) => !!s.user);
 
   const user = useAuthStore((s) => s.user);
   const currentWei = useCurrentWei();
@@ -54,11 +54,11 @@ function Home() {
     const user = useAuthStore((c) => c.user);
     
     if (!user) { return ;}
-    const permission = useHasPermission(user.roles,"organigramme_member", "update")
+    const permission = useHasPermission("organigramme_member", "update")
     return (
       <>
           
-        {permission.allowed && <OrganigrammeEdit/> }
+        {permission && <OrganigrammeEdit/> }
       </>
     );
   }
