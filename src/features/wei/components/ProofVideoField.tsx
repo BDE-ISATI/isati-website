@@ -124,7 +124,7 @@ export default function ProofVideoField({ value, onChange }: ProofVideoFieldProp
       )}
 
       {value && !isBusy && (
-        <p className="text-xs text-muted-foreground">Vidéo prête — {formatSize(value.size)}</p>
+        <p className="text-xs text-muted-foreground">Vidéo prête - {formatSize(value.size)}</p>
       )}
 
       <div className="flex flex-row items-center justify-end gap-2">

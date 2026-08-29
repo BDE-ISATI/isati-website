@@ -1,5 +1,8 @@
 import type { WeiWithLocation } from "@/shared/types/sharedTypes";
 import weiMilestones from "@/features/wei/libs/milestones";
+import weiDateIssues from "@/features/wei/libs/weiIssues";
+import useParticipationCount from "@/features/wei/hooks/queries/useParticipationCount";
+import CircleAlert from "@/assets/icons/circle-alert.svg?react";
 import StepProgress from "@/shared/components/ui/StepProgress";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
@@ -12,6 +15,8 @@ type WeiCardProps = {
 
 export default function WeiCard({ wei, className }: WeiCardProps) {
   const milestone = weiMilestones(wei);
+  const issues = weiDateIssues(wei);
+  const registrations = useParticipationCount(wei.id);
 
   const locationText = !wei.location
     ? "À définir"
@@ -31,7 +36,21 @@ export default function WeiCard({ wei, className }: WeiCardProps) {
           <h2 className="text-base font-medium text-muted-foreground sm:text-lg">
             {wei.title || "WEI sans titre"}
           </h2>
+          <span className="text-sm text-muted-foreground">
+            {registrations.data ?? 0} inscrit(s)
+          </span>
         </header>
+
+        {issues.length > 0 && (
+          <ul className="flex flex-col gap-1">
+            {issues.map((issue) => (
+              <li key={issue} className="flex flex-row items-center gap-2 text-xs text-status-warning">
+                <CircleAlert aria-hidden="true" className="h-4 w-4 shrink-0" />
+                {issue}
+              </li>
+            ))}
+          </ul>
+        )}
 
         {wei.theme && (
           <p className="text-sm">

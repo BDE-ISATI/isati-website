@@ -16,6 +16,7 @@ import Error from "@/shared/components/ui/Error";
 import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
 import NotFound from "@/pages/NotFound";
 import PenIcon from "@/assets/icons/pen.svg?react";
+import PageNav from "@/shared/components/layout/PageNav";
 
 export default function ChallengeDetail() {
 
@@ -51,6 +52,8 @@ export default function ChallengeDetail() {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
 
+      <PageNav back="/wei/challenge" backLabel="Défis" />
+
       <div className="relative">
         <ChallengeBanner challenge={challenge.data} />
         {canUpdate && (
@@ -59,7 +62,7 @@ export default function ChallengeDetail() {
             aria-label={`Modifier ${challenge.data.title || "ce défi"}`}
             variant="secondary"
             size="icon"
-            className="absolute top-2 right-2 shadow-sm"
+            className="absolute top-12 right-2 shadow-sm"
           >
             <PenIcon className="h-4 w-4" />
           </ButtonLink>

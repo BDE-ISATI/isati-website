@@ -45,19 +45,19 @@ export default function ProfileBanner({ user } : ProfileBannerProps) {
           <dl className="grid grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-2 text-sm">
             <div className="flex flex-col">
               <dt className="text-muted-foreground">Année</dt>
-              <dd>{year || '—'}</dd>
+              <dd>{year || '-'}</dd>
             </div>
             <div className="flex flex-col">
               <dt className="text-muted-foreground">Niveau</dt>
-              <dd>{level || '—'}</dd>
+              <dd>{level || '-'}</dd>
             </div>
             <div className="flex flex-col">
               <dt className="text-muted-foreground">Spécialité</dt>
-              <dd>{speciality || '—'}</dd>
+              <dd>{speciality || '-'}</dd>
             </div>
             <div className="flex flex-col">
               <dt className="text-muted-foreground">Type de compte</dt>
-              <dd>{user.account_type || '—'}</dd>
+              <dd>{user.account_type || '-'}</dd>
             </div>
           </dl>
 

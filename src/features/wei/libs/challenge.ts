@@ -34,7 +34,7 @@ export default function challengeWindow(challenge: ChallengeWithRelations | unde
   const target = notStarted ? start : end;
 
   const countdown =
-    target === null ? "—"
+    target === null ? "-"
     : target <= now ? "Terminé"
     : `${notStarted ? "Disponible dans" : "Se termine dans"} ${formatRemaining(target - now)}`;
 

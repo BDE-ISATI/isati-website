@@ -9,8 +9,10 @@ import pb from "@/shared/lib/pocketbase";
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
 import useWeiImmersive from "@/features/wei/hooks/useWeiImmersive";
 import weiPhase from "@/features/wei/libs/phase";
+import useHasPermission from "@/features/roles/hooks/useHasPermission";
 
 import UserIcon from "@/assets/icons/user-round.svg?react"
+import SettingsIcon from "@/assets/icons/settings.svg?react"
 import LogoutIcon from "@/assets/icons/log-out.svg?react"
 import Logo from "@/assets/logos/isati_notext.svg?react";
 import Tail from "@/assets/logos/isati_tail.svg?react";
@@ -24,6 +26,7 @@ export default function Navbar() {
   const wei = weiPhase(currentWei.data ?? null)?.isActive ? currentWei.data : null;
 
   const isTransparent = useWeiImmersive();
+  const canViewPanel = useHasPermission("view", "wei_panel");
 
   return (
     <nav
@@ -86,6 +89,13 @@ export default function Navbar() {
                   <UserIcon className="h-5 w-5 text-muted-foreground" />
                   Mon profil
                 </CloseButton>
+
+                {canViewPanel && (
+                  <CloseButton as={ButtonLink} to="/wei/panel" variant="ghost" size="menu">
+                    <SettingsIcon className="h-5 w-5 text-muted-foreground" />
+                    Panel WEI
+                  </CloseButton>
+                )}
 
                 <Button variant="destructiveGhost" size="menu" onClick={logout}>
                   <LogoutIcon className="h-5 w-5" />

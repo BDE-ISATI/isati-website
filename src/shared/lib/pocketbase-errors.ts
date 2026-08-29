@@ -38,7 +38,8 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
     not_authenticated: "Vous devez être connecté pour effectuer cette action.",
     account_deleted: "Ce compte n'existe plus.",
     email_not_verified: "Veuillez vérifier votre adresse e-mail",
-    account_suspended: "Vous n'avez plus le droit d'intéragire avec votre compte."
+    account_suspended: "Vous n'avez plus le droit d'intéragire avec votre compte.",
+    not_registered: "Vous devez être inscrit au WEI pour accéder à cette page."
   },
   id: {
     user_not_found: "Utilisateur introuvable.",
@@ -75,6 +76,40 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
     challenge_closed: "Ce défi n'est pas ouvert aux demandes de validation.",
     challenge_not_found: "Ce défi n'existe plus.",
     not_assigned: "Vous devez être inscrit au WEI et affecté à une équipe.",
+    leader_cannot_submit: "Les chefs d'équipe ne peuvent pas envoyer de preuve.",
+    own_validation: "Vous ne pouvez pas valider votre propre preuve.",
+  },
+  teams: {
+    insufficient_permissions: "Vous n'avez pas le droit de gérer les équipes.",
+    team_not_found: "Cette équipe n'existe plus.",
+    team_not_empty: "Cette équipe compte encore des membres.",
+    already_in_team: "Cette personne appartient déjà à une autre équipe.",
+    member_not_found: "Cette personne ne fait pas partie de cette équipe.",
+    validation_not_unique: "Une équipe porte déjà ce nom pour ce WEI.",
+    validation_required: "Ce champ est requis.",
+  },
+  factions: {
+    insufficient_permissions: "Vous n'avez pas le droit de gérer les factions.",
+    faction_not_found: "Cette faction n'existe plus.",
+    faction_has_teams: "Cette faction contient encore des équipes. Retirez-les de la faction ou supprimez-les.",
+    validation_not_unique: "Une faction porte déjà ce nom pour ce WEI.",
+    validation_required: "Ce champ est requis.",
+  },
+  faction: {
+    faction_not_found: "Cette faction n'existe plus.",
+  },
+  role: {
+    invalid_role: "Rôle invalide.",
+  },
+  status: {
+    invalid_status: "Statut de validation invalide.",
+  },
+  reason: {
+    validation_required: "Un motif est requis pour refuser cette preuve.",
+  },
+  points_awarded: {
+    invalid_points: "Le nombre de points attribués est invalide.",
+    insufficient_permissions: "Vous n'avez pas le droit de modifier les points de cette preuve.",
   },
   challenge: {
     validation_required: "Ce champ est requis.",

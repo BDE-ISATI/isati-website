@@ -15,8 +15,10 @@ export default function RequireChallengeSubmittable() {
 
   const isOpen = challengeWindow(challenge.data, Date.now()).open;
   const isAssigned = participation.data?.state === "assigned" && !!participation.data.team;
+  const isStudent = participation.data?.role === "student";
+  const isCurrentWei = !!challenge.data?.wei && challenge.data.wei === currentWei.data?.id;
 
-  return isOpen && isAssigned
+  return isOpen && isAssigned && isStudent && isCurrentWei
     ? <Outlet />
     : <Navigate to={`/wei/challenge/${challengeId}`} replace />;
 }

@@ -61,7 +61,7 @@ export default function ValidationForm({ challenge, participation }: ValidationF
       challenge: challenge.id,
       user: userId,
       team: participation?.team,
-      select: "pending",
+      status: "pending",
       submitted_at: new Date().toISOString(),
       public: fields.public,
       archived: fields.archived,

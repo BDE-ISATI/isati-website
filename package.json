@@ -29,6 +29,7 @@
     "react-hook-form": "^7.80.0",
     "react-leaflet": "^5.0.0-rc.2",
     "react-router": "^8.0.1",
+    "recharts": "^3.10.1",
     "salles_module": "github:Cours-ESIR/salles_module#2025.9",
     "tailwind-merge": "^3.6.0",
     "tailwindcss": "^4.3.2",

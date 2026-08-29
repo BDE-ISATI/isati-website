@@ -19,10 +19,12 @@ export const Collections = {
 	Clubs: "clubs",
 	Factions: "factions",
 	Locations: "locations",
+	ParticipationScores: "participation_scores",
 	Participations: "participations",
 	Policies: "policies",
 	Roles: "roles",
 	Status: "status",
+	TeamScores: "team_scores",
 	Teams: "teams",
 	Users: "users",
 	Validations: "validations",
@@ -229,6 +231,29 @@ export type LocationsRecord = {
 	updated: IsoAutoDateString
 }
 
+export const ParticipationScoresRoleOptions = {
+	"team_leader": "team_leader",
+	"student": "student",
+} as const
+export type ParticipationScoresRoleOptions = typeof ParticipationScoresRoleOptions[keyof typeof ParticipationScoresRoleOptions]
+
+export const ParticipationScoresStateOptions = {
+	"pending": "pending",
+	"assigned": "assigned",
+	"cancelled": "cancelled",
+} as const
+export type ParticipationScoresStateOptions = typeof ParticipationScoresStateOptions[keyof typeof ParticipationScoresStateOptions]
+export type ParticipationScoresRecord = {
+	id: string
+	role?: ParticipationScoresRoleOptions
+	score?: number
+	state?: ParticipationScoresStateOptions
+	team?: RecordIdString
+	user?: RecordIdString
+	validations_count?: number
+	wei?: RecordIdString
+}
+
 export const ParticipationsRoleOptions = {
 	"team_leader": "team_leader",
 	"student": "student",
@@ -285,10 +310,22 @@ export type StatusRecord = {
 	user?: RecordIdString
 }
 
+export type TeamScoresRecord = {
+	color?: string
+	description?: string
+	faction?: RecordIdString
+	id: string
+	name?: string
+	score?: number
+	validations_count?: number
+	wei?: RecordIdString
+}
+
 export type TeamsRecord = {
 	color?: string
 	created: IsoAutoDateString
 	description?: string
+	faction?: RecordIdString
 	id: string
 	name?: string
 	updated: IsoAutoDateString
@@ -335,12 +372,12 @@ export type UsersRecord = {
 	verified?: boolean
 }
 
-export const ValidationsSelectOptions = {
+export const ValidationsStatusOptions = {
 	"accepted": "accepted",
 	"pending": "pending",
 	"refused": "refused",
 } as const
-export type ValidationsSelectOptions = typeof ValidationsSelectOptions[keyof typeof ValidationsSelectOptions]
+export type ValidationsStatusOptions = typeof ValidationsStatusOptions[keyof typeof ValidationsStatusOptions]
 export type ValidationsRecord = {
 	archived?: boolean
 	challenge?: RecordIdString
@@ -352,7 +389,7 @@ export type ValidationsRecord = {
 	public?: boolean
 	reason?: string
 	reviewed_at?: IsoDateString
-	select?: ValidationsSelectOptions
+	status?: ValidationsStatusOptions
 	submitted_at?: IsoDateString
 	team?: RecordIdString
 	updated: IsoAutoDateString
@@ -390,10 +427,12 @@ export type ClubMemberResponse<Texpand = unknown> = Required<ClubMemberRecord> &
 export type ClubsResponse<Texpand = unknown> = Required<ClubsRecord> & BaseSystemFields<Texpand>
 export type FactionsResponse<Texpand = unknown> = Required<FactionsRecord> & BaseSystemFields<Texpand>
 export type LocationsResponse<Texpand = unknown> = Required<LocationsRecord> & BaseSystemFields<Texpand>
+export type ParticipationScoresResponse<Texpand = unknown> = Required<ParticipationScoresRecord> & BaseSystemFields<Texpand>
 export type ParticipationsResponse<Texpand = unknown> = Required<ParticipationsRecord> & BaseSystemFields<Texpand>
 export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
 export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
 export type StatusResponse<Texpand = unknown> = Required<StatusRecord> & BaseSystemFields<Texpand>
+export type TeamScoresResponse<Texpand = unknown> = Required<TeamScoresRecord> & BaseSystemFields<Texpand>
 export type TeamsResponse<Texpand = unknown> = Required<TeamsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 export type ValidationsResponse<Texpand = unknown> = Required<ValidationsRecord> & BaseSystemFields<Texpand>
@@ -415,10 +454,12 @@ export type CollectionRecords = {
 	clubs: ClubsRecord
 	factions: FactionsRecord
 	locations: LocationsRecord
+	participation_scores: ParticipationScoresRecord
 	participations: ParticipationsRecord
 	policies: PoliciesRecord
 	roles: RolesRecord
 	status: StatusRecord
+	team_scores: TeamScoresRecord
 	teams: TeamsRecord
 	users: UsersRecord
 	validations: ValidationsRecord
@@ -439,10 +480,12 @@ export type CollectionResponses = {
 	clubs: ClubsResponse
 	factions: FactionsResponse
 	locations: LocationsResponse
+	participation_scores: ParticipationScoresResponse
 	participations: ParticipationsResponse
 	policies: PoliciesResponse
 	roles: RolesResponse
 	status: StatusResponse
+	team_scores: TeamScoresResponse
 	teams: TeamsResponse
 	users: UsersResponse
 	validations: ValidationsResponse

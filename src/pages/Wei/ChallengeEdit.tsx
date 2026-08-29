@@ -5,6 +5,7 @@ import ChallengeForm from "@/features/wei/components/ChallengeForm";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Error from "@/shared/components/ui/Error";
 import NotFound from "@/pages/NotFound";
+import PageNav from "@/shared/components/layout/PageNav";
 
 export default function ChallengeEdit() {
 
@@ -19,6 +20,8 @@ export default function ChallengeEdit() {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-4 md:py-6">
+      <PageNav />
+
       <h1 className="text-2xl font-semibold">Modifier le défi</h1>
 
       <Error message={getFirstErrorMessage(challenge.error)} />

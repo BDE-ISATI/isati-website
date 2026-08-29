@@ -1,4 +1,4 @@
-import type { ChallengeCategoriesResponse, ChallengesResponse, LocationsResponse, ParticipationsResponse, PoliciesResponse, RolesResponse, TeamsResponse, UsersResponse, ValidationsResponse, WeisResponse } from "./pocketbase-types";
+import type { ChallengeCategoriesResponse, ChallengesResponse, LocationsResponse, ParticipationScoresResponse, ParticipationsResponse, PoliciesResponse, RolesResponse, TeamScoresResponse, TeamsResponse, UsersResponse, ValidationsResponse, WeisResponse } from "./pocketbase-types";
 
 export type UserWithRoles = UsersResponse<{
   roles: RolesResponse<{ policies: PoliciesResponse[] }>[]
@@ -20,8 +20,20 @@ export type ChallengeWithRelations = ChallengesResponse<{
 export type ValidationWithRelations = ValidationsResponse<{
   user?: UsersResponse
   team?: TeamsResponse
+  challenge?: ChallengesResponse
+  validator?: UsersResponse
+}>;
+
+export type ParticipationWithUser = ParticipationsResponse<{
+  user?: UsersResponse
 }>;
 
 export type ParticipationWithTeam = ParticipationsResponse<{
   team?: TeamsResponse
+}>;
+
+export type TeamScore = TeamScoresResponse;
+
+export type TeamMember = ParticipationScoresResponse< {
+  user?: UsersResponse
 }>;

@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import pb from "@/shared/lib/pocketbase";
 import type { ChallengeWithRelations } from "@/shared/types/sharedTypes";
 import ChallengeDifficulty from "@/features/wei/components/ChallengeDifficulty";
+import ChallengeScope from "@/features/wei/components/ChallengeScope";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 import challengeWindow from "@/features/wei/libs/challenge";
@@ -67,6 +68,19 @@ export default function ChallengeCard({ challenge, className }: ChallengeCardPro
           level={difficulty}
           className="absolute top-2 left-2 rounded-full bg-background/80 px-2 py-1 backdrop-blur-sm"
         />
+
+        {!notStarted && (
+          <ChallengeScope
+            scope={challenge.scope}
+            className="absolute top-2 right-2 rounded-full bg-background/80 px-2 py-1 backdrop-blur-sm"
+          />
+        )}
+
+        {!notStarted && !!challenge.points && (
+          <span className="absolute bottom-2 left-2 rounded-full bg-background/80 px-2 py-1 text-xs font-semibold backdrop-blur-sm">
+            {challenge.points} pts
+          </span>
+        )}
       </div>
 
       <div className="flex flex-row items-center gap-3 bg-(--challenge-color) px-4 py-3 text-white">

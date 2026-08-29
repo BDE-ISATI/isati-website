@@ -16,6 +16,16 @@ export type WeiPhaseInfo = {
   isActive: boolean
 };
 
+export const WEI_PHASE_LABELS: Record<WeiPhase, string> = {
+  upcoming: "À venir",
+  registration: "Inscriptions ouvertes",
+  waiting: "Inscriptions closes",
+  parcours: "Parcours",
+  weekend: "Week-end",
+  ended: "Terminé",
+  archived: "Archivé",
+};
+
 const ARCHIVE_DELAY = 7 * 24 * 60 * 60 * 1000;
 
 export default function weiPhase(wei: WeisResponse | null, now: Date = new Date()): WeiPhaseInfo | null {

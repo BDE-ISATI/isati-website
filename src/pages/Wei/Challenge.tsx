@@ -7,19 +7,20 @@ import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Error from "@/shared/components/ui/Error";
 import PenIcon from "@/assets/icons/pen.svg?react";
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
+import PageNav from "@/shared/components/layout/PageNav";
 
 export default function Challenge() {
 
-  const challenges = useChallenges()
+  const currentWei = useCurrentWei()
+  const challenges = useChallenges(currentWei.data?.id)
   const canCreate = useHasPermission("create", "challenges")
   const canUpdate = useHasPermission("update", "challenges")
 
 
-  const currentWei = useCurrentWei()
-
-
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-4 md:py-6">
+      <PageNav back="/wei" backLabel="WEI" />
+
       <h1 className="text-2xl font-semibold">Défis</h1>
 
       <Error message={getFirstErrorMessage(challenges.error)} />
@@ -40,7 +41,7 @@ export default function Challenge() {
                 aria-label={`Modifier ${challenge.title || "ce défi"}`}
                 variant="secondary"
                 size="icon"
-                className="absolute top-2 right-2 shadow-sm"
+                className="absolute top-12 right-2 shadow-sm"
               >
                 <PenIcon className="h-4 w-4" />
               </ButtonLink>

@@ -15,6 +15,7 @@ export default function Tools() {
 
   const isOwnProfile = loggedInUser?.id === user.id;
   const showWeiPanel = useHasPermission("view", "wei_panel") && isOwnProfile;
+  const showValidations = useHasPermission("view", "validations") && isOwnProfile;
 
   return (
     <section className="flex flex-col gap-4">
@@ -31,7 +32,7 @@ export default function Tools() {
           isBusy && "blur-sm pointer-events-none select-none"
         )}>
 
-          {showWeiPanel ? (
+          {showWeiPanel && (
             <div className="flex flex-row items-center justify-between gap-3 p-3 text-sm">
               <div className="flex flex-col min-w-0">
                 <dt className="text-muted-foreground">Panel WEI</dt>
@@ -41,7 +42,21 @@ export default function Tools() {
                 Ouvrir
               </ButtonLink>
             </div>
-          ) : (
+          )}
+
+          {showValidations && (
+            <div className="flex flex-row items-center justify-between gap-3 p-3 text-sm">
+              <div className="flex flex-col min-w-0">
+                <dt className="text-muted-foreground">Validations</dt>
+                <dd className="truncate">Traitez les demandes de validation</dd>
+              </div>
+              <ButtonLink to="/wei/validation" variant="secondary" size="small" className="shrink-0">
+                Ouvrir
+              </ButtonLink>
+            </div>
+          )}
+
+          {!showWeiPanel && !showValidations && (
             <p className="p-3 text-sm text-muted-foreground">
               Aucun outil disponible.
             </p>

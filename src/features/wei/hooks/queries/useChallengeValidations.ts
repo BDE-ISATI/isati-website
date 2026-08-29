@@ -8,7 +8,7 @@ export default function useChallengeValidations(challengeId?: string) {
   return useQuery({
     queryKey: ["validations", "challenge", challengeId],
     queryFn: async () => {
-      const filter = pb.filter('challenge = {:challengeId} && select = "accepted"', { challengeId: challengeId })
+      const filter = pb.filter('challenge = {:challengeId} && status = "accepted"', { challengeId: challengeId })
       const list = await pb.collection("validations").getList<ValidationWithRelations>(1, 12, {
         filter: filter,
         sort: "-reviewed_at",
