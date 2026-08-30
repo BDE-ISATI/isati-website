@@ -1,7 +1,5 @@
-import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import useVerification from "@/features/auth/hooks/useVerification";
 import Button from "@/shared/components/ui/Button";
-import CircleAlert from "@/assets/icons/circle-alert.svg?react";
 
 
 type VerificationBannerProps = {

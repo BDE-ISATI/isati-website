@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "@/shared/components/ui/Button";
 import PasswordInput from "@/shared/components/ui/PasswordInput";
-import type { DeleteAccountFields } from "../profileTypes";
+import type { DeleteAccountFields } from "@/features/profile/profileTypes";
 import XIcon from "@/assets/icons/x.svg?react"
 import Error from "@/shared/components/ui/Error";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";

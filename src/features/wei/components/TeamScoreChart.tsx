@@ -63,7 +63,7 @@ export default function TeamScoreChart({ teams, validations, range, highlightTea
             width={48}
           />
           <Tooltip
-            labelFormatter={(t: number) => fullFormat.format(t)}
+            labelFormatter={(t) => fullFormat.format(Number(t))}
             contentStyle={{
               backgroundColor: "var(--color-card)",
               borderColor: "var(--color-border)",
