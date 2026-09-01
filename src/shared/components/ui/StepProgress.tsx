@@ -87,8 +87,8 @@ const srStatus = {
 
 const rootLayout = {
   horizontal: "flex-row items-center pb-20",
-  vertical: "flex-col items-start",
-  responsive: "flex-col items-start md:flex-row md:items-center md:pb-20",
+  vertical: "mx-auto w-fit flex-col items-start",
+  responsive: "mx-auto w-fit flex-col items-start md:mx-0 md:w-full md:flex-row md:items-center md:pb-20",
 };
 
 const item = {
