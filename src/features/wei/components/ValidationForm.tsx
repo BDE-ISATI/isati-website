@@ -158,9 +158,9 @@ export default function ValidationForm({ challenge, participation }: ValidationF
 
           <div className="flex flex-row items-start justify-between gap-3">
             <span className="flex flex-col gap-0.5">
-              <span className="text-sm font-medium">Conserver ma preuve après le WEI</span>
+              <span className="text-sm font-medium">Archiver ma preuve après le WEI</span>
               <span className="text-xs text-muted-foreground">
-                Sans cette option, le fichier est supprimé une semaine après le WEI.
+                Les preuves publiées sont conservées dans les archives du WEI, y compris en cas de suppression de compte.
               </span>
             </span>
             <StyledSwitch
