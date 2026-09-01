@@ -62,7 +62,7 @@ export default function EtapeInscription({ wei }: EtapeInscriptionProps) {
           {user && eligible && !registered && (
             <>
               <p className="text-sm text-muted-foreground">
-                Les inscriptions sont ouvertes. Ton équipe te sera communiquée à leur fermeture.
+                Les inscriptions pour le wei sont ouvertes.
               </p>
               <Button
                 variant="accent"
