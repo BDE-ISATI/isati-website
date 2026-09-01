@@ -8,9 +8,9 @@ export default function MentionsLegales() {
   }, []);
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-4 md:py-6">
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
 
-      <h1 className="text-2xl font-semibold">Mentions légales</h1>
+      <h1 className="text-xl font-semibold sm:text-2xl">Mentions légales</h1>
 
       <section className="flex flex-col gap-3">
         <h2 className="text-lg font-semibold">Éditeur du site</h2>

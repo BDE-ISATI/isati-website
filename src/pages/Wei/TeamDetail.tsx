@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from "react";
 import { useParams } from "react-router";
-import { darken } from "color2k";
 
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
 import useTeamScore from "@/features/wei/hooks/queries/useTeamScore";
@@ -8,6 +7,8 @@ import useTeamScores from "@/features/wei/hooks/queries/useTeamScores";
 import useWeiValidations from "@/features/wei/hooks/queries/useWeiValidations";
 import TeamScoreChart from "@/features/wei/components/TeamScoreChart";
 import TeamMembers from "@/features/wei/components/TeamMembers";
+import TeamBanner from "@/features/wei/components/TeamBanner";
+import { formatRank, rankOf } from "@/features/wei/libs/ranking";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import { parsePbDate } from "@/shared/lib/dates";
 import Error from "@/shared/components/ui/Error";
@@ -47,33 +48,18 @@ export default function TeamDetail() {
   }
 
   const current = team.data;
-  const rank = teams.data ? teams.data.findIndex((entry) => entry.id === current.id) + 1 : 0;
-  const color = current.color || "var(--color-accent)";
+  const rank = rankOf(teams.data ?? [], current.id);
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
       <PageNav />
 
 
-      <header
-        style={{
-          backgroundColor: color,
-          borderColor: current.color ? darken(current.color, 0.09) : undefined,
-        }}
-        className="flex flex-col gap-2 rounded-md border-2 p-4 text-white shadow-sm sm:p-6"
-      >
-        <h1 className="text-2xl font-semibold">{current.name || "Équipe sans nom"}</h1>
-        {current.description && (
-          <p className="text-sm whitespace-pre-line opacity-90">{current.description}</p>
-        )}
-      </header>
+      <TeamBanner name={current.name} color={current.color} description={current.description} />
 
       <section className="grid grid-cols-3 gap-4 rounded-md border border-border bg-card p-4 text-card-foreground shadow-sm sm:p-6">
         <Stat label="Points" value={String(current.score ?? 0)} />
-        <Stat
-          label="Classement"
-          value={rank > 0 && teams.data ? `${rank}${rank === 1 ? "er" : "e"} / ${teams.data.length}` : "-"}
-        />
+        <Stat label="Classement" value={formatRank(rank, teams.data?.length ?? 0)} />
         <Stat label="Défis validés" value={String(current.validations_count ?? 0)} />
       </section>
 

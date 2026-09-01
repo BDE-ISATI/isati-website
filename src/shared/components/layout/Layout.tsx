@@ -9,7 +9,7 @@ export default function Layout() {
     <div className="flex min-h-dvh flex-col">
       <Navbar />
 
-      <main className="flex min-h-[calc(95dvh-6rem)] flex-1 flex-col">
+      <main className="flex min-h-[calc(95dvh-4rem)] sm:min-h-[calc(95dvh-6rem)] flex-1 flex-col">
         <Outlet />
       </main>
 

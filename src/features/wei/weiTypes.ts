@@ -8,3 +8,11 @@ export type TeamMemberResponse = {
   role: ParticipationsRoleOptions
   state: ParticipationsStateOptions
 }
+
+export type FactionScore = {
+  id: string
+  name: string
+  color: string
+  score: number
+  teamsCount: number
+}

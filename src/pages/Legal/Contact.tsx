@@ -25,9 +25,9 @@ export default function Contact() {
   }, []);
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-4 md:py-6">
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
 
-      <h1 className="text-2xl font-semibold">Contact</h1>
+      <h1 className="text-xl font-semibold sm:text-2xl">Contact</h1>
 
       <section className="flex flex-col gap-4 rounded-md border border-border bg-card p-4 text-card-foreground shadow-sm sm:p-6">
         <div className="flex flex-col gap-1">

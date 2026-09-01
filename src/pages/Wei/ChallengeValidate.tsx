@@ -37,11 +37,11 @@ export default function ChallengeValidate() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-4 md:py-6">
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
       <PageNav />
 
       <header className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold">Demander une validation</h1>
+        <h1 className="text-xl font-semibold sm:text-2xl">Demander une validation</h1>
         <p className="text-sm text-muted-foreground">{challenge.data.title}</p>
       </header>
 

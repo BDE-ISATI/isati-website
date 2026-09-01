@@ -55,7 +55,7 @@ function Register() {
       <Logo className="mb-8 h-16 w-auto text-accent"/>
 
       <div className="w-full max-w-sm">
-        <h2 className="mb-6 text-2xl font-semibold">Inscription</h2>
+        <h2 className="mb-6 text-xl font-semibold sm:text-2xl">Inscription</h2>
         <div className="relative">
           <div inert={registerMutation.isPending}
             className={cn(

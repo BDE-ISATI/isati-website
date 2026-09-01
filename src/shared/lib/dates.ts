@@ -28,3 +28,16 @@ export function formatRemaining(ms: number): string {
     .join(":");
   return days > 0 ? `${days} j ${clock}` : clock;
 }
+
+const relativeFormat = new Intl.RelativeTimeFormat("fr", { numeric: "auto" });
+const shortDateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
+
+export function formatRelative(date: Date, now: number): string {
+  const seconds = Math.round((date.getTime() - now) / 1000);
+  const abs = Math.abs(seconds);
+  if (abs < 60) return "à l'instant";
+  if (abs < 3600) return relativeFormat.format(Math.trunc(seconds / 60), "minute");
+  if (abs < 86400) return relativeFormat.format(Math.trunc(seconds / 3600), "hour");
+  if (abs < 7 * 86400) return relativeFormat.format(Math.trunc(seconds / 86400), "day");
+  return shortDateFormat.format(date);
+}

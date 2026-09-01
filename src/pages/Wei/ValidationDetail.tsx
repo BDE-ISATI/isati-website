@@ -69,7 +69,7 @@ export default function ValidationDetail() {
         }}
         className="flex flex-col gap-2 rounded-md border-2 p-4 text-white shadow-sm sm:p-6"
       >
-        <h1 className="text-2xl font-semibold">{challenge?.title || "Défi inconnu"}</h1>
+        <h1 className="text-xl font-semibold sm:text-2xl">{challenge?.title || "Défi inconnu"}</h1>
         <p className="text-sm opacity-90">{team?.name || "Équipe inconnue"}</p>
         {challenge && (
           <Link to={`/wei/challenge/${challenge.id}`} className="w-fit text-sm underline opacity-90 hover:opacity-100">

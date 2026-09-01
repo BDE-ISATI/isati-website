@@ -41,10 +41,10 @@ export default function Validation() {
   const teamLabel = teams.data?.find((team) => team.id === teamId)?.name ?? "Toutes les équipes";
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-4 md:py-6">
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
       <PageNav />
 
-      <h1 className="text-2xl font-semibold">Validations</h1>
+      <h1 className="text-xl font-semibold sm:text-2xl">Validations</h1>
 
       <div className="flex flex-row flex-wrap items-center gap-3">
         <Listbox value={status} onChange={setStatus}>

@@ -31,13 +31,13 @@ export default function Navbar() {
   return (
     <nav
       className={cn(
-        "relative flex h-24 items-center justify-between px-6 text-accent-foreground transition-colors duration-300 motion-reduce:transition-none",
+        "relative flex h-16 items-center justify-between px-4 text-accent-foreground sm:h-24 sm:px-6 transition-colors duration-300 motion-reduce:transition-none",
         isTransparent ? "bg-transparent" : "bg-accent",
       )}
     >
 
       <Link to="/" className="flex items-center" aria-label="Accueil ISATI">
-        <Logo className="h-16 w-auto text-white"/>
+        <Logo className="h-10 w-auto text-white sm:h-16"/>
       </Link>
 
       {wei && (
@@ -49,20 +49,20 @@ export default function Navbar() {
           <Tail
             viewBox="0 315 949 385"
             aria-hidden="true"
-            className="h-16 w-40 text-white sm:h-20 sm:w-52"
+            className="h-11 w-28 text-white sm:h-20 sm:w-52"
           />
-          <span className="absolute text-xl font-bold tracking-wide text-accent sm:text-2xl">
+          <span className="absolute text-base font-bold tracking-wide text-accent sm:text-2xl">
             WEI
           </span>
         </Link>
       )}
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 sm:gap-4">
         {user ? (
           <Popover className="relative">
             <PopoverButton className="group block cursor-pointer rounded-full outline-none">
               <img
-                className="block h-14 w-14 rounded-full bg-accent-foreground object-cover ring-2 ring-transparent ring-offset-2 ring-offset-accent transition duration-200 group-hover:ring-white/50 group-focus-visible:ring-white/50 group-data-open:ring-white"
+                className="block h-10 w-10 rounded-full bg-accent-foreground object-cover sm:h-14 sm:w-14 ring-2 ring-transparent ring-offset-2 ring-offset-accent transition duration-200 group-hover:ring-white/50 group-focus-visible:ring-white/50 group-data-open:ring-white"
                 src={pb.files.getURL(user, user.avatar, { thumb: "100x100" })}
                 alt={`Photo de profil de ${user.username}`}
               />
@@ -70,7 +70,7 @@ export default function Navbar() {
 
             <PopoverPanel
               transition
-              className="absolute top-full right-full z-50 mt-3 -mr-8 flex w-80 origin-top-right flex-col overflow-hidden rounded-2xl border border-border bg-card text-card-foreground shadow-xl ring-1 ring-black/5 transition duration-150 ease-out data-closed:scale-95 data-closed:opacity-0"
+              className="absolute top-full right-0 z-50 mt-3 flex w-[min(20rem,calc(100vw-2rem))] origin-top-right flex-col overflow-hidden rounded-2xl border border-border bg-card text-card-foreground shadow-xl ring-1 ring-black/5 transition duration-150 ease-out data-closed:scale-95 data-closed:opacity-0"
             >
               <div className="flex items-center gap-4 border-b border-border px-5 py-4">
                 <img
@@ -105,8 +105,8 @@ export default function Navbar() {
             </PopoverPanel>
           </Popover>
         ) : (
-          <ButtonLink to="/login" variant="secondary">
-            Se connecter/S'inscrire
+          <ButtonLink to="/login" variant="secondary" size="small">
+            Se connecter
           </ButtonLink>
         )}
 

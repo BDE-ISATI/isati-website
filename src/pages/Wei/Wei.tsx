@@ -1,13 +1,11 @@
 import { useEffect, type CSSProperties } from "react";
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
-import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import WeiEtape from "@/features/wei/components/WeiEtape";
 import WeiBackground from "@/features/wei/components/WeiBackground";
-import ButtonLink from "@/shared/components/ui/ButtonLink";
+import PageNav from "@/shared/components/layout/PageNav";
 import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
 import Error from "@/shared/components/ui/Error";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
-import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 
 export default function Wei() {
 
@@ -16,7 +14,6 @@ export default function Wei() {
   }, []);
 
   const current = useCurrentWei()
-  const canViewPanel = useHasPermission("view", "wei_panel")
 
   const wei = current.data
 
@@ -27,19 +24,9 @@ export default function Wei() {
     >
       {wei && <WeiBackground />}
 
-      {canViewPanel && (
-        <ButtonLink
-          to="/wei/panel"
-          variant="ghost"
-          size="small"
-          className="absolute top-4 right-4 z-10"
-        >
-          Panel WEI
-          <ChevronRight className="h-4 w-4" />
-        </ButtonLink>
-      )}
-
       <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-1 flex-col gap-4 px-4 py-4 text-foreground md:py-6">
+        <PageNav />
+
         <Error message={getFirstErrorMessage(current.error)} className="justify-center" />
 
         {current.isPending && (

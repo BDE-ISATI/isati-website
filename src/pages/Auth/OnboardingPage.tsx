@@ -53,7 +53,7 @@ function Onboarding() {
         <Logo className="mb-8 h-16 w-auto text-accent"/>
         
         <div inert={onboarding.isPending} className={cn("transition duration-200",onboarding.isPending && "blur-sm pointer-events-none select-none",)}>
-        <h2 className="mb-6 text-2xl font-semibold">Finalisez votre compte ISATI</h2>
+        <h2 className="mb-6 text-xl font-semibold sm:text-2xl">Finalisez votre compte ISATI</h2>
         
         {/* Listbox Niveau */}
         <label className="text-sm font-medium">

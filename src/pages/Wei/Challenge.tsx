@@ -18,10 +18,10 @@ export default function Challenge() {
 
 
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-4 md:py-6">
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
       <PageNav back="/wei" backLabel="WEI" />
 
-      <h1 className="text-2xl font-semibold">Défis</h1>
+      <h1 className="text-xl font-semibold sm:text-2xl">Défis</h1>
 
       <Error message={getFirstErrorMessage(challenges.error)} />
 

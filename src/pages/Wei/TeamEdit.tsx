@@ -20,7 +20,7 @@ export default function TeamEdit() {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-4 md:py-6">
-      <h1 className="text-2xl font-semibold">Modifier l'équipe</h1>
+      <h1 className="text-xl font-semibold sm:text-2xl">Modifier l'équipe</h1>
 
       <Error message={getFirstErrorMessage(team.error)} />
 

@@ -36,9 +36,9 @@ export default function Footer() {
           isTransparent ? "bg-transparent" : "bg-accent",
         )}
       >
-        <div className="mx-auto max-w-5xl px-6 py-10">
+        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 sm:py-10">
 
-          <div className="mx-auto grid w-full max-w-md grid-cols-3 items-center justify-items-center gap-x-4 gap-y-10 sm:gap-x-8">
+          <div className="mx-auto grid w-full max-w-md grid-cols-3 items-center justify-items-center gap-x-4 gap-y-6 sm:gap-x-8 sm:gap-y-10">
 
             <ul className="contents">
               <li>

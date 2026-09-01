@@ -3,6 +3,7 @@ import { darken } from "color2k";
 import pb from "@/shared/lib/pocketbase";
 import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
 import { parsePbDate } from "@/shared/lib/dates";
+import { VALIDATION_STATUS_CLASSES, VALIDATION_STATUS_LABELS } from "@/features/wei/libs/validation";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 import cn from "@/shared/utils/cn";
 
@@ -12,18 +13,6 @@ interface ValidationCardProps {
 }
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-
-const STATUS_LABELS = {
-  pending: "En attente",
-  accepted: "Acceptée",
-  refused: "Refusée",
-};
-
-const STATUS_CLASSES = {
-  pending: "border-border text-muted-foreground",
-  accepted: "border-status-success text-status-success",
-  refused: "border-status-critical text-status-critical",
-};
 
 export default function ValidationCard({ validation, className }: ValidationCardProps) {
 
@@ -72,8 +61,8 @@ export default function ValidationCard({ validation, className }: ValidationCard
           <span className="text-xs text-muted-foreground">{date ? dateFormat.format(date) : "-"}</span>
         </div>
 
-        <span className={cn("shrink-0 rounded-md border px-2 py-0.5 text-xs font-medium", STATUS_CLASSES[status])}>
-          {STATUS_LABELS[status]}
+        <span className={cn("shrink-0 rounded-md border px-2 py-0.5 text-xs font-medium", VALIDATION_STATUS_CLASSES[status])}>
+          {VALIDATION_STATUS_LABELS[status]}
         </span>
 
         <ChevronRight aria-hidden="true" className="h-6 w-6 shrink-0 text-muted-foreground" />

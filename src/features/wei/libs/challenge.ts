@@ -1,5 +1,4 @@
-import type { ChallengesPhaseOptions, ChallengesProofTypeOptions, ChallengesScopeOptions } from "@/shared/types/pocketbase-types";
-import type { ChallengeWithRelations } from "@/shared/types/sharedTypes";
+import type { ChallengesPhaseOptions, ChallengesProofTypeOptions, ChallengesResponse, ChallengesScopeOptions } from "@/shared/types/pocketbase-types";
 import { formatRemaining, parsePbDate } from "@/shared/lib/dates";
 
 export const PHASE_LABELS: Record<ChallengesPhaseOptions, string> = {
@@ -25,7 +24,7 @@ export type ChallengeWindow = {
   countdown: string
 };
 
-export default function challengeWindow(challenge: ChallengeWithRelations | undefined, now: number): ChallengeWindow {
+export default function challengeWindow(challenge: ChallengesResponse | undefined, now: number): ChallengeWindow {
   const start = parsePbDate(challenge?.start_date)?.getTime() ?? null;
   const end = parsePbDate(challenge?.end_date)?.getTime() ?? null;
 

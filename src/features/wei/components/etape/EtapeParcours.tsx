@@ -2,6 +2,10 @@ import type { WeiWithLocation } from "@/shared/types/sharedTypes";
 import WeiTimeline from "@/features/wei/components/WeiTimeline";
 import WeiCountdown from "@/features/wei/components/WeiCountdown";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
+import useMyParticipation from "@/features/wei/hooks/queries/useMyParticipation";
+import WeiHub from "@/features/wei/components/hub/WeiHub";
+import HubAttente from "@/features/wei/components/hub/HubAttente";
+import { ParticipationsStateOptions } from "@/shared/types/pocketbase-types";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 
@@ -12,6 +16,19 @@ type EtapeParcoursProps = {
 export default function EtapeParcours({ wei }: EtapeParcoursProps) {
 
   const canReview = useHasPermission("view", "validations");
+  const participation = useMyParticipation(wei.id);
+
+  if (participation.isLoading) return null;
+
+  const mine = participation.data;
+
+  if (mine?.state === ParticipationsStateOptions.assigned && mine.team) {
+    return <WeiHub wei={wei} participation={mine} />;
+  }
+
+  if (mine && mine.state !== ParticipationsStateOptions.cancelled) {
+    return <HubAttente wei={wei} />;
+  }
 
   return (
     <div className="flex flex-1 flex-col">

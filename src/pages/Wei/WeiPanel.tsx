@@ -14,8 +14,8 @@ export default function WeiPanel() {
   const canUpdate = useHasPermission("update", "weis")
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-4 md:py-6">
-      <h1 className="text-2xl font-semibold">Panel WEI</h1>
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
+      <h1 className="text-xl font-semibold sm:text-2xl">Panel WEI</h1>
 
       <Error message={getFirstErrorMessage(weis.error)} />
 
