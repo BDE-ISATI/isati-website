@@ -33,11 +33,11 @@ function Home() {
     ? null
     : phase.phase === "registration"
       ? registered
-        ? "Ton inscription au WEI est enregistrée. Retrouve toutes les infos via le bouton WEI dans la barre de navigation."
-        : "Les inscriptions au WEI sont ouvertes ! Inscris-toi dès maintenant via le bouton WEI dans la barre de navigation."
+        ? "Inscription au WEI validée. Infos dans l'onglet WEI."
+        : "Inscriptions au WEI ouvertes. Rendez-vous dans l'onglet WEI."
       : phase.phase === "waiting"
-        ? "Les inscriptions au WEI sont closes. Retrouve toutes les infos via le bouton WEI dans la barre de navigation."
-        : "Le WEI a commencé ! Retrouve les défis et le classement via le bouton WEI dans la barre de navigation.";
+        ? "Inscriptions closes. Infos dans l'onglet WEI."
+        : "Le WEI a commencé. Défis et classement dans l'onglet WEI.";
 
   return (
     <>
