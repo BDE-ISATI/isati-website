@@ -10,6 +10,9 @@ import Home from '@/pages/Home.tsx'
 import Layout from '@/shared/components/layout/Layout'
 import Profile from '@/pages/Profile/Profile'
 import NotFound from '@/pages/NotFound'
+import Contact from '@/pages/Legal/Contact'
+import MentionsLegales from '@/pages/Legal/MentionsLegales'
+import Confidentialite from '@/pages/Legal/Confidentialite'
 
 import Account from '@/pages/Profile/settings/Account';
 import Activities from '@/pages/Profile/settings/Activities';
@@ -103,6 +106,10 @@ function App() {
             <Route path="clubs" element={<Clubs />}/>
             <Route path="tools" element={<Tools />}/>
           </Route>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/confidentialite" element={<Confidentialite />} />
+
           <Route path="*" element={<NotFound />} />
         </Route>
 

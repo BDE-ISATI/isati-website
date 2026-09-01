@@ -154,6 +154,13 @@ function Register() {
 
               <Error message={getFirstErrorMessage(registerMutation.error)}/>
 
+              <p className="text-xs text-muted-foreground">
+                En créant un compte, vous prenez connaissance de notre{" "}
+                <NavLink to="/confidentialite" className="font-medium text-link hover:underline">
+                  politique de confidentialité
+                </NavLink>.
+              </p>
+
             </form>
           </div>
           {registerMutation.isPending && <LoadingOverlay />}

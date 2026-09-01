@@ -81,6 +81,9 @@ export default function Footer() {
               <NavLink to="/contact" className="col-start-1 rounded-sm text-center text-sm underline-offset-4 transition-opacity  hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-foreground">
                 Contact
               </NavLink>
+              <NavLink to="/confidentialite" className="col-start-2 rounded-sm text-center text-sm underline-offset-4 transition-opacity  hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-foreground">
+                Confidentialité
+              </NavLink>
               <NavLink to="/mentions-legales" className="col-start-3 rounded-sm text-center text-sm underline-offset-4 transition-opacity  hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-foreground">
                 Mentions légales
               </NavLink>
