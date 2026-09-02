@@ -14,7 +14,9 @@ export default function UnassignedPanel({ weiId, className }: UnassignedPanelPro
 
   const participations = useWeiParticipations(weiId);
 
-  const unassigned = participations.data?.filter((participation) => participation.state === "pending") ?? [];
+  const unassigned = (participations.data ?? [])
+    .filter((participation) => participation.state === "pending")
+    .sort((a, b) => (b.registered_at || b.created).localeCompare(a.registered_at || a.created));
 
   return (
     <section

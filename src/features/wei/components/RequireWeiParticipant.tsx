@@ -17,5 +17,7 @@ export default function RequireWeiParticipant({ redirectTo = "/wei" }: RequireWe
   const phase = weiPhase(currentWei.data ?? null)?.phase;
   const started = phase === "parcours" || phase === "weekend" || phase === "ended";
 
-  return started && participation.data ? <Outlet /> : <Navigate to={redirectTo} replace />;
+  const assigned = participation.data?.state === "assigned" && !!participation.data.team;
+
+  return started && assigned ? <Outlet /> : <Navigate to={redirectTo} replace />;
 }

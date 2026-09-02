@@ -5,6 +5,7 @@ import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import useMyParticipation from "@/features/wei/hooks/queries/useMyParticipation";
 import WeiHub from "@/features/wei/components/hub/WeiHub";
 import HubAttente from "@/features/wei/components/hub/HubAttente";
+import RegisterCta from "@/features/wei/components/RegisterCta";
 import { ParticipationsStateOptions } from "@/shared/types/pocketbase-types";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
@@ -16,6 +17,7 @@ type EtapeParcoursProps = {
 export default function EtapeParcours({ wei }: EtapeParcoursProps) {
 
   const canReview = useHasPermission("view", "validations");
+  const isStaff = useHasPermission("view", "teams");
   const participation = useMyParticipation(wei.id);
 
   if (participation.isLoading) return null;
@@ -38,22 +40,26 @@ export default function EtapeParcours({ wei }: EtapeParcoursProps) {
         <div className="flex max-w-md flex-col items-center gap-2">
           <h2 className="text-lg font-semibold">Le parcours a commencé</h2>
 
-          <div className="flex flex-row flex-wrap items-center justify-center gap-3">
-            <ButtonLink to="/wei/challenge" variant="accent">
-              Les défis
-              <ChevronRight className="h-4 w-4" />
-            </ButtonLink>
-            <ButtonLink to="/wei/team" variant="secondary">
-              Classement des équipes
-              <ChevronRight className="h-4 w-4" />
-            </ButtonLink>
-            {canReview && (
-              <ButtonLink to="/wei/validation" variant="secondary">
-                Valider les preuves
+          {!isStaff && <RegisterCta wei={wei} note="Le parcours a déjà commencé, tu peux encore rejoindre." />}
+
+          {isStaff && (
+            <div className="flex flex-row flex-wrap items-center justify-center gap-3">
+              <ButtonLink to="/wei/challenge" variant="accent">
+                Les défis
                 <ChevronRight className="h-4 w-4" />
               </ButtonLink>
-            )}
-          </div>
+              <ButtonLink to="/wei/team" variant="secondary">
+                Classement des équipes
+                <ChevronRight className="h-4 w-4" />
+              </ButtonLink>
+              {canReview && (
+                <ButtonLink to="/wei/validation" variant="secondary">
+                  Valider les preuves
+                  <ChevronRight className="h-4 w-4" />
+                </ButtonLink>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

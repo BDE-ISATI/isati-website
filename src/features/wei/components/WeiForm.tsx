@@ -28,7 +28,6 @@ type WeiFields = {
   description: string,
   location: string | null,
   registration_opens_at: string,
-  registration_closes_at: string,
   parcours_starts_at: string,
   weekend_starts_at: string,
   weekend_ends_at: string,
@@ -51,7 +50,6 @@ export default function WeiForm({ wei }: WeiFormProps) {
       description: wei?.description ?? "",
       location: wei?.expand?.location?.id ?? null,
       registration_opens_at: toDateTimeInput(wei?.registration_opens_at),
-      registration_closes_at: toDateTimeInput(wei?.registration_closes_at),
       parcours_starts_at: toDateTimeInput(wei?.parcours_starts_at),
       weekend_starts_at: toDateTimeInput(wei?.weekend_starts_at),
       weekend_ends_at: toDateTimeInput(wei?.weekend_ends_at),
@@ -69,7 +67,6 @@ export default function WeiForm({ wei }: WeiFormProps) {
       description: fields.description,
       location: fields.location ?? "",
       registration_opens_at: fromDateTimeInput(fields.registration_opens_at),
-      registration_closes_at: fromDateTimeInput(fields.registration_closes_at),
       parcours_starts_at: fromDateTimeInput(fields.parcours_starts_at),
       weekend_starts_at: fromDateTimeInput(fields.weekend_starts_at),
       weekend_ends_at: fromDateTimeInput(fields.weekend_ends_at),
@@ -175,27 +172,6 @@ export default function WeiForm({ wei }: WeiFormProps) {
           </div>
 
           <div className="flex flex-col gap-1">
-            <label htmlFor="registration_closes_at" className="text-sm font-medium">
-              Fermeture des inscriptions
-            </label>
-            <Input
-              id="registration_closes_at"
-              type="datetime-local"
-              variant={errors.registration_closes_at || getFieldError(mutation.error, "registration_closes_at") ? "error" : "normal"}
-              {...register("registration_closes_at", {
-                validate: (value) => {
-                  const opensAt = getValues("registration_opens_at");
-                  if (!value || !opensAt) return true;
-                  return value > opensAt || "La fermeture doit être après l'ouverture.";
-                },
-              })}
-            />
-
-            <Error message={errors.registration_closes_at?.message} />
-            <Error message={getFieldError(mutation.error, "registration_closes_at")} />
-          </div>
-
-          <div className="flex flex-col gap-1">
             <label htmlFor="parcours_starts_at" className="text-sm font-medium">
               Début du parcours
             </label>
@@ -216,10 +192,17 @@ export default function WeiForm({ wei }: WeiFormProps) {
             <Input
               id="weekend_starts_at"
               type="datetime-local"
-              variant={getFieldError(mutation.error, "weekend_starts_at") ? "error" : "normal"}
-              {...register("weekend_starts_at")}
+              variant={errors.weekend_starts_at || getFieldError(mutation.error, "weekend_starts_at") ? "error" : "normal"}
+              {...register("weekend_starts_at", {
+                validate: (value) => {
+                  const parcoursAt = getValues("parcours_starts_at");
+                  if (!value || !parcoursAt) return true;
+                  return value > parcoursAt || "Le week-end doit commencer après le parcours.";
+                },
+              })}
             />
 
+            <Error message={errors.weekend_starts_at?.message} />
             <Error message={getFieldError(mutation.error, "weekend_starts_at")} />
           </div>
 

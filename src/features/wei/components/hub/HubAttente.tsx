@@ -15,7 +15,7 @@ export default function HubAttente({ wei }: HubAttenteProps) {
         <div className="flex max-w-md flex-col items-center gap-2">
           <h2 className="text-lg font-semibold">Ton équipe arrive</h2>
           <p className="text-sm text-muted-foreground">
-            Ton inscription est enregistrée. Dès que tu seras affecté à une équipe, ton tableau de bord apparaîtra ici.
+            Tu accèderas aux défis dès ton affectation à une équipe.
           </p>
         </div>
       </div>

@@ -384,7 +384,7 @@ export type ValidationsRecord = {
 	created: IsoAutoDateString
 	id: string
 	points_awarded?: number
-	proof_file?: FileNameString
+	proof_file?: FileNameString[]
 	proof_text?: string
 	public?: boolean
 	reason?: string
@@ -403,7 +403,6 @@ export type WeisRecord = {
 	id: string
 	location?: RecordIdString
 	parcours_starts_at?: IsoDateString
-	registration_closes_at?: IsoDateString
 	registration_opens_at?: IsoDateString
 	theme?: string
 	title?: string

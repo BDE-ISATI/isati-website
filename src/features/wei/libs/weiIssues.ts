@@ -7,7 +7,6 @@ export default function weiDateIssues(wei: WeisResponse | null): string[] {
 
   const milestones = [
     { label: "Ouverture des inscriptions", date: parsePbDate(wei.registration_opens_at) },
-    { label: "Fermeture des inscriptions", date: parsePbDate(wei.registration_closes_at) },
     { label: "Début du parcours", date: parsePbDate(wei.parcours_starts_at) },
     { label: "Début du week-end", date: parsePbDate(wei.weekend_starts_at) },
     { label: "Fin du week-end", date: parsePbDate(wei.weekend_ends_at) },

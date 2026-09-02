@@ -4,7 +4,6 @@ import { parsePbDate } from "@/shared/lib/dates";
 export type WeiPhase =
   | "upcoming"
   | "registration"
-  | "waiting"
   | "parcours"
   | "weekend"
   | "ended"
@@ -19,7 +18,6 @@ export type WeiPhaseInfo = {
 export const WEI_PHASE_LABELS: Record<WeiPhase, string> = {
   upcoming: "À venir",
   registration: "Inscriptions ouvertes",
-  waiting: "Inscriptions closes",
   parcours: "Parcours",
   weekend: "Week-end",
   ended: "Terminé",
@@ -35,7 +33,6 @@ export default function weiPhase(wei: WeisResponse | null, now: Date = new Date(
 
   const milestones: { phase: WeiPhase; label: string; date: Date | null }[] = [
     { phase: "registration", label: "Ouverture des inscriptions", date: parsePbDate(wei.registration_opens_at) },
-    { phase: "waiting", label: "Fermeture des inscriptions", date: parsePbDate(wei.registration_closes_at) },
     { phase: "parcours", label: "Début du parcours", date: parsePbDate(wei.parcours_starts_at) },
     { phase: "weekend", label: "Début du week-end", date: parsePbDate(wei.weekend_starts_at) },
     { phase: "ended", label: "Fin du week-end", date: weekendEnd },

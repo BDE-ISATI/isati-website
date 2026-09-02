@@ -4,11 +4,8 @@ import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
 import useMyParticipation from "@/features/wei/hooks/queries/useMyParticipation";
 import weiPhase from "@/features/wei/libs/phase";
-import {
-  ParticipationsStateOptions,
-  UsersLevelOptions,
-  UsersSchoolYearOptions,
-} from "@/shared/types/pocketbase-types";
+import { isWeiEligible, registrationOpen } from "@/features/wei/libs/registration";
+import { ParticipationsStateOptions } from "@/shared/types/pocketbase-types";
 
 function Home() {
 
@@ -22,9 +19,7 @@ function Home() {
 
   const phase = weiPhase(currentWei.data ?? null);
 
-  const eligible =
-    user?.school_year === UsersSchoolYearOptions.E1 &&
-    user?.level === UsersLevelOptions.ingenieur;
+  const eligible = isWeiEligible(user);
 
   const registered =
     !!participation.data && participation.data.state !== ParticipationsStateOptions.cancelled;
@@ -35,8 +30,8 @@ function Home() {
       ? registered
         ? "Inscription au WEI validée. Infos dans l'onglet WEI."
         : "Inscriptions au WEI ouvertes. Rendez-vous dans l'onglet WEI."
-      : phase.phase === "waiting"
-        ? "Inscriptions closes. Infos dans l'onglet WEI."
+      : !registered && registrationOpen(currentWei.data ?? null)
+        ? "Le parcours a commencé, tu peux encore t'inscrire. Rendez-vous dans l'onglet WEI."
         : "Le WEI a commencé. Défis et classement dans l'onglet WEI.";
 
   return (
