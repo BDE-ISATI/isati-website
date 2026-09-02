@@ -120,6 +120,7 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
     validation_file_size_limit: "Ce fichier est trop lourd.",
     validation_invalid_mime_type: "Ce type de fichier n'est pas accepté pour ce défi.",
     invalid_proof_type: "Ce type de preuve n'est pas accepté pour ce défi.",
+    too_many_files: "Vous avez joint trop de fichiers pour ce défi.",
   },
   proof_text: {
     validation_required: "Ce champ est requis.",

@@ -14,40 +14,42 @@ const COMPRESSION_OPTIONS: Options = {
   initialQuality: 0.85,
 };
 
-export type ProofFileValue = File | null;
+export type ProofFileValue = File[];
 
 interface ProofImageFieldProps {
   value: ProofFileValue
   onChange: (value: ProofFileValue) => void
+  max: number
 }
 
-export default function ProofImageField({ value, onChange }: ProofImageFieldProps) {
+export default function ProofImageField({ value, onChange, max }: ProofImageFieldProps) {
 
   const fileSelectorRef = useRef<HTMLInputElement>(null);
   const [ isCompressing, setIsCompressing ] = useState<boolean>(false);
   const [ compressionError, setCompressionError ] = useState<string | null>(null);
-  const [ preview, setPreview ] = useState<string | undefined>(undefined);
+  const [ previews, setPreviews ] = useState<string[]>([]);
+
+  const isFull = value.length >= max;
 
   useEffect(() => {
-    if (!value) {
-      setPreview(undefined);
-      return;
-    }
-    const url = URL.createObjectURL(value);
-    setPreview(url);
-    return () => URL.revokeObjectURL(url);
+    const urls = value.map((file) => URL.createObjectURL(file));
+    setPreviews(urls);
+    return () => urls.forEach((url) => URL.revokeObjectURL(url));
   }, [value]);
 
   async function handleFileSelect(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
+    const files = Array.from(event.target.files ?? []).slice(0, max - value.length);
     event.target.value = "";
-    if (!file) return;
+    if (files.length === 0) return;
 
     setIsCompressing(true);
     setCompressionError(null);
     try {
-      const compressed = await imageCompression(file, COMPRESSION_OPTIONS);
-      onChange(new File([compressed], "preuve.webp", { type: "image/webp" }));
+      const compressed = await Promise.all(files.map(async (file, index) => {
+        const result = await imageCompression(file, COMPRESSION_OPTIONS);
+        return new File([result], `preuve-${value.length + index + 1}.webp`, { type: "image/webp" });
+      }));
+      onChange([...value, ...compressed]);
     } catch {
       setCompressionError("Impossible de traiter cette image.");
     } finally {
@@ -55,36 +57,66 @@ export default function ProofImageField({ value, onChange }: ProofImageFieldProp
     }
   }
 
+  function handleRemove(index: number) {
+    onChange(value.filter((_, position) => position !== index));
+  }
+
   return (
     <div className="flex flex-col gap-2">
-      <input ref={fileSelectorRef} accept="image/*" type="file" className="hidden" onChange={handleFileSelect} />
+      <input
+        ref={fileSelectorRef}
+        accept="image/*"
+        type="file"
+        multiple={max > 1}
+        className="hidden"
+        onChange={handleFileSelect}
+      />
 
-      {preview ? (
-        <img src={preview} alt="Aperçu de la preuve" className="aspect-video w-full rounded-md border border-border object-cover" />
+      {previews.length > 0 ? (
+        <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {previews.map((preview, index) => (
+            <li key={preview} className="relative">
+              <img
+                src={preview}
+                alt={`Aperçu de la preuve ${index + 1}`}
+                className="aspect-square w-full rounded-md border border-border object-cover"
+              />
+              <Button
+                type="button"
+                onClick={() => handleRemove(index)}
+                variant="destructiveGhost"
+                size="icon"
+                aria-label={`Retirer l'image ${index + 1}`}
+                className="absolute top-1 right-1 bg-card/90"
+              >
+                <XIcon className="h-4 w-4" />
+              </Button>
+            </li>
+          ))}
+        </ul>
       ) : (
         <div className="flex aspect-video w-full items-center justify-center rounded-md border border-dashed border-input bg-muted">
           <span className="text-sm text-muted-foreground">
-            {isCompressing ? "Traitement de l'image…" : "Aucune image"}
+            {isCompressing ? "Traitement des images…" : "Aucune image"}
           </span>
         </div>
       )}
 
-      <div className="flex flex-row items-center justify-end gap-2">
+      <div className="flex flex-row items-center justify-between gap-2">
+        <span className="text-xs text-muted-foreground">
+          {isCompressing ? "Traitement des images…" : `${value.length} / ${max}`}
+        </span>
+
         <Button
           type="button"
           onClick={() => fileSelectorRef.current?.click()}
           variant="secondary"
           size="small"
-          disabled={isCompressing}
+          disabled={isCompressing || isFull}
         >
           <PenIcon className="h-4 w-4" />
-          {preview ? "Changer" : "Choisir une image"}
+          {value.length > 0 ? "Ajouter" : "Choisir une image"}
         </Button>
-        {preview && (
-          <Button type="button" onClick={() => onChange(null)} variant="destructiveGhost" size="icon" aria-label="Retirer l'image">
-            <XIcon className="h-4 w-4" />
-          </Button>
-        )}
       </div>
 
       <Error message={compressionError ?? undefined} />

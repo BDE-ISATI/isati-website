@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { darken } from "color2k";
 import pb from "@/shared/lib/pocketbase";
 import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
+import proofFiles, { proofThumbUrl } from "@/features/wei/libs/proof";
 import { parsePbDate } from "@/shared/lib/dates";
 import { VALIDATION_STATUS_CLASSES, VALIDATION_STATUS_LABELS } from "@/features/wei/libs/validation";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
@@ -9,12 +10,13 @@ import cn from "@/shared/utils/cn";
 
 interface ValidationCardProps {
   validation: ValidationWithRelations
+  search?: string
   className?: string
 }
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
-export default function ValidationCard({ validation, className }: ValidationCardProps) {
+export default function ValidationCard({ validation, search, className }: ValidationCardProps) {
 
   const team = validation.expand?.team;
   const user = validation.expand?.user;
@@ -27,7 +29,7 @@ export default function ValidationCard({ validation, className }: ValidationCard
 
   return (
     <Link
-      to={`/wei/validation/${validation.id}`}
+      to={`/wei/validation/${validation.id}${search ? `?${search}` : ""}`}
       aria-label={`Traiter la demande de ${user?.username || "un participant"}`}
       className={cn("block rounded-md", className)}
     >
@@ -73,22 +75,35 @@ export default function ValidationCard({ validation, className }: ValidationCard
 
 function Thumbnail({ validation, color }: { validation: ValidationWithRelations, color: string }) {
 
-  if (validation.proof_file) {
-    const isVideo = /\.(mp4|mov|webm|m4v)$/i.test(validation.proof_file);
-    const src = isVideo
-      ? pb.files.getURL(validation, validation.proof_file)
-      : pb.files.getURL(validation, validation.proof_file, { thumb: "300x300" });
+  const proofs = proofFiles(validation);
+  const [ first ] = proofs;
 
-    return isVideo ? (
-      <video
-        src={src}
-        muted
-        playsInline
-        preload="metadata"
-        className="h-14 w-14 shrink-0 rounded-md border border-border object-cover"
-      />
-    ) : (
-      <img src={src} alt="" className="h-14 w-14 shrink-0 rounded-md border border-border object-cover" />
+  if (first) {
+    return (
+      <span className="relative h-14 w-14 shrink-0">
+        {first.isVideo ? (
+          <video
+            src={first.url}
+            muted
+            playsInline
+            preload="metadata"
+            className="h-14 w-14 rounded-md border border-border object-cover"
+          />
+        ) : (
+          <img
+            src={proofThumbUrl(validation, first, "300x300")}
+            alt=""
+            loading="lazy"
+            className="h-14 w-14 rounded-md border border-border object-cover"
+          />
+        )}
+
+        {proofs.length > 1 && (
+          <span className="absolute -right-1 -bottom-1 rounded-md border border-border bg-card px-1 text-xs font-medium text-card-foreground">
+            {proofs.length}
+          </span>
+        )}
+      </span>
     );
   }
 

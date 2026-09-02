@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { Listbox } from "@headlessui/react";
 
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
 import useTeamScores from "@/features/wei/hooks/queries/useTeamScores";
 import useReviewValidations, { type ReviewStatusFilter } from "@/features/wei/hooks/queries/useReviewValidations";
 import ValidationCard from "@/features/wei/components/ValidationCard";
+import { reviewFiltersFromParams, reviewFiltersToParams, type ReviewQueueFilters } from "@/features/wei/libs/validation";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Button from "@/shared/components/ui/Button";
 import Error from "@/shared/components/ui/Error";
@@ -29,13 +31,19 @@ export default function Validation() {
     document.title = "Validations | ISATI";
   }, []);
 
-  const [ status, setStatus ] = useState<ReviewStatusFilter>("pending");
-  const [ teamId, setTeamId ] = useState("");
-  const [ order, setOrder ] = useState<"asc" | "desc">("desc");
+  const [ searchParams, setSearchParams ] = useSearchParams();
+  const filters = reviewFiltersFromParams(searchParams);
+  const { status, teamId, order } = filters;
 
   const currentWei = useCurrentWei();
   const teams = useTeamScores(currentWei.data?.id);
-  const validations = useReviewValidations(currentWei.data?.id, { status, teamId, order });
+  const validations = useReviewValidations(currentWei.data?.id, filters);
+
+  const search = reviewFiltersToParams(filters).toString();
+
+  function update(changes: Partial<ReviewQueueFilters>) {
+    setSearchParams(reviewFiltersToParams({ ...filters, ...changes }), { replace: true });
+  }
 
   const statusLabel = STATUS_FILTERS.find((filter) => filter.value === status)?.label ?? "Toutes";
   const teamLabel = teams.data?.find((team) => team.id === teamId)?.name ?? "Toutes les équipes";
@@ -47,7 +55,7 @@ export default function Validation() {
       <h1 className="text-xl font-semibold sm:text-2xl">Validations</h1>
 
       <div className="flex flex-row flex-wrap items-center gap-3">
-        <Listbox value={status} onChange={setStatus}>
+        <Listbox value={status} onChange={(value: ReviewStatusFilter) => update({ status: value })}>
           <div className="relative">
             <StyledListboxButton size="small" className="w-44">
               <span>{statusLabel}</span>
@@ -63,7 +71,7 @@ export default function Validation() {
           </div>
         </Listbox>
 
-        <Listbox value={teamId} onChange={setTeamId}>
+        <Listbox value={teamId} onChange={(value: string) => update({ teamId: value })}>
           <div className="relative">
             <StyledListboxButton size="small" className="w-56">
               <span className="truncate">{teamLabel}</span>
@@ -82,7 +90,7 @@ export default function Validation() {
 
         <Button
           type="button"
-          onClick={() => setOrder(order === "desc" ? "asc" : "desc")}
+          onClick={() => update({ order: order === "desc" ? "asc" : "desc" })}
           variant="secondary"
           size="small"
         >
@@ -110,7 +118,7 @@ export default function Validation() {
       {validations.data && validations.data.length > 0 && (
         <div className="flex flex-col gap-3">
           {validations.data.map((validation) => (
-            <ValidationCard key={validation.id} validation={validation} />
+            <ValidationCard key={validation.id} validation={validation} search={search} />
           ))}
         </div>
       )}

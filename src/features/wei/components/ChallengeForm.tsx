@@ -35,6 +35,7 @@ import cn from "@/shared/utils/cn";
 
 const DEFAULT_COLOR = "#d82b2b";
 const HEX_PATTERN = /^#[0-9a-fA-F]{6}$/;
+const PROOF_COUNT_OPTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface ChallengeFormProps {
   challenge?: ChallengeWithRelations
@@ -49,6 +50,7 @@ type ChallengeFields = {
   difficulty: ChallengesDifficultyOptions | "",
   points: number,
   proof_type: ChallengesProofTypeOptions[],
+  proof_count: number,
   category: string[],
   location: string | null,
   start_date: string,
@@ -76,6 +78,7 @@ export default function ChallengeForm({ challenge }: ChallengeFormProps) {
       difficulty: challenge?.difficulty ?? "",
       points: challenge?.points ?? 0,
       proof_type: challenge?.proof_type ?? [],
+      proof_count: challenge?.proof_count || 1,
       category: challenge?.expand?.category?.map((category) => category.id) ?? [],
       location: challenge?.expand?.location?.id ?? null,
       start_date: toDateTimeInput(challenge?.start_date),
@@ -88,6 +91,8 @@ export default function ChallengeForm({ challenge }: ChallengeFormProps) {
   const mutation = challenge ? updateChallenge : createChallenge;
   const isBusy = createChallenge.isPending || updateChallenge.isPending || deleteChallenge.isPending;
   const color = watch("color");
+  const proofTypes = watch("proof_type");
+  const hasFileProof = proofTypes.includes("image") || proofTypes.includes("video");
   const currentImageUrl = challenge?.image ? pb.files.getURL(challenge, challenge.image) : undefined;
 
   function onSubmit(fields: ChallengeFields) {
@@ -100,6 +105,7 @@ export default function ChallengeForm({ challenge }: ChallengeFormProps) {
       difficulty: fields.difficulty || undefined,
       points: fields.points,
       proof_type: fields.proof_type,
+      proof_count: hasFileProof ? fields.proof_count : 1,
       category: fields.category,
       location: fields.location ?? "",
       start_date: fromDateTimeInput(fields.start_date),
@@ -322,6 +328,37 @@ export default function ChallengeForm({ challenge }: ChallengeFormProps) {
 
             <Error message={errors.proof_type?.message} />
           </div>
+
+          {/* Nombre de preuves */}
+          {hasFileProof && (
+            <div className="flex flex-col gap-1">
+              <label className="text-sm font-medium">Nombre de preuves</label>
+              <Controller
+                control={control}
+                name="proof_count"
+                render={({ field }) => (
+                  <Listbox value={field.value} onChange={field.onChange}>
+                    <StyledListboxButton>
+                      <span>{field.value > 1 ? `${field.value} fichiers` : "1 fichier"}</span>
+                      <ChevronDown aria-hidden="true" className="h-4 w-4 shrink-0" />
+                    </StyledListboxButton>
+                    <StyledListboxOptions>
+                      {PROOF_COUNT_OPTIONS.map((count) => (
+                        <StyledListboxOption key={count} value={count}>
+                          {count > 1 ? `${count} fichiers` : "1 fichier"}
+                        </StyledListboxOption>
+                      ))}
+                    </StyledListboxOptions>
+                  </Listbox>
+                )}
+              />
+
+              <p className="text-xs text-muted-foreground">
+                Nombre maximum de fichiers par soumission.
+              </p>
+              <Error message={getFieldError(mutation.error, "proof_count")} />
+            </div>
+          )}
 
           {/* Catégories */}
           <div className="flex flex-col gap-1">

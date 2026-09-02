@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import useReviewValidation from "@/features/wei/hooks/mutations/useReviewValidation";
 import type { ValidationsStatusOptions } from "@/shared/types/pocketbase-types";
@@ -25,6 +25,7 @@ type ReviewFields = {
 export default function ValidationReviewForm({ validation, className }: ValidationReviewFormProps) {
 
   const navigate = useNavigate();
+  const location = useLocation();
   const review = useReviewValidation();
 
   const basePoints = validation.expand?.challenge?.points ?? 0;
@@ -160,7 +161,7 @@ export default function ValidationReviewForm({ validation, className }: Validati
           <Error message={getFirstErrorMessage(review.error)} />
 
           <div className="flex flex-row flex-wrap items-center justify-end gap-2">
-            <Button type="button" onClick={() => navigate("/wei/validation")} variant="ghost">
+            <Button type="button" onClick={() => navigate(`/wei/validation${location.search}`)} variant="ghost">
               Annuler
             </Button>
             <Button type="submit" variant={status === "refused" ? "destructive" : "accent"} disabled={isBusy}>

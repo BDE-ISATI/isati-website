@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { darken } from "color2k";
 import pb from "@/shared/lib/pocketbase";
 import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
+import proofFiles, { proofThumbUrl } from "@/features/wei/libs/proof";
+import ProofLightbox from "@/features/wei/components/ProofLightbox";
 import { formatRelative, parsePbDate } from "@/shared/lib/dates";
 import cn from "@/shared/utils/cn";
 
@@ -21,9 +24,10 @@ export default function ValidationTile({ validation, showChallenge, authorLink, 
   const challenge = validation.expand?.challenge;
   const date = parsePbDate(validation.reviewed_at || validation.submitted_at);
 
-  const fileURL = validation.proof_file ? pb.files.getURL(validation, validation.proof_file) : undefined;
+  const proofs = proofFiles(validation);
   const avatarURL = user?.avatar ? pb.files.getURL(user, user.avatar, { thumb: "100x100" }) : undefined;
   const when = !date ? "-" : now === undefined ? dateFormat.format(date) : formatRelative(date, now);
+  const [ isOpen, setIsOpen ] = useState<boolean>(false);
 
   const author = (
     <>
@@ -41,12 +45,23 @@ export default function ValidationTile({ validation, showChallenge, authorLink, 
 
   return (
     <article className={cn("relative aspect-[9/16] overflow-hidden rounded-md border border-border bg-muted", className)}>
-      {fileURL ? (
-        <a href={fileURL} target="_blank" rel="noreferrer" aria-label="Voir la preuve en grand" className="absolute inset-0">
+      {proofs.length > 0 ? (
+        <button
+          type="button"
+          onClick={() => setIsOpen(true)}
+          aria-label={proofs.length > 1 ? `Voir les ${proofs.length} preuves` : "Voir la preuve en grand"}
+          className="absolute inset-0 cursor-pointer"
+        >
           <Proof validation={validation} />
-        </a>
+        </button>
       ) : (
         <Proof validation={validation} />
+      )}
+
+      {proofs.length > 1 && (
+        <span className="pointer-events-none absolute top-2 right-2 z-10 rounded-md bg-black/70 px-1.5 py-0.5 text-xs font-medium text-white">
+          +{proofs.length - 1}
+        </span>
       )}
 
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex flex-col items-start gap-1 p-2">
@@ -81,20 +96,27 @@ export default function ValidationTile({ validation, showChallenge, authorLink, 
           <div className="flex flex-row items-center gap-2">{author}</div>
         )}
       </div>
+
+      {proofs.length > 0 && (
+        <ProofLightbox validation={validation} open={isOpen} onClose={() => setIsOpen(false)} />
+      )}
     </article>
   );
 }
 
 function Proof({ validation }: { validation: ValidationWithRelations }) {
-  if (validation.proof_file) {
-    const fileURL = pb.files.getURL(validation, validation.proof_file);
-    const thumbURL = pb.files.getURL(validation, validation.proof_file, { thumb: "300x500" });
-    const isVideo = /\.(mp4|mov|webm|m4v)$/i.test(validation.proof_file);
+  const [ first ] = proofFiles(validation);
 
-    return isVideo ? (
-      <video src={fileURL} muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
+  if (first) {
+    return first.isVideo ? (
+      <video src={first.url} muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
     ) : (
-      <img src={thumbURL} alt="Preuve" className="absolute inset-0 h-full w-full object-cover" />
+      <img
+        src={proofThumbUrl(validation, first, "300x500")}
+        alt="Preuve"
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
     );
   }
 

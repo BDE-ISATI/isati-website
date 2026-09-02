@@ -5,7 +5,7 @@ import type { ClientResponseError } from "pocketbase";
 import type { Create, ValidationsResponse } from "@/shared/types/pocketbase-types";
 
 
-export type ValidationCreateData = Omit<Create<"validations">, "proof_file"> & { proof_file?: File | null }
+export type ValidationCreateData = Omit<Create<"validations">, "proof_file"> & { proof_file?: File[] }
 
 
 export default function useCreateValidation() {
@@ -20,6 +20,7 @@ export default function useCreateValidation() {
     onSuccess: (record) => {
       queryClient.invalidateQueries({ queryKey: ["validation", "me", record.challenge] })
       queryClient.invalidateQueries({ queryKey: ["validations", "challenge", record.challenge] })
+      queryClient.invalidateQueries({ queryKey: ["validations", "user"] })
       navigate(`/wei/challenge/${record.challenge}`)
     }
   })

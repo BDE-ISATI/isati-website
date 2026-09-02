@@ -170,6 +170,7 @@ export type ChallengesRecord = {
 	max_validations?: number
 	phase?: ChallengesPhaseOptions
 	points?: number
+	proof_count?: number
 	proof_type?: ChallengesProofTypeOptions[]
 	scope?: ChallengesScopeOptions
 	start_date?: IsoDateString

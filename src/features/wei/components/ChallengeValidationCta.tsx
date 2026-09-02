@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import pb from "@/shared/lib/pocketbase";
 import type { ChallengeWithRelations, ParticipationWithTeam, ValidationWithRelations } from "@/shared/types/sharedTypes";
+import proofFiles, { proofThumbUrl } from "@/features/wei/libs/proof";
 import challengeWindow from "@/features/wei/libs/challenge";
 import { parsePbDate } from "@/shared/lib/dates";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
@@ -43,9 +43,8 @@ export default function ChallengeValidationCta({ challenge, validation, particip
 
   if (validation && validation.status !== "refused") {
     const date = parsePbDate(validation.submitted_at);
-    const fileURL = validation.proof_file ? pb.files.getURL(validation, validation.proof_file) : undefined;
-    const thumbURL = validation.proof_file ? pb.files.getURL(validation, validation.proof_file, { thumb: "200x200" }) : undefined;
-    const isVideo = !!validation.proof_file && /\.(mp4|mov|webm|m4v)$/i.test(validation.proof_file);
+    const proofs = proofFiles(validation);
+    const [ first ] = proofs;
 
     return (
       <section
@@ -54,12 +53,25 @@ export default function ChallengeValidationCta({ challenge, validation, particip
           className,
         )}
       >
-        {fileURL ? (
-          isVideo ? (
-            <video src={fileURL} muted playsInline preload="metadata" className="h-20 w-20 shrink-0 rounded-md border border-border object-cover" />
-          ) : (
-            <img src={thumbURL} alt="Preuve envoyée" className="h-20 w-20 shrink-0 rounded-md border border-border object-cover" />
-          )
+        {first ? (
+          <span className="relative h-20 w-20 shrink-0">
+            {first.isVideo ? (
+              <video src={first.url} muted playsInline preload="metadata" className="h-20 w-20 rounded-md border border-border object-cover" />
+            ) : (
+              <img
+                src={proofThumbUrl(validation, first, "200x200")}
+                alt="Preuve envoyée"
+                loading="lazy"
+                className="h-20 w-20 rounded-md border border-border object-cover"
+              />
+            )}
+
+            {proofs.length > 1 && (
+              <span className="absolute -right-1 -bottom-1 rounded-md border border-border bg-card px-1 text-xs font-medium text-card-foreground">
+                {proofs.length}
+              </span>
+            )}
+          </span>
         ) : (
           <span aria-hidden="true" className="h-20 w-20 shrink-0 rounded-md border border-border bg-muted" />
         )}

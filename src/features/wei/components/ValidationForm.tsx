@@ -18,6 +18,8 @@ import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
 import StyledSwitch from "@/shared/components/ui/StyledSwitch";
 import cn from "@/shared/utils/cn";
 
+const MAX_TOTAL_UPLOAD_BYTES = 28_000_000;
+
 interface ValidationFormProps {
   challenge: ChallengeWithRelations
   participation?: ParticipationWithTeam | null
@@ -37,11 +39,12 @@ export default function ValidationForm({ challenge, participation }: ValidationF
   const createValidation = useCreateValidation();
 
   const proofTypes = challenge.proof_type ?? [];
+  const maxProofs = challenge.proof_count || 1;
   const [ proofType, setProofType ] = useState<ChallengesProofTypeOptions | undefined>(proofTypes[0]);
 
   const { control, register, handleSubmit, formState: { errors }, watch, setValue } = useForm<ValidationFields>({
     defaultValues: {
-      proof_file: null,
+      proof_file: [],
       proof_text: "",
       public: false,
       archived: false,
@@ -54,7 +57,9 @@ export default function ValidationForm({ challenge, participation }: ValidationF
   const isArchived = watch("archived");
   const isBusy = createValidation.isPending;
   const isSupported = !!proofType;
-  const hasProof = proofType === "link" ? proofText.trim().length > 0 : !!proofFile;
+  const hasProof = proofType === "link" ? proofText.trim().length > 0 : proofFile.length > 0;
+  const totalBytes = proofFile.reduce((total, file) => total + file.size, 0);
+  const isTooHeavy = totalBytes > MAX_TOTAL_UPLOAD_BYTES;
 
   function onSubmit(fields: ValidationFields) {
     createValidation.mutate({
@@ -87,7 +92,7 @@ export default function ValidationForm({ challenge, participation }: ValidationF
                   <Button
                     key={type}
                     type="button"
-                    onClick={() => setProofType(type)}
+                    onClick={() => { setProofType(type); setValue("proof_file", []); setValue("proof_text", ""); }}
                     variant={proofType === type ? "accent" : "secondary"}
                     size="small"
                   >
@@ -107,16 +112,24 @@ export default function ValidationForm({ challenge, participation }: ValidationF
           {(proofType === "image" || proofType === "video") && (
             <div className="flex flex-col gap-1">
               <span className="text-sm font-medium">Preuve</span>
+              <p className="text-xs text-muted-foreground">
+                {maxProofs > 1
+                  ? `Tu peux joindre jusqu'à ${maxProofs} fichiers pour ce défi.`
+                  : "Un seul fichier est attendu pour ce défi."}
+              </p>
               <Controller
                 control={control}
                 name="proof_file"
                 render={({ field }) => (
                   proofType === "video"
-                    ? <ProofVideoField value={field.value} onChange={field.onChange} />
-                    : <ProofImageField value={field.value} onChange={field.onChange} />
+                    ? <ProofVideoField value={field.value} onChange={field.onChange} max={maxProofs} />
+                    : <ProofImageField value={field.value} onChange={field.onChange} max={maxProofs} />
                 )}
               />
 
+              {isTooHeavy && (
+                <Error message={`Tes preuves pèsent ${(totalBytes / 1_000_000).toFixed(1)} Mo au total, c'est trop lourd pour un seul envoi. Retire un fichier avant de valider.`} />
+              )}
               <Error message={getFieldError(createValidation.error, "proof_file")} />
             </div>
           )}
@@ -177,7 +190,7 @@ export default function ValidationForm({ challenge, participation }: ValidationF
             <Button type="button" onClick={() => navigate(`/wei/challenge/${challenge.id}`)} variant="ghost">
               Annuler
             </Button>
-            <Button type="submit" variant="accent" disabled={isBusy || !isSupported || !hasProof}>
+            <Button type="submit" variant="accent" disabled={isBusy || !isSupported || !hasProof || isTooHeavy}>
               Envoyer la preuve
             </Button>
           </div>
