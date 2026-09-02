@@ -19,6 +19,7 @@ export default function useCreateValidation() {
     },
     onSuccess: (record) => {
       queryClient.invalidateQueries({ queryKey: ["validation", "me", record.challenge] })
+      queryClient.invalidateQueries({ queryKey: ["validation", "team", record.challenge] })
       queryClient.invalidateQueries({ queryKey: ["validations", "challenge", record.challenge] })
       queryClient.invalidateQueries({ queryKey: ["validations", "user"] })
       navigate(`/wei/challenge/${record.challenge}`)

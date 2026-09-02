@@ -73,6 +73,7 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
   validations: {
     insufficient_permissions: "Vous n'avez pas le droit d'effectuer cette action.",
     already_submitted: "Vous avez déjà envoyé une preuve pour ce défi.",
+    team_already_submitted: "Une preuve a déjà été envoyée par ton équipe pour ce défi.",
     challenge_closed: "Ce défi n'est pas ouvert aux demandes de validation.",
     challenge_not_found: "Ce défi n'existe plus.",
     not_assigned: "Vous devez être inscrit au WEI et affecté à une équipe.",

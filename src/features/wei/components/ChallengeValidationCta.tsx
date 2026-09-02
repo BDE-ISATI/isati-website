@@ -9,11 +9,13 @@ import Check from "@/assets/icons/check.svg?react";
 import CircleAlert from "@/assets/icons/circle-alert.svg?react";
 import Loader from "@/assets/icons/loader.svg?react";
 import useNow from "@/shared/hooks/useNow";
+import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import cn from "@/shared/utils/cn";
 
 interface ChallengeValidationCtaProps {
   challenge: ChallengeWithRelations
   validation?: ValidationWithRelations | null
+  teamValidation?: ValidationWithRelations | null
   participation?: ParticipationWithTeam | null
   className?: string
 }
@@ -22,18 +24,28 @@ const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "lo
 
 const CARD = "flex w-full flex-col items-center justify-center gap-2 rounded-md border-2 p-6 text-center shadow-sm";
 
-export default function ChallengeValidationCta({ challenge, validation, participation, className }: ChallengeValidationCtaProps) {
+export default function ChallengeValidationCta({ challenge, validation, teamValidation, participation, className }: ChallengeValidationCtaProps) {
   const now = useNow(30_000);
+  const userId = useAuthStore((s) => s.user?.id);
   const { notStarted, ended } = challengeWindow(challenge, now);
 
-  if (validation?.status === "accepted") {
-    const date = parsePbDate(validation.reviewed_at);
+  const isTeamScope = challenge.scope === "team";
+  const current = isTeamScope ? teamValidation : validation;
+  const author = isTeamScope && current?.user && current.user !== userId
+    ? current.expand?.user?.username || "Participant inconnu"
+    : null;
+
+  if (current?.status === "accepted") {
+    const date = parsePbDate(current.reviewed_at);
 
     return (
       <section className={cn(CARD, "border-status-success bg-card", className)}>
         <Check aria-hidden="true" className="h-8 w-8 text-status-success" />
         <p className="font-medium">Défi validé</p>
-        <p className="text-2xl font-bold">{validation.points_awarded} pts</p>
+        <p className="text-2xl font-bold">{current.points_awarded} pts</p>
+        {author && (
+          <p className="text-sm text-muted-foreground">Envoyée par {author}</p>
+        )}
         {date && (
           <p className="text-sm text-muted-foreground">Validée le {dateFormat.format(date)}</p>
         )}
@@ -41,9 +53,9 @@ export default function ChallengeValidationCta({ challenge, validation, particip
     );
   }
 
-  if (validation && validation.status !== "refused") {
-    const date = parsePbDate(validation.submitted_at);
-    const proofs = proofFiles(validation);
+  if (current && current.status !== "refused") {
+    const date = parsePbDate(current.submitted_at);
+    const proofs = proofFiles(current);
     const [ first ] = proofs;
 
     return (
@@ -59,7 +71,7 @@ export default function ChallengeValidationCta({ challenge, validation, particip
               <video src={first.url} muted playsInline preload="metadata" className="h-20 w-20 rounded-md border border-border object-cover" />
             ) : (
               <img
-                src={proofThumbUrl(validation, first, "200x200")}
+                src={proofThumbUrl(current, first, "200x200")}
                 alt="Preuve envoyée"
                 loading="lazy"
                 className="h-20 w-20 rounded-md border border-border object-cover"
@@ -78,11 +90,14 @@ export default function ChallengeValidationCta({ challenge, validation, particip
 
         <div className="flex min-w-0 flex-1 flex-col text-left">
           <p className="font-medium">Demande en attente de validation</p>
+          {author && (
+            <p className="text-sm text-muted-foreground">Envoyée par {author}</p>
+          )}
           {date && (
             <p className="text-sm text-muted-foreground">Envoyée le {dateFormat.format(date)}</p>
           )}
-          {validation.proof_text && (
-            <p className="truncate text-sm text-muted-foreground">{validation.proof_text}</p>
+          {current.proof_text && (
+            <p className="truncate text-sm text-muted-foreground">{current.proof_text}</p>
           )}
         </div>
 
@@ -99,12 +114,13 @@ export default function ChallengeValidationCta({ challenge, validation, particip
     : !participation.team ? "Tu dois être affecté à une équipe pour envoyer une preuve."
     : null;
 
-  if (validation?.status === "refused") {
+  if (current?.status === "refused") {
     return (
       <section className={cn(CARD, "border-status-critical bg-card", className)}>
         <CircleAlert aria-hidden="true" className="h-8 w-8 text-status-critical" />
         <p className="font-medium">Preuve refusée</p>
-        {validation.reason && <p className="text-sm text-muted-foreground">{validation.reason}</p>}
+        {author && <p className="text-sm text-muted-foreground">Envoyée par {author}</p>}
+        {current.reason && <p className="text-sm text-muted-foreground">{current.reason}</p>}
         {blocked ? (
           <p className="text-sm text-muted-foreground">{blocked}</p>
         ) : (

@@ -5,6 +5,7 @@ import useChallenge from "@/features/wei/hooks/queries/useChallenge";
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
 import useMyParticipation from "@/features/wei/hooks/queries/useMyParticipation";
 import useMyValidation from "@/features/wei/hooks/queries/useMyValidation";
+import useTeamValidation from "@/features/wei/hooks/queries/useTeamValidation";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import ChallengeBanner from "@/features/wei/components/ChallengeBanner";
 import ChallengeValidations from "@/features/wei/components/ChallengeValidations";
@@ -25,6 +26,10 @@ export default function ChallengeDetail() {
   const currentWei = useCurrentWei();
   const participation = useMyParticipation(currentWei.data?.id);
   const validation = useMyValidation(challengeId);
+  const teamValidation = useTeamValidation(
+    challengeId,
+    challenge.data?.scope === "team" ? participation.data?.team : undefined,
+  );
   const canUpdate = useHasPermission("update", "challenges");
 
   useEffect(() => {
@@ -92,6 +97,7 @@ export default function ChallengeDetail() {
       <ChallengeValidationCta
         challenge={challenge.data}
         validation={validation.data}
+        teamValidation={teamValidation.data}
         participation={participation.data}
       />
 
