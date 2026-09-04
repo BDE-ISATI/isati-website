@@ -4,6 +4,7 @@ import proofFiles, { type ProofFile } from "@/features/wei/libs/proof";
 import Button from "@/shared/components/ui/Button";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 import cn from "@/shared/utils/cn";
+import { safeHref } from "@/shared/lib/validation";
 
 interface ProofCarouselProps {
   validation: ValidationWithRelations
@@ -16,6 +17,7 @@ export default function ProofCarousel({ validation, className }: ProofCarouselPr
   const [ index, setIndex ] = useState<number>(0);
 
   const current = Math.min(index, Math.max(0, proofs.length - 1));
+  const proofTextHref = safeHref(validation.proof_text);
 
   function go(step: number) {
     const next = current + step;
@@ -26,9 +28,13 @@ export default function ProofCarousel({ validation, className }: ProofCarouselPr
 
   if (proofs.length === 0) {
     if (validation.proof_text) {
+      if (!proofTextHref) {
+        return <p className={cn("w-fit break-all text-sm text-muted-foreground", className)}>{validation.proof_text}</p>;
+      }
+
       return (
         <a
-          href={validation.proof_text}
+          href={proofTextHref}
           target="_blank"
           rel="noreferrer"
           className={cn("w-fit break-all text-sm text-link underline", className)}
@@ -116,14 +122,18 @@ export default function ProofCarousel({ validation, className }: ProofCarouselPr
       )}
 
       {validation.proof_text && (
-        <a
-          href={validation.proof_text}
-          target="_blank"
-          rel="noreferrer"
-          className="w-fit break-all text-sm text-link underline"
-        >
-          {validation.proof_text}
-        </a>
+        proofTextHref ? (
+          <a
+            href={proofTextHref}
+            target="_blank"
+            rel="noreferrer"
+            className="w-fit break-all text-sm text-link underline"
+          >
+            {validation.proof_text}
+          </a>
+        ) : (
+          <p className="w-fit break-all text-sm text-muted-foreground">{validation.proof_text}</p>
+        )
       )}
     </div>
   );

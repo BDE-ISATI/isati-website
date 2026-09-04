@@ -10,3 +10,11 @@ export function isAllowedEmail(email: string): boolean {
   if (import.meta.env.VITE_ALLOW_TEST_EMAILS === "true" && TEST_EMAIL_REGEX.test(email)) return true;
   return false;
 }
+
+const SAFE_URL_REGEX = /^https?:\/\//i;
+
+export function safeHref(url: string | undefined | null): string | undefined {
+  if (!url) return undefined;
+  const trimmed = url.trim();
+  return SAFE_URL_REGEX.test(trimmed) ? trimmed : undefined;
+}

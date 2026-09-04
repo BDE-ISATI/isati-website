@@ -6,6 +6,7 @@ import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
 import proofFiles, { proofThumbUrl } from "@/features/wei/libs/proof";
 import ProofLightbox from "@/features/wei/components/ProofLightbox";
 import { formatRelative, parsePbDate } from "@/shared/lib/dates";
+import { safeHref } from "@/shared/lib/validation";
 import cn from "@/shared/utils/cn";
 
 interface ValidationTileProps {
@@ -121,9 +122,19 @@ function Proof({ validation }: { validation: ValidationWithRelations }) {
   }
 
   if (validation.proof_text) {
+    const href = safeHref(validation.proof_text);
+
+    if (!href) {
+      return (
+        <p className="absolute inset-0 flex items-center justify-center p-3 text-center text-xs break-all text-muted-foreground">
+          {validation.proof_text}
+        </p>
+      );
+    }
+
     return (
       <a
-        href={validation.proof_text}
+        href={href}
         target="_blank"
         rel="noreferrer"
         className="absolute inset-0 flex items-center justify-center p-3 text-center text-xs break-all text-link underline"

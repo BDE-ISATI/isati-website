@@ -11,7 +11,8 @@ export default function useIsUsernameUnique(input: string | undefined) {
   return useQuery<boolean, ClientResponseError>({
     queryKey: ['user-search', input],
     queryFn: async () => { 
-      const requestResult = await pb.collection('users').getList(1, 1, { filter: `username = "${input}"`, fields: 'id',})
+      const filter = pb.filter('username = {:username}', { username: input })
+      const requestResult = await pb.collection('users').getList(1, 1, { filter: filter, fields: 'id',})
       if (!requestResult) throw Error("Error")
       return requestResult.totalItems === 0;
     },

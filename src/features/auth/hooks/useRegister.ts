@@ -4,22 +4,21 @@ import pb from "@/shared/lib/pocketbase";
 
 
 import useVerification from '@/features/auth/hooks/useVerification';
-import type { RegisterFields } from '@/features/auth/authTypes';
-import type { ClientResponseError, RecordModel } from 'pocketbase';
-import { useNavigate } from 'react-router'; 
+import type { RegisterFields, RegisterResponse } from '@/features/auth/authTypes';
+import type { ClientResponseError } from 'pocketbase';
+import { useNavigate } from 'react-router';
 
 export default function useRegister() {
   const navigate = useNavigate();
   const verification = useVerification()
 
-  return useMutation<RecordModel, ClientResponseError, RegisterFields>({
+  return useMutation<RegisterResponse, ClientResponseError, RegisterFields>({
     mutationFn: async (data: RegisterFields) => {
 
-      const registerData = {
-        account_type: "eleve",
-        ...data
-      }
-      return await pb.collection('users').create(registerData)
+      return await pb.send<RegisterResponse>('/api/isati/register', {
+        method: 'POST',
+        body: data,
+      })
 
     },
     onSuccess: async (_record, variables) =>  {
