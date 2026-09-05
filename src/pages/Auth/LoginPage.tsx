@@ -13,7 +13,7 @@ import cn from "@/shared/utils/cn";
 
 import PasswordInput from "@/shared/components/ui/PasswordInput";
 import { getFirstErrorMessage, hasErrorCode } from "@/shared/lib/pocketbase-errors";
-import VerificationBanner from "@/shared/components/layout/VerificationBanner";
+import VerificationBanner from "@/components/layout/VerificationBanner";
 import Error from "@/shared/components/ui/Error";
 
 import Logo from "@/assets/logos/isati.svg?react";

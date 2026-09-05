@@ -16,7 +16,7 @@ import StyledListboxOptions from "@/shared/components/ui/StyledListboxOptions";
 import StyledListboxOption from "@/shared/components/ui/StyledListboxOption";
 import ChevronDown from "@/assets/icons/chevron-down.svg?react";
 import ChevronUp from "@/assets/icons/chevron-up.svg?react";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 const STATUS_FILTERS: { value: ReviewStatusFilter, label: string }[] = [
   { value: "pending", label: "En attente" },

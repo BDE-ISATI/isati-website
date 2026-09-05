@@ -2,7 +2,7 @@ import { useEffect, type CSSProperties } from "react";
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
 import WeiEtape from "@/features/wei/components/WeiEtape";
 import WeiBackground from "@/features/wei/components/WeiBackground";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
 import Error from "@/shared/components/ui/Error";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import ChallengeForm from "@/features/wei/components/ChallengeForm";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 export default function ChallengeNew() {
 

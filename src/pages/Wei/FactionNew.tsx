@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import FactionForm from "@/features/wei/components/FactionForm";
+import PageNav from "@/components/layout/PageNav";
 import NotFound from "@/pages/NotFound";
 
 export default function FactionNew() {
@@ -15,6 +16,8 @@ export default function FactionNew() {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
+      <PageNav back={`/wei/panel/${weiId}`} backLabel="Gestion du WEI" />
+
       <h1 className="text-xl font-semibold sm:text-2xl">Nouvelle faction</h1>
 
       <FactionForm weiId={weiId} />
