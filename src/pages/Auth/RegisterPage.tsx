@@ -1,0 +1,180 @@
+import { useEffect } from "react";
+import { NavLink, Navigate } from "react-router";
+import { useForm } from "react-hook-form";
+
+import useRegister from "@/features/auth/hooks/useRegister";
+import { useAuthStore } from "@/features/auth/store/useAuthStore";
+import type { RegisterFields } from "@/features/auth/authTypes";
+import { getFieldError, getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
+import { isAllowedEmail } from "@/shared/lib/validation";
+import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
+import Button from "@/shared/components/ui/Button";
+import Input from "@/shared/components/ui/Input";
+import cn from "@/shared/utils/cn";
+
+import PasswordInput from "@/shared/components/ui/PasswordInput";
+import UsernameInput from "@/shared/components/ui/UsernameInput";
+import useDebounce from "@/features/profile/hooks/useDebounce";
+import useIsUsernameUnique from "@/features/profile/hooks/useIsUsernameUnique";
+import Error from "@/shared/components/ui/Error";
+
+import Logo from "@/assets/logos/isati.svg?react";
+
+function Register() {
+  
+  useEffect(() => {
+    document.title = "Inscription | ISATI";
+  }, []);
+
+  const user = useAuthStore((s) => s.user);
+  
+  // Hook formulaire + inscription
+  const registerMutation = useRegister();
+  const { register, handleSubmit, formState: { errors }, getValues, watch } = useForm<RegisterFields>();
+
+  // Username
+  const username = watch("username");
+  const debouncedUsername = useDebounce(username, 300);
+  const usernameQuery = useIsUsernameUnique(debouncedUsername);
+  const isUnique = usernameQuery.data;
+
+  const showStatus = username?.length >= 2;
+  const isChecking = usernameQuery.isLoading || username !== debouncedUsername;
+
+  const usernameServerError = getFieldError(registerMutation.error, "username");
+  const emailServerError = getFieldError(registerMutation.error, "email");
+  const passwordServerError = getFieldError(registerMutation.error, "password");
+  const passwordConfirmServerError = getFieldError(registerMutation.error, "passwordConfirm");
+
+
+  if (user) return <Navigate to="/" replace/>;
+
+  return (
+    <>
+  
+      <Logo className="mb-8 h-16 w-auto text-accent"/>
+
+      <div className="w-full max-w-sm">
+        <h2 className="mb-6 text-xl font-semibold sm:text-2xl">Inscription</h2>
+        <div className="relative">
+          <div inert={registerMutation.isPending}
+            className={cn(
+              "transition duration-200",
+              registerMutation.isPending && "blur-sm pointer-events-none select-none",
+            )}
+          >
+            <form noValidate onSubmit={handleSubmit((data) => registerMutation.mutate(data))} className="flex flex-col gap-4">
+              {/* Username */}
+              <div className="flex flex-col gap-1">
+                <label htmlFor="username" className="text-sm font-medium">
+                  Nom d'utilisateur
+                </label>
+                <UsernameInput
+                  showStatus={showStatus}
+                  isChecking={isChecking}
+                  isUnique={isUnique}
+                  validationError={errors.username?.message}
+                  submitError={usernameServerError}
+                  id="username"
+                  type="text"
+                  {...register("username", {
+                    required: "Ce champ est requis.",
+                  })}
+                />
+
+              </div>
+
+
+              {/* Email */}
+              <div className="flex flex-col gap-1">
+                <label htmlFor="email" className="text-sm font-medium">
+                  Email
+                </label>
+                <Input
+                  id="email"
+                  type="email"
+                  variant={
+                    errors.email || emailServerError ? "error" : "normal"
+                  }
+                  {...register("email", {
+                    required: "Ce champ est requis.",
+                    validate: (value) => isAllowedEmail(value) || "Utilisez votre adresse universitaire.", })}
+                />
+
+                <Error message={errors.email?.message}/>
+                <Error message={emailServerError}/>
+           
+              </div>
+
+              {/* Mot de passe */}
+              <div className="flex flex-col gap-1">
+                <label htmlFor="password" className="text-sm font-medium">
+                  Mot de passe
+                </label>
+
+                <PasswordInput
+                  id="password"
+                  autoComplete="new-password"
+                  variant={errors.password || passwordServerError ? "error" : "normal"}
+                  {...register("password", {
+                    required: "Ce champ est requis.",
+                    minLength: { value: 4, message: "4 caractères minimum." },
+                  })}
+                />
+
+                <Error message={errors.password?.message}/>
+                <Error message={passwordServerError}/>
+
+              </div>
+
+              {/* Confirmation */}
+              <div className="flex flex-col gap-1">
+                <label htmlFor="passwordConfirm" className="text-sm font-medium">
+                  Confirmer le mot de passe
+                </label>
+
+                <PasswordInput
+                  id="passwordConfirm"
+                  autoComplete="new-password"
+                  variant={errors.passwordConfirm || passwordConfirmServerError ? "error" : "normal"}
+                  {...register("passwordConfirm", {
+                    required: "Veuillez confirmer le mot de passe.",
+                    validate: (value) => value === getValues("password") || "Les mots de passe ne correspondent pas.",
+                  })}
+                />
+
+                <Error message={errors.passwordConfirm?.message}/>
+                <Error message={passwordConfirmServerError}/>
+
+              </div>
+
+              <Button type="submit" disabled={registerMutation.isPending || isChecking || !isUnique } className="w-full">
+                {registerMutation.isPending ? "Inscription…" : "S'inscrire"}
+              </Button>
+
+              <Error message={getFirstErrorMessage(registerMutation.error)}/>
+
+              <p className="text-xs text-muted-foreground">
+                En créant un compte, vous prenez connaissance de notre{" "}
+                <NavLink to="/confidentialite" className="font-medium text-link hover:underline">
+                  politique de confidentialité
+                </NavLink>.
+              </p>
+
+            </form>
+          </div>
+          {registerMutation.isPending && <LoadingOverlay />}
+        </div>
+
+        <p className="mt-6 text-sm text-muted-foreground">
+          Déjà un compte ?{" "}
+          <NavLink to="/login" className="font-medium text-link hover:underline" >
+            Se connecter
+          </NavLink>
+        </p>
+      </div>
+    </>
+  );
+}
+
+export default Register;

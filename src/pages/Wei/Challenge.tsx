@@ -1,0 +1,54 @@
+import useChallenges from "@/features/wei/hooks/queries/useChallenges";
+import useHasPermission from "@/features/roles/hooks/useHasPermission";
+import ChallengeCard from "@/features/wei/components/ChallengeCard";
+import AddChallengeCard from "@/features/wei/components/AddChallengeCard";
+import ButtonLink from "@/shared/components/ui/ButtonLink";
+import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
+import Error from "@/shared/components/ui/Error";
+import PenIcon from "@/assets/icons/pen.svg?react";
+import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
+import PageNav from "@/shared/components/layout/PageNav";
+
+export default function Challenge() {
+
+  const currentWei = useCurrentWei()
+  const challenges = useChallenges(currentWei.data?.id)
+  const canCreate = useHasPermission("create", "challenges")
+  const canUpdate = useHasPermission("update", "challenges")
+
+
+  return (
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
+      <PageNav back="/wei" backLabel="WEI" />
+
+      <h1 className="text-xl font-semibold sm:text-2xl">Défis</h1>
+
+      <Error message={getFirstErrorMessage(challenges.error)} />
+
+      {!canCreate && challenges.data?.length === 0 && (
+        <p className="text-sm text-muted-foreground">Aucun défi pour le moment.</p>
+      )}
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {canCreate && <AddChallengeCard />}
+
+        {challenges.data?.map((challenge) => (
+          <div key={challenge.id} className="relative">
+            <ChallengeCard challenge={challenge} />
+            {canUpdate && (
+              <ButtonLink
+                to={`/wei/challenge/${challenge.id}/edit`}
+                aria-label={`Modifier ${challenge.title || "ce défi"}`}
+                variant="secondary"
+                size="icon"
+                className="absolute top-12 right-2 shadow-sm"
+              >
+                <PenIcon className="h-4 w-4" />
+              </ButtonLink>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

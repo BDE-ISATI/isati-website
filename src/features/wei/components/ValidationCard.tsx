@@ -1,0 +1,119 @@
+import { Link } from "react-router";
+import { darken } from "color2k";
+import pb from "@/shared/lib/pocketbase";
+import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
+import proofFiles, { proofThumbUrl } from "@/features/wei/libs/proof";
+import { parsePbDate } from "@/shared/lib/dates";
+import { VALIDATION_STATUS_CLASSES, VALIDATION_STATUS_LABELS } from "@/features/wei/libs/validation";
+import ChevronRight from "@/assets/icons/chevron-right.svg?react";
+import cn from "@/shared/utils/cn";
+
+interface ValidationCardProps {
+  validation: ValidationWithRelations
+  search?: string
+  className?: string
+}
+
+const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+
+export default function ValidationCard({ validation, search, className }: ValidationCardProps) {
+
+  const team = validation.expand?.team;
+  const user = validation.expand?.user;
+  const challenge = validation.expand?.challenge;
+
+  const color = team?.color || "var(--color-border)";
+  const date = parsePbDate(validation.submitted_at);
+  const status = validation.status || "pending";
+  const avatarURL = user?.avatar ? pb.files.getURL(user, user.avatar, { thumb: "100x100" }) : undefined;
+
+  return (
+    <Link
+      to={`/wei/validation/${validation.id}${search ? `?${search}` : ""}`}
+      aria-label={`Traiter la demande de ${user?.username || "un participant"}`}
+      className={cn("block rounded-md", className)}
+    >
+      <article
+        style={{ borderColor: team?.color ? darken(team.color, 0.09) : undefined }}
+        className="flex flex-row items-center gap-4 rounded-md border-2 border-border bg-card p-4 text-card-foreground shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-lg motion-reduce:transition-none sm:p-5"
+      >
+
+        <Thumbnail validation={validation} color={color} />
+
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <h2 className="truncate font-semibold">{challenge?.title || "Défi inconnu"}</h2>
+
+          <span className="flex min-w-0 flex-row items-center gap-2">
+            {avatarURL && (
+              <img src={avatarURL} alt="" className="h-6 w-6 shrink-0 rounded-full border border-border object-cover" />
+            )}
+            <span className="truncate text-sm text-muted-foreground">
+              {user?.username || "Participant inconnu"}
+            </span>
+            {team?.name && (
+              <span
+                style={{ backgroundColor: color, borderColor: team.color ? darken(team.color, 0.09) : undefined }}
+                className="inline-flex shrink-0 items-center rounded-md border-2 px-2 py-0.5 text-xs font-medium text-white"
+              >
+                {team.name}
+              </span>
+            )}
+          </span>
+
+          <span className="text-xs text-muted-foreground">{date ? dateFormat.format(date) : "-"}</span>
+        </div>
+
+        <span className={cn("shrink-0 rounded-md border px-2 py-0.5 text-xs font-medium", VALIDATION_STATUS_CLASSES[status])}>
+          {VALIDATION_STATUS_LABELS[status]}
+        </span>
+
+        <ChevronRight aria-hidden="true" className="h-6 w-6 shrink-0 text-muted-foreground" />
+      </article>
+    </Link>
+  );
+}
+
+function Thumbnail({ validation, color }: { validation: ValidationWithRelations, color: string }) {
+
+  const proofs = proofFiles(validation);
+  const [ first ] = proofs;
+
+  if (first) {
+    return (
+      <span className="relative h-14 w-14 shrink-0">
+        {first.isVideo ? (
+          <video
+            src={first.url}
+            muted
+            playsInline
+            preload="metadata"
+            className="h-14 w-14 rounded-md border border-border object-cover"
+          />
+        ) : (
+          <img
+            src={proofThumbUrl(validation, first, "300x300")}
+            alt=""
+            loading="lazy"
+            className="h-14 w-14 rounded-md border border-border object-cover"
+          />
+        )}
+
+        {proofs.length > 1 && (
+          <span className="absolute -right-1 -bottom-1 rounded-md border border-border bg-card px-1 text-xs font-medium text-card-foreground">
+            {proofs.length}
+          </span>
+        )}
+      </span>
+    );
+  }
+
+  return (
+    <span
+      aria-hidden="true"
+      style={{ backgroundColor: color }}
+      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md text-xs font-medium text-white"
+    >
+      Lien
+    </span>
+  );
+}

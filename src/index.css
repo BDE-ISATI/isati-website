@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+
+@theme {
+  /* Couleurs sémantiques */
+  --color-background: #ffffff;           /* fond de page */
+  --color-foreground: #1a1a1a;           /* texte principal */
+
+  --color-card: #ffffff;                 /* fond des cartes */
+  --color-card-foreground: #1a1a1a;
+
+  --color-primary: #1a1a1a;              /* couleur d'action principale (neutre) */
+  --color-primary-foreground: #ffffff;   /* texte sur fond primary */
+
+  --color-secondary: #f5f5f5;
+  --color-secondary-foreground: #1a1a1a;
+
+  --color-muted: #f5f5f5;                /* éléments discrets / fonds légers */
+  --color-muted-foreground: #737373;     /* texte secondaire, moins contrasté */
+
+  --color-accent: #d82b2b;               /* mise en avant de marque (rouge) */
+  --color-accent-foreground: #ffffff;
+
+  --color-destructive: #b52020;          /* erreurs, suppression */
+  --color-destructive-foreground: #ffffff;
+
+  --color-warning: #fad800 ;              /* bannières d'avertissement (ex: compte non vérifié) */
+  --color-warning-foreground: #1a1a1a;
+
+  --color-border: #e5e5e5;               /* bordures par défaut */
+  --color-input: #e5e5e5;                /* bordure des champs de formulaire */
+  --color-ring: #d82b2b;                 /* contour de focus (accessibilité) */
+
+  /* Statuts (Couleurs repris de : https://www.astrouxds.com/patterns/status-system/) */
+  --color-status-critical: #ff2a04;      /* Critical, severe, alert, form error, emergency, urgent */
+  --color-status-error: #ffb302;         /* Serious, distress, error, needs attention */
+  --color-status-warning: #fad800;       /* Caution, warning, unstable, unsatisfactory, watch */
+  --color-status-success: #56f000;       /* Normal, on, ok, fine, go, satisfactory */
+  --color-status-info: #64d9ff;          /* Standby, available, enabled */
+  --color-status-disabled: #7b8089;      /* Off, unavailable, disabled */
+
+  --color-link: #2563eb;                 /* liens texte cliquables */
+
+  
+
+
+
+  /* Palette */
+  --color-brand-50: #fef2f2;
+  --color-brand-100: #fde3e3;
+  --color-brand-200: #fdcbcb;
+  --color-brand-300: #faa7a7;
+  --color-brand-400: #f57474;
+  --color-brand-500: #eb4848;
+  --color-brand-600: #d82b2b; /*couleur principale*/
+  --color-brand-700: #b52020;
+  --color-brand-800: #961e1e;
+  --color-brand-900: #7d1f1f;
+
+
+  /* Typographie */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /*--font-display: "Montserrat"; */
+
+  /* Bordure */
+  --radius: 1rem;
+
+}
+
+@layer base {
+  html {
+    font-size: 15px;
+  }
+
+  @media (min-width: 40rem) {
+    html {
+      font-size: 16px;
+    }
+  }
+}
