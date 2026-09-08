@@ -19,6 +19,7 @@ export const Collections = {
 	Clubs: "clubs",
 	Factions: "factions",
 	Locations: "locations",
+	NavLinks: "nav_links",
 	ParticipationScores: "participation_scores",
 	Participations: "participations",
 	Policies: "policies",
@@ -232,6 +233,15 @@ export type LocationsRecord = {
 	updated: IsoAutoDateString
 }
 
+export type NavLinksRecord = {
+	created: IsoAutoDateString
+	enabled?: boolean
+	id: string
+	label?: string
+	updated: IsoAutoDateString
+	url?: string
+}
+
 export const ParticipationScoresRoleOptions = {
 	"team_leader": "team_leader",
 	"student": "student",
@@ -328,6 +338,7 @@ export type TeamsRecord = {
 	description?: string
 	faction?: RecordIdString
 	id: string
+	image?: FileNameString
 	name?: string
 	updated: IsoAutoDateString
 	wei?: RecordIdString
@@ -427,6 +438,7 @@ export type ClubMemberResponse<Texpand = unknown> = Required<ClubMemberRecord> &
 export type ClubsResponse<Texpand = unknown> = Required<ClubsRecord> & BaseSystemFields<Texpand>
 export type FactionsResponse<Texpand = unknown> = Required<FactionsRecord> & BaseSystemFields<Texpand>
 export type LocationsResponse<Texpand = unknown> = Required<LocationsRecord> & BaseSystemFields<Texpand>
+export type NavLinksResponse<Texpand = unknown> = Required<NavLinksRecord> & BaseSystemFields<Texpand>
 export type ParticipationScoresResponse<Texpand = unknown> = Required<ParticipationScoresRecord> & BaseSystemFields<Texpand>
 export type ParticipationsResponse<Texpand = unknown> = Required<ParticipationsRecord> & BaseSystemFields<Texpand>
 export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
@@ -454,6 +466,7 @@ export type CollectionRecords = {
 	clubs: ClubsRecord
 	factions: FactionsRecord
 	locations: LocationsRecord
+	nav_links: NavLinksRecord
 	participation_scores: ParticipationScoresRecord
 	participations: ParticipationsRecord
 	policies: PoliciesRecord
@@ -480,6 +493,7 @@ export type CollectionResponses = {
 	clubs: ClubsResponse
 	factions: FactionsResponse
 	locations: LocationsResponse
+	nav_links: NavLinksResponse
 	participation_scores: ParticipationScoresResponse
 	participations: ParticipationsResponse
 	policies: PoliciesResponse

@@ -10,6 +10,7 @@ import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
 import useWeiImmersive from "@/features/wei/hooks/useWeiImmersive";
 import weiPhase from "@/features/wei/libs/phase";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
+import useEnabledNavLinks from "@/features/navLinks/hooks/queries/useEnabledNavLinks";
 
 import UserIcon from "@/assets/icons/user-round.svg?react"
 import SettingsIcon from "@/assets/icons/settings.svg?react"
@@ -27,6 +28,7 @@ export default function Navbar() {
 
   const isTransparent = useWeiImmersive();
   const canViewPanel = useHasPermission("view", "wei_panel");
+  const navLinks = useEnabledNavLinks();
 
   return (
     <nav
@@ -58,6 +60,18 @@ export default function Navbar() {
       )}
 
       <div className="flex items-center gap-2 sm:gap-4">
+        {navLinks.data?.map((navLink) => (
+          <a
+            key={navLink.id}
+            href={/^[a-z][a-z0-9+.-]*:\/\//i.test(navLink.url) ? navLink.url : `https://${navLink.url}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="hidden rounded-sm text-sm font-medium underline-offset-4 transition-opacity hover:underline hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-foreground sm:inline sm:text-base"
+          >
+            {navLink.label}
+          </a>
+        ))}
+
         {user ? (
           <Popover className="relative">
             <PopoverButton className="group block cursor-pointer rounded-full outline-none">
