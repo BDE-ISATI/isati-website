@@ -66,7 +66,7 @@ export default function Navbar() {
             href={/^[a-z][a-z0-9+.-]*:\/\//i.test(navLink.url) ? navLink.url : `https://${navLink.url}`}
             target="_blank"
             rel="noreferrer noopener"
-            className="hidden rounded-sm text-sm font-medium underline-offset-4 transition-opacity hover:underline hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-foreground sm:inline sm:text-base"
+            className="inline-block max-w-24 truncate rounded-sm text-xs font-medium underline-offset-4 transition-opacity hover:underline hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-foreground sm:max-w-none sm:text-base"
           >
             {navLink.label}
           </a>
