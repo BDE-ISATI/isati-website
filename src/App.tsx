@@ -16,6 +16,9 @@ import Activities from '@/pages/Profile/settings/Activities';
 import Clubs from '@/pages/Profile/settings/Clubs';
 import Tools from '@/pages/Profile/settings/Tools';
 
+import MentionsLegales from '@/pages/MentionsLegales';
+import Contact from '@/pages/Contact';
+
 function App() {
 
   const init = useAuthStore((s) => s.init)
@@ -36,6 +39,8 @@ function App() {
             <Route path="clubs" element={<Clubs />}/>
             <Route path="tools" element={<Tools />}/>
           </Route>
+          <Route path="mentions-legales" element={<MentionsLegales />}/>
+          <Route path="contact" element={<Contact />}/>
           <Route path="*" element={<NotFound />} />
         </Route>
 

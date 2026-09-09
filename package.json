@@ -21,7 +21,6 @@
     "color2k": "^2.0.4",
     "lottie-react": "^2.4.1",
     "pocketbase": "^0.27.0",
-    "pocketbase-typegen": "^1.5.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-easy-crop": "^6.2.3",
@@ -38,6 +37,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "oxlint": "^1.69.0",
+    "pocketbase-typegen": "^1.5.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.0",
     "vite-plugin-svgr": "^5.2.0"

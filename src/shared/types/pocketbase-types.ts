@@ -15,11 +15,13 @@ export const Collections = {
 	Challenge: "challenge",
 	Club: "club",
 	ClubActivity: "club_activity",
+	ClubDetails: "club_details",
 	ClubMember: "club_member",
 	OrganigrammeMember: "organigramme_member",
 	Participation: "participation",
 	Policies: "policies",
 	Roles: "roles",
+	Rooms: "rooms",
 	Status: "status",
 	Team: "team",
 	Users: "users",
@@ -160,6 +162,17 @@ export type ClubActivityRecord = {
 	updated: IsoAutoDateString
 }
 
+export type ClubDetailsRecord = {
+	created: IsoAutoDateString
+	description?: string
+	discord?: string
+	icon?: FileNameString
+	id: string
+	name?: string
+	poster?: FileNameString
+	updated: IsoAutoDateString
+}
+
 export type ClubMemberRecord = {
 	club_id?: string
 	created: IsoAutoDateString
@@ -216,6 +229,16 @@ export type RolesRecord = {
 	id: string
 	label: string
 	policies?: RecordIdString[]
+	updated: IsoAutoDateString
+}
+
+export type RoomsRecord = {
+	created: IsoAutoDateString
+	ics_url?: string
+	id: string
+	is_available?: boolean
+	name?: string
+	next_change?: IsoDateString
 	updated: IsoAutoDateString
 }
 
@@ -319,11 +342,13 @@ export type ArticleResponse<Texpand = unknown> = Required<ArticleRecord> & BaseS
 export type ChallengeResponse<Texpand = unknown> = Required<ChallengeRecord> & BaseSystemFields<Texpand>
 export type ClubResponse<Texpand = unknown> = Required<ClubRecord> & BaseSystemFields<Texpand>
 export type ClubActivityResponse<Texpand = unknown> = Required<ClubActivityRecord> & BaseSystemFields<Texpand>
+export type ClubDetailsResponse<Texpand = unknown> = Required<ClubDetailsRecord> & BaseSystemFields<Texpand>
 export type ClubMemberResponse<Texpand = unknown> = Required<ClubMemberRecord> & BaseSystemFields<Texpand>
 export type OrganigrammeMemberResponse<Texpand = unknown> = Required<OrganigrammeMemberRecord> & BaseSystemFields<Texpand>
 export type ParticipationResponse<Texpand = unknown> = Required<ParticipationRecord> & BaseSystemFields<Texpand>
 export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
 export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
+export type RoomsResponse<Texpand = unknown> = Required<RoomsRecord> & BaseSystemFields<Texpand>
 export type StatusResponse<Texpand = unknown> = Required<StatusRecord> & BaseSystemFields<Texpand>
 export type TeamResponse<Texpand = unknown> = Required<TeamRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
@@ -342,11 +367,13 @@ export type CollectionRecords = {
 	challenge: ChallengeRecord
 	club: ClubRecord
 	club_activity: ClubActivityRecord
+	club_details: ClubDetailsRecord
 	club_member: ClubMemberRecord
 	organigramme_member: OrganigrammeMemberRecord
 	participation: ParticipationRecord
 	policies: PoliciesRecord
 	roles: RolesRecord
+	rooms: RoomsRecord
 	status: StatusRecord
 	team: TeamRecord
 	users: UsersRecord
@@ -364,11 +391,13 @@ export type CollectionResponses = {
 	challenge: ChallengeResponse
 	club: ClubResponse
 	club_activity: ClubActivityResponse
+	club_details: ClubDetailsResponse
 	club_member: ClubMemberResponse
 	organigramme_member: OrganigrammeMemberResponse
 	participation: ParticipationResponse
 	policies: PoliciesResponse
 	roles: RolesResponse
+	rooms: RoomsResponse
 	status: StatusResponse
 	team: TeamResponse
 	users: UsersResponse
