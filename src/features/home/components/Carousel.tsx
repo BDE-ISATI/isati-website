@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 
 import ChevronDown from "@/assets/icons/chevron-down.svg?react";
 import cn from "@/shared/utils/cn";
+import IsatIcon from "@/assets/logos/isati_notext.svg?react"
 
 interface CarouselProps {
   images: string[];
@@ -53,7 +54,7 @@ export default function Carousel({ images, pageSize = 6, alt = "Affiche d'un év
                       src={src}
                       alt={alt}
                       loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+                      className="h-full w-full object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
                     />
                   </div>
                 ))}
@@ -65,17 +66,10 @@ export default function Carousel({ images, pageSize = 6, alt = "Affiche d'un év
         {pages.length > 1 && (
           <div className="mt-6 flex flex-row justify-center gap-3">
             {pages.map((_, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => goTo(index)}
-                aria-label={`Aller à la page ${index + 1}`}
-                aria-current={index === page}
-                className={cn(
-                  "h-3 w-3 cursor-pointer rounded-full transition-colors duration-300",
-                  index === page ? "bg-current" : "bg-current/30 hover:bg-current/60",
-                )}
-              />
+                <IsatIcon key={index} onClick={() => goTo(index)} className={cn(
+                    "h-3 w-3 cursor-pointer rounded-full transition-colors duration-300",
+                    index === page ? "text-current" : "text-current/30 hover:text-current/60",
+                  )}/>
             ))}
           </div>
         )}

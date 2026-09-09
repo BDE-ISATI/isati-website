@@ -41,6 +41,9 @@ import FactionEdit from '@/pages/Wei/FactionEdit';
 import TeamNew from '@/pages/Wei/TeamNew';
 import TeamEdit from '@/pages/Wei/TeamEdit';
 
+import MentionsLegales from '@/pages/MentionsLegales';
+import Contact from '@/pages/Contact';
+
 function App() {
 
   const init = useAuthStore((s) => s.init)
@@ -106,10 +109,8 @@ function App() {
             <Route path="clubs" element={<Clubs />}/>
             <Route path="tools" element={<Tools />}/>
           </Route>
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/mentions-legales" element={<MentionsLegales />} />
-          <Route path="/confidentialite" element={<Confidentialite />} />
-
+          <Route path="mentions-legales" element={<MentionsLegales />}/>
+          <Route path="contact" element={<Contact />}/>
           <Route path="*" element={<NotFound />} />
         </Route>
 

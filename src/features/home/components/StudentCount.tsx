@@ -121,12 +121,12 @@ export default function StudentCount({
             <g
               key={i}
               transform={`translate(${pt.x - ICON_SIZE / 2}, ${pt.y - ICON_SIZE / 2})`}
-              className="group cursor-pointer hover:scale-125 transition-transform duration-150 origin-center"
+              className="group origin-center"
             >
               <IsatIcon 
                 width={8} 
                 height={8} 
-                className="fill-white group-hover:fill-gray-200 transition-colors"
+                className="fill-white transition-colors"
               />
             </g>
           ))}
