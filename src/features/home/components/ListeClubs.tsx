@@ -68,7 +68,7 @@ export default function ListeClubs (){
 
             {/* Modale */}
             {clubOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-red-200/90">
+                <div className="backdrop-blur-sm fixed inset-0 z-50 flex transition-all items-center justify-center bg-red-200/20">
                     
                     {/* Arrière-plan cliquable pour fermer */}
                     <div onClick={() => setClubOpen(undefined)} className="absolute inset-0 -z-10"></div>
@@ -86,19 +86,24 @@ export default function ListeClubs (){
                             className="w-auto h-128"
                         />
 
-                        <div>
+                        <div className="bg-red-300/50 p-2 rounded-lg">
                             <h1 className="text-4xl">{clubOpen.name}</h1>
                             <p>{clubOpen.description}</p>
 
-                            <div className="flex flex-row items-center">
-                                <a href={clubOpen.discord} target="_blank" rel="noopener noreferrer">
+                            <div className="mt-10 pt-8 border-t border-slate-100">
+                                <a 
+                                    href={clubOpen.discord} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="flex items-center justify-center w-full gap-3 bg-[#25D366] hover:bg-[#20b858] text-white py-2 px-2 rounded-lg font-bold text-xl transition-transform "
+                                >
                                     <img 
-                                        className="h-16 w-16" 
+                                        className="h-12 w-12" 
                                         src="https://upload.wikimedia.org/wikipedia/commons/1/19/WhatsApp_logo-color-vertical.svg" 
-                                        alt="Rejoindre sur Whatsapp" 
+                                        alt="WhatsApp" 
                                     />
+                                    Rejoindre le groupe WhatsApp
                                 </a>
-                                <span>Clique ici pour rejoindre le groupe</span>
                             </div>
                         </div>
                     </div>
