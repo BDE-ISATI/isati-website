@@ -128,6 +128,17 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
     validation_is_url: "Lien invalide.",
     invalid_proof_type: "Ce défi n'accepte pas de preuve sous forme de lien.",
   },
+  nav_links: {
+    insufficient_permissions: "Vous n'avez pas le droit de gérer les liens de navigation.",
+  },
+  label: {
+    validation_required: "Ce champ est requis.",
+  },
+  url: {
+    validation_required: "Ce champ est requis.",
+    validation_is_url: "Lien invalide.",
+    validation_invalid_url: "Lien invalide.",
+  },
 }
 
 export function getFirstErrorMessage(error: ClientResponseError | null): string | undefined {

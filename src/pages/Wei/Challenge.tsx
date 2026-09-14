@@ -7,7 +7,7 @@ import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Error from "@/shared/components/ui/Error";
 import PenIcon from "@/assets/icons/pen.svg?react";
 import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 export default function Challenge() {
 

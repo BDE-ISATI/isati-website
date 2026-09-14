@@ -5,7 +5,7 @@ import ChallengeForm from "@/features/wei/components/ChallengeForm";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Error from "@/shared/components/ui/Error";
 import NotFound from "@/pages/NotFound";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 export default function ChallengeEdit() {
 

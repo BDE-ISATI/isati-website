@@ -8,7 +8,7 @@ import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import { parsePbDate } from "@/shared/lib/dates";
 import Error from "@/shared/components/ui/Error";
 import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 export default function Team() {
 

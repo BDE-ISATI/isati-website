@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import TeamLeaderPanel from "@/features/wei/components/TeamLeaderPanel";
+import PageNav from "@/components/layout/PageNav";
 import NotFound from "@/pages/NotFound";
 
 export default function WeiLeaders() {
@@ -15,6 +16,8 @@ export default function WeiLeaders() {
 
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
+      <PageNav back={`/wei/panel/${weiId}`} backLabel="Gestion du WEI" />
+
       <h1 className="text-xl font-semibold sm:text-2xl">Chefs d'équipe</h1>
 
       <TeamLeaderPanel weiId={weiId} />
