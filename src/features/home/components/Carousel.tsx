@@ -1,93 +1,94 @@
-import { useState } from 'react';
-import Wei from "@/assets/PageAccueil/Wei.png";
+import { useMemo, useState } from "react";
 
-// Simulation de 18 images (pour générer 2 pages de 9 images)
-const allImages = new Array(27).fill(Wei);
+import ChevronDown from "@/assets/icons/chevron-down.svg?react";
+import cn from "@/shared/utils/cn";
 
-// Fonction de découpage du tableau en blocs de 'size' éléments
-const chunkArray = (arr, size) => {
-  const chunks = [];
-  for (let i = 0; i < arr.length; i += size) {
-    chunks.push(arr.slice(i, i + size));
-  }
-  return chunks;
-};
+interface CarouselProps {
+  images: string[];
+  pageSize?: number;
+  alt?: string;
+}
 
-// Création des groupes de 9 images
-const imageChunks = chunkArray(allImages, 9);
+export default function Carousel({ images, pageSize = 6, alt = "Affiche d'un évènement de l'ISATI" }: CarouselProps) {
+  const [page, setPage] = useState(0);
 
-export default function GridCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const pages = useMemo(() => {
+    const chunks: string[][] = [];
+    for (let index = 0; index < images.length; index += pageSize) {
+      chunks.push(images.slice(index, index + pageSize));
+    }
+    return chunks;
+  }, [images, pageSize]);
 
-  const prevSlide = () => {
-    setCurrentIndex(currentIndex === 0 ? imageChunks.length - 1 : currentIndex - 1);
-  };
+  if (pages.length === 0) return null;
 
-  const nextSlide = () => {
-    setCurrentIndex(currentIndex === imageChunks.length - 1 ? 0 : currentIndex + 1);
-  };
+  const goTo = (index: number) => setPage((index + pages.length) % pages.length);
 
   return (
-    <div className="flex flex-row justify-center items-center gap-4 w-full px-12">
-      
-      {/* Flèche Gauche */}
-      <div onClick={prevSlide} className="text-5xl hover:bg-red-700 cursor-pointer p-4 z-20 select-none">
-        /-
-      </div>
-      
-      {/* Fenêtre visible (Viewport) */}
-      <div className="overflow-hidden w-full flex flex-col items-center">
-        
-        {/* Bande glissante */}
-        <div 
-          className="flex transition-transform ease-out duration-500 w-full"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {imageChunks.map((chunk, chunkIndex) => (
-            
-            /* Conteneur de la diapositive */
-            <div key={chunkIndex} className="w-full shrink-0 flex justify-center p-4">
-              
-              {/* Grille 3x3 */}
-              <div className="grid grid-cols-3 grid-rows-3 gap-2 w-full max-w-5xl">
-                {chunk.map((img, imgIndex) => (
-                  
-                  /* Cellule individuelle avec overflow-hidden pour bloquer le débordement du scale */
-                  <div key={imgIndex} className="w-full rounded-md shadow-md">
-                    <img 
-                      className="w-full h-full object-cover transition-transform duration-200 hover:scale-110 cursor-pointer" 
-                      src={img} 
-                      alt={`Evenement ${chunkIndex * 9 + imgIndex}`} 
+    <div className="flex w-full items-center gap-2 sm:gap-4">
+      <button
+        type="button"
+        onClick={() => goTo(page - 1)}
+        aria-label="Affiches précédentes"
+        className="shrink-0 cursor-pointer rounded-full p-2 transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current sm:p-3"
+      >
+        <ChevronDown className="h-6 w-6 rotate-90 sm:h-8 sm:w-8" />
+      </button>
+
+      <div className="flex min-w-0 flex-1 flex-col items-center">
+        <div className="w-full overflow-hidden">
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${page * 100}%)` }}
+          >
+            {pages.map((chunk, chunkIndex) => (
+              <div
+                key={chunkIndex}
+                className="grid w-full shrink-0 grid-cols-2 gap-2 p-1 sm:gap-3 md:grid-cols-3"
+                aria-hidden={chunkIndex !== page}
+              >
+                {chunk.map((src) => (
+                  <div key={src} className="relative aspect-[3/4] w-full overflow-hidden rounded-lg shadow-lg">
+                    <img
+                      src={src}
+                      alt={alt}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
                     />
                   </div>
-                  
                 ))}
               </div>
-
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Pagination */}
-        <div className='flex flex-row justify-center gap-4 mt-6 mb-2'>
-          {imageChunks.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              aria-label={`Aller au mur ${index + 1}`}
-              className={`w-4 h-4 rounded-full transition-colors duration-300 ${
-                index === currentIndex ? "bg-gray-400" : "bg-black"
-              }`}
-            />
-          ))}
-        </div>
+        {pages.length > 1 && (
+          <div className="mt-6 flex flex-row justify-center gap-3">
+            {pages.map((_, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => goTo(index)}
+                aria-label={`Aller à la page ${index + 1}`}
+                aria-current={index === page}
+                className={cn(
+                  "h-3 w-3 cursor-pointer rounded-full transition-colors duration-300",
+                  index === page ? "bg-current" : "bg-current/30 hover:bg-current/60",
+                )}
+              />
+            ))}
+          </div>
+        )}
       </div>
-      
-      {/* Flèche Droite */}
-      <div onClick={nextSlide} className="text-5xl hover:bg-red-700 cursor-pointer p-4 z-20 select-none">
-        -\
-      </div>
-      
+
+      <button
+        type="button"
+        onClick={() => goTo(page + 1)}
+        aria-label="Affiches suivantes"
+        className="shrink-0 cursor-pointer rounded-full p-2 transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current sm:p-3"
+      >
+        <ChevronDown className="h-6 w-6 -rotate-90 sm:h-8 sm:w-8" />
+      </button>
     </div>
   );
 }

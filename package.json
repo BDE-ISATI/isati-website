@@ -23,6 +23,7 @@
     "lottie-react": "^2.4.1",
     "mediabunny": "^1.55.3",
     "pocketbase": "^0.27.0",
+    "pocketbase-typegen": "^1.5.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-easy-crop": "^6.2.3",
