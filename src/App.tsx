@@ -44,6 +44,9 @@ import TeamEdit from '@/pages/Wei/TeamEdit';
 import MentionsLegales from '@/pages/MentionsLegales';
 import Contact from '@/pages/Contact';
 
+import MentionsLegales from '@/pages/MentionsLegales';
+import Contact from '@/pages/Contact';
+
 function App() {
 
   const init = useAuthStore((s) => s.init)
