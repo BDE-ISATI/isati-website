@@ -10,9 +10,6 @@ import Home from '@/pages/Home.tsx'
 import Layout from '@/components/layout/Layout'
 import Profile from '@/pages/Profile/Profile'
 import NotFound from '@/pages/NotFound'
-import Contact from '@/pages/Legal/Contact'
-import MentionsLegales from '@/pages/Legal/MentionsLegales'
-import Confidentialite from '@/pages/Legal/Confidentialite'
 
 import Account from '@/pages/Profile/settings/Account';
 import Activities from '@/pages/Profile/settings/Activities';
@@ -40,9 +37,6 @@ import FactionNew from '@/pages/Wei/FactionNew';
 import FactionEdit from '@/pages/Wei/FactionEdit';
 import TeamNew from '@/pages/Wei/TeamNew';
 import TeamEdit from '@/pages/Wei/TeamEdit';
-
-import MentionsLegales from '@/pages/MentionsLegales';
-import Contact from '@/pages/Contact';
 
 import MentionsLegales from '@/pages/MentionsLegales';
 import Contact from '@/pages/Contact';
