@@ -15,19 +15,24 @@ export const Collections = {
 	ChallengeCategories: "challenge_categories",
 	Challenges: "challenges",
 	ClubActivities: "club_activities",
+	ClubDetails: "club_details",
 	ClubMember: "club_member",
 	Clubs: "clubs",
 	Factions: "factions",
 	Locations: "locations",
+	NavLinks: "nav_links",
+	OrganigrammeMember: "organigramme_member",
 	ParticipationScores: "participation_scores",
 	Participations: "participations",
 	Policies: "policies",
 	Roles: "roles",
+	Rooms: "rooms",
 	Status: "status",
 	TeamScores: "team_scores",
 	Teams: "teams",
 	Users: "users",
 	Validations: "validations",
+	WeiScoreEvents: "wei_score_events",
 	Weis: "weis",
 } as const
 export type Collections = typeof Collections[keyof typeof Collections]
@@ -190,6 +195,17 @@ export type ClubActivitiesRecord = {
 	updated: IsoAutoDateString
 }
 
+export type ClubDetailsRecord = {
+	created: IsoAutoDateString
+	description?: string
+	discord?: string
+	icon?: FileNameString
+	id: string
+	name?: string
+	poster?: FileNameString
+	updated: IsoAutoDateString
+}
+
 export const ClubMemberRoleOptions = {
 	"member": "member",
 	"president": "president",
@@ -229,6 +245,35 @@ export type LocationsRecord = {
 	hidden?: boolean
 	id: string
 	label?: string
+	updated: IsoAutoDateString
+}
+
+export type NavLinksRecord = {
+	created: IsoAutoDateString
+	enabled?: boolean
+	id: string
+	label?: string
+	updated: IsoAutoDateString
+	url?: string
+}
+
+export const OrganigrammeMemberPoleOptions = {
+	"Restreint": "Restreint",
+	"Evèvenement": "Evèvenement",
+	"Communication": "Communication",
+	"Sport & Culture": "Sport & Culture",
+	"Santé": "Santé",
+	"Formation": "Formation",
+} as const
+export type OrganigrammeMemberPoleOptions = typeof OrganigrammeMemberPoleOptions[keyof typeof OrganigrammeMemberPoleOptions]
+export type OrganigrammeMemberRecord = {
+	avatar?: FileNameString
+	created: IsoAutoDateString
+	id: string
+	instagram?: string
+	name?: string
+	pole?: OrganigrammeMemberPoleOptions
+	role?: string
 	updated: IsoAutoDateString
 }
 
@@ -299,6 +344,16 @@ export type RolesRecord = {
 	updated: IsoAutoDateString
 }
 
+export type RoomsRecord = {
+	created: IsoAutoDateString
+	ics_url?: string
+	id: string
+	is_available?: boolean
+	name?: string
+	next_change?: IsoDateString
+	updated: IsoAutoDateString
+}
+
 export type StatusRecord = {
 	author?: RecordIdString
 	created: IsoAutoDateString
@@ -328,6 +383,7 @@ export type TeamsRecord = {
 	description?: string
 	faction?: RecordIdString
 	id: string
+	image?: FileNameString
 	name?: string
 	updated: IsoAutoDateString
 	wei?: RecordIdString
@@ -398,6 +454,14 @@ export type ValidationsRecord = {
 	validator?: RecordIdString
 }
 
+export type WeiScoreEventsRecord = {
+	id: string
+	points_awarded?: number
+	reviewed_at?: IsoDateString
+	team?: RecordIdString
+	wei?: RecordIdString
+}
+
 export type WeisRecord = {
 	created: IsoAutoDateString
 	description?: string
@@ -423,19 +487,24 @@ export type ArticlesResponse<Texpand = unknown> = Required<ArticlesRecord> & Bas
 export type ChallengeCategoriesResponse<Texpand = unknown> = Required<ChallengeCategoriesRecord> & BaseSystemFields<Texpand>
 export type ChallengesResponse<Texpand = unknown> = Required<ChallengesRecord> & BaseSystemFields<Texpand>
 export type ClubActivitiesResponse<Texpand = unknown> = Required<ClubActivitiesRecord> & BaseSystemFields<Texpand>
+export type ClubDetailsResponse<Texpand = unknown> = Required<ClubDetailsRecord> & BaseSystemFields<Texpand>
 export type ClubMemberResponse<Texpand = unknown> = Required<ClubMemberRecord> & BaseSystemFields<Texpand>
 export type ClubsResponse<Texpand = unknown> = Required<ClubsRecord> & BaseSystemFields<Texpand>
 export type FactionsResponse<Texpand = unknown> = Required<FactionsRecord> & BaseSystemFields<Texpand>
 export type LocationsResponse<Texpand = unknown> = Required<LocationsRecord> & BaseSystemFields<Texpand>
+export type NavLinksResponse<Texpand = unknown> = Required<NavLinksRecord> & BaseSystemFields<Texpand>
+export type OrganigrammeMemberResponse<Texpand = unknown> = Required<OrganigrammeMemberRecord> & BaseSystemFields<Texpand>
 export type ParticipationScoresResponse<Texpand = unknown> = Required<ParticipationScoresRecord> & BaseSystemFields<Texpand>
 export type ParticipationsResponse<Texpand = unknown> = Required<ParticipationsRecord> & BaseSystemFields<Texpand>
 export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
 export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
+export type RoomsResponse<Texpand = unknown> = Required<RoomsRecord> & BaseSystemFields<Texpand>
 export type StatusResponse<Texpand = unknown> = Required<StatusRecord> & BaseSystemFields<Texpand>
 export type TeamScoresResponse<Texpand = unknown> = Required<TeamScoresRecord> & BaseSystemFields<Texpand>
 export type TeamsResponse<Texpand = unknown> = Required<TeamsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 export type ValidationsResponse<Texpand = unknown> = Required<ValidationsRecord> & BaseSystemFields<Texpand>
+export type WeiScoreEventsResponse<Texpand = unknown> = Required<WeiScoreEventsRecord> & BaseSystemFields<Texpand>
 export type WeisResponse<Texpand = unknown> = Required<WeisRecord> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -450,19 +519,24 @@ export type CollectionRecords = {
 	challenge_categories: ChallengeCategoriesRecord
 	challenges: ChallengesRecord
 	club_activities: ClubActivitiesRecord
+	club_details: ClubDetailsRecord
 	club_member: ClubMemberRecord
 	clubs: ClubsRecord
 	factions: FactionsRecord
 	locations: LocationsRecord
+	nav_links: NavLinksRecord
+	organigramme_member: OrganigrammeMemberRecord
 	participation_scores: ParticipationScoresRecord
 	participations: ParticipationsRecord
 	policies: PoliciesRecord
 	roles: RolesRecord
+	rooms: RoomsRecord
 	status: StatusRecord
 	team_scores: TeamScoresRecord
 	teams: TeamsRecord
 	users: UsersRecord
 	validations: ValidationsRecord
+	wei_score_events: WeiScoreEventsRecord
 	weis: WeisRecord
 }
 
@@ -476,19 +550,24 @@ export type CollectionResponses = {
 	challenge_categories: ChallengeCategoriesResponse
 	challenges: ChallengesResponse
 	club_activities: ClubActivitiesResponse
+	club_details: ClubDetailsResponse
 	club_member: ClubMemberResponse
 	clubs: ClubsResponse
 	factions: FactionsResponse
 	locations: LocationsResponse
+	nav_links: NavLinksResponse
+	organigramme_member: OrganigrammeMemberResponse
 	participation_scores: ParticipationScoresResponse
 	participations: ParticipationsResponse
 	policies: PoliciesResponse
 	roles: RolesResponse
+	rooms: RoomsResponse
 	status: StatusResponse
 	team_scores: TeamScoresResponse
 	teams: TeamsResponse
 	users: UsersResponse
 	validations: ValidationsResponse
+	wei_score_events: WeiScoreEventsResponse
 	weis: WeisResponse
 }
 

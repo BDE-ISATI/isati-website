@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import type { ChallengeWithRelations, ParticipationWithTeam, ValidationWithRelations } from "@/shared/types/sharedTypes";
 import proofFiles, { proofThumbUrl } from "@/features/wei/libs/proof";
+import useFileToken from "@/features/wei/hooks/useFileToken";
 import challengeWindow from "@/features/wei/libs/challenge";
 import { parsePbDate } from "@/shared/lib/dates";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
@@ -27,6 +28,7 @@ const CARD = "flex w-full flex-col items-center justify-center gap-2 rounded-md 
 export default function ChallengeValidationCta({ challenge, validation, teamValidation, participation, className }: ChallengeValidationCtaProps) {
   const now = useNow(30_000);
   const userId = useAuthStore((s) => s.user?.id);
+  const token = useFileToken();
   const { notStarted, ended } = challengeWindow(challenge, now);
 
   const isTeamScope = challenge.scope === "team";
@@ -55,7 +57,7 @@ export default function ChallengeValidationCta({ challenge, validation, teamVali
 
   if (current && current.status !== "refused") {
     const date = parsePbDate(current.submitted_at);
-    const proofs = proofFiles(current);
+    const proofs = proofFiles(current, token);
     const [ first ] = proofs;
 
     return (
@@ -71,7 +73,7 @@ export default function ChallengeValidationCta({ challenge, validation, teamVali
               <video src={first.url} muted playsInline preload="metadata" className="h-20 w-20 rounded-md border border-border object-cover" />
             ) : (
               <img
-                src={proofThumbUrl(current, first, "200x200")}
+                src={proofThumbUrl(current, first, "200x200", token)}
                 alt="Preuve envoyée"
                 loading="lazy"
                 className="h-20 w-20 rounded-md border border-border object-cover"
