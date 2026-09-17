@@ -2,6 +2,7 @@ import { useOutletContext } from "react-router";
 import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import type { ProfileOutletContext } from "@/features/profile/profileTypes";
+import NavLinksManager from "@/features/navLinks/components/NavLinksManager";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
 import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
 import cn from "@/shared/utils/cn";
@@ -17,7 +18,13 @@ export default function Tools() {
   const showWeiPanel = useHasPermission("view", "wei_panel") && isOwnProfile;
   const showValidations = useHasPermission("view", "validations") && isOwnProfile;
 
+  const canCreateNavLinks = useHasPermission("create", "nav_links");
+  const canUpdateNavLinks = useHasPermission("update", "nav_links");
+  const canDeleteNavLinks = useHasPermission("delete", "nav_links");
+  const showNavLinks = (canCreateNavLinks || canUpdateNavLinks || canDeleteNavLinks) && isOwnProfile;
+
   return (
+    <>
     <section className="flex flex-col gap-4">
       <header className="flex flex-col gap-0.5">
         <h1 className="text-lg sm:text-xl font-semibold leading-tight">Mes outils</h1>
@@ -68,5 +75,19 @@ export default function Tools() {
       </div>
 
     </section>
+
+    {showNavLinks && (
+      <section className="mt-6 flex flex-col gap-4">
+        <header className="flex flex-col gap-0.5">
+          <h2 className="text-lg sm:text-xl font-semibold leading-tight">Liens de navigation</h2>
+          <p className="text-xs sm:text-sm text-muted-foreground">
+            Ajoutez des liens temporaires dans la barre de navigation du site
+          </p>
+        </header>
+
+        <NavLinksManager />
+      </section>
+    )}
+    </>
   )
 }

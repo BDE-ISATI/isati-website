@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import WeiForm from "@/features/wei/components/WeiForm";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 export default function WeiNew() {
 

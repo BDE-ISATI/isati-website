@@ -4,6 +4,7 @@ import useFaction from "@/features/wei/hooks/queries/useFaction";
 import FactionForm from "@/features/wei/components/FactionForm";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import Error from "@/shared/components/ui/Error";
+import PageNav from "@/components/layout/PageNav";
 import NotFound from "@/pages/NotFound";
 
 export default function FactionEdit() {
@@ -19,6 +20,8 @@ export default function FactionEdit() {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 py-4 md:gap-6 md:py-6">
+      <PageNav back={`/wei/panel/${weiId}`} backLabel="Gestion du WEI" />
+
       <h1 className="text-xl font-semibold sm:text-2xl">Modifier la faction</h1>
 
       <Error message={getFirstErrorMessage(faction.error)} />

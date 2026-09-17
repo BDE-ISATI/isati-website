@@ -17,7 +17,7 @@ import { parsePbDate } from "@/shared/lib/dates";
 import Error from "@/shared/components/ui/Error";
 import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
 import NotFound from "@/pages/NotFound";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" });
 

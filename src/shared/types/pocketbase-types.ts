@@ -21,7 +21,10 @@ export const Collections = {
 	Factions: "factions",
 	Locations: "locations",
 	NavLinks: "nav_links",
+<<<<<<< HEAD
 	OrganigrammeMember: "organigramme_member",
+=======
+>>>>>>> 5639fb046fcd0319c2fea33729a91e75f93d2b93
 	ParticipationScores: "participation_scores",
 	Participations: "participations",
 	Policies: "policies",
@@ -257,6 +260,7 @@ export type NavLinksRecord = {
 	url?: string
 }
 
+<<<<<<< HEAD
 export const OrganigrammeMemberPoleOptions = {
 	"Restreint": "Restreint",
 	"Evèvenement": "Evèvenement",
@@ -277,6 +281,8 @@ export type OrganigrammeMemberRecord = {
 	updated: IsoAutoDateString
 }
 
+=======
+>>>>>>> 5639fb046fcd0319c2fea33729a91e75f93d2b93
 export const ParticipationScoresRoleOptions = {
 	"team_leader": "team_leader",
 	"student": "student",
@@ -493,7 +499,10 @@ export type ClubsResponse<Texpand = unknown> = Required<ClubsRecord> & BaseSyste
 export type FactionsResponse<Texpand = unknown> = Required<FactionsRecord> & BaseSystemFields<Texpand>
 export type LocationsResponse<Texpand = unknown> = Required<LocationsRecord> & BaseSystemFields<Texpand>
 export type NavLinksResponse<Texpand = unknown> = Required<NavLinksRecord> & BaseSystemFields<Texpand>
+<<<<<<< HEAD
 export type OrganigrammeMemberResponse<Texpand = unknown> = Required<OrganigrammeMemberRecord> & BaseSystemFields<Texpand>
+=======
+>>>>>>> 5639fb046fcd0319c2fea33729a91e75f93d2b93
 export type ParticipationScoresResponse<Texpand = unknown> = Required<ParticipationScoresRecord> & BaseSystemFields<Texpand>
 export type ParticipationsResponse<Texpand = unknown> = Required<ParticipationsRecord> & BaseSystemFields<Texpand>
 export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
@@ -525,7 +534,10 @@ export type CollectionRecords = {
 	factions: FactionsRecord
 	locations: LocationsRecord
 	nav_links: NavLinksRecord
+<<<<<<< HEAD
 	organigramme_member: OrganigrammeMemberRecord
+=======
+>>>>>>> 5639fb046fcd0319c2fea33729a91e75f93d2b93
 	participation_scores: ParticipationScoresRecord
 	participations: ParticipationsRecord
 	policies: PoliciesRecord
@@ -556,7 +568,10 @@ export type CollectionResponses = {
 	factions: FactionsResponse
 	locations: LocationsResponse
 	nav_links: NavLinksResponse
+<<<<<<< HEAD
 	organigramme_member: OrganigrammeMemberResponse
+=======
+>>>>>>> 5639fb046fcd0319c2fea33729a91e75f93d2b93
 	participation_scores: ParticipationScoresResponse
 	participations: ParticipationsResponse
 	policies: PoliciesResponse

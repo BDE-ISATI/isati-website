@@ -14,7 +14,7 @@ import { parsePbDate } from "@/shared/lib/dates";
 import Error from "@/shared/components/ui/Error";
 import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
 import NotFound from "@/pages/NotFound";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 export default function TeamDetail() {
 

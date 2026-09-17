@@ -17,7 +17,7 @@ import Error from "@/shared/components/ui/Error";
 import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
 import NotFound from "@/pages/NotFound";
 import PenIcon from "@/assets/icons/pen.svg?react";
-import PageNav from "@/shared/components/layout/PageNav";
+import PageNav from "@/components/layout/PageNav";
 
 export default function ChallengeDetail() {
 
