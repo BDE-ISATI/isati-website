@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router";
 import type { ParticipationWithTeam, WeiWithLocation } from "@/shared/types/sharedTypes";
-import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import useTeamScores from "@/features/wei/hooks/queries/useTeamScores";
 import useParticipationScores from "@/features/wei/hooks/queries/useParticipationScores";
 import useFactions from "@/features/wei/hooks/queries/useFactions";
@@ -29,7 +28,6 @@ type WeiHubProps = {
 };
 
 export default function WeiHub({ wei, participation }: WeiHubProps) {
-  const user = useAuthStore((s) => s.user);
   const now = useNow();
   const teams = useTeamScores(wei.id);
   const scores = useParticipationScores(wei.id);
@@ -144,10 +142,10 @@ export default function WeiHub({ wei, participation }: WeiHubProps) {
 
       <HubSuggestions challenges={suggestions} total={total} now={now} />
 
-      <HubProofCarousel validations={publicValidations} now={now} />
+      <HubProofCarousel validations={publicValidations} weiId={wei.id} now={now} />
 
       <section aria-label="Raccourcis" className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-        <Shortcut to={`/profile/${user?.username ?? ""}/activities`} label="Mes validations">
+        <Shortcut to={`/wei/${wei.id}/participant/${participation.user}`} label="Mes validations">
           {pending === 0 && refused === 0 && "Aucune en attente"}
           {pending > 0 && `${pending} en attente`}
           {pending > 0 && refused > 0 && " · "}

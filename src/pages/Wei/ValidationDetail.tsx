@@ -149,12 +149,24 @@ export default function ValidationDetail() {
       </section>
 
       <section className="flex flex-col gap-4 rounded-md border border-border bg-card p-4 text-card-foreground shadow-sm sm:p-6">
-        <div className="flex flex-row items-center gap-3">
-          {avatarURL && (
-            <img src={avatarURL} alt="" className="h-10 w-10 shrink-0 rounded-full border border-border object-cover" />
-          )}
-          <span className="truncate font-medium">{user?.username || "Participant inconnu"}</span>
-        </div>
+        {user && challenge?.wei ? (
+          <Link
+            to={`/wei/${challenge.wei}/participant/${user.id}`}
+            className="-mx-2 flex flex-row items-center gap-3 rounded-md px-2 py-1 transition duration-200 hover:bg-muted motion-reduce:transition-none"
+          >
+            {avatarURL && (
+              <img src={avatarURL} alt="" className="h-10 w-10 shrink-0 rounded-full border border-border object-cover" />
+            )}
+            <span className="truncate font-medium">{user.username}</span>
+          </Link>
+        ) : (
+          <div className="flex flex-row items-center gap-3">
+            {avatarURL && (
+              <img src={avatarURL} alt="" className="h-10 w-10 shrink-0 rounded-full border border-border object-cover" />
+            )}
+            <span className="truncate font-medium">{user?.username || "Participant inconnu"}</span>
+          </div>
+        )}
 
         <ProofCarousel validation={current} />
       </section>

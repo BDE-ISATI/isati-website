@@ -48,7 +48,7 @@ export default function Team() {
           <section className="w-full rounded-md border border-border bg-card p-4 text-card-foreground shadow-sm sm:p-6">
             <h2 className="text-lg font-semibold">Progression depuis le début du parcours</h2>
             <TeamScoreChart
-              teams={teams.data}
+              series={teams.data}
               validations={validations.data ?? []}
               range={range}
               className="mt-4"

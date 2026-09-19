@@ -67,10 +67,10 @@ export default function TeamDetail() {
         <h2 className="text-lg font-semibold">Progression</h2>
         <Error className="mt-2" message={getFirstErrorMessage(teams.error ?? validations.error)} />
         <TeamScoreChart
-          teams={teams.data ?? []}
+          series={teams.data ?? []}
           validations={validations.data ?? []}
           range={range}
-          highlightTeamId={current.id}
+          highlightId={current.id}
           className="mt-4"
         />
       </section>

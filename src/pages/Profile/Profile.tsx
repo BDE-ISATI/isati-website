@@ -14,8 +14,6 @@ export default function Profile() {
   const loggedInUser = useAuthStore((s) => s.user)
   const { username } = useParams();  
   const { data: profileUser, isLoading, error } = useUser({username: username});
-  
-  console.log(error)
 
   const canModerate = useHasPermission("update", "users")
   const isForeign = !canModerate && (loggedInUser?.id !== profileUser?.id)

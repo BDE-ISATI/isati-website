@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import type { TeamScore } from "@/shared/types/sharedTypes";
-import buildScoreCurve, { type ScoreGranularity, type ScoreValidation } from "@/features/wei/libs/scoreCurve";
+import buildScoreCurve, { type ScoreGranularity, type ScoreSeries, type ScoreValidation } from "@/features/wei/libs/scoreCurve";
 import cn from "@/shared/utils/cn";
 
 interface TeamScoreChartProps {
-  teams: TeamScore[]
+  series: ScoreSeries[]
   validations: ScoreValidation[]
   range: { from: number; to: number }
-  highlightTeamId?: string
+  highlightId?: string
+  label?: string
   className?: string
 }
 
@@ -20,26 +20,26 @@ function tickFormatter(granularity: ScoreGranularity) {
   return (t: number) => (granularity === "hour" ? hourFormat : dayFormat).format(t);
 }
 
-export default function TeamScoreChart({ teams, validations, range, highlightTeamId, className }: TeamScoreChartProps) {
+export default function TeamScoreChart({ series, validations, range, highlightId, label, className }: TeamScoreChartProps) {
 
-  const teamIds = useMemo(() => teams.map((team) => team.id), [teams]);
-  const curve = useMemo(() => buildScoreCurve(validations, teamIds, range), [validations, teamIds, range]);
+  const seriesIds = useMemo(() => series.map((entry) => entry.id), [series]);
+  const curve = useMemo(() => buildScoreCurve(validations, seriesIds, range), [validations, seriesIds, range]);
 
-  if (teams.length === 0) return null;
+  if (series.length === 0) return null;
 
-  const ordered = highlightTeamId
-    ? [...teams.filter((team) => team.id !== highlightTeamId), ...teams.filter((team) => team.id === highlightTeamId)]
-    : teams;
+  const ordered = highlightId
+    ? [...series.filter((entry) => entry.id !== highlightId), ...series.filter((entry) => entry.id === highlightId)]
+    : series;
 
-  const leader = teams[0];
+  const leader = series[0];
 
   return (
     <div
       role="img"
       aria-label={
-        leader
+        label ?? (leader
           ? `Progression des points depuis le début du parcours. ${leader.name || "L'équipe en tête"} mène avec ${leader.score ?? 0} points. Le classement détaillé suit sous le graphique.`
-          : "Progression des points des équipes depuis le début du parcours."
+          : "Progression des points des équipes depuis le début du parcours.")
       }
       className={cn("h-72 w-full sm:h-80", className)}
     >
@@ -72,16 +72,16 @@ export default function TeamScoreChart({ teams, validations, range, highlightTea
               fontSize: "0.75rem",
             }}
           />
-          {!highlightTeamId && <Legend wrapperStyle={{ fontSize: "0.75rem" }} />}
+          {!highlightId && <Legend wrapperStyle={{ fontSize: "0.75rem" }} />}
 
-          {ordered.map((team) => {
-            const muted = !!highlightTeamId && team.id !== highlightTeamId;
+          {ordered.map((entry) => {
+            const muted = !!highlightId && entry.id !== highlightId;
             return (
               <Line
-                key={team.id}
-                dataKey={team.id}
-                name={team.name || "Équipe"}
-                stroke={muted ? "var(--color-border)" : team.color || "var(--color-accent)"}
+                key={entry.id}
+                dataKey={entry.id}
+                name={entry.name || "Équipe"}
+                stroke={muted ? "var(--color-border)" : entry.color || "var(--color-accent)"}
                 strokeWidth={muted ? 1.5 : 3}
                 dot={false}
                 isAnimationActive={false}

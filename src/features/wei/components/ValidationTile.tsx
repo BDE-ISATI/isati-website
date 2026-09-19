@@ -14,13 +14,14 @@ interface ValidationTileProps {
   validation: ValidationWithRelations
   showChallenge?: boolean
   authorLink?: boolean
+  weiId?: string
   now?: number
   className?: string
 }
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
-export default function ValidationTile({ validation, showChallenge, authorLink, now, className }: ValidationTileProps) {
+export default function ValidationTile({ validation, showChallenge, authorLink, weiId, now, className }: ValidationTileProps) {
   const team = validation.expand?.team;
   const user = validation.expand?.user;
   const challenge = validation.expand?.challenge;
@@ -92,7 +93,10 @@ export default function ValidationTile({ validation, showChallenge, authorLink, 
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/85 to-transparent p-2 pt-6 text-white">
         {authorLink && user ? (
-          <Link to={`/profile/${user.username}`} className="pointer-events-auto flex flex-row items-center gap-2 hover:underline">
+          <Link
+            to={weiId ? `/wei/${weiId}/participant/${user.id}` : `/profile/${user.username}`}
+            className="pointer-events-auto flex flex-row items-center gap-2 hover:underline"
+          >
             {author}
           </Link>
         ) : (

@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { darken } from "color2k";
 import pb from "@/shared/lib/pocketbase";
 import type { TeamMember, TeamScore } from "@/shared/types/sharedTypes";
@@ -36,11 +37,17 @@ export default function TeamMembers({ team, className }: TeamMembersProps) {
 
       <ul className="mt-4 flex flex-col divide-y divide-border">
         {ordered.map((member) => (
-          <li key={member.id} className="flex flex-row items-center gap-3 py-3 first:pt-0 last:pb-0">
-            <Member member={member} team={team} />
-            <span className="ml-auto shrink-0 text-sm font-medium">
-              {member.score ?? 0} pts
-            </span>
+          <li key={member.id} className="py-1 first:pt-0 last:pb-0">
+            <Link
+              to={`/wei/${member.wei}/participant/${member.user}`}
+              aria-label={`Voir l'activité de ${member.expand?.user?.username || "ce participant"}`}
+              className="-mx-2 flex flex-row items-center gap-3 rounded-md px-2 py-2 transition duration-200 hover:bg-muted motion-reduce:transition-none"
+            >
+              <Member member={member} team={team} />
+              <span className="ml-auto shrink-0 text-sm font-medium">
+                {member.score ?? 0} pts
+              </span>
+            </Link>
           </li>
         ))}
       </ul>

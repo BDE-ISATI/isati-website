@@ -8,10 +8,11 @@ import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 
 interface HubProofCarouselProps {
   validations: UseQueryResult<ValidationWithRelations[]>
+  weiId: string
   now: number
 }
 
-export default function HubProofCarousel({ validations, now }: HubProofCarouselProps) {
+export default function HubProofCarousel({ validations, weiId, now }: HubProofCarouselProps) {
   return (
     <section className="flex flex-col gap-3">
       <h2 className="text-lg font-semibold">Dernières preuves</h2>
@@ -32,7 +33,7 @@ export default function HubProofCarousel({ validations, now }: HubProofCarouselP
         <ul className="flex flex-row gap-3 overflow-x-auto pb-2 snap-x">
           {validations.data.map((validation) => (
             <li key={validation.id} className="w-40 shrink-0 snap-start sm:w-44">
-              <ValidationTile validation={validation} showChallenge authorLink now={now} />
+              <ValidationTile validation={validation} showChallenge authorLink weiId={weiId} now={now} />
             </li>
           ))}
         </ul>

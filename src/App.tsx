@@ -33,6 +33,7 @@ import ChallengeNew from '@/pages/Wei/ChallengeNew';
 import ChallengeEdit from '@/pages/Wei/ChallengeEdit';
 import Team from '@/pages/Wei/Team';
 import TeamDetail from '@/pages/Wei/TeamDetail';
+import ParticipantDetail from '@/pages/Wei/ParticipantDetail';
 import Validation from '@/pages/Wei/Validation';
 import ValidationDetail from '@/pages/Wei/ValidationDetail';
 import WeiLeaders from '@/pages/Wei/WeiLeaders';
@@ -64,6 +65,7 @@ function App() {
           <Route element={<RequirePermission action="view" resource="teams" fallback={<RequireWeiParticipant />} />}>
             <Route path="/wei/team" element={<Team />}/>
             <Route path="/wei/team/:teamId" element={<TeamDetail />}/>
+            <Route path="/wei/:weiId/participant/:userId" element={<ParticipantDetail />}/>
           </Route>
 
           <Route element={<RequirePermission action="view" resource="validations" fallback={<RequireChallengeSubmittable />} />}>
