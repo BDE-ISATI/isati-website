@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import { darken } from "color2k";
 
@@ -7,6 +7,7 @@ import { useAuthStore } from "@/features/auth/store/useAuthStore";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import useWei from "@/features/wei/hooks/queries/useWei";
 import useUserParticipation from "@/features/wei/hooks/queries/useUserParticipation";
+import useMyParticipation from "@/features/wei/hooks/queries/useMyParticipation";
 import useParticipationScores from "@/features/wei/hooks/queries/useParticipationScores";
 import useTeamScores from "@/features/wei/hooks/queries/useTeamScores";
 import useFactions from "@/features/wei/hooks/queries/useFactions";
@@ -15,7 +16,6 @@ import useUserScoreEvents from "@/features/wei/hooks/queries/useUserScoreEvents"
 import useChallenges from "@/features/wei/hooks/queries/useChallenges";
 import useValidationsRealtime from "@/features/wei/hooks/useValidationsRealtime";
 import TeamScoreChart from "@/features/wei/components/TeamScoreChart";
-import TeamCard from "@/features/wei/components/TeamCard";
 import ValidationTile from "@/features/wei/components/ValidationTile";
 import ParticipantActivityList from "@/features/wei/components/ParticipantActivityList";
 import ParticipantLeaderboard from "@/features/wei/components/ParticipantLeaderboard";
@@ -26,6 +26,7 @@ import type { ChallengeWithRelations } from "@/shared/types/sharedTypes";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
 import { parsePbDate } from "@/shared/lib/dates";
 import useNow from "@/shared/hooks/useNow";
+import Button from "@/shared/components/ui/Button";
 import Error from "@/shared/components/ui/Error";
 import ProgressBar from "@/shared/components/ui/ProgressBar";
 import IsatiAnimation from "@/shared/components/animations/IsatiAnimation";
@@ -34,15 +35,19 @@ import PageNav from "@/components/layout/PageNav";
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
+const CHALLENGE_LIMIT = 10;
+
 export default function ParticipantDetail() {
 
   const { weiId, userId } = useParams();
   const authUserId = useAuthStore((s) => s.user?.id);
   const canReviewValidations = useHasPermission("view", "validations");
   const now = useNow(60_000);
+  const [ showAllChallenges, setShowAllChallenges ] = useState<boolean>(false);
 
   const wei = useWei(weiId);
   const participation = useUserParticipation(weiId, userId);
+  const myParticipation = useMyParticipation(weiId);
   const scores = useParticipationScores(weiId);
   const teams = useTeamScores(weiId);
   const factions = useFactions(weiId);
@@ -85,7 +90,9 @@ export default function ParticipantDetail() {
   const current = participation.data;
   const user = current.expand?.user;
   const isSelf = authUserId === current.user;
-  const fullHistory = isSelf || canReviewValidations;
+  const mine = myParticipation.data;
+  const leadsThisTeam = mine?.role === "team_leader" && !!current.team && mine.team === current.team;
+  const fullHistory = isSelf || canReviewValidations || leadsThisTeam;
 
   const scoreList = scores.data ?? [];
   const teamList = teams.data ?? [];
@@ -95,7 +102,6 @@ export default function ParticipantDetail() {
   const team = current.team ? teamList.find((entry) => entry.id === current.team) : undefined;
   const teamName = team?.name || current.expand?.team?.name;
   const teamColor = team?.color || current.expand?.team?.color;
-  const teamRank = rankOf(teamList, current.team);
 
   const factionScores = buildFactionScores(teamList, factions.data ?? []);
   const faction = factionScores.find((entry) => entry.id === (team?.faction || current.expand?.team?.faction));
@@ -236,10 +242,22 @@ export default function ParticipantDetail() {
           <p className="mt-4 text-sm text-muted-foreground">Aucun défi validé pour l'instant.</p>
         ) : (
           <ul className="mt-4 flex flex-col divide-y divide-border">
-            {awarded.map((event) => (
+            {(showAllChallenges ? awarded : awarded.slice(0, CHALLENGE_LIMIT)).map((event) => (
               <AwardedRow key={event.id} event={event} challenge={challengeById.get(event.challenge)} />
             ))}
           </ul>
+        )}
+
+        {!showAllChallenges && awarded.length > CHALLENGE_LIMIT && (
+          <Button
+            type="button"
+            onClick={() => setShowAllChallenges(true)}
+            variant="secondary"
+            size="small"
+            className="mt-4"
+          >
+            Tout afficher ({awarded.length})
+          </Button>
         )}
       </section>
 
@@ -249,8 +267,6 @@ export default function ParticipantDetail() {
           <ParticipantActivityList validations={list} now={now} canFix={isSelf} className="mt-4" />
         </section>
       )}
-
-      {team && <TeamCard team={team} rank={teamRank} />}
 
       <ParticipantLeaderboard
         weiId={current.wei}
