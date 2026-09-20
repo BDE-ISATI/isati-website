@@ -16,14 +16,12 @@
  <p align="center">
     The website of ISATI, the student association of ESIR (University of Rennes).
     <br />
-    <a href="https://github.com/BDE-ISATI/wei-feature"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/BDE-ISATI/isati-website"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/BDE-ISATI/wei-feature">View Demo</a>
+    <a href="https://github.com/BDE-ISATI/isati-website/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
-    <a href="https://github.com/BDE-ISATI/wei-feature/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
-    &middot;
-    <a href="https://github.com/BDE-ISATI/wei-feature/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+    <a href="https://github.com/BDE-ISATI/isati-website/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
