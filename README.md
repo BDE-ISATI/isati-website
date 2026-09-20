@@ -51,14 +51,32 @@
 
 [![Website screenshot][product-screenshot]](https://isati.org)
 
+Website of ISATI, the student association of ESIR (University of Rennes).
+
+It covers association life : news, clubs, committee and the WEI
+
 This repository holds the **frontend only**. The backend lives in
 [BDE-ISATI/isati-backend](https://github.com/BDE-ISATI/isati-backend).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Website of ISATI, the student association of ESIR (University of Rennes).
 
-It covers association life : news, clubs, committee and the WEI
+
+
+
+
+### Built With
+
+* [![React][React.js]][React-url]
+* [![TypeScript][TypeScript]][TypeScript-url]
+* [![Vite][Vite]][Vite-url]
+* [![TailwindCSS][Tailwind]][Tailwind-url]
+* [![TanStack Query][TanStack]][TanStack-url]
+* [![PocketBase][PocketBase]][PocketBase-url]
+
+
+
+
 
 [contributors-shield]: https://img.shields.io/github/contributors/BDE-ISATI/isati-website.svg?style=for-the-badge
 [contributors-url]: https://github.com/BDE-ISATI/isati-website/graphs/contributors
@@ -79,4 +97,19 @@ It covers association life : news, clubs, committee and the WEI
 [linkedin-url]: https://fr.linkedin.com/company/bde-isati
 
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
+[React-url]: https://react.dev/
+
+[TypeScript]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/
+
+[Vite]: https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vite.dev/
+
+[Tailwind]: https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
+[Tailwind-url]: https://tailwindcss.com/
+
+[TanStack]: https://img.shields.io/badge/TanStack_Query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white
+[TanStack-url]: https://tanstack.com/query/latest
+
+[PocketBase]: https://img.shields.io/badge/PocketBase-B8DBE4?style=for-the-badge&logo=pocketbase&logoColor=black
+[PocketBase-url]: https://pocketbase.io/
