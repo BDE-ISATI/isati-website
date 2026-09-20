@@ -1,4 +1,3 @@
- # Refonte du site web ISATI en react.
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -6,8 +5,27 @@
 [![Unlicense License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+<br />
+<div align="center">
+  <a href="https://github.com/BDE-ISATI/wei-feature">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-
+ <h3 align="center">ISATI Website</h3>
+ 
+ <p align="center">
+    The website of ISATI, the student association of ESIR (University of Rennes).
+    <br />
+    <a href="https://github.com/BDE-ISATI/wei-feature"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/BDE-ISATI/wei-feature">View Demo</a>
+    &middot;
+    <a href="https://github.com/BDE-ISATI/wei-feature/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    &middot;
+    <a href="https://github.com/BDE-ISATI/wei-feature/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
 
 
 
