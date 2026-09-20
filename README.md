@@ -16,18 +16,49 @@
  <p align="center">
     The website of ISATI, the student association of ESIR (University of Rennes).
     <br />
-    <a href="https://github.com/BDE-ISATI/isati-website"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
     <a href="https://github.com/BDE-ISATI/isati-website/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
     <a href="https://github.com/BDE-ISATI/isati-website/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
 
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About the Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#environment-variables">Environment Variables</a></li>
+      </ul>
+    </li>
+    <li><a href="#available-scripts">Available Scripts</a></li>
+    <li><a href="#project-structure">Project Structure</a></li>
+    <li><a href="#conventions">Conventions</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
+[![Website screenshot][product-screenshot]](https://isati.org)
 
+This repository holds the **frontend only**. The backend lives in
+[BDE-ISATI/isati-backend](https://github.com/BDE-ISATI/isati-backend).
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+Website of ISATI, the student association of ESIR (University of Rennes).
+
+It covers association life : news, clubs, committee and the WEI
 
 [contributors-shield]: https://img.shields.io/github/contributors/BDE-ISATI/isati-website.svg?style=for-the-badge
 [contributors-url]: https://github.com/BDE-ISATI/isati-website/graphs/contributors
