@@ -94,7 +94,7 @@ export default function Salles() {
 
 
   return (
-    <div>
+    <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full p-4">
 
     <button className="h-32 w-128 bg-slate-200" onClick={maj}> Mettre à jour</button>
     {data.map((salle) => {
@@ -102,14 +102,33 @@ export default function Salles() {
       const { state, next_change } = isAvailable(salle);
       
       return(
-        <>
-        
-        <div key={salle.name} className={`${state ? "bg-green-300" : "bg-red-300"}`}>
-          
-          <h1>{salle.name}</h1>
-          <h1>{next_change}</h1>
-        </div>
-        </>
+        <div
+            key={salle.name}
+            style={{ backgroundColor:state ? "#12c912b0" : "#ff00009a"  }}
+          >
+            {/* En-tête de la carte (Nom de la salle) */}
+            <div className="bg-black/30 p-4 border-b border-white/5 backdrop-blur-md">
+              <h3 className="text-2xl font-extrabold text-white uppercase tracking-wider text-center truncate">
+                {salle.name}
+              </h3>
+            </div>
+
+            {/* Corps de la carte (Données) */}
+            <div className="flex flex-col items-center justify-center p-6 flex-grow space-y-5">
+              
+
+              {/* Bloc Heure avec typographie distincte */}
+              <div className="flex flex-col items-center text-center">
+                <span className="text-white/60 text-xs font-medium uppercase tracking-wider mb-1">
+                  {state ? "Disponible jusqu'à" : "Se libère à"}
+                </span>
+                <span className="text-white font-mono text-3xl font-light">
+                  {next_change}
+                </span>
+              </div>
+
+            </div>
+          </div>
       )
     })
     }
