@@ -82,8 +82,8 @@ export default function RoomsPage() {
 };
 
   return (
-    <section className="bg-red-200 px-6 py-16 text-red-300 lg:py-24 ">
-      <div className="mx-auto px-20">       
+    <section className="bg-red-200 lg:px-6 text-red-300 lg:py-24 ">
+      <div className="mx-auto lg:px-20">       
 
         <div className="flex justify-center mt-6">
         <button 

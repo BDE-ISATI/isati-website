@@ -4,5 +4,5 @@ import { queryClient } from "@/shared/lib/queryClient.ts";
 
 export function logout() {
   pb.authStore.clear();
-  queryClient.clear();
+  queryClient.resetQueries();
 }

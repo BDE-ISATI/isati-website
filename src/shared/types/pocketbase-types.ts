@@ -343,13 +343,11 @@ export type RolesRecord = {
 	updated: IsoAutoDateString
 }
 
-export type RoomsRecord = {
+export type RoomsRecord<Tedt = unknown> = {
 	created: IsoAutoDateString
-	ics_url?: string
+	edt?: null | Tedt
 	id: string
-	is_available?: boolean
 	name?: string
-	next_change?: IsoDateString
 	updated: IsoAutoDateString
 }
 
@@ -489,7 +487,7 @@ export type ParticipationScoresResponse<Texpand = unknown> = Required<Participat
 export type ParticipationsResponse<Texpand = unknown> = Required<ParticipationsRecord> & BaseSystemFields<Texpand>
 export type PoliciesResponse<Texpand = unknown> = Required<PoliciesRecord> & BaseSystemFields<Texpand>
 export type RolesResponse<Texpand = unknown> = Required<RolesRecord> & BaseSystemFields<Texpand>
-export type RoomsResponse<Texpand = unknown> = Required<RoomsRecord> & BaseSystemFields<Texpand>
+export type RoomsResponse<Tedt = unknown, Texpand = unknown> = Required<RoomsRecord<Tedt>> & BaseSystemFields<Texpand>
 export type StatusResponse<Texpand = unknown> = Required<StatusRecord> & BaseSystemFields<Texpand>
 export type TeamScoresResponse<Texpand = unknown> = Required<TeamScoresRecord> & BaseSystemFields<Texpand>
 export type TeamsResponse<Texpand = unknown> = Required<TeamsRecord> & BaseSystemFields<Texpand>

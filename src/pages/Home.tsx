@@ -15,16 +15,14 @@ import Carousel from "@/features/home/components/Carousel"
 import { clubs, featuredEvent, otherClubs, pastEventPosters, poles, stats } from "@/features/home/homeData";
 import OrganigrammeSection from "@/features/home/components/OrganigrammeSection";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
-import OrganigrammeEdit from "@/features/home/components/OrganigrammeEdit";
 import ListeClubs from "@/features/home/components/ListeClubs";
-import Salles from "@/pages/Salles";
+import Salles from "@/features/home/components/Salles";
 
 
 function Home() {
 
-  const isLoggedIn = useAuthStore((s) => !!s.user);
-
-  const user = useAuthStore((s) => s.user);
+  const user = useAuthStore((c) => c.user);
+  const isLoggedIn = !!user;
   const currentWei = useCurrentWei();
   const participation = useMyParticipation(currentWei.data?.id);
 
@@ -51,14 +49,13 @@ function Home() {
   
 
   if (isLoggedIn) {
-    const user = useAuthStore((c) => c.user);
     
     if (!user) { return ;}
     const permission = useHasPermission("organigramme_member", "update")
     return (
       <>
           
-        {permission && <OrganigrammeEdit/> }
+        {permission && <OrganigrammeSection isEditing={true}/> }
       </>
     );
   }
@@ -93,9 +90,7 @@ function Home() {
   )}
 
 
-  <div>
-    <Salles />
-  </div>
+  <Salles />
 
   {/* Prochain évènement */}
 
@@ -108,7 +103,7 @@ function Home() {
           <img
             src={featuredEvent.poster}
             alt={`Affiche : ${featuredEvent.title}`}
-            className="relative z-10 -my-[2vw] max-h-[50vh] w-auto max-w-full rounded-xl shadow-2xl transition-transform transition-shadow duration-300 hover:scale-115 hover:z-30"
+            className="relative z-10 -my-[2vw] max-h-[40vh] lg:max-h-[50vh] w-auto max-w-full rounded-xl shadow-2xl transition-transform transition-shadow duration-300 hover:scale-115 hover:z-30"
           />
 
           <span className="pointer-events-none z-20 select-none text-[8vw] leading-[0.8] font-extrabold text-brand-900">

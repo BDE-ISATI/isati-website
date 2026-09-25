@@ -1,55 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import pb from "@/shared/lib/pocketbase";
-
 import type { ClubDetailsResponse } from "@/shared/types/pocketbase-types";
-import { useEffect } from "react"
+import useClubs from "@/features/home/hook/useClubs";
 
-import useClubs from "../hook/useClubs"
+export default function ListeClubs() {
+    const styleClub = "flex flex-col w-auto justify-center items-center hover:bg-red-300 hover:text-accent cursor-pointer";
 
-
-export default function ListeClubs (){
-    const styleClub = "flex flex-col w-auto justify-center  items-center hover:bg-red-300 hover:text-accent cursor-pointer";
-
-    const { data = [], isLoading, error } = useClubs();
+    // Utilisation de isPending (provenant de React Query)
+    const { data = [], isPending, error } = useClubs();
+    
 
     const [clubOpen, setClubOpen] = useState<ClubDetailsResponse>();
 
-
-
-
     useEffect(() => {
         if (clubOpen) {
-            // Bloque le scroll
             document.body.style.overflow = 'hidden';
         } else {
-            // Réactive le scroll
             document.body.style.overflow = 'unset';
         }
 
-        // Sécurité : réactive le scroll si le composant est démonté
-        return () => {
+        return () => { 
             document.body.style.overflow = 'unset';
         };
     }, [clubOpen]);
 
+    // Blocage du rendu pendant le chargement (Similaire à WeiHub.tsx)
+    if (isPending) {
+        return (
+            <div className="flex flex-col items-center justify-center py-20 bg-red-200">
+                <p className="text-accent font-bold text-xl">Chargement des clubs...</p>
+            </div>
+        );
+    }
 
+    // Affichage en cas d'erreur
+    if (error) {
+        return (
+            <div className="flex flex-col items-center justify-center py-20 bg-red-200">
+                <p className="text-red-600 font-bold text-xl">Erreur lors du chargement des clubs.</p>
+            </div>
+        );
+    }
 
-
-
-
-
-
-    {isLoading && <p className="mt-10 text-accent">Chargement des clubs...</p>}
-    {error && <p className="mt-10 text-red-600">Erreur lors du chargement des clubs.</p>}
-
+    // Le rendu principal ne s'exécute que si les données sont prêtes
     return (
         <div className="relative flex flex-col items-center pb-20 bg-red-200 font-bold">
 
-            <h1 className="mt-16 text-6xl">
-            <span className="relative text-red-500 text-7xl">ISATI</span> c'est aussi <span className="text-red-500 text-7xl">{data.length}</span> clubs 
+            <h1 className="mt-16 text-6xl text-center">
+                <span className="relative text-red-500 text-7xl">ISATI</span> c'est aussi <span className="text-red-500 text-7xl">{data.length}</span> clubs 
             </h1>
             <h2 className="mt-4 text-accent/80 text-xl">
-            (cliquez sur l'icone pour rejoindre le groupe whatsapp associé)
+                (cliquez sur l'icone pour rejoindre le groupe whatsapp associé)
             </h2>
 
             {/* Grille des clubs */}
@@ -70,15 +71,12 @@ export default function ListeClubs (){
             {clubOpen && (
                 <div className="backdrop-blur-sm fixed inset-0 z-50 flex transition-all items-center justify-center bg-red-200/20">
                     
-                    {/* Arrière-plan cliquable pour fermer */}
                     <div onClick={() => setClubOpen(undefined)} className="absolute inset-0 -z-10"></div>
 
-                    {/* Bouton fermeture */}
                     <button onClick={() => setClubOpen(undefined)} className="absolute top-5 right-5 w-16 h-16 cursor-pointer hover:bg-slate-200/30">
                         X
                     </button>
 
-                    {/* Contenu principal de la modale */}
                     <div className="flex flex-row gap-10">
                         <img 
                             src={pb.files.getURL(clubOpen, clubOpen.poster)} 
@@ -109,10 +107,6 @@ export default function ListeClubs (){
                     </div>
                 </div>
             )}
-
-
-            
-
         </div>
     )
 }
