@@ -40,6 +40,7 @@ import TeamEdit from '@/pages/Wei/TeamEdit';
 
 import MentionsLegales from '@/pages/MentionsLegales';
 import Contact from '@/pages/Contact';
+import PageSalles from '@/pages/PageSalles';
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />}  />
           <Route path="/wei" element={<Wei />}/>
+          <Route path="/salles" element={<PageSalles />}/>
           
           <Route element={<RequirePermission action="view" resource="challenges" fallback={<RequireWeiParticipant />} />}>
             <Route path="/wei/challenge" element={<Challenge />}/>

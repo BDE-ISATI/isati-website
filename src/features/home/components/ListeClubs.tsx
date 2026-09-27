@@ -6,25 +6,11 @@ import useClubs from "@/features/home/hook/useClubs";
 export default function ListeClubs() {
     const styleClub = "flex flex-col w-auto justify-center items-center hover:bg-red-300 hover:text-accent cursor-pointer";
 
-    // Utilisation de isPending (provenant de React Query)
     const { data = [], isPending, error } = useClubs();
-    
 
     const [clubOpen, setClubOpen] = useState<ClubDetailsResponse>();
 
-    useEffect(() => {
-        if (clubOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
 
-        return () => { 
-            document.body.style.overflow = 'unset';
-        };
-    }, [clubOpen]);
-
-    // Blocage du rendu pendant le chargement (Similaire à WeiHub.tsx)
     if (isPending) {
         return (
             <div className="flex flex-col items-center justify-center py-20 bg-red-200">
@@ -33,7 +19,6 @@ export default function ListeClubs() {
         );
     }
 
-    // Affichage en cas d'erreur
     if (error) {
         return (
             <div className="flex flex-col items-center justify-center py-20 bg-red-200">
@@ -42,7 +27,6 @@ export default function ListeClubs() {
         );
     }
 
-    // Le rendu principal ne s'exécute que si les données sont prêtes
     return (
         <div className="relative flex flex-col items-center pb-20 bg-red-200 font-bold">
 

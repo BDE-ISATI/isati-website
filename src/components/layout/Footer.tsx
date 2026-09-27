@@ -21,7 +21,7 @@ export default function Footer() {
   const isTransparent = useWeiImmersive();
 
   return (
-    <footer className="mt-auto">
+    <footer className="w-full">
       <Fur
         preserveAspectRatio="none"
         className={cn(

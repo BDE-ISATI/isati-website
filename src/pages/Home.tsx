@@ -90,8 +90,6 @@ function Home() {
   )}
 
 
-  <Salles />
-
   {/* Prochain évènement */}
 
   <section id="a-la-une" className="relative overflow-hidden bg-accent px-6 py-6 text-accent-foreground lg:py-6">

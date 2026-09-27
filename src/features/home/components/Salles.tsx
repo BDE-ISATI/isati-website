@@ -5,19 +5,12 @@ export default function Salles() {
 
   const { data = [], isPending, error } = useSalles();
 
-  console.log("Données PocketBase:", data);
+  const sallesTriees = [...data].sort((a, b) => a.name.localeCompare(b.name));
+
 
   if (isPending) return <div> <h1>Les salles sont en cours de chargement</h1> </div>; 
   if (error) return <div> <h1>Aie, y'a un soucis, va falloir que cherche une salle tout seul</h1> </div>;
 
-  async function maj() {
-    const response = await fetch("http://127.0.0.1:8090/api/sync-rooms", {
-    method: "POST"
-  });
-
-  const data2 = await response.json();
-  console.log(data2);
-  }
 
   function enMinutes(heureString: string): number {
     const [h, m] = heureString.split(":").map(Number);
@@ -94,10 +87,9 @@ export default function Salles() {
 
 
   return (
-    <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full p-4">
+    <div className="pt-14 pb-64 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full p-4 bg-accent/30 ">
 
-    <button className="h-32 w-128 bg-slate-200" onClick={maj}> Mettre à jour</button>
-    {data.map((salle) => {
+    {sallesTriees.map((salle) => {
       
       const { state, next_change } = isAvailable(salle);
       
