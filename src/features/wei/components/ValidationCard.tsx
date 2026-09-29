@@ -3,6 +3,7 @@ import { darken } from "color2k";
 import pb from "@/shared/lib/pocketbase";
 import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
 import proofFiles, { proofThumbUrl } from "@/features/wei/libs/proof";
+import useFileToken from "@/features/wei/hooks/useFileToken";
 import { parsePbDate } from "@/shared/lib/dates";
 import { VALIDATION_STATUS_CLASSES, VALIDATION_STATUS_LABELS } from "@/features/wei/libs/validation";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
@@ -75,7 +76,8 @@ export default function ValidationCard({ validation, search, className }: Valida
 
 function Thumbnail({ validation, color }: { validation: ValidationWithRelations, color: string }) {
 
-  const proofs = proofFiles(validation);
+  const token = useFileToken();
+  const proofs = proofFiles(validation, token);
   const [ first ] = proofs;
 
   if (first) {
@@ -91,7 +93,7 @@ function Thumbnail({ validation, color }: { validation: ValidationWithRelations,
           />
         ) : (
           <img
-            src={proofThumbUrl(validation, first, "300x300")}
+            src={proofThumbUrl(validation, first, "300x300", token)}
             alt=""
             loading="lazy"
             className="h-14 w-14 rounded-md border border-border object-cover"

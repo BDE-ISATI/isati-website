@@ -1,29 +1,25 @@
 import { Link, useOutletContext } from "react-router";
 import type { ProfileOutletContext } from "@/features/profile/profileTypes";
-import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
-import useCurrentWei from "@/features/wei/hooks/queries/useCurrentWei";
-import useUserValidations from "@/features/wei/hooks/queries/useUserValidations";
-import challengeWindow from "@/features/wei/libs/challenge";
-import { VALIDATION_STATUS_CLASSES, VALIDATION_STATUS_LABELS, groupByChallenge, type ValidationGroup } from "@/features/wei/libs/validation";
-import { parsePbDate } from "@/shared/lib/dates";
+import type { ParticipationWithWei } from "@/shared/types/sharedTypes";
+import type { ParticipationsStateOptions } from "@/shared/types/pocketbase-types";
+import useUserParticipations from "@/features/wei/hooks/queries/useUserParticipations";
 import { getFirstErrorMessage } from "@/shared/lib/pocketbase-errors";
-import useNow from "@/shared/hooks/useNow";
 import ButtonLink from "@/shared/components/ui/ButtonLink";
 import Error from "@/shared/components/ui/Error";
 import LoadingOverlay from "@/shared/components/ui/LoadingOverlay";
+import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 import cn from "@/shared/utils/cn";
 
-const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const STATE_LABELS: Record<ParticipationsStateOptions, string> = {
+  pending: "Inscription en attente",
+  assigned: "Affecté à une équipe",
+  cancelled: "Inscription annulée",
+};
 
 export default function Activities() {
 
   const { user, isForeign } = useOutletContext<ProfileOutletContext>();
-  const currentWei = useCurrentWei();
-  const validations = useUserValidations(currentWei.data?.id, user.id);
-  const now = useNow(60_000);
-  const groups = validations.data ? groupByChallenge(validations.data) : undefined;
-
-  const isBusy = currentWei.isPending || (!!currentWei.data && validations.isPending);
+  const participations = useUserParticipations(user.id);
 
   return (
     <section className="flex flex-col gap-4">
@@ -32,121 +28,72 @@ export default function Activities() {
           {isForeign ? `Activités de ${user.username}` : "Mes activités"}
         </h1>
         <p className="text-xs sm:text-sm text-muted-foreground">
-          Les défis du WEI soumis et leur statut
+          Les WEI auxquels {isForeign ? "cette personne a" : "vous avez"} participé
         </p>
       </header>
 
-      <Error message={getFirstErrorMessage(currentWei.error ?? validations.error)} />
+      <Error message={getFirstErrorMessage(participations.error)} />
 
       <div className="relative">
-        <div inert={isBusy} className={cn(
+        <div inert={participations.isPending} className={cn(
           "flex flex-col gap-2 transition duration-200",
-          isBusy && "blur-sm pointer-events-none select-none"
+          participations.isPending && "blur-sm pointer-events-none select-none"
         )}>
-          <h2 className="font-semibold">{`WEI ${currentWei.data?.year ?? ""}`.trim()}</h2>
-
-          {!currentWei.isPending && !currentWei.data && (
-            <p className="text-sm text-muted-foreground">Aucun WEI en cours.</p>
-          )}
-
-          {groups?.length === 0 && (
+          {participations.data?.length === 0 && (
             <div className="flex flex-col items-start gap-2 text-sm">
-              <p className="text-muted-foreground">Aucune validation pour l'instant.</p>
+              <p className="text-muted-foreground">Aucune participation au WEI.</p>
               {!isForeign && (
-                <ButtonLink to="/wei/challenge" variant="secondary" size="small">Voir les défis</ButtonLink>
+                <ButtonLink to="/wei" variant="secondary" size="small">Voir le WEI</ButtonLink>
               )}
             </div>
           )}
 
-          {!!groups?.length && (
+          {!!participations.data?.length && (
             <ul className="flex flex-col divide-y divide-border rounded-md border border-border">
-              {groups.map((group) => (
-                <ActivityRow key={group.challengeId} group={group} now={now} canFix={!isForeign} />
+              {participations.data.map((participation) => (
+                <li key={participation.id}>
+                  <WeiRow participation={participation} userId={user.id} />
+                </li>
               ))}
             </ul>
           )}
         </div>
 
-        {isBusy && <LoadingOverlay />}
+        {participations.isPending && <LoadingOverlay />}
       </div>
     </section>
   )
 }
 
-function ActivityRow({ group, now, canFix }: { group: ValidationGroup, now: number, canFix: boolean }) {
-  const { latest, previous } = group;
-  const challenge = latest.expand?.challenge;
-  const status = latest.status || "pending";
-  const fixable = canFix && status === "refused" && !!challenge && challengeWindow(challenge, now).open;
+function WeiRow({ participation, userId }: { participation: ParticipationWithWei, userId: string }) {
 
-  return (
-    <li className="flex flex-col gap-2 p-3 text-sm">
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex min-w-0 flex-col gap-1">
-          <span className="flex min-w-0 flex-row items-center gap-2">
-            {challenge ? (
-              <Link to={`/wei/challenge/${challenge.id}`} className="truncate font-medium hover:underline">
-                {challenge.title || "Défi"}
-              </Link>
-            ) : (
-              <span className="truncate font-medium">Défi inconnu</span>
-            )}
-            <span className={cn("shrink-0 rounded-md border px-2 py-0.5 text-xs font-medium", VALIDATION_STATUS_CLASSES[status])}>
-              {VALIDATION_STATUS_LABELS[status]}
-            </span>
-          </span>
+  const wei = participation.expand?.wei;
+  const state = participation.state || "pending";
 
-          <Attempt validation={latest} />
-        </div>
-
-        {fixable && challenge && (
-          <ButtonLink to={`/wei/challenge/${challenge.id}/validate`} variant="secondary" size="small" className="shrink-0">
-            Corriger
-          </ButtonLink>
-        )}
-      </div>
-
-      {previous.length > 0 && (
-        <details className="flex flex-col gap-1">
-          <summary className="w-fit cursor-pointer text-xs text-muted-foreground hover:underline">
-            {previous.length > 1 ? `${previous.length} tentatives précédentes` : "1 tentative précédente"}
-          </summary>
-
-          <ul className="mt-2 flex flex-col gap-2 border-l-2 border-border pl-3">
-            {previous.map((attempt) => (
-              <li key={attempt.id} className="flex flex-col gap-1">
-                <span className={cn(
-                  "w-fit rounded-md border px-2 py-0.5 text-xs font-medium",
-                  VALIDATION_STATUS_CLASSES[attempt.status || "pending"],
-                )}>
-                  {VALIDATION_STATUS_LABELS[attempt.status || "pending"]}
-                </span>
-                <Attempt validation={attempt} />
-              </li>
-            ))}
-          </ul>
-        </details>
-      )}
-    </li>
-  );
-}
-
-function Attempt({ validation }: { validation: ValidationWithRelations }) {
-  const status = validation.status || "pending";
-  const date = parsePbDate(validation.submitted_at);
-  const proofCount = Array.isArray(validation.proof_file) ? validation.proof_file.length : 0;
-
-  return (
+  const content = (
     <>
-      <span className="text-xs text-muted-foreground">
-        {date ? dateFormat.format(date) : "-"}
-        {proofCount > 1 && ` · ${proofCount} preuves`}
-        {status === "accepted" && ` · ${validation.points_awarded ?? 0} pts`}
+      <span className="flex min-w-0 flex-1 flex-col">
+        <span className="truncate font-medium">
+          {`WEI ${wei?.year ?? ""}`.trim()}
+          {wei?.title && <span className="text-muted-foreground"> · {wei.title}</span>}
+        </span>
+        <span className="truncate text-xs text-muted-foreground">{STATE_LABELS[state]}</span>
       </span>
 
-      {status === "refused" && validation.reason && (
-        <p className="text-xs text-status-critical">{validation.reason}</p>
-      )}
+      {state === "assigned" && <ChevronRight aria-hidden="true" className="h-4 w-4 shrink-0 text-muted-foreground" />}
     </>
+  );
+
+  if (state !== "assigned") {
+    return <div className="flex flex-row items-center gap-3 p-3 text-sm">{content}</div>;
+  }
+
+  return (
+    <Link
+      to={`/wei/${participation.wei}/participant/${userId}`}
+      className="flex flex-row items-center gap-3 p-3 text-sm transition duration-200 hover:bg-muted motion-reduce:transition-none"
+    >
+      {content}
+    </Link>
   );
 }

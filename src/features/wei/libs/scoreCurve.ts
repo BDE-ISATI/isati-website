@@ -8,6 +8,13 @@ export type ScoreValidation = {
 
 export type ScoreGranularity = "hour" | "day";
 
+export type ScoreSeries = {
+  id: string
+  name?: string
+  color?: string
+  score?: number
+};
+
 export type ScorePoint = { t: number } & Record<string, number>;
 
 export type ScoreCurve = {
@@ -22,14 +29,14 @@ const MAX_POINTS = 400;
 
 export default function buildScoreCurve(
   validations: ScoreValidation[],
-  teamIds: string[],
+  seriesIds: string[],
   range: { from: number; to: number },
 ): ScoreCurve {
 
   const granularity: ScoreGranularity = range.to - range.from <= HOURLY_MAX_SPAN ? "hour" : "day";
   const step = granularity === "hour" ? HOUR : DAY;
 
-  const totals = new Map<string, number>(teamIds.map((id) => [id, 0]));
+  const totals = new Map<string, number>(seriesIds.map((id) => [id, 0]));
 
   if (!Number.isFinite(range.from) || !Number.isFinite(range.to) || range.to <= range.from) {
     return { points: [{ t: range.to, ...Object.fromEntries(totals) }], granularity };

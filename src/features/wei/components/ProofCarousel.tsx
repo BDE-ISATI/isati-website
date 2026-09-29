@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
 import proofFiles, { type ProofFile } from "@/features/wei/libs/proof";
+import useFileToken from "@/features/wei/hooks/useFileToken";
 import Button from "@/shared/components/ui/Button";
 import ChevronRight from "@/assets/icons/chevron-right.svg?react";
 import cn from "@/shared/utils/cn";
@@ -13,7 +14,8 @@ interface ProofCarouselProps {
 
 export default function ProofCarousel({ validation, className }: ProofCarouselProps) {
 
-  const proofs = proofFiles(validation);
+  const token = useFileToken();
+  const proofs = proofFiles(validation, token);
   const [ index, setIndex ] = useState<number>(0);
 
   const current = Math.min(index, Math.max(0, proofs.length - 1));

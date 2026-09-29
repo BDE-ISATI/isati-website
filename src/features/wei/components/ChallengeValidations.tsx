@@ -31,7 +31,7 @@ export default function ChallengeValidations({ challenge, className }: Challenge
       <ul className="mt-4 flex flex-row gap-3 overflow-x-auto pb-2">
         {validations.data?.map((validation) => (
           <li key={validation.id} className="w-40 shrink-0 sm:w-44">
-            <ValidationTile validation={validation} />
+            <ValidationTile validation={validation} authorLink weiId={challenge.wei} />
           </li>
         ))}
       </ul>

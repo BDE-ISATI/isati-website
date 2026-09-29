@@ -9,7 +9,7 @@ export default function useUserValidations(weiId?: string, userId?: string) {
       const filter = pb.filter("user = {:userId} && challenge.wei = {:weiId}", { userId: userId, weiId: weiId })
       return await pb.collection("validations").getFullList<ValidationWithRelations>({
         filter: filter,
-        expand: "challenge",
+        expand: "challenge,team,user",
         sort: "-submitted_at"
       })
     },
