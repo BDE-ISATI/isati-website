@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/BDE-ISATI/wei-feature">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="images/logo.png" alt="Logo" width="320" height="320">
   </a>
 
  <h3 align="center">ISATI Website</h3>
@@ -62,6 +62,12 @@ This repository holds the **frontend only**. The backend lives in
 
 
 
+<!-- LICENSE -->
+## License
+
+Distributed under the GNU Affero General Public License v3. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
@@ -113,3 +119,5 @@ This repository holds the **frontend only**. The backend lives in
 
 [PocketBase]: https://img.shields.io/badge/PocketBase-B8DBE4?style=for-the-badge&logo=pocketbase&logoColor=black
 [PocketBase-url]: https://pocketbase.io/
+
+[product-screenshot]: images/screenshot.png
