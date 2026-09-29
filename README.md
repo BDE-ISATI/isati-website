@@ -113,3 +113,5 @@ This repository holds the **frontend only**. The backend lives in
 
 [PocketBase]: https://img.shields.io/badge/PocketBase-B8DBE4?style=for-the-badge&logo=pocketbase&logoColor=black
 [PocketBase-url]: https://pocketbase.io/
+
+[product-screenshot]: images/screenshot.png
