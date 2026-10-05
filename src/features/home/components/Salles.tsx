@@ -19,12 +19,20 @@ export default function Salles() {
 
   function isAvailable(salle:Room) {
     const now = new Date();
-    const aujourdhui = now.toLocaleDateString("fr-CA");
-    
+
+    const aujourdhui = now.toLocaleDateString("en-US", {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+
     const heureActuelle = now.toLocaleTimeString("fr-FR", { 
       hour: "2-digit", 
       minute: "2-digit" 
     });
+
+    console.log(salle);
+    console.log(aujourdhui);
 
     const coursDuJour = salle.edt.filter((c) => c.day === aujourdhui);
 

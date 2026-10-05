@@ -12,11 +12,10 @@ import Titre from "@/assets/PageAccueil/Titre.svg?react";
 import StudentCount from "@/features/home/components/StudentCount";
 import Carousel from "@/features/home/components/Carousel"
 
-import { clubs, featuredEvent, otherClubs, pastEventPosters, poles, stats } from "@/features/home/homeData";
+import { featuredEvent, pastEventPosters, stats } from "@/features/home/homeData";
 import OrganigrammeSection from "@/features/home/components/OrganigrammeSection";
 import useHasPermission from "@/features/roles/hooks/useHasPermission";
 import ListeClubs from "@/features/home/components/ListeClubs";
-import Salles from "@/features/home/components/Salles";
 
 
 function Home() {
