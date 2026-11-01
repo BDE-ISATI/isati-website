@@ -134,6 +134,10 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
   organigramme_member: {
     insufficient_permissions: "Vous n'avez pas le droit de gérer l'organigramme.",
   },
+  instagram: {
+    validation_invalid_url: "Lien invalide.",
+    validation_url_domain_not_allowed: "Le lien doit pointer vers instagram.com.",
+  },
   label: {
     validation_required: "Ce champ est requis.",
   },

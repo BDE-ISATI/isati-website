@@ -173,7 +173,7 @@ export default function OrganigrammeMemberForm({ pole, member, onDone }: Organig
 
       <div className="flex flex-col gap-1">
         <label htmlFor="member-instagram" className="text-sm font-medium">Instagram</label>
-        <Input id="member-instagram" {...register("instagram")} />
+        <Input id="member-instagram" type="url" placeholder="https://www.instagram.com/…" {...register("instagram")} />
         <Error message={getFieldError(mutation.error, "instagram")} />
       </div>
 
