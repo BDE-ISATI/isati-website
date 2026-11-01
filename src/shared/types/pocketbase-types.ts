@@ -32,6 +32,7 @@ export const Collections = {
 	Teams: "teams",
 	Users: "users",
 	Validations: "validations",
+	WeiScoreEvents: "wei_score_events",
 	Weis: "weis",
 } as const
 export type Collections = typeof Collections[keyof typeof Collections]
@@ -451,6 +452,14 @@ export type ValidationsRecord = {
 	validator?: RecordIdString
 }
 
+export type WeiScoreEventsRecord = {
+	id: string
+	points_awarded?: number
+	reviewed_at?: IsoDateString
+	team?: RecordIdString
+	wei?: RecordIdString
+}
+
 export type WeisRecord = {
 	created: IsoAutoDateString
 	description?: string
@@ -493,6 +502,7 @@ export type TeamScoresResponse<Texpand = unknown> = Required<TeamScoresRecord> &
 export type TeamsResponse<Texpand = unknown> = Required<TeamsRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 export type ValidationsResponse<Texpand = unknown> = Required<ValidationsRecord> & BaseSystemFields<Texpand>
+export type WeiScoreEventsResponse<Texpand = unknown> = Required<WeiScoreEventsRecord> & BaseSystemFields<Texpand>
 export type WeisResponse<Texpand = unknown> = Required<WeisRecord> & BaseSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -524,6 +534,7 @@ export type CollectionRecords = {
 	teams: TeamsRecord
 	users: UsersRecord
 	validations: ValidationsRecord
+	wei_score_events: WeiScoreEventsRecord
 	weis: WeisRecord
 }
 
@@ -554,6 +565,7 @@ export type CollectionResponses = {
 	teams: TeamsResponse
 	users: UsersResponse
 	validations: ValidationsResponse
+	wei_score_events: WeiScoreEventsResponse
 	weis: WeisResponse
 }
 

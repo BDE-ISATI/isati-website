@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import type { UnsubscribeFunc } from "pocketbase";
 import pb from "@/shared/lib/pocketbase";
 
-const STALE_KEYS = [["validations"], ["validation"], ["teamScores"], ["teamScore"], ["teamMembers"], ["participationScores"]];
+const STALE_KEYS = [["validations"], ["validation"], ["teamScores"], ["teamScore"], ["teamMembers"], ["participationScores"], ["scoreEvents"]];
 
 export default function useValidationsRealtime(enabled: boolean) {
   const queryClient = useQueryClient();

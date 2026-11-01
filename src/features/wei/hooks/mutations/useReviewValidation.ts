@@ -36,6 +36,8 @@ export default function useReviewValidation() {
       queryClient.invalidateQueries({ queryKey: ["validations", "user"] })
       queryClient.invalidateQueries({ queryKey: ["teamScores"] })
       queryClient.invalidateQueries({ queryKey: ["teamMembers"] })
+      queryClient.invalidateQueries({ queryKey: ["participationScores"] })
+      queryClient.invalidateQueries({ queryKey: ["scoreEvents"] })
       navigate(`/wei/validation${location.search}`)
     }
   })

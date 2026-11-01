@@ -28,11 +28,24 @@ export type ParticipationWithUser = ParticipationsResponse<{
   user?: UsersResponse
 }>;
 
+export type ParticipationWithWei = ParticipationsResponse<{
+  wei?: WeisResponse
+}>;
+
+export type ParticipationWithUserAndTeam = ParticipationsResponse<{
+  user?: UsersResponse
+  team?: TeamsResponse
+}>;
+
 export type ParticipationWithTeam = ParticipationsResponse<{
   team?: TeamsResponse
 }>;
 
 export type TeamScore = TeamScoresResponse;
+
+export type ParticipationScore = ParticipationScoresResponse<{
+  user?: UsersResponse
+}>;
 
 export type TeamMember = ParticipationScoresResponse< {
   user?: UsersResponse

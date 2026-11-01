@@ -4,6 +4,7 @@ import { darken } from "color2k";
 import pb from "@/shared/lib/pocketbase";
 import type { ValidationWithRelations } from "@/shared/types/sharedTypes";
 import proofFiles, { proofThumbUrl } from "@/features/wei/libs/proof";
+import useFileToken from "@/features/wei/hooks/useFileToken";
 import ProofLightbox from "@/features/wei/components/ProofLightbox";
 import { formatRelative, parsePbDate } from "@/shared/lib/dates";
 import { safeHref } from "@/shared/lib/validation";
@@ -13,19 +14,21 @@ interface ValidationTileProps {
   validation: ValidationWithRelations
   showChallenge?: boolean
   authorLink?: boolean
+  weiId?: string
   now?: number
   className?: string
 }
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
-export default function ValidationTile({ validation, showChallenge, authorLink, now, className }: ValidationTileProps) {
+export default function ValidationTile({ validation, showChallenge, authorLink, weiId, now, className }: ValidationTileProps) {
   const team = validation.expand?.team;
   const user = validation.expand?.user;
   const challenge = validation.expand?.challenge;
   const date = parsePbDate(validation.reviewed_at || validation.submitted_at);
 
-  const proofs = proofFiles(validation);
+  const token = useFileToken();
+  const proofs = proofFiles(validation, token);
   const avatarURL = user?.avatar ? pb.files.getURL(user, user.avatar, { thumb: "100x100" }) : undefined;
   const when = !date ? "-" : now === undefined ? dateFormat.format(date) : formatRelative(date, now);
   const [ isOpen, setIsOpen ] = useState<boolean>(false);
@@ -53,10 +56,10 @@ export default function ValidationTile({ validation, showChallenge, authorLink, 
           aria-label={proofs.length > 1 ? `Voir les ${proofs.length} preuves` : "Voir la preuve en grand"}
           className="absolute inset-0 cursor-pointer"
         >
-          <Proof validation={validation} />
+          <Proof validation={validation} token={token} />
         </button>
       ) : (
-        <Proof validation={validation} />
+        <Proof validation={validation} token={token} />
       )}
 
       {proofs.length > 1 && (
@@ -90,7 +93,10 @@ export default function ValidationTile({ validation, showChallenge, authorLink, 
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/85 to-transparent p-2 pt-6 text-white">
         {authorLink && user ? (
-          <Link to={`/profile/${user.username}`} className="pointer-events-auto flex flex-row items-center gap-2 hover:underline">
+          <Link
+            to={weiId ? `/wei/${weiId}/participant/${user.id}` : `/profile/${user.username}`}
+            className="pointer-events-auto flex flex-row items-center gap-2 hover:underline"
+          >
             {author}
           </Link>
         ) : (
@@ -105,15 +111,15 @@ export default function ValidationTile({ validation, showChallenge, authorLink, 
   );
 }
 
-function Proof({ validation }: { validation: ValidationWithRelations }) {
-  const [ first ] = proofFiles(validation);
+function Proof({ validation, token }: { validation: ValidationWithRelations, token?: string }) {
+  const [ first ] = proofFiles(validation, token);
 
   if (first) {
     return first.isVideo ? (
       <video src={first.url} muted playsInline preload="metadata" className="absolute inset-0 h-full w-full object-cover" />
     ) : (
       <img
-        src={proofThumbUrl(validation, first, "300x500")}
+        src={proofThumbUrl(validation, first, "300x500", token)}
         alt="Preuve"
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover"

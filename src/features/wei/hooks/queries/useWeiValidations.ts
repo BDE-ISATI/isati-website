@@ -8,8 +8,8 @@ export default function useWeiValidations(weiId?: string) {
   return useQuery({
     queryKey: ["validations", "wei", weiId],
     queryFn: async () => {
-      const filter = pb.filter('status = "accepted" && reviewed_at != "" && challenge.wei = {:weiId}', { weiId: weiId })
-      return await pb.collection("validations").getFullList<ScoreValidation>({
+      const filter = pb.filter('wei = {:weiId}', { weiId: weiId })
+      return await pb.collection("wei_score_events").getFullList<ScoreValidation>({
         filter: filter,
         fields: "team,points_awarded,reviewed_at",
         sort: "reviewed_at"
