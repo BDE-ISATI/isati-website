@@ -1,96 +1,89 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from "@headlessui/react";
+
+import useClubs from "@/features/home/hooks/queries/useClubs";
 import pb from "@/shared/lib/pocketbase";
 import type { ClubDetailsResponse } from "@/shared/types/pocketbase-types";
-import useClubs from "@/features/home/hook/useClubs";
+import Button, { buttonVariants } from "@/shared/components/ui/Button";
+import XIcon from "@/assets/icons/x.svg?react";
 
 export default function ListeClubs() {
-    const styleClub = "flex flex-col w-auto justify-center items-center hover:bg-red-300 hover:text-accent cursor-pointer";
 
-    const { data = [], isPending, error } = useClubs();
+  const { data: clubs = [], isPending, error } = useClubs();
+  const [ openClub, setOpenClub ] = useState<ClubDetailsResponse | null>(null);
 
-    const [clubOpen, setClubOpen] = useState<ClubDetailsResponse>();
+  if (isPending || error) return null;
 
+  return (
+    <section id="clubs" className="flex flex-col items-center bg-brand-200 px-6 pb-20 font-bold">
 
-    if (isPending) {
-        return (
-            <div className="flex flex-col items-center justify-center py-20 bg-red-200">
-                <p className="text-accent font-bold text-xl">Chargement des clubs...</p>
-            </div>
-        );
-    }
+      <h2 className="mt-16 text-center text-4xl sm:text-6xl">
+        <span className="text-5xl text-brand-500 sm:text-7xl">ISATI</span> c'est aussi{" "}
+        <span className="text-5xl text-brand-500 sm:text-7xl">{clubs.length}</span> clubs
+      </h2>
+      <p className="mt-4 text-xl text-accent/80">Clique sur un club pour rejoindre son groupe.</p>
 
-    if (error) {
-        return (
-            <div className="flex flex-col items-center justify-center py-20 bg-red-200">
-                <p className="text-red-600 font-bold text-xl">Erreur lors du chargement des clubs.</p>
-            </div>
-        );
-    }
-
-    return (
-        <div className="relative flex flex-col items-center pb-20 bg-red-200 font-bold">
-
-            <h1 className="mt-16 text-6xl text-center">
-                <span className="relative text-red-500 text-7xl">ISATI</span> c'est aussi <span className="text-red-500 text-7xl">{data.length}</span> clubs 
-            </h1>
-            <h2 className="mt-4 text-accent/80 text-xl">
-                (cliquez sur l'icone pour rejoindre le groupe whatsapp associé)
-            </h2>
-
-            {/* Grille des clubs */}
-            <div className="grid grid-cols-4 mt-5 gap-10">
-                {data.map((club) => (
-                    <div key={club.id} className={styleClub} onClick={() => setClubOpen(club)}>
-                        <img 
-                            src={pb.files.getURL(club, club.icon)} 
-                            alt={club.name} 
-                            className="w-auto h-64"
-                        />
-                        <span className="text-4xl text-center">{club.name}</span>
-                    </div>  
-                ))}
-            </div>
-
-            {/* Modale */}
-            {clubOpen && (
-                <div className="backdrop-blur-sm fixed inset-0 z-50 flex transition-all items-center justify-center bg-red-200/20">
-                    
-                    <div onClick={() => setClubOpen(undefined)} className="absolute inset-0 -z-10"></div>
-
-                    <button onClick={() => setClubOpen(undefined)} className="absolute top-5 right-5 w-16 h-16 cursor-pointer hover:bg-slate-200/30">
-                        X
-                    </button>
-
-                    <div className="flex flex-row gap-10">
-                        <img 
-                            src={pb.files.getURL(clubOpen, clubOpen.poster)} 
-                            alt={clubOpen.name} 
-                            className="w-auto h-128"
-                        />
-
-                        <div className="bg-red-300/50 p-2 rounded-lg">
-                            <h1 className="text-4xl">{clubOpen.name}</h1>
-                            <p>{clubOpen.description}</p>
-
-                            <div className="mt-10 pt-8 border-t border-slate-100">
-                                <a 
-                                    href={clubOpen.discord} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center w-full gap-3 bg-[#25D366] hover:bg-[#20b858] text-white py-2 px-2 rounded-lg font-bold text-xl transition-transform "
-                                >
-                                    <img 
-                                        className="h-12 w-12" 
-                                        src="https://upload.wikimedia.org/wikipedia/commons/1/19/WhatsApp_logo-color-vertical.svg" 
-                                        alt="WhatsApp" 
-                                    />
-                                    Rejoindre le groupe WhatsApp
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <div className="mt-8 grid grid-cols-2 gap-6 sm:gap-10 md:grid-cols-4">
+        {clubs.map((club) => (
+          <button
+            key={club.id}
+            type="button"
+            onClick={() => setOpenClub(club)}
+            className="flex cursor-pointer flex-col items-center justify-center rounded-md p-2 transition-colors hover:bg-brand-300 hover:text-accent"
+          >
+            {club.icon && (
+              <img src={pb.files.getURL(club, club.icon)} alt="" className="h-32 w-auto sm:h-48 lg:h-64" />
             )}
+            <span className="text-center text-2xl sm:text-4xl">{club.name}</span>
+          </button>
+        ))}
+      </div>
+
+      <Dialog open={!!openClub} onClose={() => setOpenClub(null)} className="relative z-50">
+        <DialogBackdrop className="fixed inset-0 bg-brand-200/20 backdrop-blur-sm" />
+        <div className="fixed inset-0 flex items-center justify-center p-4">
+          <DialogPanel className="relative flex max-h-full w-full max-w-4xl flex-col gap-6 overflow-y-auto md:flex-row">
+            {openClub && (
+              <>
+                <Button
+                  type="button"
+                  onClick={() => setOpenClub(null)}
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Fermer"
+                  className="absolute top-2 right-2"
+                >
+                  <XIcon className="h-6 w-6" />
+                </Button>
+
+                {openClub.poster && (
+                  <img
+                    src={pb.files.getURL(openClub, openClub.poster)}
+                    alt={`Affiche du club ${openClub.name}`}
+                    className="max-h-[60vh] w-auto self-center rounded-md"
+                  />
+                )}
+
+                <div className="flex flex-col gap-4 rounded-lg bg-brand-300/50 p-4">
+                  <DialogTitle className="text-4xl">{openClub.name}</DialogTitle>
+                  <p className="font-normal">{openClub.description}</p>
+
+                  {openClub.discord && (
+                    <a
+                      href={openClub.discord}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={buttonVariants({ variant: "accent", size: "large", className: "mt-auto" })}
+                    >
+                      Rejoindre le groupe
+                    </a>
+                  )}
+                </div>
+              </>
+            )}
+          </DialogPanel>
         </div>
-    )
+      </Dialog>
+    </section>
+  );
 }

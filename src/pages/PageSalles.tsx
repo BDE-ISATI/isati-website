@@ -1,8 +1,11 @@
-import Salles from "@/features/home/components/Salles"
- 
+import { useEffect } from "react";
+import RoomList from "@/features/salles/components/RoomList";
+
 export default function PageSalles() {
 
-    return (
-        <Salles/>
-    )
+  useEffect(() => {
+    document.title = "Salles | ISATI";
+  }, []);
+
+  return <RoomList />;
 }

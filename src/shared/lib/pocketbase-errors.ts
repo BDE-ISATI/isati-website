@@ -131,6 +131,9 @@ const ERROR_TABLE: Record<string, Record<string, string>> = {
   nav_links: {
     insufficient_permissions: "Vous n'avez pas le droit de gérer les liens de navigation.",
   },
+  organigramme_member: {
+    insufficient_permissions: "Vous n'avez pas le droit de gérer l'organigramme.",
+  },
   label: {
     validation_required: "Ce champ est requis.",
   },

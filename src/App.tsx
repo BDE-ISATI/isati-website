@@ -39,8 +39,9 @@ import FactionEdit from '@/pages/Wei/FactionEdit';
 import TeamNew from '@/pages/Wei/TeamNew';
 import TeamEdit from '@/pages/Wei/TeamEdit';
 
-import MentionsLegales from '@/pages/MentionsLegales';
-import Contact from '@/pages/Contact';
+import Contact from '@/pages/Legal/Contact';
+import MentionsLegales from '@/pages/Legal/MentionsLegales';
+import Confidentialite from '@/pages/Legal/Confidentialite';
 import PageSalles from '@/pages/PageSalles';
 
 function App() {
@@ -110,8 +111,9 @@ function App() {
             <Route path="clubs" element={<Clubs />}/>
             <Route path="tools" element={<Tools />}/>
           </Route>
-          <Route path="mentions-legales" element={<MentionsLegales />}/>
-          <Route path="contact" element={<Contact />}/>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/confidentialite" element={<Confidentialite />} />
           <Route path="*" element={<NotFound />} />
         </Route>
 

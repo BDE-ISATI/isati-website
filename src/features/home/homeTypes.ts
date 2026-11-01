@@ -1,6 +1,4 @@
-import type { FunctionComponent, SVGProps } from "react";
-
-type Icon = FunctionComponent<SVGProps<SVGSVGElement>>;
+import type { Create, Update } from "@/shared/types/pocketbase-types";
 
 export interface FeaturedEvent {
   label: string;
@@ -10,22 +8,5 @@ export interface FeaturedEvent {
   link: string;
 }
 
-export interface Club {
-  name: string;
-  description: string;
-  Icon: Icon;
-}
-
-export interface Member {
-  id: string;
-  name: string;
-  role: string;
-  avatar: string; // URL ou import de la photo
-}
-
-export interface Pole {
-  id: string;
-  title: string;
-  description?: string;
-  members: Member[];
-}
+export type OrganigrammeMemberCreateData = Omit<Create<"organigramme_member">, "avatar"> & { avatar?: File | null }
+export type OrganigrammeMemberUpdateData = Omit<Update<"organigramme_member">, "avatar"> & { avatar?: File | null }
